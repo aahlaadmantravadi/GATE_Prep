@@ -148,6 +148,24 @@
                     <p class="subtitle">Master Computer Science concepts for GATE 2026</p>
                 </header>
 
+                <!-- PYQ Mode Toggle -->
+                <div class="pyq-toggle-container"
+                    style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;">
+                    <span style="font-weight: 500; margin-right: 8px;">Question Mode:</span>
+                    <button class="btn pyq-toggle-btn active" data-pyq-mode="all"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        📚 All (<span id="count-all">0</span>)
+                    </button>
+                    <button class="btn pyq-toggle-btn" data-pyq-mode="study"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        📖 Study Material (<span id="count-study">0</span>)
+                    </button>
+                    <button class="btn pyq-toggle-btn" data-pyq-mode="pyq"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        🎯 PYQs Only (<span id="count-pyq">0</span>)
+                    </button>
+                </div>
+
                 <div class="stats-overview">
                     <div class="stat-card">
                         <div class="stat-icon">📝</div>
@@ -381,6 +399,7 @@
     <script src="data/questions/08-aptitude.js"></script>
     <script src="data/questions/08b-aptitude-extended.js"></script>
     <script src="data/questions/09-numerical-problems.js"></script>
+    <script src="data/questions/10-gateoverflow-pyq.js"></script>
     <script src="js/app.js"></script>
 </body>
 

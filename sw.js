@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gate-quiz-v1';
+const CACHE_NAME = 'gate-quiz-v3';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -69,7 +69,8 @@ const ASSETS_TO_CACHE = [
     './data/questions/07h-toc-gate-pyq.js',
     './data/questions/08-aptitude.js',
     './data/questions/08b-aptitude-extended.js',
-    './data/questions/09-numerical-problems.js'
+    './data/questions/09-numerical-problems.js',
+    './data/questions/10-gateoverflow-pyq.js'
 ];
 
 // Install: Cache all assets

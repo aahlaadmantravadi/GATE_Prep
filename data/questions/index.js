@@ -4,6 +4,21 @@
 
 const Questions = {
     _questions: [],
+    pyqMode: 'all', // 'all', 'study', 'pyq'
+
+    /**
+     * Set PYQ filter mode
+     */
+    setPYQMode(mode) {
+        this.pyqMode = mode;
+    },
+
+    /**
+     * Get PYQ mode
+     */
+    getPYQMode() {
+        return this.pyqMode;
+    },
 
     /**
      * Register questions from a topic module
@@ -13,17 +28,27 @@ const Questions = {
     },
 
     /**
-     * Get all questions
+     * Filter questions based on PYQ mode
      */
-    getAll() {
-        return this._questions;
+    _applyPYQFilter(questions) {
+        if (this.pyqMode === 'all') return questions;
+        if (this.pyqMode === 'pyq') return questions.filter(q => q.isPYQ === true);
+        if (this.pyqMode === 'study') return questions.filter(q => !q.isPYQ);
+        return questions;
     },
 
     /**
-     * Get questions by topic
+     * Get all questions (filtered by PYQ mode)
+     */
+    getAll() {
+        return this._applyPYQFilter(this._questions);
+    },
+
+    /**
+     * Get questions by topic (filtered by PYQ mode)
      */
     getByTopic(topicKey) {
-        return this._questions.filter(q => q.topic === topicKey);
+        return this._applyPYQFilter(this._questions.filter(q => q.topic === topicKey));
     },
 
     /**
@@ -41,24 +66,34 @@ const Questions = {
     },
 
     /**
-     * Get questions by subtopic
+     * Get questions by subtopic (filtered by PYQ mode)
      */
     getBySubtopic(topicKey, subtopic) {
-        return this._questions.filter(q => q.topic === topicKey && q.subtopic === subtopic);
+        return this._applyPYQFilter(this._questions.filter(q => q.topic === topicKey && q.subtopic === subtopic));
     },
 
     /**
-     * Get total count
+     * Get total count (filtered by PYQ mode)
      */
     count() {
-        return this._questions.length;
+        return this.getAll().length;
     },
 
     /**
-     * Get count by topic
+     * Get count by topic (filtered by PYQ mode)
      */
     countByTopic(topicKey) {
         return this.getByTopic(topicKey).length;
+    },
+
+    /**
+     * Get raw counts (unfiltered) for display
+     */
+    getRawCounts() {
+        const all = this._questions.length;
+        const pyq = this._questions.filter(q => q.isPYQ).length;
+        const study = all - pyq;
+        return { all, pyq, study };
     }
 };
 

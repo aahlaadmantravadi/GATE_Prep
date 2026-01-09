@@ -8,8 +8,33 @@ const App = {
 
     init() {
         this.setupEventListeners();
+        this.setupPYQToggle();
         this.renderDashboard();
         this.updateTopicBadges();
+    },
+
+    setupPYQToggle() {
+        // Update counts
+        const counts = Questions.getRawCounts();
+        document.getElementById('count-all').textContent = counts.all;
+        document.getElementById('count-study').textContent = counts.study;
+        document.getElementById('count-pyq').textContent = counts.pyq;
+
+        // Handle toggle buttons
+        document.querySelectorAll('.pyq-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.pyqMode;
+                Questions.setPYQMode(mode);
+
+                // Update active state
+                document.querySelectorAll('.pyq-toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Refresh dashboard
+                this.renderDashboard();
+                this.updateTopicBadges();
+            });
+        });
     },
 
     setupEventListeners() {
