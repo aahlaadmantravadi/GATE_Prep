@@ -1,6 +1,6 @@
 /**
  * C Programming SUPPLEMENT - Strings, Pointers, Function Pointers
- * From PDF pages 251-258
+
  */
 
 Questions.register([

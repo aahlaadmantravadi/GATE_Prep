@@ -1,6 +1,6 @@
 /**
  * DBMS SUPPLEMENT - B/B+ Tree Formulas, Indexing Details
- * From PDF pages 451-456
+
  */
 
 Questions.register([

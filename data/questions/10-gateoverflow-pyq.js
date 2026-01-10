@@ -1,8 +1,8 @@
 /**
  * GATE Overflow Previous Year Questions (PYQ)
- * Source: https://github.com/GATEOverflow/GO-PDFs/releases/tag/gatecse-2026
+
  * Contains GATE CSE/IT questions from 1987-2025
- * Auto-extracted from official GATE Overflow PDFs
+
  */
 
 Questions.register([

@@ -1,6 +1,6 @@
 /**
  * Graph Theory MEGA EXPANSION - All Graph Types, Formulas, Properties
- * Complete coverage from PDF pages 51-70
+
  */
 
 Questions.register([

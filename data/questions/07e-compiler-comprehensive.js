@@ -1,5 +1,5 @@
 /**
- * Compiler Design COMPREHENSIVE - All Topics from PDF Pages 353-375
+ * Compiler Design COMPREHENSIVE - All Topics
  * Lexical Analysis, Parsing, SDT, Intermediate Code, Optimization
  */
 

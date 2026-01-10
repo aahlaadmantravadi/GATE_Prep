@@ -1,6 +1,6 @@
 /**
  * COA SUPPLEMENT - Cache Mapping Formulas, Virtual Memory Details
- * From PDF pages 214-218, 408-415
+
  */
 
 Questions.register([

@@ -1,7 +1,7 @@
 /**
  * Engineering Mathematics - Extended Question Bank
  * Comprehensive coverage of all formulas, concepts from document
- * Pages 1-40 of the handbook
+
  */
 
 Questions.register([

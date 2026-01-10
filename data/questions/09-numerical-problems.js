@@ -130,12 +130,12 @@ Questions.register([
     {
         id: "num-os-002",
         type: "NAT",
-        topic: "os",
-        subtopic: "Numerical",
-        question: "/24 network: number of usable host addresses = ?",
+        topic: "networks",
+        subtopic: "Subnetting",
+        question: "A /24 subnet (CIDR notation): number of usable host addresses = ?",
         correctAnswer: 254,
         tolerance: 0,
-        explanation: { solution: "32-24 = 8 host bits. 2^8 - 2 = 254", formula: "2^(32-prefix) - 2" }
+        explanation: { solution: "32-24 = 8 host bits. 2^8 - 2 = 254 (subtract network and broadcast)", formula: "2^(32-prefix) - 2" }
     },
     {
         id: "num-os-003",

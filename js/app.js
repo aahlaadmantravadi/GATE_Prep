@@ -9,8 +9,35 @@ const App = {
     init() {
         this.setupEventListeners();
         this.setupPYQToggle();
+        this.setupSidebarToggle();
         this.renderDashboard();
         this.updateTopicBadges();
+    },
+
+    setupSidebarToggle() {
+        const sidebar = document.getElementById('sidebar');
+        const toggle = document.getElementById('sidebarToggle');
+        const openBtn = document.getElementById('sidebarOpenBtn');
+
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+            });
+
+            // Restore preference
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                sidebar.classList.add('collapsed');
+            }
+        }
+
+        // Floating open button
+        if (openBtn && sidebar) {
+            openBtn.addEventListener('click', () => {
+                sidebar.classList.remove('collapsed');
+                localStorage.setItem('sidebarCollapsed', 'false');
+            });
+        }
     },
 
     setupPYQToggle() {

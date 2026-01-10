@@ -1,6 +1,6 @@
 /**
  * Networks SUPPLEMENT - Application Layer Protocols, Port Numbers
- * From PDF pages 501-506
+
  */
 
 Questions.register([
