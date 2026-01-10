@@ -187,7 +187,8 @@ body {
     border-right: none;
 }
 
-.sidebar.collapsed+.main-content {
+/* Main content expands when sidebar is collapsed */
+.app-container:has(.sidebar.collapsed) .main-content {
     margin-left: 0;
 }
 
@@ -397,11 +398,13 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-align: center;
 }
 
 .subtitle {
     color: var(--text-secondary);
     font-size: 1rem;
+    text-align: center;
 }
 
 /* ============================================
