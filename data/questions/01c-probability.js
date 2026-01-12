@@ -13,7 +13,7 @@ Questions.register([
         question: "P(A ∪ B) = ?",
         options: ["P(A) + P(B)", "P(A) + P(B) - P(A∩B)", "P(A) × P(B)", "P(A|B) × P(B)"],
         correctAnswer: 1,
-        explanation: { solution: "Addition rule: subtract intersection to avoid counting it twice", formula: "P(A∪B) = P(A) + P(B) - P(A∩B)" }
+        explanation: { solution: "Addition Rule for Probability (Inclusion-Exclusion):\n\nP(A∪B) = P(A) + P(B) - P(A∩B)\n\nWhy subtract P(A∩B)? When we add P(A) and P(B), we count the intersection TWICE (once in each). Subtract once to correct.\n\nSpecial cases:\n- If A,B mutually exclusive: P(A∩B)=0, so P(A∪B)=P(A)+P(B)\n- If A,B exhaustive: P(A∪B)=1\n\nVenn diagram helps visualize this!", formula: "P(A∪B) = P(A) + P(B) - P(A∩B)" }
     },
     {
         id: "prob-basic-002",
@@ -33,7 +33,7 @@ Questions.register([
         question: "For independent events A and B, P(A ∩ B) = ?",
         options: ["P(A) + P(B)", "P(A) × P(B)", "P(A|B)", "P(A)/P(B)"],
         correctAnswer: 1,
-        explanation: { solution: "Independence means occurrence of one doesn't affect the other", formula: "Independent: P(A∩B) = P(A)·P(B)" }
+        explanation: { solution: "Independence vs Mutual Exclusivity - don't confuse them!\n\nIndependent events: occurrence of A doesn't affect probability of B.\nP(A∩B) = P(A)·P(B)\n\nEquivalently: P(A|B) = P(A) and P(B|A) = P(B)\n\nExample: Two coin flips are independent.\nP(H₁ ∩ H₂) = 0.5 × 0.5 = 0.25\n\nNote: Mutually exclusive events are NOT independent (if one occurs, other can't)!", formula: "Independent: P(A∩B) = P(A)·P(B)" }
     },
     {
         id: "prob-basic-004",
@@ -43,7 +43,7 @@ Questions.register([
         question: "Conditional probability P(A|B) = ?",
         options: ["P(A∩B) / P(B)", "P(A) × P(B)", "P(A) + P(B)", "P(B|A)"],
         correctAnswer: 0,
-        explanation: { solution: "Probability of A given B has occurred", formula: "P(A|B) = P(A∩B) / P(B)" }
+        explanation: { solution: "Conditional Probability: probability of A GIVEN that B has occurred.\n\nP(A|B) = P(A∩B) / P(B) where P(B) > 0\n\nInterpretation: We restrict our sample space to B (our new 'universe'), then find probability of A within it.\n\nFrom this we get:\nMultiplication Rule: P(A∩B) = P(A|B)·P(B) = P(B|A)·P(A)\n\nChain Rule: P(A∩B∩C) = P(A)·P(B|A)·P(C|A∩B)", formula: "P(A|B) = P(A∩B) / P(B)" }
     },
     {
         id: "prob-basic-005",
@@ -64,7 +64,7 @@ Questions.register([
         question: "Bayes' Theorem states P(A|B) = ?",
         options: ["P(B|A)P(A)/P(B)", "P(A)P(B)", "P(A∩B)", "P(A) + P(B|A)"],
         correctAnswer: 0,
-        explanation: { solution: "Bayes' theorem relates conditional probabilities", formula: "P(A|B) = P(B|A)P(A) / P(B)" }
+        explanation: { solution: "Bayes' Theorem: A powerful tool for 'inverting' conditional probabilities!\n\nP(A|B) = [P(B|A) · P(A)] / P(B)\n\nTerminology:\n- P(A) = Prior probability (before seeing evidence)\n- P(B|A) = Likelihood (probability of evidence given hypothesis)\n- P(A|B) = Posterior (updated belief after seeing evidence)\n- P(B) = Evidence (often computed as ΣP(B|Aᵢ)P(Aᵢ))\n\nApplication: Medical diagnosis, spam filtering, machine learning.", formula: "P(A|B) = P(B|A)P(A) / P(B)" }
     },
     {
         id: "prob-bayes-002",
@@ -105,7 +105,7 @@ Questions.register([
         question: "Var(X) = ?",
         options: ["E(X²) - E(X)²", "E(X)² - E(X²)", "E(X - μ)", "E(X²)"],
         correctAnswer: 0,
-        explanation: { solution: "Variance = E(X²) - [E(X)]²", formula: "Var(X) = E(X²) - [E(X)]² = E[(X-μ)²]" }
+        explanation: { solution: "Variance measures 'spread' or 'dispersion' of a random variable.\n\nVar(X) = E[(X-μ)²] = E(X²) - [E(X)]²\n\nThe second formula is often easier for computation:\n1. Find E(X²) = Σx²·P(x)\n2. Find E(X) and square it\n3. Var(X) = E(X²) - [E(X)]²\n\nProperties:\n- Var(X) ≥ 0 always\n- Var(X) = 0 iff X is constant\n- Var(aX+b) = a²Var(X)", formula: "Var(X) = E(X²) - [E(X)]² = E[(X-μ)²]" }
     },
     {
         id: "prob-rv-004",
@@ -146,7 +146,7 @@ Questions.register([
         question: "Binomial distribution B(n,p) gives probability of k successes in n trials. P(X=k) = ?",
         options: ["$p^k$", "$\\binom{n}{k}p^k$", "$\\binom{n}{k}p^k(1-p)^{n-k}$", "$np$"],
         correctAnswer: 2,
-        explanation: { solution: "Choose k positions for success, probability p for each success, (1-p) for failures", formula: "P(X=k) = C(n,k)·p^k·(1-p)^(n-k)" }
+        explanation: { solution: "Binomial Distribution models the number of successes in n independent trials.\n\nP(X=k) = C(n,k) · p^k · (1-p)^(n-k)\n\nBreaking down the formula:\n- C(n,k) = n!/(k!(n-k)!) ways to choose which k trials are successes\n- p^k = probability of k successes\n- (1-p)^(n-k) = probability of (n-k) failures\n\nConditions for Binomial:\n1. Fixed n trials\n2. Each trial: success (p) or failure (1-p)\n3. Trials are independent", formula: "P(X=k) = C(n,k)·p^k·(1-p)^(n-k)" }
     },
     {
         id: "prob-binom-002",
@@ -176,7 +176,7 @@ Questions.register([
         question: "Poisson distribution with parameter λ gives P(X=k) = ?",
         options: ["$\\lambda^k$", "$e^{-\\lambda}\\lambda^k$", "$\\frac{e^{-\\lambda}\\lambda^k}{k!}$", "$\\frac{\\lambda^k}{k!}$"],
         correctAnswer: 2,
-        explanation: { solution: "Poisson models rare events with average rate λ", formula: "P(X=k) = e^(-λ)·λ^k / k!" }
+        explanation: { solution: "Poisson Distribution models rare events occurring at a constant average rate.\n\nP(X=k) = e^(-λ) · λ^k / k!\n\nWhere λ = expected number of events in the interval.\n\nApplications:\n- Number of calls per hour at call center\n- Number of defects per unit length\n- Number of arrivals at a queue\n\nKey insight: As Binomial with n→∞, p→0, np→λ, we get Poisson.", formula: "P(X=k) = e^(-λ)·λ^k / k!" }
     },
     {
         id: "prob-poisson-002",
@@ -186,7 +186,7 @@ Questions.register([
         question: "For Poisson distribution with parameter λ, E(X) = Var(X) = ?",
         options: ["0", "1", "λ", "λ²"],
         correctAnswer: 2,
-        explanation: { solution: "Unique property of Poisson: mean equals variance equals λ", formula: "E(X) = Var(X) = λ for Poisson" }
+        explanation: { solution: "A unique property of Poisson distribution!\n\nFor Poisson with parameter λ:\nE(X) = λ (mean)\nVar(X) = λ (variance)\n\nThis means: Mean = Variance\n\nIn practice, if you observe data where mean ≈ variance, Poisson may be a good model!\n\nContrast with Binomial: Var = np(1-p) < np = Mean", formula: "E(X) = Var(X) = λ for Poisson" }
     },
     {
         id: "prob-poisson-003",
@@ -257,7 +257,7 @@ Questions.register([
         question: "Exponential distribution has the memoryless property: P(X > s+t | X > s) = ?",
         options: ["P(X > t)", "P(X > s)", "P(X > s+t)", "P(X > s)P(X > t)"],
         correctAnswer: 0,
-        explanation: { solution: "Memoryless: knowing X > s doesn't change conditional distribution", formula: "P(X > s+t | X > s) = P(X > t)" }
+        explanation: { solution: "Memoryless Property: The exponential distribution 'forgets' the past!\n\nP(X > s+t | X > s) = P(X > t)\n\nMeaning: Given you've already waited s time units, the remaining wait time distribution is the same as if you just started.\n\nOnly exponential (continuous) and geometric (discrete) have this property.\n\nExample: If bulb has survived 100 hours, probability of surviving another 50 hours = probability of new bulb surviving 50 hours.", formula: "P(X > s+t | X > s) = P(X > t)" }
     },
     {
         id: "prob-normal-001",
@@ -297,7 +297,7 @@ Questions.register([
         question: "For standard normal, P(-1 ≤ Z ≤ 1) ≈ ?",
         options: ["50%", "68%", "95%", "99.7%"],
         correctAnswer: 1,
-        explanation: { solution: "68-95-99.7 rule: about 68% within 1σ of mean", formula: "P(μ-σ < X < μ+σ) ≈ 0.68" }
+        explanation: { solution: "The 68-95-99.7 Rule (Empirical Rule) for Normal Distribution:\n\nP(μ - 1σ < X < μ + 1σ) ≈ 68.27%\nP(μ - 2σ < X < μ + 2σ) ≈ 95.45%\nP(μ - 3σ < X < μ + 3σ) ≈ 99.73%\n\nThis is a quick rule for estimating probabilities without tables!\n\nMemory aid: 68-95-99.7 corresponds to 1-2-3 standard deviations.", formula: "P(μ-σ < X < μ+σ) ≈ 0.68" }
     },
     {
         id: "prob-normal-005",

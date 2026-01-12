@@ -13,7 +13,7 @@ Questions.register([
         question: "Two matrices A (m×n) and B (p×q) can be multiplied (AB) only if:",
         options: ["m = p", "n = p", "m = q", "n = q"],
         correctAnswer: 1,
-        explanation: { solution: "For AB to exist, columns of A must equal rows of B", formula: "A(m×n) × B(p×q) requires n = p, result is m×q" }
+        explanation: { solution: "Matrix multiplication has strict dimension rules.\n\nFor A(m×n) × B(p×q) to exist: n must equal p\n\nWhy? Each element of AB is the dot product of a row of A (length n) with a column of B (length p). These must match!\n\nResult: The product matrix is m×q.\n\nExample: A(3×4) × B(4×2) = C(3×2)\nColumns of A (4) = Rows of B (4) ✔", formula: "A(m×n) × B(p×q) requires n = p, result is m×q" }
     },
     {
         id: "la-mat-002",
@@ -23,7 +23,7 @@ Questions.register([
         question: "Matrix multiplication is:",
         options: ["Commutative and associative", "Commutative but not associative", "Associative but not commutative", "Neither commutative nor associative"],
         correctAnswer: 2,
-        explanation: { solution: "AB ≠ BA in general, but (AB)C = A(BC) always holds", formula: "Not commutative: AB ≠ BA; Associative: (AB)C = A(BC)" }
+        explanation: { solution: "Matrix multiplication has different algebraic properties than scalar multiplication.\n\nNOT Commutative: AB ≠ BA in general\nExample: A = [1 0; 0 0], B = [0 1; 0 0]\nAB = [0 1; 0 0], BA = [0 0; 0 0]\n\nAssociative: (AB)C = A(BC) ALWAYS holds\nThis is because matrix multiplication represents composition of linear transformations.\n\nOther properties: A(B+C) = AB + AC (distributive)", formula: "Not commutative: AB ≠ BA; Associative: (AB)C = A(BC)" }
     },
     {
         id: "la-mat-003",
@@ -83,7 +83,7 @@ Questions.register([
         question: "An orthogonal matrix satisfies:",
         options: ["$A^T = A$", "$A^T = -A$", "$A^T A = I$", "$A^2 = I$"],
         correctAnswer: 2,
-        explanation: { solution: "Orthogonal: transpose equals inverse, so AᵀA = AAᵀ = I", formula: "$A^T A = I$ (orthogonal)" }
+        explanation: { solution: "A matrix Q is orthogonal if QᵀQ = QQᵀ = I.\n\nThis means: Q⁻¹ = Qᵀ (inverse equals transpose!)\n\nProperties of orthogonal matrices:\n1. Columns are orthonormal (unit length, mutually perpendicular)\n2. Rows are orthonormal\n3. det(Q) = ±1\n4. Preserves lengths and angles (isometry)\n\nExamples: Rotation matrices, permutation matrices, reflection matrices.", formula: "$A^T A = I$ (orthogonal)" }
     },
     {
         id: "la-mat-009",
@@ -104,7 +104,7 @@ Questions.register([
         question: "$(AB)^T = ?$",
         options: ["$A^T B^T$", "$B^T A^T$", "$(A^T)(B^T)^T$", "$AB$"],
         correctAnswer: 1,
-        explanation: { solution: "Transpose of product reverses order", formula: "$(AB)^T = B^T A^T$" }
+        explanation: { solution: "The transpose of a product reverses the order of factors.\n\n(AB)ᵀ = BᵀAᵀ\n\nWhy? Let's trace dimensions:\nIf A is m×n and B is n×p, then AB is m×p\n(AB)ᵀ is p×m\nBᵀ is p×n, Aᵀ is n×m\nBᵀAᵀ is p×m ✔\n\nThis extends to multiple matrices:\n(ABC)ᵀ = CᵀBᵀAᵀ", formula: "$(AB)^T = B^T A^T$" }
     },
     {
         id: "la-trans-002",
@@ -124,7 +124,7 @@ Questions.register([
         question: "A symmetric matrix satisfies:",
         options: ["$A^T = -A$", "$A^T = A$", "$A^2 = A$", "$AA^T = I$"],
         correctAnswer: 1,
-        explanation: { solution: "Symmetric: matrix equals its transpose", formula: "Symmetric: $A^T = A$" }
+        explanation: { solution: "A symmetric matrix equals its own transpose: Aᵀ = A\n\nThis means: aᵢⱼ = aⱼᵢ for all i,j\n\nProperties:\n1. Must be square\n2. Entries mirror across main diagonal\n3. All eigenvalues are REAL\n4. Eigenvectors can be chosen to be orthogonal\n\nExample: [1 2 3; 2 4 5; 3 5 6] is symmetric.", formula: "Symmetric: $A^T = A$" }
     },
     {
         id: "la-trans-004",
@@ -186,7 +186,7 @@ Questions.register([
         question: "det(AB) = ?",
         options: ["det(A) + det(B)", "det(A) × det(B)", "det(A)/det(B)", "det(A+B)"],
         correctAnswer: 1,
-        explanation: { solution: "Determinant of product equals product of determinants", formula: "det(AB) = det(A)·det(B)" }
+        explanation: { solution: "The determinant of a product equals the product of determinants!\n\ndet(AB) = det(A) · det(B)\n\nThis is fundamental and holds for any conformable square matrices.\n\nWhy? Determinant measures 'volume scaling factor' of a linear transformation.\nAB means first apply B then A.\nTotal scaling = scaling by A × scaling by B\n\nCorollary: det(Aⁿ) = [det(A)]ⁿ", formula: "det(AB) = det(A)·det(B)" }
     },
     {
         id: "la-det-002",
@@ -196,7 +196,7 @@ Questions.register([
         question: "det(kA) for n×n matrix A = ?",
         options: ["k·det(A)", "$k^n$·det(A)", "det(A)/k", "det(A)"],
         correctAnswer: 1,
-        explanation: { solution: "Scalar multiplies each row, so determinant is multiplied n times", formula: "det(kA) = kⁿ·det(A)" }
+        explanation: { solution: "When you multiply a matrix by scalar k, the determinant changes by kⁿ!\n\nFor n×n matrix A: det(kA) = kⁿ · det(A)\n\nWhy? Each of the n rows gets multiplied by k.\nDet changes by factor k for each row that's scaled.\nSo total change is k × k × ... (n times) = kⁿ\n\nExample: For 3×3 matrix: det(2A) = 2³ · det(A) = 8 det(A)", formula: "det(kA) = kⁿ·det(A)" }
     },
     {
         id: "la-det-003",
@@ -257,7 +257,7 @@ Questions.register([
         question: "A square matrix A is invertible if and only if:",
         options: ["tr(A) ≠ 0", "det(A) ≠ 0", "A = Aᵀ", "All elements are non-zero"],
         correctAnswer: 1,
-        explanation: { solution: "Non-zero determinant is necessary and sufficient for invertibility" }
+        explanation: { solution: "A square matrix is invertible (also called non-singular) iff det(A) ≠ 0.\n\nEquivalent conditions for invertibility:\n1. det(A) ≠ 0\n2. rank(A) = n (full rank)\n3. Rows are linearly independent\n4. Columns are linearly independent\n5. A⁻¹ exists\n6. Ax = 0 has only trivial solution\n7. 0 is NOT an eigenvalue\n\nIf det(A) = 0, matrix is 'singular' (not invertible)" }
     },
     {
         id: "la-inv-002",
@@ -267,7 +267,7 @@ Questions.register([
         question: "$(AB)^{-1} = ?$",
         options: ["$A^{-1}B^{-1}$", "$B^{-1}A^{-1}$", "$(A^{-1})(B^{-1})^T$", "$A^{-1} + B^{-1}$"],
         correctAnswer: 1,
-        explanation: { solution: "Inverse of product reverses order (like transpose)", formula: "$(AB)^{-1} = B^{-1}A^{-1}$" }
+        explanation: { solution: "The inverse of a product reverses the order (just like transpose)!\n\n(AB)⁻¹ = B⁻¹A⁻¹\n\nWhy? Verify by multiplication:\n(AB)(B⁻¹A⁻¹) = A(BB⁻¹)A⁻¹ = AIA⁻¹ = AA⁻¹ = I ✔\n\nFor multiple matrices:\n(ABC)⁻¹ = C⁻¹B⁻¹A⁻¹\n\nRemember: 'Reverse the order'!", formula: "$(AB)^{-1} = B^{-1}A^{-1}$" }
     },
     {
         id: "la-inv-003",
@@ -288,7 +288,7 @@ Questions.register([
         question: "Rank of a matrix is:",
         options: ["Number of rows", "Number of columns", "Maximum number of linearly independent rows/columns", "Trace of the matrix"],
         correctAnswer: 2,
-        explanation: { solution: "Rank = dimension of row space = dimension of column space" }
+        explanation: { solution: "Rank is the dimension of the column space (or row space).\n\nInterpretations:\n1. Max number of linearly independent rows\n2. Max number of linearly independent columns\n3. Number of pivot positions in row echelon form\n4. Dimension of the image of the linear transformation\n\nImportant: Row rank = Column rank (always!)\n\nFor n×n matrix: rank = n means full rank (invertible)" }
     },
     {
         id: "la-rank-002",
@@ -329,7 +329,7 @@ Questions.register([
         question: "If Ax = λx for non-zero x, then λ is called:",
         options: ["Trace of A", "Rank of A", "Eigenvalue of A", "Determinant of A"],
         correctAnswer: 2,
-        explanation: { solution: "Ax = λx defines eigenvalue λ and eigenvector x" }
+        explanation: { solution: "Eigenvalues and eigenvectors are fundamental in Linear Algebra.\n\nIf Ax = λx for some non-zero vector x:\n- λ is an EIGENVALUE of A\n- x is the corresponding EIGENVECTOR\n\nGeometric meaning: A linear transformation only scales x (by factor λ) without changing its direction.\n\nNote: Eigenvector x cannot be zero (by definition), but eigenvalue λ can be 0." }
     },
     {
         id: "la-eigen-002",
@@ -339,7 +339,7 @@ Questions.register([
         question: "Eigenvalues are found by solving which equation?",
         options: ["Ax = 0", "det(A) = 0", "det(A - λI) = 0", "A = λI"],
         correctAnswer: 2,
-        explanation: { solution: "Characteristic equation: det(A - λI) = 0 gives eigenvalues", formula: "det(A - λI) = 0 (characteristic equation)" }
+        explanation: { solution: "To find eigenvalues, solve the characteristic equation:\n\ndet(A - λI) = 0\n\nDerivation:\nAx = λx\nAx - λx = 0\n(A - λI)x = 0\nFor non-zero x to exist: det(A - λI) = 0\n\nThis polynomial equation in λ gives all eigenvalues.\n\nFor 2×2: λ² - tr(A)λ + det(A) = 0\nFor 3×3: cubic equation", formula: "det(A - λI) = 0 (characteristic equation)" }
     },
     {
         id: "la-eigen-003",
@@ -349,7 +349,7 @@ Questions.register([
         question: "Sum of eigenvalues of matrix A equals:",
         options: ["det(A)", "rank(A)", "tr(A)", "0"],
         correctAnswer: 2,
-        explanation: { solution: "Sum of eigenvalues = trace (sum of diagonal elements)", formula: "Σλᵢ = tr(A)" }
+        explanation: { solution: "One of the most important eigenvalue properties!\n\nΣλᵢ = tr(A) (sum of eigenvalues = trace)\n∏λᵢ = det(A) (product of eigenvalues = determinant)\n\nFor 2×2 matrix with eigenvalues λ₁, λ₂:\nλ₁ + λ₂ = a₁₁ + a₂₂ (trace)\nλ₁ × λ₂ = det(A)\n\nThese relations come from Vieta's formulas applied to the characteristic polynomial.", formula: "Σλᵢ = tr(A)" }
     },
     {
         id: "la-eigen-004",
@@ -420,7 +420,7 @@ Questions.register([
         question: "Cayley-Hamilton theorem states that every square matrix:",
         options: ["Has real eigenvalues", "Is invertible", "Satisfies its own characteristic equation", "Is diagonalizable"],
         correctAnswer: 2,
-        explanation: { solution: "If p(λ) = det(A-λI) is the characteristic polynomial, then p(A) = 0" }
+        explanation: { solution: "Cayley-Hamilton Theorem: Every matrix satisfies its own characteristic equation!\n\nIf p(λ) = det(A - λI) = λⁿ - cₙ₋₁λⁿ⁻¹ - ... - c₁λ - c₀\n\nThen p(A) = Aⁿ - cₙ₋₁Aⁿ⁻¹ - ... - c₁A - c₀I = 0\n\nApplications:\n1. Find A⁻¹ using A⁻¹ = (1/c₀)(Aⁿ⁻¹ - cₙ₋₁Aⁿ⁻² - ...)\n2. Simplify powers Aⁿ (reduce to lower powers)\n3. Verify matrix computations" }
     },
     // ========== DIAGONALIZATION ==========
     {
@@ -431,7 +431,7 @@ Questions.register([
         question: "An n×n matrix is diagonalizable if it has:",
         options: ["n eigenvalues (counting multiplicity)", "n linearly independent eigenvectors", "All distinct eigenvalues", "Positive determinant"],
         correctAnswer: 1,
-        explanation: { solution: "Diagonalizable ⟺ has n linearly independent eigenvectors. Distinct eigenvalues guarantee this but aren't required." }
+        explanation: { solution: "A matrix is diagonalizable if it can be written as A = PDP⁻¹ where D is diagonal.\n\nCondition: Must have n linearly independent eigenvectors.\n\nGuarantees for diagonalizability:\n1. All n eigenvalues are distinct → always diagonalizable\n2. Symmetric/Hermitian matrix → always diagonalizable\n\nNote: Even if eigenvalues repeat, the matrix MAY still be diagonalizable if geometric multiplicity = algebraic multiplicity for each eigenvalue." }
     },
     {
         id: "la-diag-002",

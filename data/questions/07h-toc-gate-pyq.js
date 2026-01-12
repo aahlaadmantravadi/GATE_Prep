@@ -11,7 +11,7 @@ Questions.register([
         type: "NAT",
         topic: "toc",
         subtopic: "Finite Automata",
-        question: "[GATE 2018] NFA with 5 states. Maximum DFA states in equivalent DFA = ?",
+        question: "NFA with 5 states. Maximum DFA states in equivalent DFA = ?",
         correctAnswer: 32,
         tolerance: 0,
         explanation: { solution: "2⁵ = 32 states maximum" }
@@ -21,7 +21,7 @@ Questions.register([
         type: "NAT",
         topic: "toc",
         subtopic: "Finite Automata",
-        question: "[GATE 2019] DFA for strings over {0,1} divisible by 3 (binary). States = ?",
+        question: "DFA for strings over {0,1} divisible by 3 (binary). States = ?",
         correctAnswer: 3,
         tolerance: 0,
         explanation: { solution: "States: remainder 0, 1, 2 when dividing by 3 = 3 states" }
@@ -31,7 +31,7 @@ Questions.register([
         type: "NAT",
         topic: "toc",
         subtopic: "Finite Automata",
-        question: "[GATE 2017] Minimum DFA for L = strings ending with 'ab' over {a,b}. States = ?",
+        question: "Minimum DFA for L = strings ending with 'ab' over {a,b}. States = ?",
         correctAnswer: 3,
         tolerance: 0,
         explanation: { solution: "States: start (nothing), seen 'a', seen 'ab' = 3 states" }
@@ -41,7 +41,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Finite Automata",
-        question: "[GATE 2016] ε-closure of state q includes:",
+        question: "ε-closure of state q includes:",
         options: ["Only q", "q and all states reachable by ε transitions", "All states", "No states"],
         correctAnswer: 1,
         explanation: { solution: "ε-closure: q + all states reachable by 0 or more ε" }
@@ -51,7 +51,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Finite Automata",
-        question: "[GATE 2020] Minimum DFA states to accept strings with 3rd-last symbol 'a':",
+        question: "Minimum DFA states to accept strings with 3rd-last symbol 'a':",
         options: ["3", "4", "8", "16"],
         correctAnswer: 2,
         explanation: { solution: "Need to remember last 3 symbols: 2³ = 8 states" }
@@ -62,7 +62,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Regular Languages",
-        question: "[GATE 2018] (a+b)*aba(a+b)* represents:",
+        question: "(a+b)*aba(a+b)* represents:",
         options: ["Strings ending with aba", "Strings starting with aba", "Strings containing aba", "Only aba"],
         correctAnswer: 2,
         explanation: { solution: "(a+b)*aba(a+b)* = strings containing 'aba'" }
@@ -72,7 +72,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Regular Languages",
-        question: "[GATE 2019] Which is NOT regular?",
+        question: "Which is NOT regular?",
         options: ["a*b*", "(ab)*", "{aⁿbⁿ | n≥0}", "(a+b)*"],
         correctAnswer: 2,
         explanation: { solution: "aⁿbⁿ requires counting: not regular" }
@@ -82,7 +82,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Regular Languages",
-        question: "[GATE 2017] Regular languages are closed under:",
+        question: "Regular languages are closed under:",
         options: ["Union only", "Intersection only", "Union, intersection, complement", "None"],
         correctAnswer: 2,
         explanation: { solution: "Regular: closed under union, intersection, complement, concat, *" }
@@ -92,7 +92,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Regular Languages",
-        question: "[GATE 2016] Pumping lemma is used to:",
+        question: "Pumping lemma is used to:",
         options: ["Prove regularity", "Prove non-regularity", "Construct DFA", "Minimize DFA"],
         correctAnswer: 1,
         explanation: { solution: "Pumping lemma: prove language is NOT regular" }
@@ -103,7 +103,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "CFL",
-        question: "[GATE 2018] CFLs are NOT closed under:",
+        question: "CFLs are NOT closed under:",
         options: ["Union", "Concatenation", "Intersection", "Kleene star"],
         correctAnswer: 2,
         explanation: { solution: "CFL: NOT closed under intersection, complement" }
@@ -113,7 +113,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "CFL",
-        question: "[GATE 2019] {aⁿbⁿcⁿ | n≥0} is:",
+        question: "{aⁿbⁿcⁿ | n≥0} is:",
         options: ["Regular", "CFL", "Not CFL (CSL)", "Undecidable"],
         correctAnswer: 2,
         explanation: { solution: "aⁿbⁿcⁿ: not CFL (needs more than stack)" }
@@ -123,7 +123,7 @@ Questions.register([
         type: "NAT",
         topic: "toc",
         subtopic: "CFL",
-        question: "[GATE 2017] CNF: string length 8. Parse tree internal nodes = ?",
+        question: "CNF: string length 8. Parse tree internal nodes = ?",
         correctAnswer: 7,
         tolerance: 0,
         explanation: { solution: "CNF: n-1 = 7 internal nodes for length n" }
@@ -133,7 +133,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "CFL",
-        question: "[GATE 2016] Inherently ambiguous language is:",
+        question: "Inherently ambiguous language is:",
         options: ["Ambiguous grammar exists", "Every grammar is ambiguous", "No grammar possible", "Only one grammar"],
         correctAnswer: 1,
         explanation: { solution: "Inherently ambiguous: every CFG for it is ambiguous" }
@@ -144,7 +144,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "PDA",
-        question: "[GATE 2018] NPDA vs DPDA: which is more powerful for CFLs?",
+        question: "NPDA vs DPDA: which is more powerful for CFLs?",
         options: ["DPDA", "NPDA", "Equal power", "Incomparable"],
         correctAnswer: 1,
         explanation: { solution: "NPDA accepts all CFLs; DPDA is weaker" }
@@ -154,7 +154,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "PDA",
-        question: "[GATE 2019] {wwᴿ | w ∈ {a,b}*} is accepted by:",
+        question: "{wwᴿ | w ∈ {a,b}*} is accepted by:",
         options: ["DPDA", "NPDA only", "DFA", "None"],
         correctAnswer: 1,
         explanation: { solution: "wwᴿ: needs nondeterministic guess of middle" }
@@ -164,7 +164,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "PDA",
-        question: "[GATE 2017] PDA acceptance by empty stack and final state are:",
+        question: "PDA acceptance by empty stack and final state are:",
         options: ["Final state stronger", "Empty stack stronger", "Equivalent", "Incomparable"],
         correctAnswer: 2,
         explanation: { solution: "Empty stack ≡ final state for acceptance" }
@@ -175,7 +175,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Turing Machine",
-        question: "[GATE 2018] Multi-tape TM vs single-tape TM:",
+        question: "Multi-tape TM vs single-tape TM:",
         options: ["Multi more powerful", "Single more powerful", "Equivalent power", "Incomparable"],
         correctAnswer: 2,
         explanation: { solution: "Multi-tape can be simulated by single-tape" }
@@ -185,7 +185,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Turing Machine",
-        question: "[GATE 2019] NTM vs DTM:",
+        question: "NTM vs DTM:",
         options: ["NTM more powerful", "DTM more powerful", "Equivalent power", "Incomparable"],
         correctAnswer: 2,
         explanation: { solution: "NTM can be simulated by DTM" }
@@ -195,7 +195,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Turing Machine",
-        question: "[GATE 2017] Universal TM can:",
+        question: "Universal TM can:",
         options: ["Accept only regular", "Simulate any TM", "Solve halting problem", "Run in polynomial time"],
         correctAnswer: 1,
         explanation: { solution: "UTM simulates any TM given its encoding" }
@@ -206,7 +206,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Decidability",
-        question: "[GATE 2018] Halting problem is:",
+        question: "Halting problem is:",
         options: ["Decidable", "Undecidable", "Regular", "CFL"],
         correctAnswer: 1,
         explanation: { solution: "Halting problem: undecidable (Rice's theorem)" }
@@ -216,7 +216,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Decidability",
-        question: "[GATE 2019] Emptiness of regular language is:",
+        question: "Emptiness of regular language is:",
         options: ["Undecidable", "Decidable", "NP-complete", "PSPACE"],
         correctAnswer: 1,
         explanation: { solution: "Decidable: check if final state reachable from start" }
@@ -226,7 +226,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Decidability",
-        question: "[GATE 2017] Equivalence of two CFGs is:",
+        question: "Equivalence of two CFGs is:",
         options: ["Decidable", "Undecidable", "Decidable in polynomial", "Decidable in exponential"],
         correctAnswer: 1,
         explanation: { solution: "CFG equivalence: undecidable" }
@@ -236,7 +236,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Decidability",
-        question: "[GATE 2016] Membership problem for CFL (is w ∈ L?) is:",
+        question: "Membership problem for CFL (is w ∈ L?) is:",
         options: ["Undecidable", "Decidable in O(n³) via CYK", "NP-hard", "Undecidable for ambiguous"],
         correctAnswer: 1,
         explanation: { solution: "CYK algorithm: O(n³) for CFL membership" }
@@ -246,7 +246,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Decidability",
-        question: "[GATE 2020] RE (recursively enumerable) but not recursive means:",
+        question: "RE (recursively enumerable) but not recursive means:",
         options: ["TM halts on all inputs", "TM halts only on accepted strings", "No TM exists", "DFA exists"],
         correctAnswer: 1,
         explanation: { solution: "RE not recursive: TM may loop on non-members" }
@@ -257,7 +257,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Chomsky Hierarchy",
-        question: "[GATE 2018] Type-2 grammars generate:",
+        question: "Type-2 grammars generate:",
         options: ["Regular", "Context-free", "Context-sensitive", "RE"],
         correctAnswer: 1,
         explanation: { solution: "Type-2 = Context-free grammars" }
@@ -267,7 +267,7 @@ Questions.register([
         type: "MCQ",
         topic: "toc",
         subtopic: "Chomsky Hierarchy",
-        question: "[GATE 2017] LBA (Linear Bounded Automaton) accepts:",
+        question: "LBA (Linear Bounded Automaton) accepts:",
         options: ["Regular", "CFL", "Context-sensitive", "RE"],
         correctAnswer: 2,
         explanation: { solution: "LBA = Type-1 = Context-sensitive languages" }

@@ -14,8 +14,8 @@ Questions.register([
         options: ["K-1", "K", "K+1", "2K"],
         correctAnswer: 1,
         explanation: {
-            solution: "As the number of tasks n approaches infinity, speedup S = nK/(K+n-1) approaches K. This is the theoretical maximum.",
-            formula: "S = nK/(K+n-1), S_max = K as n→∞"
+            solution: "Pipeline speedup = (Time without pipeline)/(Time with pipeline). For n tasks with K stages: Without pipeline = n×K cycles. With pipeline = K + n - 1 cycles. Speedup = nK/(K+n-1). As n→∞, speedup → K. Theoretical maximum equals the number of stages, achieved only with infinite tasks and no hazards.",
+            formula: "$S = \\frac{nK}{K+n-1}$, $S_{max} = K$ as $n \\rightarrow \\infty$"
         }
     },
     {
@@ -27,8 +27,8 @@ Questions.register([
         options: ["K × n", "K + n", "K + n - 1", "K × (n - 1)"],
         correctAnswer: 2,
         explanation: {
-            solution: "First task takes K cycles. Each subsequent task adds 1 cycle. Total = K + (n-1) = K + n - 1 cycles.",
-            formula: "Clock cycles = K + n - 1"
+            solution: "First task requires K cycles to flow through all stages. Each subsequent task adds only 1 cycle (it follows right behind). Total = K + (n-1) = K + n - 1 cycles. This is the 'filling and draining' overhead of the pipeline. With n=1, time = K (same as non-pipelined).",
+            formula: "$Cycles = K + n - 1$"
         }
     },
     {
@@ -45,7 +45,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Data hazards occur due to data dependencies - when an instruction needs data that hasn't been computed yet by a previous instruction in the pipeline."
+            solution: "Data hazards arise from data dependencies: RAW (Read After Write), WAR (Write After Read), WAW (Write After Write). RAW is most common: instruction needs operand that previous instruction hasn't written yet. Solutions: stalling (NOPs), forwarding/bypassing (route result directly), compiler reordering."
         }
     },
     {
@@ -62,7 +62,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Forwarding routes the result directly from the ALU output to where it's needed in a subsequent instruction, bypassing the normal writeback-then-read process."
+            solution: "Forwarding adds hardware paths to send ALU result directly to where it's needed in a subsequent instruction, without waiting for writeback to register file. Example: ADD R1,R2,R3 followed by SUB R4,R1,R5 - the R1 value is forwarded from ADD's ALU output to SUB's ALU input. Eliminates many stalls but adds MUXes and control logic."
         }
     },
     {
@@ -74,8 +74,8 @@ Questions.register([
         correctAnswer: 104,
         tolerance: 0,
         explanation: {
-            solution: "Clock cycles = K + n - 1 = 5 + 100 - 1 = 104.",
-            formula: "K + n - 1 = 5 + 100 - 1 = 104"
+            solution: "Using the formula: Cycles = K + n - 1 = 5 + 100 - 1 = 104 cycles. First instruction takes 5 cycles (through all stages), then each of 99 remaining instructions adds 1 cycle each. Pipeline efficiency = (100×5)/104 ≈ 96% (approaches 100% as n increases).",
+            formula: "$K + n - 1 = 5 + 100 - 1 = 104$"
         }
     },
     // Memory
@@ -93,7 +93,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Cache hit = data found in cache. Cache miss = data not in cache, must fetch from main memory (slower)."
+            solution: "Cache hit: requested data is found in cache (fast access, ~1-2 cycles). Cache miss: data not in cache, must fetch from main memory (slow, ~100+ cycles for DRAM). Hit rate = hits/(hits+misses). High hit rate (95%+) is crucial for performance. Exploits temporal and spatial locality of programs."
         }
     },
     {
@@ -110,8 +110,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Direct-mapped: each block maps to exactly one line (index = block address mod cache lines). Simple but high conflict misses.",
-            formula: "Cache line = (Block address) mod (Number of cache lines)"
+            solution: "Direct-mapped: each memory block maps to exactly one cache line, determined by (block address) mod (number of lines). Simple and fast lookup, but prone to conflict misses - two frequently used blocks mapping to same line keep evicting each other. Fully associative (any line) and set-associative (any line in a set) reduce conflicts.",
+            formula: "Line = (Block address) mod (Number of lines)"
         }
     },
     {
@@ -128,7 +128,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Write-through: writes go to both cache and memory (slower but consistent). Write-back: writes go only to cache, memory updated on replacement (faster but complex)."
+            solution: "Write-through: every write updates both cache AND memory immediately. Simpler, memory always consistent, but slower (memory write latency on every write). Write-back: writes go only to cache (set dirty bit), memory updated only when line is evicted. Faster (batch writes) but complex (dirty bit tracking, coherence issues in multiprocessor)."
         }
     },
     {
@@ -140,7 +140,7 @@ Questions.register([
         correctAnswer: 10.9,
         tolerance: 0.1,
         explanation: {
-            solution: "AMAT = Hit time + Miss rate × Miss penalty = 1 + 0.1 × 100 = 1 + 10 = 11 cycles (approximately 10.9 if hit contributes 0.9).",
+            solution: "AMAT = Hit time + Miss rate × Miss penalty = 1 + 0.10 × 100 = 1 + 10 = 11 cycles. Some definitions: AMAT = (Hit rate × Hit time) + (Miss rate × Miss time) = 0.9×1 + 0.1×(1+100) = 0.9 + 10.1 = 11 (or 10.9 depending on whether miss time includes hit time). AMAT determines effective memory speed.",
             formula: "AMAT = Hit time + Miss rate × Miss penalty"
         }
     },
@@ -159,7 +159,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "Immediate addressing: operand value is embedded in the instruction. Fastest but limited operand size."
+            solution: "Immediate addressing: operand value is encoded directly in the instruction (e.g., MOV R1, #5). No memory access needed - fastest mode. But operand size is limited by instruction encoding (typically 8-16 bits in RISC). Used for constants, loop counters, offsets. Cannot modify the operand at runtime."
         }
     },
     {
@@ -176,7 +176,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Register indirect: register holds memory address, actual operand is at that address. Like a pointer dereference."
+            solution: "Register indirect: register holds a memory address; operand is at that address. Like dereferencing a pointer in C (*ptr). Example: MOV R1, [R2] - R2 contains address, R1 gets value from memory location in R2. Allows dynamic addressing, array access, data structure traversal. One level of indirection."
         }
     },
     // I/O
@@ -194,7 +194,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "DMA controller handles data transfer directly between I/O device and memory, freeing CPU for other tasks. CPU only sets up the transfer."
+            solution: "DMA: CPU sets up DMA controller (source, destination, count), then DMA handles the entire block transfer independently. CPU is free for other work during transfer. DMA controller takes control of system bus (cycle stealing or burst mode). Much faster than programmed I/O (CPU moves each byte) or interrupt-driven I/O (interrupt per byte)."
         }
     },
     {
@@ -211,7 +211,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Memory-mapped I/O: I/O devices accessed using same instructions and address space as memory. Simpler but reduces available memory addresses."
+            solution: "Memory-mapped I/O: I/O device registers appear at memory addresses. Same load/store instructions access both memory and I/O. Simpler (no special I/O instructions) and can use memory addressing modes. Downside: some address space is 'used up' by I/O. Alternative: port-mapped I/O (separate address space, special IN/OUT instructions)."
         }
     }
 ]);
@@ -237,7 +237,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Ready state: process has all resources except CPU. It's in the ready queue waiting to be scheduled. Running → Ready: preemption. Ready → Running: dispatch."
+            solution: "Ready state: process has all needed resources (memory, files) EXCEPT CPU. It's in the ready queue, waiting for the scheduler to dispatch it to the CPU. Transitions: Running→Ready (preempted by timer or higher priority), Ready→Running (scheduled/dispatched), Blocked→Ready (I/O complete)."
         }
     },
     {
@@ -254,7 +254,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "Threads in same process share address space, so thread switch doesn't require changing page tables. Process switch requires saving/restoring entire memory context."
+            solution: "Process switch: save/restore registers, PC, stack pointer, PLUS switch page tables, flush TLB, switch address space mapping. Thread switch (same process): only save/restore registers, PC, stack pointers - threads share address space, so no page table switch, no TLB flush. Thread switching is 10-100x faster."
         }
     },
     // Scheduling
@@ -272,7 +272,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "SJF minimizes average waiting time. Shorter jobs complete first, reducing wait for subsequent jobs. But it requires knowing burst times in advance."
+            solution: "SJF minimizes average waiting time (provably optimal). By running shortest jobs first, fewer processes wait behind long ones. Waiting time = start time - arrival time. Issue: requires knowing burst times in advance (impossible in practice - use predictions). Can cause starvation of long jobs if short jobs keep arriving."
         }
     },
     {
@@ -289,7 +289,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "Round Robin provides fair CPU time slices, good response time for interactive users. Each process gets a time quantum before preemption."
+            solution: "Round Robin: each process gets a fixed time quantum (e.g., 10-100ms), then preempted and added to end of ready queue. Fair - no starvation. Good response time for interactive users. Performance depends on quantum size: too small = excessive context switching, too large = degrades to FCFS. Not suitable for real-time (no priority) or batch (high overhead)."
         }
     },
     {
@@ -301,8 +301,8 @@ Questions.register([
         correctAnswer: 2.33,
         tolerance: 0.1,
         explanation: {
-            solution: "Order: 2, 3, 5. Process with burst 2 waits 0, burst 3 waits 2, burst 5 waits 2+3=5. Average = (0+2+5)/3 = 7/3 ≈ 2.33.",
-            formula: "Average waiting time = (0 + 2 + 5)/3 = 2.33"
+            solution: "SJF order: burst 2 (P3), then 3 (P1), then 5 (P2). Waiting times: P3 waits 0 (runs first), P1 waits 2 (after P3), P2 waits 2+3=5 (after P3 and P1). Average = (0 + 2 + 5)/3 = 7/3 ≈ 2.33. Compare to FCFS order 3,5,2: (0 + 3 + 8)/3 = 3.67 (worse).",
+            formula: "$AWT = \\frac{0 + 2 + 5}{3} = \\frac{7}{3} \\approx 2.33$"
         }
     },
     // Synchronization
@@ -320,7 +320,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "wait(S): if S > 0, decrement S and continue. If S = 0, block and add to wait queue. This prevents race conditions on shared resources."
+            solution: "wait(S): if S > 0, decrement S and continue. If S == 0, block the process and add to semaphore's wait queue. The signal() operation (V or up) increments S and wakes one blocked process. Semaphores enforce mutual exclusion (binary, init=1) and synchronization (counting). Operations must be atomic."
         }
     },
     {
@@ -332,7 +332,7 @@ Questions.register([
         options: ["Race condition", "Priority inversion", "Deadlock", "Starvation only"],
         correctAnswer: 2,
         explanation: {
-            solution: "Dining Philosophers primarily demonstrates deadlock: all philosophers pick up left fork, then wait forever for right fork. Also shows potential starvation."
+            solution: "Dining Philosophers: 5 philosophers, 5 forks. Each needs 2 adjacent forks to eat. If all pick up left fork simultaneously, each waits for right fork forever = DEADLOCK (circular wait). Solutions: limit concurrent philosophers to 4, pick up both forks atomically, asymmetric ordering. Also demonstrates potential starvation if some philosophers never get to eat."
         }
     },
     // Deadlocks
@@ -350,7 +350,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "Four conditions for deadlock: Mutual exclusion, Hold and wait, No preemption, Circular wait. If preemption were allowed, deadlock could be broken."
+            solution: "Deadlock requires four conditions (all must hold): 1. Mutual exclusion (exclusive resource access). 2. Hold and wait (hold resources while waiting for more). 3. No preemption (cannot forcibly take resources). 4. Circular wait (cycle in wait graph). PREEMPTION would allow breaking deadlock by taking resources - its ABSENCE is required."
         }
     },
     {
@@ -367,7 +367,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "Banker's algorithm is a deadlock avoidance method. It checks if granting a resource request keeps the system in a 'safe state' (a sequence exists to finish all processes)."
+            solution: "Banker's algorithm: deadlock AVOIDANCE. Before granting resource request, check if resulting state is 'safe' (exists a sequence to complete all processes). If granting leads to unsafe state, deny/delay request. Requires knowing maximum resource needs in advance. O(m×n²) complexity. Prevention (design constraints) vs Detection (find deadlocks after they occur)."
         }
     },
     // Memory Management
@@ -385,7 +385,7 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Page table: logical page number → physical frame number. Allows non-contiguous physical memory allocation while presenting contiguous logical address space."
+            solution: "Page table: logical/virtual page number → physical frame number. CPU generates virtual address = (page number, offset). MMU looks up page number in page table to get frame number, combines with offset to form physical address. Allows non-contiguous physical allocation, simplifies memory management, enables virtual memory."
         }
     },
     {
@@ -397,7 +397,7 @@ Questions.register([
         options: ["Optimal", "LRU", "FIFO", "LFU"],
         correctAnswer: 2,
         explanation: {
-            solution: "Belady's anomaly: in FIFO, increasing frames can increase page faults. This counter-intuitive behavior doesn't occur in stack algorithms like LRU and Optimal."
+            solution: "Belady's anomaly: more frames can cause MORE page faults. Occurs in FIFO because it doesn't consider recency/frequency of use. Example: reference string 1,2,3,4,1,2,5,1,2,3,4,5 - 3 frames: 9 faults, 4 frames: 10 faults. LRU, Optimal, LFU are 'stack algorithms' - provably immune to Belady's anomaly."
         }
     },
     {
@@ -414,7 +414,7 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "Optimal (OPT/Belady's) replaces the page used farthest in the future. Theoretical minimum page faults, but requires future knowledge - not practical."
+            solution: "Optimal (OPT/Belady's) replaces the page that won't be used for the longest time. Provably minimum page faults. But requires future knowledge - impractical for real systems. Used as benchmark to evaluate other algorithms. LRU approximates OPT by assuming recent past predicts near future."
         }
     }
 ]);
