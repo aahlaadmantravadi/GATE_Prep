@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-01-14T18:29:26.136802",
+  "converted_pdfs": [],
+  "pages_total": 0,
+  "candidates_found": 0,
+  "duplicates_found": 0,
+  "new_added": 0,
+  "added_ids": [],
+  "flagged_for_review": [],
+  "errors": [
+    "Failed to convert gateoverflow_volume1.pdf: No module named 'marker.converters'",
+    "Failed to convert gateoverflow_volume2.pdf: No module named 'marker.converters'"
+  ]
+}
