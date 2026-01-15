@@ -1,0 +1,1414 @@
+Questions.register([
+    {
+        "id": "dsa-arr-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Arrays & Strings",
+        "question": "Time complexity of accessing an element in an array by index is:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n²)"
+        ],
+        "correctAnswer": 0,
+        "explanation": {
+            "solution": "Arrays provide O(1) random access because elements are stored contiguously and the address can be computed directly: base_address + index × element_size."
+        }
+    },
+    {
+        "id": "dsa-ll-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked Lists",
+        "question": "Which operation is O(1) in a doubly linked list but O(n) in a singly linked list?",
+        "options": [
+            "Insertion at head",
+            "Insertion at tail (with tail pointer)",
+            "Deletion of a given node",
+            "Searching an element"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "To delete a given node in SLL, we need to find the previous node (O(n)). In DLL, we have a back pointer, so we can directly update prev.next = curr.next in O(1)."
+        }
+    },
+    {
+        "id": "dsa-stack-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "The data structure used for implementing function calls is:",
+        "options": [
+            "Queue",
+            "Stack",
+            "Heap",
+            "Graph"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Function calls use a stack (call stack). When a function is called, its context is pushed. When it returns, the context is popped. LIFO behavior ensures proper nesting."
+        }
+    },
+    {
+        "id": "dsa-queue-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "In a circular queue with size n, the formula for rear after insertion is:",
+        "options": [
+            "rear + 1",
+            "rear - 1",
+            "(rear + 1) % n",
+            "(rear - 1) % n"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Circular queue wraps around using modulo. After insertion: rear = (rear + 1) % n. This allows reusing empty spaces at the beginning.",
+            "formula": "rear = (rear + 1) % n"
+        }
+    },
+    {
+        "id": "dsa-tree-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "A complete binary tree with n nodes has height:",
+        "options": [
+            "n",
+            "n-1",
+            "⌊log₂n⌋",
+            "⌈log₂n⌉"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "A complete binary tree fills levels top-to-bottom, left-to-right. Height = ⌊log₂n⌋. Maximum nodes at height h = 2^(h+1) - 1.",
+            "formula": "Height = ⌊log₂n⌋"
+        }
+    },
+    {
+        "id": "dsa-tree-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Inorder traversal of a Binary Search Tree gives elements in:",
+        "options": [
+            "Random order",
+            "Ascending order",
+            "Descending order",
+            "Level order"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BST property: left < root < right. Inorder (Left, Root, Right) visits elements in ascending order. This is a key property of BSTs."
+        }
+    },
+    {
+        "id": "dsa-tree-003",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "A binary tree has 31 nodes. What is the minimum height (root at height 0)?",
+        "correctAnswer": 4,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "Minimum height = ⌊log₂31⌋ = ⌊4.95⌋ = 4. A complete binary tree of height 4 has at most 2^5 - 1 = 31 nodes.",
+            "formula": "Min height = ⌊log₂n⌋"
+        }
+    },
+    {
+        "id": "dsa-heap-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "In a max-heap, the largest element is at:",
+        "options": [
+            "Any leaf node",
+            "The last node",
+            "The root",
+            "Cannot be determined"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Max-heap property: parent ≥ children for all nodes. Therefore, the root has the maximum value. Similarly, min-heap root has minimum value."
+        }
+    },
+    {
+        "id": "dsa-hash-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "In hash table with chaining, the worst-case time for search is:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Worst case: all n elements hash to the same bucket, creating a linked list of length n. Search requires O(n) traversal. Average case with good hash function is O(1)."
+        }
+    },
+    {
+        "id": "dsa-arr-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Arrays & Strings",
+        "question": "Time complexity of inserting at the beginning of an array of size n is:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Array Insertion at Beginning: To insert at index 0, ALL existing elements must shift right by 1 position. Number of shifts = n, so O(n) time. Contrast: Insert at end is O(1) amortized, insert in middle at index i is O(n-i) shifts."
+        }
+    },
+    {
+        "id": "dsa-arr-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Arrays & Strings",
+        "question": "Time complexity of deleting from the end of a dynamic array is:",
+        "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1) amortized",
+            "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Array End Deletion:\n\nDeleting from the end is O(1) because:\n1. No shifting required\n2. Just decrement the size counter\n\nThe memory slot may still contain the old value (garbage), but logically the array is shorter.\n\nDynamic arrays may occasionally shrink (copy to smaller array) for memory efficiency, but this is amortized O(1)."
+        }
+    },
+    {
+        "id": "dsa-ll-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked Lists",
+        "question": "Time complexity of inserting at the head of a singly linked list is:",
+        "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Linked List Insert at Head:\n\nSteps:\n1. Create new node with data\n2. Set new_node.next = head\n3. Set head = new_node\n\nAll three operations are O(1) - no traversal needed!\n\nThis is a key advantage of linked lists over arrays, where head insertion is O(n)."
+        }
+    },
+    {
+        "id": "dsa-ll-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked Lists",
+        "question": "Time complexity of searching in an unsorted linked list of n elements is:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Linked List Search:\n\nMust traverse from head, checking each element.\n\nWorst case: Element is at end or not present = n comparisons.\nAverage case: n/2 comparisons.\n\nUnlike arrays, cannot do binary search even if sorted (no random access).\n\nTime: O(n) worst and average case."
+        }
+    },
+    {
+        "id": "dsa-ll-012",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked Lists",
+        "question": "A circular linked list's last node points to:",
+        "options": [
+            "NULL",
+            "The head node",
+            "Itself",
+            "The second node"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Circular Linked List:\n\nIn a circular LL, the last node's 'next' points back to the head, forming a closed loop.\n\nAdvantages:\n1. Can traverse entire list from any node\n2. Useful for round-robin scheduling\n3. No NULL pointers to check\n\nDetection: Keep tracking visited nodes or use two-pointer technique.\n\nVariation: Doubly circular - last.next = head AND head.prev = last."
+        }
+    },
+    {
+        "id": "dsa-ll-013",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked Lists",
+        "question": "To detect a cycle in a linked list, Floyd's algorithm uses:",
+        "options": [
+            "Recursion",
+            "Hash table",
+            "Two pointers (slow and fast)",
+            "Stack"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Floyd's Cycle Detection (Tortoise and Hare Algorithm):\n\nUse two pointers: slow (moves 1 step) and fast (moves 2 steps).\n\nIf cycle exists: They will eventually meet inside the cycle.\nIf no cycle: Fast pointer reaches NULL.\n\nWhy it works:\nIf there's a cycle of length C, the distance between them decreases by 1 each step within the cycle.\n\nTo FIND cycle start: After meeting, move one pointer to head.\nBoth move 1 step at a time. Next meeting point = cycle start!\n\nTime: O(n), Space: O(1)"
+        }
+    },
+    {
+        "id": "dsa-stack-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "Stack operations (push, pop, peek) have time complexity:",
+        "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Stack Operations Time Complexity:\n\nPush: Add element to top → O(1)\nPop: Remove element from top → O(1)\nPeek/Top: Look at top without removing → O(1)\n\nAll operations access only the top position, no traversal needed.\n\nArray-based stack: All O(1) (occasional O(n) resize for dynamic arrays)\nLinked list stack: O(1) insert/delete at head\n\nSpace: O(n) for n elements."
+        }
+    },
+    {
+        "id": "dsa-stack-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "Postfix expression evaluation uses:",
+        "options": [
+            "Queue",
+            "Stack",
+            "Tree",
+            "Graph"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Postfix Expression Evaluation using Stack:\n\nAlgorithm:\n1. Scan expression left to right\n2. If OPERAND: push onto stack\n3. If OPERATOR: pop two operands, apply operator, push result\n4. After scanning: stack top = final result\n\nExample: 2 3 + 4 × evaluates to 20\n- Push 2, Push 3\n- See +: Pop 3,2 → compute 2+3=5 → Push 5\n- Push 4\n- See ×: Pop 4,5 → compute 5×4=20 → Push 20\n\nNote: Second popped operand is the LEFT operand for subtraction/division!"
+        }
+    },
+    {
+        "id": "dsa-stack-012",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "Infix to postfix conversion uses:",
+        "options": [
+            "One queue",
+            "One stack",
+            "Two stacks",
+            "Priority queue"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Infix to Postfix Conversion (Shunting Yard Algorithm):\n\nUse one stack for operators, one output queue.\n\nRules:\n1. OPERAND: Add directly to output\n2. OPERATOR: Pop and output operators with higher/equal precedence, then push current\n3. OPEN PAREN '(': Push to stack\n4. CLOSE PAREN ')': Pop and output until '(' found (discard parentheses)\n5. End: Pop all remaining operators to output\n\nPrecedence: ^(highest) > × ÷ > + -(lowest)\n\nExample: A + B × C → A B C × +\n\nTime: O(n), Space: O(n) for stack"
+        }
+    },
+    {
+        "id": "dsa-stack-013",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "Balanced parentheses checking is done using:",
+        "options": [
+            "Queue",
+            "Stack",
+            "Array only",
+            "Linked list only"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Balanced Parentheses Checking using Stack:\n\nAlgorithm:\n1. Scan expression character by character\n2. If OPENING bracket ( [ {: Push to stack\n3. If CLOSING bracket ) ] }: \n   - If stack empty → UNBALANCED (extra closing)\n   - Pop top, if mismatch → UNBALANCED\n4. After scanning: Stack should be empty, else UNBALANCED\n\nExamples:\n- ((a+b)) → Balanced ✓\n- ([)] → Unbalanced ✗ (cross-nesting)\n- ((a) → Unbalanced ✗ (extra opening)\n\nTime: O(n), Space: O(n) worst case"
+        }
+    },
+    {
+        "id": "dsa-queue-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "BFS (Breadth-First Search) uses which data structure?",
+        "options": [
+            "Stack",
+            "Queue",
+            "Priority Queue",
+            "Hash Table"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BFS (Breadth-First Search) uses Queue:\n\nAlgorithm:\n1. Enqueue starting vertex, mark visited\n2. While queue not empty:\n   - Dequeue vertex u\n   - Process u\n   - Enqueue all unvisited neighbors of u, mark visited\n\nWhy Queue? FIFO ensures level-by-level exploration.\n\nApplications:\n- Shortest path in unweighted graph\n- Level-order tree traversal\n- Web crawling\n- Social network friend-of-friend\n\nTime: O(V+E), Space: O(V) for queue and visited array"
+        }
+    },
+    {
+        "id": "dsa-queue-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "Priority queue always removes the element with:",
+        "options": [
+            "Newest element",
+            "Oldest element",
+            "Highest (or lowest) priority",
+            "Random element"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Priority Queue:\n\nElements are removed in ORDER OF PRIORITY, not insertion order.\n\nImplementations:\n1. Unsorted array: Insert O(1), Extract O(n)\n2. Sorted array: Insert O(n), Extract O(1)\n3. Binary Heap (best): Insert O(log n), Extract O(log n)\n4. Fibonacci Heap: Insert O(1) amortized, Decrease-key O(1) amortized\n\nApplications:\n- Dijkstra's algorithm (needs decrease-key)\n- Huffman coding\n- Job scheduling\n- A* search algorithm\n- Heap sort"
+        }
+    },
+    {
+        "id": "dsa-queue-012",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stacks & Queues",
+        "question": "A double-ended queue (deque) allows insertion and deletion at:",
+        "options": [
+            "Front only",
+            "Rear only",
+            "Both front and rear",
+            "Middle only"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Double-Ended Queue (Deque):\n\nOperations supported at BOTH ends in O(1):\n- push_front / push_back\n- pop_front / pop_back\n- peek_front / peek_back\n\nImplementations:\n1. Doubly linked list: O(1) all operations, extra pointer overhead\n2. Circular array: O(1) amortized, better cache locality\n\nApplications:\n- Sliding window maximum (use as monotonic deque)\n- Work stealing in parallel processing\n- Undo-redo functionality\n- BFS where you need to sometimes prioritize (like 0-1 BFS)"
+        }
+    },
+    {
+        "id": "dsa-tree-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "A binary tree with n nodes has how many NULL pointers?",
+        "options": [
+            "n",
+            "n-1",
+            "n+1",
+            "2n"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Binary Tree NULL Pointers:\n\nTotal pointers: Each node has 2 child pointers → 2n total\nNon-NULL pointers: Each edge uses one pointer → n-1 edges\nNULL pointers: 2n - (n-1) = n + 1\n\nAlternatively: Induction proof\n- Single node: 2 NULL pointers = 1 + 1 ✔\n- Adding a node converts 1 NULL to edge and adds 2 new NULLs\n  Net change: -1 + 2 = +1 NULL \n  So n nodes → n+1 NULLs ✔\n\nThis is a frequently tested formula!",
+            "formula": "NULL pointers = n+1"
+        }
+    },
+    {
+        "id": "dsa-tree-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Number of leaf nodes in a full binary tree with n internal nodes is:",
+        "options": [
+            "n",
+            "n-1",
+            "n+1",
+            "2n"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Full Binary Tree Leaf Formula:\n\nA FULL binary tree: every node has 0 or 2 children (never 1).\n\nLet i = internal nodes (degree 2), L = leaf nodes (degree 0)\n\nRelation: L = i + 1\n\nProof by edge counting:\n- Total nodes = i + L\n- Edges = nodes - 1 = i + L - 1\n- Also, edges = 2i (each internal node contributes 2 edges)\n- So: 2i = i + L - 1 → L = i + 1\n\nExample: 5 internal nodes → 6 leaves",
+            "formula": "Leaves = Internal nodes + 1"
+        }
+    },
+    {
+        "id": "dsa-tree-012",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Maximum nodes in a binary tree of height h (root at height 0) is:",
+        "options": [
+            "h",
+            "2h",
+            "2^h",
+            "2^(h+1) - 1"
+        ],
+        "correctAnswer": 3,
+        "explanation": {
+            "solution": "Maximum Nodes in Binary Tree of Height h:\n\nPerfect binary tree: all levels completely filled.\nLevel 0 (root): 1 node\nLevel 1: 2 nodes\nLevel 2: 4 nodes\n...\nLevel h: 2^h nodes\n\nTotal = 1 + 2 + 4 + ... + 2^h = 2^(h+1) - 1\n(Geometric series sum)\n\nMinimum nodes (skewed tree): h + 1\n\nRelation: floor(log₂(n)) ≤ h ≤ n-1",
+            "formula": "Max nodes = 2^(h+1) - 1"
+        }
+    },
+    {
+        "id": "dsa-tree-013",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "BST search time complexity (average case) is:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BST Search Time Complexity:\n\nAverage case (balanced): O(log n)\n- Height ≈ log n, search follows one path from root\n\nWorst case (skewed): O(n)\n- All nodes on one side → height = n-1\n- Happens with sorted input and no balancing\n\nTo guarantee O(log n): Use balanced BSTs (AVL, Red-Black, B-trees)\n\nSearch algorithm:\n1. If root is NULL → not found\n2. If key = root.data → found\n3. If key < root.data → search left subtree\n4. Else → search right subtree"
+        }
+    },
+    {
+        "id": "dsa-tree-014",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "BST property states that for every node, all nodes in left subtree are:",
+        "options": [
+            "Greater",
+            "Less",
+            "Equal",
+            "Either greater or less"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BST Property (Binary Search Tree Invariant):\n\nFor EVERY node in the tree:\n- ALL nodes in left subtree < current node\n- ALL nodes in right subtree > current node\n\nThis property holds recursively throughout the tree.\n\nConsequences:\n1. Inorder traversal gives sorted order\n2. Minimum is leftmost node\n3. Maximum is rightmost node\n4. Searching is efficient (binary search on tree)\n\nVariations: Some BSTs allow duplicates (usually in right subtree)."
+        }
+    },
+    {
+        "id": "dsa-tree-015",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Deleting a node with two children in BST replaces it with:",
+        "options": [
+            "Left child",
+            "Right child",
+            "Inorder successor or predecessor",
+            "Any child"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "BST Deletion with Two Children:\n\nWhen deleting a node with TWO children, replace it with:\n\nOption 1: INORDER SUCCESSOR\n- Smallest node in RIGHT subtree\n- Go right once, then left as far as possible\n\nOption 2: INORDER PREDECESSOR\n- Largest node in LEFT subtree\n- Go left once, then right as far as possible\n\nBoth maintain BST property because:\n- Successor is > all in left subtree, < all in right subtree\n- Same logic for predecessor\n\nTime: O(h) where h = tree height"
+        }
+    },
+    {
+        "id": "dsa-avl-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "AVL tree is a BST where for every node, height difference between left and right subtrees is at most:",
+        "options": [
+            "0",
+            "1",
+            "2",
+            "log n"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "AVL Tree Balance Factor:\n\nBalance Factor = height(left subtree) - height(right subtree)\n\nFor AVL tree: BF ∈ {-1, 0, +1} for EVERY node\n- BF = 0: perfectly balanced\n- BF = +1: left-heavy\n- BF = -1: right-heavy\n\nIf |BF| ≥ 2 after insert/delete → REBALANCE with rotations\n\nHeight guarantee: h ≤ 1.44 × log₂(n+2), ensuring O(log n) operations\n\nNamed after inventors Adelson-Velsky and Landis (1962)."
+        }
+    },
+    {
+        "id": "dsa-avl-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "AVL tree guarantees search, insert, delete in:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "AVL Tree Operations Complexity:\n\nSearch: O(log n) - follows BST search, height is O(log n)\nInsert: O(log n) - BST insert + at most 2 rotations\nDelete: O(log n) - BST delete + up to O(log n) rotations\n\nWhy guaranteed O(log n)? Balance condition ensures:\n- Height h ≤ 1.44 × log₂(n)\n- Minimum nodes for height h: N(h) = N(h-1) + N(h-2) + 1 (Fibonacci-like)\n\nCompared to Red-Black trees:\n- AVL is more rigidly balanced\n- Faster lookups, slightly slower inserts/deletes\n- Often preferred for read-heavy workloads"
+        }
+    },
+    {
+        "id": "dsa-avl-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "AVL tree rotations are used to:",
+        "options": [
+            "Speed up search",
+            "Restore balance after insert/delete",
+            "Reduce memory",
+            "Sort elements"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "AVL Tree Rotations:\n\nFour imbalance cases and their fixes:\n\n1. LL (Left-Left): Node inserted in left subtree of left child\n   Fix: Single RIGHT rotation at unbalanced node\n\n2. RR (Right-Right): Node inserted in right subtree of right child\n   Fix: Single LEFT rotation at unbalanced node\n\n3. LR (Left-Right): Node inserted in right subtree of left child\n   Fix: LEFT rotation at left child, then RIGHT rotation at node\n\n4. RL (Right-Left): Node inserted in left subtree of right child\n   Fix: RIGHT rotation at right child, then LEFT rotation at node\n\nAfter rotation, balance factor returns to {-1, 0, +1}."
+        }
+    },
+    {
+        "id": "dsa-heap-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "A heap is typically stored as an:",
+        "options": [
+            "Linked list",
+            "Binary search tree",
+            "Array",
+            "Hash table"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Heap Array Representation:\n\nComplete binary tree maps perfectly to array (0-indexed):\n\nFor node at index i:\n- Parent: floor((i-1)/2)\n- Left child: 2i + 1\n- Right child: 2i + 2\n\nFor 1-indexed:\n- Parent: floor(i/2)\n- Left child: 2i\n- Right child: 2i + 1\n\nAdvantages over pointer-based tree:\n1. No pointer overhead\n2. Excellent cache locality\n3. Easy to implement\n\nHeap is NOT a BST! Only parent-child ordering matters, not left-right."
+        }
+    },
+    {
+        "id": "dsa-heap-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Heapify operation (build heap from array) takes:",
+        "options": [
+            "O(log n)",
+            "O(n)",
+            "O(n log n)",
+            "O(n²)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Build Heap (Heapify) Complexity:\n\nNaive analysis: Insert n elements, each O(log n) → O(n log n)\nBut bottom-up heapify is actually O(n)!\n\nWhy? Most nodes are at bottom levels.\n- n/2 leaves: 0 work\n- n/4 nodes: 1 swap max\n- n/8 nodes: 2 swaps max\n...\nSum = n/4·1 + n/8·2 + n/16·3 + ... = O(n)\n\nBottom-up: Start from last non-leaf (index n/2-1) and sift down each. Much more efficient than top-down construction!"
+        }
+    },
+    {
+        "id": "dsa-heap-012",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Extract-max (or min) from heap takes:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Heap Extract-Max/Min Operation:\n\nSteps (for max-heap):\n1. Store root value (maximum) → O(1)\n2. Replace root with last element → O(1)\n3. Remove last element (decrease size) → O(1)\n4. Heapify-down (sift down) root to restore heap property → O(log n)\n\nHeapify-down:\n- Compare root with children\n- Swap with larger child if violated\n- Repeat until leaf or no violation\n\nTotal: O(log n) because max height = log n\n\nThis operation is core to heap sort and priority queues."
+        }
+    },
+    {
+        "id": "dsa-heap-013",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Heap sort time complexity is:",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n²)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Heap Sort Complexity:\n\nStep 1: Build max-heap from array: O(n)\nStep 2: Repeatedly extract-max and place at end: n × O(log n)\n\nTotal: O(n) + O(n log n) = O(n log n)\n\nAdvantages:\n- In-place sorting (no extra space like merge sort)\n- Guaranteed O(n log n) worst case (unlike quicksort)\n\nDisadvantages:\n- Not stable (doesn't preserve order of equal elements)\n- Poor cache locality compared to quicksort\n- Rarely faster than optimized quicksort in practice"
+        }
+    },
+    {
+        "id": "dsa-hash-010",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Hash table with chaining uses _____ to handle collisions:",
+        "options": [
+            "Open addressing",
+            "Linked lists",
+            "Binary trees",
+            "Sorting"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Hash Table Collision Resolution - Chaining:\n\nEach bucket stores a linked list (chain) of entries.\n\nInsertion: Hash to bucket, append to list → O(1)\nSearch: Hash to bucket, search list → O(1+α) average, O(n) worst\nDeletion: Hash to bucket, find and remove → O(1+α) average\n\nα = n/m is load factor (elements/buckets)\n\nAdvantages:\n- Simple to implement\n- No clustering issues\n- Load factor can exceed 1\n\nDisadvantages:\n- Extra memory for pointers\n- Cache-unfriendly due to pointer chasing"
+        }
+    },
+    {
+        "id": "dsa-hash-011",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "In linear probing, if position h(k) is occupied, we try:",
+        "options": [
+            "h(k)+1, h(k)+4, h(k)+9...",
+            "h(k)+1, h(k)+2, h(k)+3...",
+            "h(k)×2, h(k)×3...",
+            "Random positions"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Linear Probing (Open Addressing):\n\nProbe sequence: h(k), h(k)+1, h(k)+2, ... (mod m)\n\nInsert: Find first empty slot in sequence\nSearch: Follow sequence until found or empty slot\nDelete: Use tombstone markers (lazy deletion)\n\nProblem: PRIMARY CLUSTERING\n- Filled slots form contiguous clusters\n- New insertions extend clusters\n- Long probe sequences develop\n\nPerformance degrades significantly as load factor → 1\n\nAdvantage: Good cache locality (sequential access)"
+        }
+    },
+    {
+        "id": "dsa-hash-012",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Quadratic probing tries positions:",
+        "options": [
+            "h(k)+1², h(k)+2², h(k)+3²...",
+            "h(k)+1, h(k)+2, h(k)+3...",
+            "h(k)×1, h(k)×2, h(k)×3...",
+            "Random positions"
+        ],
+        "correctAnswer": 0,
+        "explanation": {
+            "solution": "Quadratic Probing:\n\nProbe sequence: h(k), h(k)+1², h(k)+2², h(k)+3², ...\n= h(k), h(k)+1, h(k)+4, h(k)+9, ... (mod m)\n\nAdvantage: Avoids primary clustering\n- Entries that hash to same slot follow same probe sequence\n\nProblem: SECONDARY CLUSTERING\n- Entries with same initial hash still cluster\n\nRequired: Table size m should be prime, and load factor α < 0.5\n(otherwise may not find empty slot due to probe wrapping)\n\nAlternative: Double hashing eliminates secondary clustering too."
+        }
+    },
+    {
+        "id": "dsa-hash-013",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Load factor α of a hash table is:",
+        "options": [
+            "n × m",
+            "n / m",
+            "m / n",
+            "n + m"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "α = n/m where n = number of elements, m = table size",
+            "formula": "Load factor α = n/m"
+        }
+    },
+    {
+        "id": "dsa-hash-014",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "For a good hash table, the load factor should typically be:",
+        "options": [
+            "Greater than 1",
+            "Less than 1 (e.g., 0.7)",
+            "Exactly 1",
+            "As high as possible"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Hash Table Load Factor Guidelines:\n\nα = n/m (elements / table size)\n\nChaining:\n- Works fine with α > 1\n- Average chain length = α\n- Resize when α > 1-2 for performance\n\nOpen Addressing:\n- MUST have α < 1\n- Performance degrades rapidly as α → 1\n- Typical threshold: α = 0.5-0.75\n\nResizing:\n- Double table size when threshold exceeded\n- Rehash all elements to new table\n- Amortized O(1) insertion despite occasional O(n) resize"
+        }
+    },
+    {
+        "id": "dsa-trie-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "A trie (prefix tree) search time for a string of length m is:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(m)",
+            "O(n)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Trie Search Complexity:\n\nTime: O(m) where m = length of search string\n\nAlgorithm:\n1. Start at root\n2. For each character c in string:\n   - If child[c] exists, move to it\n   - Else, return 'not found'\n3. Check if current node is end-of-word\n\nKey insight: O(m) is INDEPENDENT of dictionary size n!\n\nCompare to:\n- Hash table: O(m) average (must hash entire string)\n- BST of strings: O(m × log n) (string comparison is O(m))\n\nTries are especially efficient for prefix queries."
+        }
+    },
+    {
+        "id": "dsa-trie-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Tries are efficient for:",
+        "options": [
+            "Numeric data",
+            "Prefix-based string operations",
+            "Graph traversal",
+            "Sorting numbers"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Trie Applications:\n\n1. AUTOCOMPLETE\n   - Find all words with given prefix in O(p + k)\n   - p = prefix length, k = number of matches\n\n2. SPELL CHECKING\n   - Check if word exists: O(m)\n   - Suggest corrections by exploring nearby nodes\n\n3. IP ROUTING\n   - Longest prefix matching for network addresses\n\n4. WORD GAMES\n   - Boggle, Scrabble word validation\n\n5. DICTIONARY IMPLEMENTATION\n   - Space-efficient when strings share prefixes\n\nVariants: Patricia trie (compressed), Suffix trie/tree"
+        }
+    },
+    {
+        "id": "ds-arr-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Arrays",
+        "question": "Row-major order address of A[i][j] in m×n array (base B, element size S):",
+        "options": [
+            "B + (i*n + j)*S",
+            "B + (j*m + i)*S",
+            "B + i + j",
+            "B + i*j*S"
+        ],
+        "correctAnswer": 0,
+        "explanation": {
+            "solution": "Row-Major Order: Elements stored row by row. For A[m][n] with base B and element size S: Address of A[i][j] = B + (i*n + j)*S. We skip i complete rows (each with n elements), then j elements in current row. C, C++, Java use row-major. Fortran uses column-major.",
+            "formula": "B + (i*n + j)*S"
+        }
+    },
+    {
+        "id": "ds-arr-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Arrays",
+        "question": "Column-major order address of A[i][j] in m×n array (base B, element size S):",
+        "options": [
+            "B + (i*n + j)*S",
+            "B + (j*m + i)*S",
+            "B + i + j",
+            "B + i*j*S"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Column-major: B + (j*m + i)*S",
+            "formula": "B + (j*m + i)*S"
+        }
+    },
+    {
+        "id": "ds-arr-003",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Arrays",
+        "question": "Row-major: A[10][20], base=1000, element=4B. Address of A[3][5] = ?",
+        "correctAnswer": 1260,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "1000 + (3*20 + 5)*4 = 1000 + 65*4 = 1260"
+        }
+    },
+    {
+        "id": "ds-arr-004",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Arrays",
+        "question": "Lower triangular matrix n×n (only main diagonal and below stored). Elements stored = ?",
+        "correctAnswer": 0,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "n(n+1)/2 elements",
+            "formula": "n(n+1)/2"
+        }
+    },
+    {
+        "id": "ds-arr-005",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Arrays",
+        "question": "Upper triangular 5×5 matrix. Non-zero elements stored = ?",
+        "correctAnswer": 15,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "5(5+1)/2 = 15"
+        }
+    },
+    {
+        "id": "ds-stk-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stack",
+        "question": "Stack follows:",
+        "options": [
+            "FIFO",
+            "LIFO",
+            "Random",
+            "Priority"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Stack: Last In First Out"
+        }
+    },
+    {
+        "id": "ds-stk-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stack",
+        "question": "Infix to postfix conversion uses:",
+        "options": [
+            "Queue",
+            "Stack",
+            "Tree",
+            "Graph"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Stack for operators during conversion"
+        }
+    },
+    {
+        "id": "ds-stk-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stack",
+        "question": "Postfix evaluation uses:",
+        "options": [
+            "Two stacks",
+            "One stack",
+            "Queue",
+            "No data structure"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "One stack to hold operands"
+        }
+    },
+    {
+        "id": "ds-stk-004",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Stack",
+        "question": "Number of possible BSTs with n nodes = Catalan(n). For n=3 = ?",
+        "options": [
+            "3",
+            "4",
+            "5",
+            "6"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Catalan(3) = 5 = (2n)! / ((n+1)! × n!)"
+        }
+    },
+    {
+        "id": "ds-que-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Queue",
+        "question": "Queue follows:",
+        "options": [
+            "LIFO",
+            "FIFO",
+            "Random",
+            "Priority"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Queue: First In First Out"
+        }
+    },
+    {
+        "id": "ds-que-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Queue",
+        "question": "Circular queue of size n can hold maximum:",
+        "options": [
+            "n elements",
+            "n-1 elements (one slot wasted)",
+            "n+1 elements",
+            "Unlimited"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Usually n-1 to distinguish full from empty"
+        }
+    },
+    {
+        "id": "ds-que-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Queue",
+        "question": "Deque supports:",
+        "options": [
+            "Insert/delete at both ends",
+            "Insert at rear only",
+            "Delete at front only",
+            "Random access"
+        ],
+        "correctAnswer": 0,
+        "explanation": {
+            "solution": "Deque: double-ended queue"
+        }
+    },
+    {
+        "id": "ds-ll-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked List",
+        "question": "Time to access nth element in singly linked list:",
+        "options": [
+            "O(1)",
+            "O(n)",
+            "O(log n)",
+            "O(n²)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Must traverse from head: O(n)"
+        }
+    },
+    {
+        "id": "ds-ll-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked List",
+        "question": "Doubly linked list node has:",
+        "options": [
+            "Only data",
+            "Data + next pointer",
+            "Data + next + prev pointers",
+            "Only pointers"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "DLL: data + next + prev"
+        }
+    },
+    {
+        "id": "ds-ll-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Linked List",
+        "question": "Detecting cycle in linked list (Floyd's algorithm) uses:",
+        "options": [
+            "One pointer",
+            "Two pointers (slow and fast)",
+            "Stack",
+            "Queue"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Floyd's: slow moves 1, fast moves 2. Meet if cycle"
+        }
+    },
+    {
+        "id": "ds-tree-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Binary tree with n nodes has maximum height:",
+        "options": [
+            "log n",
+            "n",
+            "n-1",
+            "n/2"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Skewed tree: height = n-1"
+        }
+    },
+    {
+        "id": "ds-tree-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Complete binary tree with n nodes has height:",
+        "options": [
+            "n",
+            "n-1",
+            "⌊log₂n⌋",
+            "2ⁿ"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Complete: height = ⌊log₂n⌋",
+            "formula": "⌊log₂n⌋"
+        }
+    },
+    {
+        "id": "ds-tree-003",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Full binary tree with 31 nodes. Number of leaf nodes = ?",
+        "correctAnswer": 16,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "Full Binary Tree Relationship: In full BT, every internal node has exactly 2 children. Key formula: n = 2L - 1, where n = total nodes, L = leaves. So L = (n+1)/2 = (31+1)/2 = 16 leaves. Internal nodes = L - 1 = 15."
+        }
+    },
+    {
+        "id": "ds-tree-004",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Binary tree with 10 leaf nodes. Nodes with degree 2 = ?",
+        "correctAnswer": 9,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "n₂ = n₀ - 1 = 10 - 1 = 9",
+            "formula": "n₂ = n₀ - 1"
+        }
+    },
+    {
+        "id": "ds-tree-005",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Trees",
+        "question": "Inorder traversal of BST gives:",
+        "options": [
+            "Random order",
+            "Sorted order",
+            "Reverse sorted",
+            "Level order"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BST inorder: sorted (ascending)"
+        }
+    },
+    {
+        "id": "ds-bst-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "BST",
+        "question": "Average case search in balanced BST:",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Balanced BST: O(log n) search"
+        }
+    },
+    {
+        "id": "ds-bst-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "BST",
+        "question": "Worst case search in BST (skewed):",
+        "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Skewed BST degenerates to linked list: O(n)"
+        }
+    },
+    {
+        "id": "ds-bst-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "BST",
+        "question": "BST deletion of node with two children uses:",
+        "options": [
+            "Just remove",
+            "Replace with inorder successor/predecessor",
+            "Rebuild tree",
+            "Mark as deleted"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BST Deletion of Node with Two Children: Replace with inorder successor (smallest in right subtree) or inorder predecessor (largest in left subtree). This maintains BST property. Then delete the successor/predecessor from its original position (which has at most one child)."
+        }
+    },
+    {
+        "id": "ds-avl-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "AVL",
+        "question": "AVL tree balance factor for each node:",
+        "options": [
+            "Any value",
+            "-1, 0, or 1",
+            "Only 0",
+            "Only positive"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "AVL Balance Factor: For every node, |height(left subtree) - height(right subtree)| ≤ 1. Balance factor = -1, 0, or +1. If |BF| > 1 after insertion/deletion, rotations restore balance. Guarantees O(log n) height, hence O(log n) operations."
+        }
+    },
+    {
+        "id": "ds-avl-002",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "AVL",
+        "question": "Minimum nodes in AVL tree of height 5 = ?",
+        "correctAnswer": 20,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "N(h) = N(h-1)+N(h-2)+1. N(5) = 12+7+1 = 20"
+        }
+    },
+    {
+        "id": "ds-avl-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "AVL",
+        "question": "AVL tree rotations for LL imbalance:",
+        "options": [
+            "Right rotation",
+            "Left rotation",
+            "Left-Right",
+            "Right-Left"
+        ],
+        "correctAnswer": 0,
+        "explanation": {
+            "solution": "LL: single right rotation"
+        }
+    },
+    {
+        "id": "ds-avl-004",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "AVL",
+        "question": "AVL tree rotations for LR imbalance:",
+        "options": [
+            "Right only",
+            "Left only",
+            "Left then Right",
+            "Right then Left"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "LR: left rotation then right rotation"
+        }
+    },
+    {
+        "id": "ds-heap-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Heap",
+        "question": "Max-heap property:",
+        "options": [
+            "Parent ≤ children",
+            "Parent ≥ children",
+            "Sorted",
+            "Balanced"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Max-heap: parent ≥ both children"
+        }
+    },
+    {
+        "id": "ds-heap-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Heap",
+        "question": "Build heap from n elements time complexity:",
+        "options": [
+            "O(n log n)",
+            "O(n)",
+            "O(n²)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Build Heap in O(n): Counter-intuitive but true! Bottom-up heapify is O(n), not O(n log n). Why? Most nodes are near bottom and need few swaps. Mathematical proof: Σ(nodes at level h) × (height - h) = O(n). Much faster than n insertions (which would be O(n log n))."
+        }
+    },
+    {
+        "id": "ds-heap-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Heap",
+        "question": "Heap sort time complexity:",
+        "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n²)",
+            "O(log n)"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Heap sort: O(n log n) always"
+        }
+    },
+    {
+        "id": "ds-heap-004",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Heap",
+        "question": "In array representation of heap, left child of index i is at:",
+        "correctAnswer": 0,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "Left child = 2i+1 (0-indexed) or 2i (1-indexed)"
+        }
+    },
+    {
+        "id": "ds-hash-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Average case search in hash table:",
+        "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n²)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Hash table: O(1) average search"
+        }
+    },
+    {
+        "id": "ds-hash-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Collision in hashing means:",
+        "options": [
+            "Table full",
+            "Two keys map to same index",
+            "Key not found",
+            "Invalid key"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Collision: different keys, same hash value"
+        }
+    },
+    {
+        "id": "ds-hash-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Chaining handles collisions by:",
+        "options": [
+            "Probing next slot",
+            "Storing collisions in linked list",
+            "Rehashing",
+            "Rejecting"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Chaining: each slot has linked list"
+        }
+    },
+    {
+        "id": "ds-hash-004",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Linear probing handles collision by:",
+        "options": [
+            "Linked list",
+            "Checking next slot linearly",
+            "Double hashing",
+            "Binary search"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Linear: try h(k)+1, h(k)+2, ..."
+        }
+    },
+    {
+        "id": "ds-hash-005",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Primary clustering is problem with:",
+        "options": [
+            "Chaining",
+            "Linear probing",
+            "Double hashing",
+            "All methods"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Linear probing: clusters form, degrade performance"
+        }
+    },
+    {
+        "id": "ds-hash-006",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Double hashing uses:",
+        "options": [
+            "Two hash functions",
+            "Two tables",
+            "Two chains",
+            "Two passes"
+        ],
+        "correctAnswer": 0,
+        "explanation": {
+            "solution": "Double: h(k)+i×h'(k) probing"
+        }
+    },
+    {
+        "id": "ds-hash-007",
+        "type": "NAT",
+        "topic": "dsa",
+        "subtopic": "Hashing",
+        "question": "Hash table size 11, h(k)=k%11. Insert 22,33,44. Collisions = ?",
+        "correctAnswer": 2,
+        "tolerance": 0,
+        "explanation": {
+            "solution": "22%11=0, 33%11=0 (collision), 44%11=0 (collision) = 2 collisions"
+        }
+    },
+    {
+        "id": "ds-graph-001",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Graph",
+        "question": "BFS uses:",
+        "options": [
+            "Stack",
+            "Queue",
+            "Heap",
+            "Hash table"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BFS: queue for level-order traversal"
+        }
+    },
+    {
+        "id": "ds-graph-002",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Graph",
+        "question": "DFS uses:",
+        "options": [
+            "Queue",
+            "Stack (or recursion)",
+            "Heap",
+            "Two queues"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "DFS: stack (explicit or call stack)"
+        }
+    },
+    {
+        "id": "ds-graph-003",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Graph",
+        "question": "BFS and DFS time complexity for adjacency list:",
+        "options": [
+            "O(V)",
+            "O(E)",
+            "O(V+E)",
+            "O(V×E)"
+        ],
+        "correctAnswer": 2,
+        "explanation": {
+            "solution": "Visit all vertices and edges: O(V+E)"
+        }
+    },
+    {
+        "id": "ds-graph-004",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Graph",
+        "question": "BFS finds shortest path in:",
+        "options": [
+            "Weighted graph",
+            "Unweighted graph",
+            "All graphs",
+            "No graphs"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "BFS gives shortest path in unweighted graphs"
+        }
+    },
+    {
+        "id": "ds-graph-005",
+        "type": "MCQ",
+        "topic": "dsa",
+        "subtopic": "Graph",
+        "question": "Topological sort applies to:",
+        "options": [
+            "Cyclic graphs",
+            "DAG (Directed Acyclic Graph)",
+            "Undirected graphs",
+            "All graphs"
+        ],
+        "correctAnswer": 1,
+        "explanation": {
+            "solution": "Topological sort: only for DAGs"
+        }
+    }
+]);
