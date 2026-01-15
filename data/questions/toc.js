@@ -85,7 +85,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "CFLs are recognized by PDAs (Pushdown Automata) which have a stack for memory. Regular languages use FA (no memory), Turing machines recognize recursively enumerable languages."
+            "solution": "Context-Free Languages & Pushdown Automata: CFLs recognized by PDAs (Pushdown Automata) which extend FA with INFINITE STACK (LIFO memory). PDA = (Q, Σ, Γ, δ, q0, Z0, F) where Γ = stack alphabet, Z0 = initial stack symbol. Transitions: δ: Q × (Σ∪{ε}) × Γ → finite subsets of Q × Γ*. Can push/pop stack symbols, nondeterministic. CFLs properly contain regular languages (every RL is CFL). Examples: {a^n b^n}, balanced parentheses, palindromes. NOT CFL: {a^n b^n c^n}, {ww | w∈Σ*}. Power: FA < PDA < LBA < TM. CFL closure: union, concatenation, star. NOT closed: intersection, complement. Used for: programming language syntax, parsing.",
+            "formula": "CFL ↔ PDA (stack for memory)"
         }
     },
     {
@@ -102,7 +103,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "CNF: Every production is either A → BC (two non-terminals) or A → a (single terminal). Start symbol can have S → ε. Useful for CYK parsing."
+            "solution": "Chomsky Normal Form (CNF): Restricted CFG where EVERY production (except S→ε) is: (1) A → BC (two non-terminals on RHS), OR (2) A → a (single terminal). Start symbol S can have S → ε if ε∈L. Purpose: (1) SIMPLIFIES analysis - fixed structure, (2) CYK PARSING algorithm - O(n³) time for membership testing, (3) Pumping lemma proofs easier. Conversion: eliminate ε-productions, unit productions, useless symbols, then convert to CNF. Every CFG can be converted to CNF generating same language (minus ε). Parse tree in CNF is BINARY tree (except leaves). Contrast GNF: terminal first.",
+            "formula": "CNF: A→BC or A→a (binary productions)"
         }
     },
     {
@@ -119,7 +121,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "TM: infinite tape, can read/write, move left/right"
+            "solution": "Turing Machine (TM): Most powerful computational model - can compute ANY effectively computable function (Church-Turing thesis). Components: (1) INFINITE TAPE (unbounded memory, cells with symbols), (2) READ-WRITE HEAD (can read, write, move left/right), (3) Finite control (states). Formally: TM = (Q, Σ, Γ, δ, q0, B, F) where Γ⊇Σ (tape alphabet ⊇ input alphabet), B = blank symbol, δ: Q×Γ → Q×Γ×{L,R}. Can MODIFY tape (unlike FA/PDA). Halts by reaching accept/reject state or undefined transition. Types: single-tape, multi-tape (equivalent), deterministic, nondeterministic (equivalent). Recognizes recursively enumerable languages (Type-0). Decidable if always halts.",
+            "formula": "TM: infinite tape, R/W head, universal computation"
         }
     },
     {
@@ -136,7 +139,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Halting problem: Given a TM M and input w, does M halt on w? This is undecidable - no algorithm can solve it for all TM/input pairs. Proven by Alan Turing using diagonalization."
+            "solution": "Halting Problem: UNDECIDABLE problem - no algorithm exists to determine if arbitrary TM M halts on input w. Formally: HALT = {⟨M,w⟩ | TM M halts on input w} is NOT decidable (but is RE). Proof (Turing, 1936): Diagonalization - assume H decides HALT, construct TM D that: if H(D,D)=halt then loop forever, else halt. Contradiction: does D halt on D? Either answer contradicts H's output. Implications: (1) Fundamental limitation of computation, (2) Many problems reducible from HALT (undecidable), (3) Cannot write perfect debugger/virus detector. Semi-decidable: can recognize halting cases but not non-halting. Rice's theorem generalizes.",
+            "formula": "HALT undecidable (diagonalization proof)"
         }
     },
     {
@@ -323,7 +327,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Left recursive: A → Aα. Problematic for top-down parsers - causes infinite loop."
+            "solution": "Left Recursion: Grammar production A → Aα for some string α (A derives itself leftmost). Problem for TOP-DOWN parsers (LL, recursive descent): causes INFINITE LOOP - trying to expand A calls A recursively without consuming input. Example: E → E+T | T (left-recursive). Elimination: transform A → Aα | β to A → βA', A' → αA' | ε (right-recursive). Direct left-recursion (A→Aα) easy to remove. Indirect (A⇒B⇒...⇒Aα) harder - requires systematic algorithm. Bottom-up parsers (LR) handle left-recursion fine. Left-recursion natural for left-associative operators (1-2-3 = (1-2)-3).",
+            "formula": "Left-recursive: A → Aα (problematic for LL)"
         }
     },
     {
@@ -340,7 +345,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Left factoring: if A → αβ | αγ, transform to A → αA', A' → β | γ"
+            "solution": "Left Factoring: Grammar transformation to enable PREDICTIVE PARSING (LL(1)). Problem: productions A → αβ | αγ share common prefix α - can't decide which to use with lookahead. Solution: factor out α: A → αA', A' → β | γ. Now first symbol of β,γ determines choice. Example: stmt → if expr then stmt else stmt | if expr then stmt becomes stmt → if expr then stmt stmt', stmt' → else stmt | ε. Necessary for LL(1) grammars. Doesn't change language, only grammar structure. Multiple passes may be needed for nested common prefixes.",
+            "formula": "Left factor: A→αβ| αγ becomes A→αA', A'→β|γ"
         }
     },
     {
@@ -357,7 +363,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Ambiguous: ∃ string with more than one distinct parse tree"
+            "solution": "Ambiguous Grammar: CFG where ∃ at least one string with MULTIPLE DISTINCT PARSE TREES (or equivalently, multiple leftmost/rightmost derivations). Example: E → E+E | E*E | (E) | id. String id+id*id has 2 parse trees: ((id+id)*id) vs (id+(id*id)). Problem: (1) ambiguous semantics, (2) compiler can't choose unique interpretation. Solutions: (1) REWRITE grammar unambiguously (add precedence/associativity via grammar structure), (2) use DISAMBIGUATING RULES (Yacc precedence declarations). Some CFLs are INHERENTLY AMBIGUOUS - no unambiguous grammar exists. Dangling-else: classic ambiguity (if-if-else pairing).",
+            "formula": "Ambiguous: ∃ string with >1 parse tree"
         }
     },
     {
@@ -374,7 +381,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "CFLs closed under union, concatenation, star. NOT closed under intersection, complement."
+            "solution": "CFL Closure Properties: CFLs CLOSED under: (1) UNION - L1∪L2: S→S1|S2, (2) CONCATENATION - L1L2: S→S1S2, (3) KLEENE STAR - L*: S→SS1|ε. NOT CLOSED under: (1) INTERSECTION - counterexample: {a^n b^n c^m}∩{a^m b^n c^n}={a^n b^n c^n} (not CFL), (2) COMPLEMENT - follows from non-closure under ∩ (De Morgan's). Special case: CFL ∩ Regular = CFL (closed). Proofs use PDA constructions or pumping lemma. Consequences: (1) can't use ∩,complement to build new CFLs, (2) decidability issues.",
+            "formula": "CFL closed: ∪,concat,*. NOT: ∩,complement"
         }
     },
     {
@@ -391,7 +399,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "CFL ∩ Regular = CFL. Can build PDA that simulates both."
+            "solution": "CFL ∩ Regular = CFL: Intersection of Context-Free Language with Regular Language is always Context-Free. Proof: construct PDA that SIMULATES BOTH - PDA for CFL + DFA for regular language run in parallel. PDA state = (q_PDA, q_DFA), accepts if both components accept. Even though CFLs not closed under general intersection, THIS SPECIAL CASE holds. Applications: (1) language restrictions (filter CFL via regex), (2) parsing with constraints. Conversely: Regular ∩ Regular = Regular (trivial). Complement: CFL∩CFL not always CFL.",
+            "formula": "CFL ∩ RL = CFL (special closure)"
         }
     },
     {
@@ -408,7 +417,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "GNF: A → aB₁B₂...Bₖ (terminal first, then non-terminals). Useful for PDA construction."
+            "solution": "Greibach Normal Form (GNF): CFG where every production is A → aα where a∈Σ (TERMINAL FIRST), α∈V* (string of non-terminals, possibly empty). Example: A → aBC, A → a. Every CFL (without ε except possibly in S) has GNF. Advantages: (1) LEFTMOST DERIVATION consumes terminal each step, (2) Easy PDA construction - PDA state = single state, stack tracks derivation, pop A and push α reversed. (3) Derivation length = string length. Contrast CNF: all non-terminals. Conversion: more complex than CNF - requires eliminating left-recursion, substitution, renaming. Used in: formal language theory, PDA construction proofs.",
+            "formula": "GNF: A→aα (terminal first, then non-terminals)"
         }
     },
     {
@@ -425,7 +435,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Church-Turing thesis: intuitive notion of 'algorithm' = Turing machine computability"
+            "solution": "Church-Turing Thesis: Foundational equivalence statement - INFORMAL HYPOTHESIS (not provable theorem) that: 'Intuitive notion of ALGORITHM = Turing Machine computation'. Any function computable by ANY reasonable computational model (lambda calculus, RAM, while programs, etc.) is computable by TM. Converse also true. Equivalence: λ-calculus ≡ TM ≡ recursive functions ≡ Post systems ≡ modern computers. Implications: (1) TM defines limits of computation, (2) Undecidable for TM = undecidable for ANY computer, (3) Theoretical CS results apply to real computers. Not proven - empirical observation (all proposed models equivalent to TM). Strong CT: polynomial-time TM = feasibly computable.",
+            "formula": "Intuitive 'algorithm' ≡ TM-computable"
         }
     },
     {
@@ -442,7 +453,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Decidable (recursive): TM halts on ALL inputs - accepts members, rejects non-members"
+            "solution": "Decidable Language (Recursive): Language L where ∃ TM that ALWAYS HALTS - accepts strings in L, REJECTS strings not in L. Formally: ∃ TM M such that ∀w: (1) w∈L ⟹ M accepts w and halts, (2) w∉L ⟹ M rejects w and halts. Also called RECURSIVE language. Decidable = total computable characteristic function. Examples: (1) regular languages (DFA always halts), (2) CFLs (CYK parser always terminates), (3) equality of two DFAs. Decidable ⊂ RE (recursively enumerable). Complement of decidable = decidable. Church-Turing: decidable = intuitively 'solvable'. Properties: closed under ∪,∩,complement, concat.",
+            "formula": "Decidable: TM halts on ALL inputs (accept/reject)"
         }
     },
     {
@@ -459,7 +471,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "RE/Turing-recognizable: TM accepts L, but may loop forever on strings not in L"
+            "solution": "Recursively Enumerable (RE) / Turing-Recognizable: Language L where ∃ TM that ACCEPTS all strings in L, but may LOOP FOREVER on strings not in L (doesn't necessarily halt on rejection). Formally: ∃ TM M such that L = {w | M accepts w}. Also called semi-decidable. Examples: (1) HALT problem is RE but not decidable, (2) any decidable language is RE. RE languages recognized by TM (Type-0 Chomsky). Properties: (1) closed under ∪,∩,concat,*, (2) NOT closed under complement (L and L̄ both RE ⟺ L decidable). Enumerable: can list language members (may be infinite listing). Many problems RE but undecidable (can recognize yes, can't recognize no).",
+            "formula": "RE: TM accepts L, may loop on L̄"
         }
     },
     {
@@ -476,7 +489,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Rice's theorem: Any non-trivial property of RE languages is undecidable"
+            "solution": "Rice's Theorem: Powerful META-THEOREM about decidability. Statement: ANY non-trivial SEMANTIC property of RE languages is UNDECIDABLE. Non-trivial = property holds for some RE languages but not all (not trivially true/false). Semantic = property of language L(M), not encoding ⟨M⟩. Examples of UNDECIDABLE properties (by Rice): (1) Is L(M) finite? (2) Is L(M) regular? (3) Is ε ∈ L(M)? (4) Is L(M) = Σ*? Proof: reduction from HALT. Exceptions (syntactic, not semantic): Is M's description <100 states? (decidable-syntactic). Consequence: can't decide almost anything interesting about what TM computes. Fundamental limitation.",
+            "formula": "Rice: non-trivial semantic property of RE → undecidable"
         }
     },
     {
@@ -493,7 +507,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "PCP is undecidable - used to prove undecidability of many other problems"
+            "solution": "Post Correspondence Problem (PCP): UNDECIDABLE problem. Given: finite sets of domino pairs {(top_i, bottom_i)} where top_i, bottom_i ∈ Σ*. Question: Can we select sequence of dominoes (with repetition) such that concatenated tops = concatenated bottoms? Example: {(b,ca), (ca,a), (a,bca)} - solution: (2,1,1,3) gives 'cabaa' top = 'cabaa' bottom. PCP is undecidable - no algorithm decides for all instances. Modified PCP (must start with domino 1): also undecidable. Used for REDUCTION proofs - show problem P undecidable by reducing PCP to P. Applications: context-free grammar problems, ambiguity questions. Important in theory - many undecidability proofs use PCP.",
+            "formula": "PCP undecidable (reduction tool)"
         }
     },
     {
