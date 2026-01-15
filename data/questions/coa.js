@@ -49,7 +49,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Data hazards arise from data dependencies: RAW (Read After Write), WAR (Write After Read), WAW (Write After Write). RAW is most common: instruction needs operand that previous instruction hasn't written yet. Solutions: stalling (NOPs), forwarding/bypassing (route result directly), compiler reordering."
+            "solution": "Data hazards: RAW, WAR, WAW. RAW most common - result dependency.",
+            "formula": "Hazards: RAW (Read After Write), WAR, WAW"
         }
     },
     {

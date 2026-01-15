@@ -13,7 +13,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "SELECT DISTINCT removes duplicate rows from query results. SQL returns all rows by default (including duplicates). DISTINCT keyword ensures each row in result set is unique. Example: SELECT DISTINCT city FROM customers returns each city only once. Note: DISTINCT applies to entire row (all selected columns), not just one column. Performance: requires sorting/hashing, so slower than SELECT without DISTINCT."
+            "solution": "SELECT DISTINCT removes duplicate rows. Applies to entire row.",
+            "formula": "SELECT DISTINCT col FROM table;"
         }
     },
     {
@@ -30,7 +31,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "GROUP BY partitions rows into groups based on specified column values, used with aggregate functions (COUNT, SUM, AVG, MAX, MIN). Each group is reduced to single output row. Example: SELECT dept, COUNT(*) FROM employees GROUP BY dept; returns count of employees per department. Non-aggregated columns in SELECT must be in GROUP BY. Order: WHERE → GROUP BY → HAVING → ORDER BY."
+            "solution": "GROUP BY partitions rows for aggregate functions (COUNT, SUM, AVG, MAX, MIN).",
+            "formula": "SELECT col, AGG(col2) FROM table GROUP BY col;"
         }
     },
     {
@@ -47,7 +49,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HAVING filters groups AFTER aggregation, while WHERE filters individual rows BEFORE grouping. HAVING works on aggregated results. Example: SELECT dept, AVG(salary) FROM emp GROUP BY dept HAVING AVG(salary) > 50000; filters groups (departments) where average salary exceeds 50K. Cannot use WHERE for aggregated values. Execution order: WHERE → GROUP BY → HAVING."
+            "solution": "HAVING filters groups after aggregation. WHERE filters before grouping.",
+            "formula": "... GROUP BY col HAVING AGG(col2) > val;"
         }
     },
     {
@@ -64,7 +67,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "First Normal Form (1NF): Each cell must contain atomic (indivisible) values - no multivalued or composite attributes. No repeating groups. Example violation: Phones column containing '123,456,789'. Solution: create separate rows or related table. 1NF ensures each attribute contains single value. Also requires: unique column names, consistent data types per column, unique row identification (primary key)."
+            "solution": "1NF: Atomic values only, no multivalued or composite attributes.",
+            "formula": "1NF = Atomic values + Primary key"
         }
     },
     {
@@ -81,7 +85,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Second Normal Form (2NF): Must be in 1NF AND have no partial dependencies. Partial dependency: non-prime attribute depends on part of composite primary key. Example: Table(StudentID, CourseID, StudentName, CourseName) - StudentName depends only on StudentID (partial). Solution: decompose into Student(StudentID, StudentName) and Course(CourseID, CourseName). 2NF eliminates redundancy from partial dependencies."
+            "solution": "2NF: 1NF + no partial dependencies (non-prime depends on part of composite key).",
+            "formula": "2NF = 1NF + No partial dependencies"
         }
     },
     {
@@ -98,7 +103,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Third Normal Form (3NF): Must be in 2NF AND have no transitive dependencies. Transitive dependency: A → B → C where B is not a candidate key. Example: Employee(EmpID, DeptID, DeptName) - EmpID → DeptID → DeptName. DeptName transitively depends on EmpID. Solution: split into Employee(EmpID, DeptID) and Department(DeptID, DeptName). 3NF eliminates redundancy from transitive dependencies. Most applications normalize to 3NF."
+            "solution": "3NF: 2NF + no transitive dependencies (A->B->C where B not candidate key).",
+            "formula": "3NF = 2NF + No transitive dependencies"
         }
     },
     {
@@ -205,7 +211,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Primary index: built on ordering key attribute (file sorted by this key). One index entry per block (sparse index). Example: Employee file sorted by EmpID - primary index on EmpID has entry for first record in each block. Fast sequential and random access. Only one primary index per file (file can be sorted on only one attribute). Contrast: Clustering index (non-key ordering field), Secondary index (any non-ordering field)."
+            "solution": "Primary index: on ordering key (sorted file). Sparse - one entry per block.",
+            "formula": "Primary: Ordered key + Sparse"
         }
     },
     {
@@ -222,7 +229,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Clustered index: data records physically ordered/sorted by index key. File organization matches index sequence. Only ONE clustered index per table (can't sort file two ways). Very fast for range queries on indexed attribute. SQL Server: clustered index IS the table (leaf nodes contain actual data). Non-clustered: index separate from data, pointers to records. Example: Phone book is clustered by last name."
+            "solution": "Clustered: data physically sorted by index key. Only one per table.",
+            "formula": "Clustered = Data sorted by index"
         }
     },
     {
@@ -239,7 +247,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Dense index: contains index entry for EVERY search key value (every record). Points to every record in file. Required for secondary indexes (file not sorted by this key). Larger index size but allows direct location of any record. Example: index on Employee.Name with entry for each employee. Sparse index (primary/clustering): one entry per block, smaller but requires sorted file."
+            "solution": "Dense: entry for every record. Required for secondary indexes.",
+            "formula": "Dense = Entry per record; Sparse = Entry per block"
         }
     },
     {

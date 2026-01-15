@@ -13,7 +13,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Arrays provide O(1) random access because elements are stored contiguously and the address can be computed directly: base_address + index × element_size."
+            "solution": "Arrays provide O(1) random access because elements stored contiguously in memory. Address calculation: Address(A[i]) = Base + i times element_size. GATE: Direct addressing via index. No traversal needed unlike linked lists. Trade-off: insertion/deletion O(n) due to shifting.",
+            "formula": "Address(A[i]) = Base + i times size"
         }
     },
     {
@@ -30,7 +31,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "To delete a given node in SLL, we need to find the previous node (O(n)). In DLL, we have a back pointer, so we can directly update prev.next = curr.next in O(1)."
+            "solution": "Deletion of given node: SLL needs previous node (O(n) traversal). DLL has prev pointer - directly access and update. GATE: DLL advantage - bidirectional traversal, O(1) deletion if node pointer given. SLL only forward traversal.",
+            "formula": "SLL delete: O(n); DLL delete: O(1) with node pointer"
         }
     },
     {
@@ -47,7 +49,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Function calls use a stack (call stack). When a function is called, its context is pushed. When it returns, the context is popped. LIFO behavior ensures proper nesting."
+            "solution": "Function calls use stack (call stack/activation records). Push: save return address, parameters, local variables. Pop on return. LIFO ensures proper nesting - last called returns first. GATE: Recursion depth limited by stack size. Stack overflow if too deep.",
+            "formula": "Call stack: LIFO, stores activation records"
         }
     },
     {
@@ -64,8 +67,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Circular queue wraps around using modulo. After insertion: rear = (rear + 1) % n. This allows reusing empty spaces at the beginning.",
-            "formula": "rear = (rear + 1) % n"
+            "solution": "Circular queue wraps using modulo to reuse space. Insert: rear = (rear + 1) mod n. Delete: front = (front + 1) mod n. GATE: Avoids wasting space in linear queue. Full condition: (rear + 1) mod n == front. Empty: front == rear (with flag or count).",
+            "formula": "rear = (rear + 1) mod n; front = (front + 1) mod n"
         }
     },
     {
@@ -100,7 +103,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "BST property: left < root < right. Inorder (Left, Root, Right) visits elements in ascending order. This is a key property of BSTs."
+            "solution": "BST property: left < root < right for all nodes. Inorder traversal (Left-Root-Right) visits in ascending order. GATE: This makes BST useful for sorted data operations. Preorder gives prefix, Postorder gives postfix expression.",
+            "formula": "Inorder(BST) = Sorted ascending order"
         }
     },
     {
@@ -130,7 +134,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Max-heap property: parent ≥ children for all nodes. Therefore, the root has the maximum value. Similarly, min-heap root has minimum value."
+            "solution": "Max-heap property: parent >= all descendants. Root has maximum value. Min-heap: root has minimum. GATE: Heap operations - insert O(log n), extract-max O(log n), build-heap O(n). Used in heapsort, priority queues.",
+            "formula": "Max-heap: root = maximum; Operations O(log n)"
         }
     },
     {
@@ -147,7 +152,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Worst case: all n elements hash to the same bucket, creating a linked list of length n. Search requires O(n) traversal. Average case with good hash function is O(1)."
+            "solution": "Worst case: all n elements hash to same bucket, O(n) chain traversal. Average O(1) with good hash.",
+            "formula": "Chaining: Worst O(n), Avg O(1+alpha) where alpha=n/m"
         }
     },
     {
@@ -164,7 +170,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Array Insertion at Beginning: To insert at index 0, ALL existing elements must shift right by 1 position. Number of shifts = n, so O(n) time. Contrast: Insert at end is O(1) amortized, insert in middle at index i is O(n-i) shifts."
+            "solution": "Insert at index 0: shift all n elements right, O(n) time.",
+            "formula": "Array insert at i: O(n-i) shifts"
         }
     },
     {
@@ -198,7 +205,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Linked List Insert at Head:\n\nSteps:\n1. Create new node with data\n2. Set new_node.next = head\n3. Set head = new_node\n\nAll three operations are O(1) - no traversal needed!\n\nThis is a key advantage of linked lists over arrays, where head insertion is O(n)."
+            "solution": "Create node, new.next=head, head=new. All O(1), no traversal.",
+            "formula": "LL insert at head: O(1)"
         }
     },
     {
@@ -215,7 +223,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Linked List Search:\n\nMust traverse from head, checking each element.\n\nWorst case: Element is at end or not present = n comparisons.\nAverage case: n/2 comparisons.\n\nUnlike arrays, cannot do binary search even if sorted (no random access).\n\nTime: O(n) worst and average case."
+            "solution": "Traverse from head, check each. Worst/avg O(n). No random access for binary search.",
+            "formula": "LL search: O(n)"
         }
     },
     {
@@ -249,7 +258,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Floyd's Cycle Detection (Tortoise and Hare Algorithm):\n\nUse two pointers: slow (moves 1 step) and fast (moves 2 steps).\n\nIf cycle exists: They will eventually meet inside the cycle.\nIf no cycle: Fast pointer reaches NULL.\n\nWhy it works:\nIf there's a cycle of length C, the distance between them decreases by 1 each step within the cycle.\n\nTo FIND cycle start: After meeting, move one pointer to head.\nBoth move 1 step at a time. Next meeting point = cycle start!\n\nTime: O(n), Space: O(1)"
+            "solution": "Two pointers: slow +1, fast +2. Meet if cycle. To find start: reset one to head, both move +1, meet at start.",
+            "formula": "Floyd: O(n) time, O(1) space"
         }
     },
     {
@@ -266,7 +276,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Stack Operations Time Complexity:\n\nPush: Add element to top → O(1)\nPop: Remove element from top → O(1)\nPeek/Top: Look at top without removing → O(1)\n\nAll operations access only the top position, no traversal needed.\n\nArray-based stack: All O(1) (occasional O(n) resize for dynamic arrays)\nLinked list stack: O(1) insert/delete at head\n\nSpace: O(n) for n elements."
+            "solution": "Push/Pop/Peek all O(1) - access top only.",
+            "formula": "Stack: All ops O(1)"
         }
     },
     {
