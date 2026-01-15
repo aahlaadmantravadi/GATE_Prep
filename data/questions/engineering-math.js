@@ -175,7 +175,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Derivative of arccot x is -1/(1+x²)",
+            "solution": "Derivative of Arccot: d/dx(cot⁻¹ x) = -1/(1+x²). Similar to arctan derivative but with negative sign. Derivation: Let y = cot⁻¹ x, so cot y = x. Differentiate: -csc² y · dy/dx = 1, thus dy/dx = -1/csc² y = -1 /(1+cot²y) = -1/(1+x²). Defined for all real x. Note: d/dx(tan⁻¹ x) = +1/(1+x²), d/dx(cot⁻¹ x) = -1/(1+x²).",
             "formula": "$\\frac{d}{dx}(\\cot^{-1} x) = \\frac{-1}{1+x^2}$"
         }
     },
@@ -193,7 +193,7 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Derivative of arcsec x is 1/(|x|√(x²-1))",
+            "solution": "Derivative of Arcsec: d/dx(sec⁻¹ x) = 1/(|x|√(x²-1)). Domain: |x| > 1. Derivation: Let y = sec⁻¹ x, so sec y = x. Differentiate: sec y tan y · dy/dx = 1, thus dy/dx = 1/(sec y tan y). With sec y = x and tan y = √(sec²y-1) = √(x²-1), get dy/dx = 1/(x√(x²-1)). Absolute value ensures correct sign over range. Less common but appears in advanced integration.",
             "formula": "$\\frac{d}{dx}(\\sec^{-1} x) = \\frac{1}{|x|\\sqrt{x^2-1}}$"
         }
     },
@@ -247,7 +247,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Derivative of natural log is 1/x",
+            "solution": "Derivative of Natural Logarithm: d/dx(ln x) = 1/x for x > 0. Derivation from inverse function: If y = ln x, then eʸ = x. Differentiate: eʸ · dy/dx = 1,  thus dy/dx = 1/eʸ = 1/x. Integration perspective: ∫(1/x)dx = ln|x| + C. This is why ln appears in many integration formulas. Logarithmic differentiation uses this rule to differentiate complex products/quotients/powers.",
             "formula": "$\\frac{d}{dx}(\\ln x) = \\frac{1}{x}$"
         }
     },
@@ -265,7 +265,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Derivative of log base a is 1/(x ln a)",
+            "solution": "Derivative of Log Base a: d/dx(log_a x) = 1/(x ln a). Change of base: log_a x = (ln x)/(ln a), so differentiate using quotient rule: d/dx[(ln x)/(ln a)] = (1/x)/(ln a) = 1/(x ln a). When a = e: ln e = 1, reducing to d/dx(ln x) = 1/x. When a = 10: d/dx(log₁₀ x) = 1/(x ln 10) ≈ 0.434/x. Factor ln a makes this slower growing than natural log.",
             "formula": "$\\frac{d}{dx}(\\log_a x) = \\frac{1}{x \\ln a}$"
         }
     },
@@ -283,7 +283,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Using logarithmic differentiation: y = xˣ, ln y = x ln x, differentiating gives y' = xˣ(1 + ln x)",
+            "solution": "Derivative of x^x using Logarithmic Differentiation: Let y = xˣ. Take ln both sides: ln y = x ln x. Differentiate: (1/y)dy/dx = (x·1/x) + (ln x·1) = 1 + ln x. Therefore dy/dx = y(1 + ln x) = xˣ(1 + ln x). This technique works when variable is both base and exponent. Note: defined only for x > 0. At x = 1/e (minimum), y' = 0.",
             "formula": "$\\frac{d}{dx}(x^x) = x^x(1 + \\ln x)$"
         }
     },
@@ -301,7 +301,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Derivative of sinh x is cosh x (similar to sin→cos but no sign change)",
+            "solution": "Derivative of Hyperbolic Sine: d/dx(sinh x) = cosh x. Definition: sinh x = (eˣ - e⁻ˣ)/2. Differentiate: d/dx[(eˣ - e⁻ˣ)/2] = (eˣ + e⁻ˣ)/2 = cosh x. Note: unlike regular trig where d/dx(sin x) = cos x, hyperbolic version has NO negative sign. Hyperbolic derivatives are simpler! Properties: (sinh x)' = cosh x, (cosh x)' = sinh x (both positive).",
             "formula": "$\\frac{d}{dx}(\\sinh x) = \\cosh x$"
         }
     },
@@ -373,7 +373,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "This equals the derivative of aˣ at x=0, which is ln a",
+            "solution": "Limit of (aˣ - 1)/x as x → 0: This equals ln a - the derivative of aˣ at x=0. Proof: This is definitional: d/dx(aˣ)|_{x=0} = lim_{h→0} (a^h - a^0)/h = lim (a^h - 1)/h. Since d/dx(aˣ) = aˣ ln a, at x=0: a^0 ln a = ln a. Special cases: a=e gives ln e = 1, a=2 gives ln 2 ≈ 0.693. Used to derive exponential derivatives.",
             "formula": "$\\lim_{x \\to 0} \\frac{a^x - 1}{x} = \\ln a$"
         }
     },
@@ -409,7 +409,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "General form: lim (1+ax)^(b/x) = e^(ab) as x→0",
+            "solution": "General Exponential Limit Form: lim_{x→0} (1+ax)^(b/x) = e^(ab). Derivation: Let y = (1+ax)^(b/x). ln y = (b/x)ln(1+ax). As x→0: ln(1+ax) ≈ ax (Taylor), so ln y ≈ (b/x)(ax) = ab, thus y → e^(ab). Examples: lim (1+2x)^(3/x) = e^6 as x→0. Special case a=b=1 gives definition of e. Useful for compound interest, growth models.",
             "formula": "$\\lim_{x \\to 0} (1 + ax)^{b/x} = e^{ab}$"
         }
     },
@@ -427,7 +427,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "sin x is bounded between -1 and 1, while x→∞, so the limit is 0",
+            "solution": "Limit of sin(x)/x as x → ∞: sin(x) oscillates between -1 and 1 (bounded), while denominator x → ∞ (unbounded). Bounded/unbounded → 0. Rigorously: -1 ≤ sin(x) ≤ 1 implies -1/x ≤ sin(x)/x ≤ 1/x. As x→∞, both bounds → 0, so by squeeze theorem sin(x)/x → 0. Contrast: lim_{x→0} sin(x)/x = 1 (fundamental limit). Different behavior at 0 vs infinity.",
             "formula": "$\\lim_{x \\to \\infty} \\frac{\\sin x}{x} = 0$"
         }
     },
@@ -463,7 +463,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "When f(a)=f(b), LMVT gives f'(c)=0 for some c∈(a,b)",
+            "solution": "Rolle's Theorem: Special case of Lagrange MVT when f(a) = f(b). Conclusion: ∃c ∈ (a,b) such that f'(c) = 0. Geometric interpretation: if function starts and ends at same height, there's at least one point where tangent is horizontal (slope = 0). Example: f(x) = x²-4 on [-2,2], f(-2) = f(2) = 0, so f'(c) = 0 for some c (indeed c=0). Applications: proving existence of roots of derivatives, proving inequalities. Named after Michel Rolle (1652-1719).",
             "formula": "If f(a)=f(b), then ∃c∈(a,b): f'(c)=0"
         }
     },
@@ -481,7 +481,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Cauchy's MVT: f'(c)/g'(c) = [f(b)-f(a)]/[g(b)-g(a)] for some c∈(a,b)",
+            "solution": "Cauchy's Mean Value Theorem (generalized MVT): If f and g are continuous on [a,b] and differentiable on (a,b), and g'(x) ≠ 0 on (a,b), then ∃c ∈ (a,b): f'(c)/g'(c) = [f(b)-f(a)]/[g(b)-g(a)]. Lagrange MVT is special case when g(x) = x. Used to prove L'Hospital's rule. Geometric interpretation: ratio of rates equals ratio of changes. Applications in physics for relating different changing quantities.",
             "formula": "$\\frac{f'(c)}{g'(c)} = \\frac{f(b)-f(a)}{g(b)-g(a)}$"
         }
     },
@@ -516,7 +516,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Convert 0 × ∞ to 0/0 or ∞/∞ by writing f×g as f/(1/g) or g/(1/f)"
+            "solution": "Converting 0 × ∞ to Apply L'Hospital: Rewrite as quotient to get 0/0 or ∞/∞ form. Two options: (1) f × g = f/(1/g) giving 0/(1/∞) = 0/0, OR (2) f × g = g/(1/f) giving ∞/(1/0) = ∞/∞. Choose form that simplifies better. Example: lim_{x→0+} x ln(x) = 0×(-∞). Rewrite as ln(x)/(1/x) = (-∞)/(∞) = ∞/∞, then apply L'Hospital: (1/x)/(-1/x²) = -x → 0. Other indeterminate forms (1^∞, 0^0, ∞^0) need logarithm first.",
+            "formula": "$0 \\times \\infty = \\frac{0}{1/\\infty}$ or $\\frac{\\infty}{1/0}$"
         }
     },
     {
@@ -551,7 +552,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Maclaurin series is simply Taylor series with a=0"
+            "solution": "Maclaurin Series: Taylor series centered at a = 0. Special case: f(x) = Σ[f^(n)(0)/n!]x^n from n=0 to ∞. Simpler notation than general Taylor (no (x-a) terms, just powers of x). Named after Colin Maclaurin (1698-1746). Common Maclaurin series: e^x, sin(x), cos(x), ln(1+x), (1+x)^r. Most elementary functions have Maclaurin expansions. Convergence radius varies: e^x converges for all x, ln(1+x) for |x| < 1.",
+            "formula": "Maclaurin: $f(x) = \\sum \\frac{f^{(n)}(0)}{n!}x^n$"
         }
     },
     {
@@ -586,7 +588,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "sin x has only odd powers with alternating signs",
+            "solution": "Maclaurin Series for sin(x): sin(x) = x - x³/3! + x⁵/5! - x⁷/7! + ... = Σ[(-1)^n x^(2n+1)/(2n+1)!]. Only ODD powers (1, 3, 5, ...), alternating signs (+, -, +, -). Why? Derivatives of sin cycle: sin → cos → -sin → -cos → sin. At x=0: sin(0)=0, sin'(0)=1, sin''(0)=0, sin'''(0)=-1. Converges for ALL x. Small angle approximation: sin(x) ≈ x for small x. Used in physics, engineering.",
             "formula": "$\\sin x = \\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n+1}}{(2n+1)!}$"
         }
     },
@@ -604,7 +606,7 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "cos x has only even powers with alternating signs",
+            "solution": "Maclaurin Series for cos(x): cos(x) = 1 - x²/2! + x⁴/4! - x⁶/6! + ... = Σ[(-1)^n x^(2n)/(2n)!]. Only EVEN powers (0, 2, 4, 6, ...), alternating signs. Derivatives of cos at 0: cos(0)=1, cos'(0)=0, cos''(0)=-1, cos'''(0)=0. Converges for ALL x. Small angle: cos(x) ≈ 1 - x²/2. Euler's formula:  e^(ix) = cos(x) + i·sin(x) connects exponential and trig.",
             "formula": "$\\cos x = \\sum_{n=0}^{\\infty} \\frac{(-1)^n x^{2n}}{(2n)!}$"
         }
     },
@@ -640,7 +642,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Integral of sin x is -cos x (verify by differentiating)",
+            "solution": "Integral of sin(x): ∫sin(x)dx = -cos(x) + C. Verification: d/dx[-cos(x)] = -·(-sin(x)) = sin(x) ✓. Negative sign comes from derivative of cos being -sin. Memory trick: integrate sin down the trig circle: sin → -cos. Definite integral: ∫_0^π sin(x)dx = [-cos(x)]_0^π = -(-1) - (-1) = 2. Area under one period of sin from 0 to 2π is 0 (equal positive and negative areas).",
             "formula": "$\\int \\sin x \\, dx = -\\cos x + C$"
         }
     },
@@ -658,7 +660,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Integral of cos x is sin x",
+            "solution": "Integral of cos(x): ∫cos(x)dx = sin(x) + C. Verification: d/dx[sin(x)] = cos(x) ✓. NO negative sign (unlike integral of sin). Memory: integrate cos up the trig circle: cos → sin. Definite integral: ∫_0^(π/2) cos(x)dx = [sin(x)]_0^(π/2) = 1 - 0 = 1. Used extensively in Fourier analysis, signal processing.",
             "formula": "$\\int \\cos x \\, dx = \\sin x + C$"
         }
     },
@@ -676,7 +678,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "∫tan x dx = -ln|cos x| + C = ln|sec x| + C",
+            "solution": "Integral of tan(x): ∫tan(x)dx = ∫(sin x/cos x)dx. Substitution: u = cos x, du = -sin x dx. Get -∫du/u = -ln|u| + C = -ln|cos x| + C = ln|1/cos x| + C = ln|sec x| + C. Two forms: -ln|cos x| or ln|sec x| (equivalent). Verification: d/dx[ln|sec x|] = (1/sec x)·sec x tan x = tan x ✓. Domain: x ≠ (2k+1)π/2 where tan undefined.",
             "formula": "$\\int \\tan x \\, dx = \\ln|\\sec x| + C$"
         }
     },
@@ -694,7 +696,7 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "∫cot x dx = ∫(cos x/sin x)dx = ln|sin x| + C",
+            "solution": "Integral of cot(x): ∫cot(x)dx = ∫(cos x/sin x)dx. Substitution: u = sin x, du = cos x dx. Get ∫du/u = ln|u| + C = ln|sin x| + C. Verification: d/dx[ln|sin x|] = (1/sin x)·cos x = cot x ✓. Positive sign (unlike tan which has negative). Domain: x ≠ kπ where cot undefined (sin x = 0).",
             "formula": "$\\int \\cot x \\, dx = \\ln|\\sin x| + C$"
         }
     },
@@ -712,7 +714,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "∫sec x dx = ln|sec x + tan x| + C (multiply by (sec x + tan x)/(sec x + tan x))",
+            "solution": "Integral of sec(x): ∫sec(x)dx - tricky! Multiply by (sec x + tan x)/(sec x + tan x): ∫[sec x(sec x + tan x)/(sec x + tan x)]dx. Numerator becomes sec² x + sec x tan x. Let u = sec x + tan x, then du = (sec x tan x + sec² x)dx = numerator! Get ∫du/u = ln|u| + C = ln|sec x + tan x| + C. Alternative form: ln|tan(x/2 + π/4)| + C. Verification by differentiation confirms result.",
             "formula": "$\\int \\sec x \\, dx = \\ln|\\sec x + \\tan x| + C$"
         }
     },
@@ -730,7 +732,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "eˣ is its own integral (and derivative)",
+            "solution": "Integral of e^x: ∫e^x dx = e^x + C. Unique property: e^x is its own integral AND its own derivative! Verification: d/dx[e^x] = e^x ✓. No coefficient change (unlike power rule). Definite integral: ∫_0^1 e^x dx = [e^x]_0^1 = e - 1 ≈ 1.718. This property makes e the natural base for exponential functions. Applications: compound interest, population growth, radioactive decay.",
             "formula": "$\\int e^x dx = e^x + C$"
         }
     },
@@ -748,7 +750,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Integral of aˣ is aˣ/ln a (verify by differentiating)",
+            "solution": "Integral of a^x (general exponential): ∫a^x dx = a^x/ln(a) + C for a > 0, a ≠ 1. Derivation: a^x = e^(x ln a), so ∫a^x dx = ∫e^(x ln a) dx. Let u = x ln a, du = ln a dx. Get (1/ln a)∫e^u du = e^u/ln a + C = a^x/ln a + C. When a = e: ln e = 1, reduces to ∫e^x dx = e^x + C. Verification: d/dx[a^x/ln a] = (a^x ln a)/ln a = a^x ✓.",
             "formula": "$\\int a^x dx = \\frac{a^x}{\\ln a} + C$"
         }
     },
@@ -766,7 +768,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Swapping limits changes the sign of the integral",
+            "solution": "Reversing Limits of Definite Integral: ∫_a^b f(x)dx = -∫_b^a f(x)dx. Swapping lower and upper limits negates the integral. Why? Fundamental Theorem: ∫_a^b f = F(b) - F(a), while ∫_b^a f = F(a) - F(b) = -(F(b) - F(a)). Consequence: ∫_a^a f(x)dx = 0 (zero width interval). Property used in splitting integrals: ∫_a^c f = ∫_a^b f + ∫_b^c f.",
             "formula": "$\\int_a^b f(x)dx = -\\int_b^a f(x)dx$"
         }
     },
@@ -838,7 +840,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Γ(n) = (n-1)! for positive integers. Note: Γ(n+1) = n!",
+            "solution": "Gamma Function for Integers: For positive integer n, Γ(n) = (n-1)!. Note the shift: Γ(n) is factorial of (n-1), not n. Examples: Γ(1) = 0! = 1, Γ(2) = 1! = 1, Γ(3) = 2! = 2, Γ(4) = 3! = 6, Γ(5) = 4! = 24. If you want n!, compute Γ(n+1) = n!. This shift is historical convention. For non-integers, Γ provides generalization of factorial.",
             "formula": "$\\Gamma(n) = (n-1)!$ for integers"
         }
     },
@@ -856,7 +858,7 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Recurrence relation: Γ(n+1) = n·Γ(n). This gives Γ(n+1) = n! for positive integers",
+            "solution": "Gamma Recurrence Relation: Γ(n+1) = n·Γ(n) for n > 0. Proof via integration by parts. Recursive: Γ(5) = 4·Γ(4) = 4·3·Γ(3) = 4·3·2·Γ(2) = 4·3·2·1·Γ(1) = 4! = 24. This recurrence extends factorial to non-integers. Example: Γ(7/2) = (5/2)·Γ(5/2) = (5/2)·(3/2)·Γ(3/2) = (5/2)·(3/2)·(1/2)·Γ(1/2) = (5/2)·(3/2)·(1/2)·√π. For positive integers: Γ(n+1) = n! immediately follows.",
             "formula": "$\\Gamma(n+1) = n \\cdot \\Gamma(n)$"
         }
     },
@@ -874,7 +876,7 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Γ(1/2) = √π is a famous result, derived from Gaussian integral",
+            "solution": "Γ(1/2) = √π: Famous and beautiful result! Proof via Gaussian integral: Γ(1/2) = ∫_0^∞ e^(-x) x^(-1/2) dx. Substitute u = √x to get 2∫_0^∞ e^(-u²) du. This equals √π (Gaussian integral). Numerical: √π ≈ 1.772. Applications: probability (normal distribution), physics (error function). From recurrence: Γ(3/2) = (1/2)Γ(1/2) = √π/2, Γ(5/2) = (3/2)·√π/2 = 3√π/4.",
             "formula": "$\\Gamma(1/2) = \\sqrt{\\pi}$"
         }
     },

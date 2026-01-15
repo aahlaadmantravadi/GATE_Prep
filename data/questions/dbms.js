@@ -133,7 +133,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Atomicity: all-or-nothing. Either all operations succeed and commit, or the transaction is rolled back completely. No partial execution."
+            "solution": "Atomicity (ACID): Transaction is indivisible unit - all operations complete successfully (commit) or none do (rollback). No partial execution. Example: Bank transfer must debit AND credit - not just one. Implementation: using transaction log for undo/redo. If system crashes mid-transaction, recovery ensures atomicity by rolling back incomplete transactions. Related to failure atomicity and durability.",
+            "formula": "All or Nothing"
         }
     },
     {
@@ -150,7 +151,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "If the precedence graph (based on conflicting operations) has a cycle, no equivalent serial schedule exists. Acyclic graph → topological ordering gives equivalent serial schedule."
+            "solution": "Conflict Serializability and Precedence Graph: Schedule is conflict serializable $\\iff$ precedence graph is ACYCLIC. Precedence graph: nodes = transactions, directed edge T1 → T2 if T1's operation conflicts with and precedes T2's operation. Cycle indicates conflicting operations that prevent serial ordering. Acyclic graph allows topological sort to produce equivalent serial schedule. Testing: O(n²) for n transactions. Stricter than view serializability.",
+            "formula": "Acyclic precedence graph $\\iff$ Conflict serializable"
         }
     },
     {
@@ -167,7 +169,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Conflict pairs: R-W, W-R, W-W on same data item from different transactions. R-R doesn't conflict (both can read safely)."
+            "solution": "Conflicting Operations: Two operations conflict if: (1) from DIFFERENT transactions, (2) access SAME data item, (3) at least ONE is WRITE. Conflict types: Read-Write (R-W), Write-Read (W-R), Write-Write (W-W). Read-Read (R-R) does NOT conflict - multiple reads are safe. Order of conflicting operations matters for serializability. Swapping non-conflicting operations preserves result.",
+            "formula": "Conflicts: R-W, W-R, W-W"
         }
     },
     {
@@ -184,7 +187,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "2PL: Growing phase (acquire locks, no releases), Shrinking phase (release locks, no acquisitions). Guarantees serializability but can cause deadlock."
+            "solution": "Two-Phase Locking (2PL): Protocol with two phases - (1) GROWING phase: acquire locks, cannot release any locks, (2) SHRINKING phase: release locks, cannot acquire new locks. Lock point = end of growing phase. Guarantees conflict serializability. Drawbacks: can cause deadlocks, cascading rollbacks possible. Strict 2PL improvement: hold all locks until commit/abort (no cascading rollbacks). Conservative 2PL: acquire all locks before execution (deadlock-free but impractical).",
+            "formula": "Growing → Lock Point → Shrinking"
         }
     },
     {
@@ -792,7 +796,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Entity Set: A collection of entities of the same type that share common properties (attributes). Example: STUDENT entity set contains all student entities. Each entity is uniquely identifiable by its key. Represented as a rectangle in ER diagrams. Entity = instance, Entity Set = class/type."
+            "solution": "Entity Set: collection of entities of SAME TYPE sharing common properties/structure (attributes). Example: STUDENT entity set contains all student entities; each student has same attributes (SID, Name, DOB). Represented by rectangle in ER diagram. Entity = instance/individual object, Entity Set = collection/class of such objects. Each entity uniquely identified by its key. All entities in set have same schema but different values. Contrast: Relationship set connects entities from different entity sets.",
+            "formula": "Entity Set = collection of similar entities"
         }
     },
     {
@@ -931,7 +936,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Weak Entity: Cannot be uniquely identified by its own attributes alone. Needs identifying (owner) entity's key + its partial key (discriminator). Example: DEPENDENT entity needs EMPLOYEE's EmpID + Dependent_Name. Represented by double rectangle in ER diagram. Always has total participation with owner."
+            "solution": "Weak Entity Detailed: Cannot be uniquely identified by own attributes alone - existentially depends on owner (identifying/strong) entity. Has PARTIAL KEY (discriminator) - unique within owner entity's dependents, not globally unique. Primary key = owner's PK + weak entity's partial key (discriminator). Example: DEPENDENT entity depends on EMPLOYEE - Dependent_Name is unique per employee, not globally. Partial key shown as dashed underline. Total participation with owner (double line). Represented by double rectangle in ER diagram. Identifying relationship shown as double diamond.",
+            "formula": "Weak Entity PK = Owner PK + Discriminator"
         }
     },
     {
@@ -1055,7 +1061,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Candidate Key: A MINIMAL superkey - removing any attribute would break uniqueness. A relation can have multiple candidate keys. One is chosen as primary key, others are alternate keys. Example: {StudentID} and {Email} might both be candidate keys for STUDENT table."
+            "solution": "Candidate Key Detailed: A MINIMAL superkey - uniquely identifies each tuple AND has NO redundant attributes. Removing any attribute breaks uniqueness. A relation can have MULTIPLE candidate keys. Example: STUDENT table may have {StudentID} and {Email} as candidate keys - both uniquely identify students, both are minimal. One candidate key is selected as PRIMARY KEY, others become ALTERNATE/SECONDARY  keys. Finding candidate keys: (1) Test all attribute combinations starting from single attributes, (2) Find minimal superkeys (no proper subset is superkey). {StudentID, Name} is superkey but not candidate key (not minimal - {StudentID} alone works).",
+            "formula": "CK = minimal superkey"
         }
     },
     {
