@@ -1418,8 +1418,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Addition: p → (p ∨ q)",
-            "formula": "p ⊢ p ∨ q"
+            "solution": "Addition (Disjunction Introduction): From p being true, we can infer $p \vee q$ for ANY proposition q. If p is true, then 'p OR anything' is automatically true. Symbolically: $p \vdash p \vee q$. Example: 'It's raining' allows us to conclude 'It's raining OR it's sunny' (trivially true since first part is true). Seems obvious but formally important in proof systems. Adds flexibility in logical derivations by introducing new disjuncts.",
+            "formula": "$p \vdash p \vee q$ (addition)"
         }
     },
     {
@@ -1436,8 +1436,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Simplification: (p ∧ q) → p",
-            "formula": "p ∧ q ⊢ p"
+            "solution": "Simplification (Conjunction Elimination): From $p \wedge q$ being true, we can extract either p alone or q alone. If both are true, each individual part must be true. Symbolically: $p \wedge q \vdash p$ and $p \wedge q \vdash q$. Example: 'It's raining AND cold' lets us conclude 'It's raining'. Converse of conjunction rule. Essential for breaking down compound statements in proofs.",
+            "formula": "$p \wedge q \vdash p$ (simplification)"
         }
     },
     {
@@ -1454,8 +1454,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Conjunction: p, q → (p ∧ q)",
-            "formula": "p, q ⊢ p ∧ q"
+            "solution": "Conjunction (AND Introduction): From p and q being true separately, we can combine them into $p \wedge q$. If we know both facts independently, we can state them as a conjunction. Symbolically: $p, q \vdash p \wedge q$. Example: 'It's raining' and 'It's cold' together give 'It's raining AND cold'. Fundamental for building compound statements from atomic ones. Converse of simplification.",
+            "formula": "$p, q \vdash p \wedge q$ (conjunction)"
         }
     },
     {
@@ -1472,8 +1472,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Resolution: (p ∨ q) ∧ (¬p ∨ r) → (q ∨ r)",
-            "formula": "p ∨ q, ¬p ∨ r ⊢ q ∨ r"
+            "solution": "Resolution Rule: Foundation of automated theorem proving. From $(p \vee q)$ and $(\neg p \vee r)$, conclude $(q \vee r)$. Reasoning: If p is true, then from $\neg p \vee r$, r must be true. If p is false, then from $p \vee q$, q must be true. Either way, $q \vee r$ holds. Symbolically: $p \vee q, \neg p \vee r \vdash q \vee r$. Complete inference rule for propositional logic (with factoring). Used extensively in resolution-based theorem provers and logic programming (Prolog). Eliminates complementary literals (p and $\neg p$).",
+            "formula": "$p \vee q, \neg p \vee r \vdash q \vee r$ (resolution)"
         }
     },
     {
@@ -1490,7 +1490,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "∀ = universal quantifier = 'for all'"
+            "solution": "Universal Quantifier ($\forall$): 'For all' or 'for every'. $\forall x P(x)$ means P(x) is true for EVERY value of x in the domain. Example: $\forall x \in \mathbb{Z}, x + 0 = x$ (adding zero works for all integers). To prove: must show holds for arbitrary element. To disprove: find ONE counterexample. Negation: $\neg(\forall x P(x)) \equiv \exists x \neg P(x)$ (if not all satisfy P, then some violate P). Scope matters in nested quantifiers. Applications: mathematical theorems, formal specifications."
         }
     },
     {
@@ -1507,7 +1507,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "∃ = existential quantifier = 'there exists'"
+            "solution": "Existential Quantifier ($\exists$): 'There exists' or 'for some'. $\exists x P(x)$ means P(x) is true for AT LEAST ONE value of x in domain. Example: $\exists x \in \mathbb{Z}, x^2 = 4$ (true: x=2 or x=-2). To prove: find ONE witness/example. To disprove: must show holds for NONE (equivalent to proving $\forall x \neg P(x)$). Negation: $\neg(\exists x P(x)) \equiv \forall x \neg P(x)$ (if none exists, then all violate P). Unique existential: $\exists! x P(x)$ means exactly one. Applications: existence proofs, database queries (SELECT)."
         }
     },
     {
@@ -1524,8 +1524,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Negation of 'all P' = 'exists one not P'",
-            "formula": "¬(∀x P(x)) ≡ ∃x ¬P(x)"
+            "solution": "Quantifier Negation (Universal): $\neg(\forall x P(x)) \equiv \exists x \neg P(x)$. 'NOT for all x, P(x)' = 'There exists some x where P(x) fails'. Example: Negation of 'All birds can fly' = 'Some bird cannot fly' (penguins!). De Morgan's law for quantifiers. To disprove universal statement, find ONE counterexample. Important for proof techniques: refutation often easier than direct proof.",
+            "formula": "$\neg(\forall x P(x)) \equiv \exists x \neg P(x)$"
         }
     },
     {
@@ -1542,8 +1542,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Negation of 'exists P' = 'for all, not P'",
-            "formula": "¬(∃x P(x)) ≡ ∀x ¬P(x)"
+            "solution": "Quantifier Negation (Existential): $\neg(\exists x P(x)) \equiv \forall x \neg P(x)$. 'NOT exists x where P(x)' = 'For every x, P(x) is false'. Example: Negation of 'Some student passed' = 'All students failed' (or 'No student passed'). De Morgan's law for quantifiers. To disprove existential, must show property holds for NONE. Dual of universal negation.",
+            "formula": "$\neg(\exists x P(x)) \equiv \forall x \neg P(x)$"
         }
     },
     {
@@ -1555,7 +1555,8 @@ Questions.register([
         "correctAnswer": 16,
         "tolerance": 0,
         "explanation": {
-            "solution": "2^(2^2) = 2^4 = 16 distinct truth tables with 2 variables"
+            "solution": "Boolean Functions: With n variables, each truth table row is one of $2^n$ possible inputs. Each row can map to T or F (2 choices). Total functions = $2^{2^n}$. For n=2: 4 rows (TT, TF, FT, FF), each row has 2 output choices, giving $2^4 = 16$ distinct Boolean functions. These include: tautology, contradiction, identity, negation, AND, OR, XOR, NAND, NOR, XNOR, implies, etc. Each has unique truth table. Counts all possible propositional logic operations on n variables.",
+            "formula": "Boolean functions with $n$ vars = $2^{2^n}$"
         }
     },
     {
@@ -1572,7 +1573,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Sets: {1,2} = {2,1} = {1,2,1}, order and repetition don't matter"
+            "solution": "Set Properties: In mathematical sets, (1) ORDER doesn't matter: $\{1,2,3\} = \{3,1,2\}$, (2) REPETITION doesn't matter: $\{1,2,2,3\} = \{1,2,3\}$. Sets defined by membership only - either element is in set or not. Contrast: sequences/lists care about order, multisets care about repetition. Example: $\{a,b\} = \{b,a\}$ but sequence $(a,b) \neq (b,a)$. Set notation: roster $\{1,2,3\}$ or set-builder $\{x | x \in \mathbb{N}, x \leq 3\}$. Fundamental in mathematics, database relations (tables are sets of tuples)."
         }
     },
     {
@@ -1589,7 +1590,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Singleton set has exactly one element"
+            "solution": "Singleton Set: A set containing exactly ONE element. Examples: $\{5\}$, $\{\emptyset\}$ (set containing empty set), $\{\text{cat}\}$. Cardinality = 1. Important: $\{a\} \neq a$ (set vs element - different types). Empty set $\emptyset$ has cardinality 0. Power set of singleton: $P(\{a\}) = \{\emptyset, \{a\}\}$ (2 elements). Singleton vs element membership: $a \in \{a\}$ but $\{a\} \not\in \{a\}$ (unless nested). Used in formal logic, type theory.",
+            "formula": "$|\{a\}| = 1$"
         }
     },
     {
@@ -1606,7 +1608,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "|A| = cardinality = number of elements"
+            "solution": "Cardinality: The NUMBER of elements in a set, denoted $|A|$ or sometimes $\#A$ or card(A). Examples: $|\{1,2,3\}| = 3$, $|\emptyset| = 0$, $|\{a,b,a,c\}| = 3$ (repetition ignored). For finite sets: count distinct elements. For infinite sets: different sizes exist ($|\mathbb{N}| = \aleph_0$ countable, $|\mathbb{R}| = 2^{\aleph_0}$ uncountable). Two sets have same cardinality if bijection exists between them. Important for: counting problems, comparing set sizes, database query results.",
+            "formula": "$|A|$ = cardinality of set $A$"
         }
     },
     {
@@ -1623,7 +1626,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Subset: A ⊆ B iff x ∈ A → x ∈ B"
+            "solution": "Subset ($A \subseteq B$): Every element of A is also in B. Formally: $A \subseteq B \iff \forall x (x \in A \rightarrow x \in B)$. Examples: $\{1,2\} \subseteq \{1,2,3\}$, $\emptyset \subseteq A$ for any A (vacuously true). Properties: (1) Reflexive: $A \subseteq A$, (2) Antisymmetric: $A \subseteq B \land B \subseteq A \implies A = B$, (3) Transitive: $A \subseteq B \land B \subseteq C \implies A \subseteq C$. Forms partial order on sets. Total subsets of n-element set: $2^n$ (power set size). Used in: set theory, logic (domain restriction), databases (query results).",
+            "formula": "$A \subseteq B \iff \forall x (x \in A \rightarrow x \in B)$"
         }
     },
     {
@@ -1640,7 +1644,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Proper subset: A ⊆ B and A ≠ B (B has at least one element not in A)"
+            "solution": "Proper Subset ($A \subset B$ or $A \subsetneq B$): A is subset of B BUT A $\neq$ B. Equivalently: $A \subseteq B$ and $\exists x (x \in B \land x \notin A)$ (B has something A doesn't). Examples: $\{1,2\} \subset \{1,2,3\}$, $\emptyset \subset \{1\}$. Note: $A \not\subset A$ (set not proper subset of itself). Proper subsets of n-element set: $2^n - 1$ (all subsets except full set). Strict inequality in subset relation. Important: notation varies - some use $\subset$ for subset (not necessarily proper), others for proper subset only. Always check context!",
+            "formula": "$A \subset B \iff (A \subseteq B \land A \neq B)$"
         }
     },
     {
@@ -1657,8 +1662,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "Power set has 2^n subsets",
-            "formula": "|P(A)| = 2^|A|"
+            "solution": "Power Set ($P(A)$ or $2^A$): Set of ALL subsets of A. For $A = \{1,2\}$: $P(A) = \{\emptyset, \{1\}, \{2\}, \{1,2\}\}$. Cardinality: $|P(A)| = 2^{|A|}$ - each element either included or excluded (binary choice for n elements = $2^n$ subsets). Always contains $\emptyset$ and A itself. Power set of empty set: $P(\emptyset) = \{\emptyset\}$ (one subset: empty set). Note: $P(A)$ has higher cardinality than A (Cantor's theorem). Power set forms Boolean algebra under $\cup, \cap, \text{complement}$. Used in: combinatorics, formal language theory, Venn diagrams.",
+            "formula": "$|P(A)| = 2^{|A|}$"
         }
     },
     {
@@ -1675,7 +1680,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Empty set ∅ is subset of every set"
+            "solution": "Empty Set as Universal Subset: $\emptyset \subseteq A$ for EVERY set A. Proof: Vacuous truth - 'if $x \in \emptyset$ then $x \in A$' is trivially true because antecedent is always false (no element in $\emptyset$). False implies anything. Important cases: $\emptyset \subseteq \emptyset$, $\emptyset \subseteq \{\emptyset\}$. Note: $\emptyset \in P(A)$ always (empty set is element of every power set). Distinction: $\emptyset \subseteq A$ (subset) vs $\emptyset \in A$ (element, only if A explicitly contains empty set). Foundation of set theory, Venn diagrams (empty intersection).",
+            "formula": "$\emptyset \subseteq A$ for all sets $A$"
         }
     },
     {
@@ -1692,7 +1698,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Union: elements in A OR B (or both)"
+            "solution": "Union ($A \cup B$): Set of elements in A OR B (or both). $A \cup B = \{x | x \in A \vee x \in B\}$. Examples: $\{1,2\} \cup \{2,3\} = \{1,2,3\}$, $A \cup \emptyset = A$. Properties: (1) Commutative: $A \cup B = B \cup A$, (2) Associative: $(A \cup B) \cup C = A \cup (B \cup C)$, (3) Idempotent: $A \cup A = A$, (4) Identity: $A \cup \emptyset = A$. Cardinality: $|A \cup B| = |A| + |B| - |A \cap B|$ (inclusion-exclusion). Generalizes to n sets: $\bigcup_{i=1}^n A_i$. Duality with intersection (De Morgan's laws). Venn diagrams: shaded region covering both circles.",
+            "formula": "$A \cup B = \{x | x \in A \vee x \in B\}$"
         }
     },
     {
@@ -1709,7 +1716,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Intersection: elements in BOTH A and B"
+            "solution": "Intersection ($A \cap B$): Set of elements in BOTH A and B. $A \cap B = \{x | x \in A \wedge x \in B\}$. Examples: $\{1,2,3\} \cap \{2,3,4\} = \{2,3\}$, $\{1,2\} \cap \{3,4\} = \emptyset$ (disjoint). Properties: (1) Commutative: $A \cap B = B \cap A$, (2) Associative: $(A \cap B) \cap C = A \cap (B \cap C)$, (3) Idempotent: $A \cap A = A$, (4) Identity: $A \cap U = A$ (U=universal set), (5) Annihilator: $A \cap \emptyset = \emptyset$. Cardinality: $|A \cap B| \leq \min(|A|, |B|)$. Generalizes: $\bigcap_{i=1}^n A_i$. Dual of union. Database: JOIN operation. Venn: overlapping region.",
+            "formula": "$A \cap B = \{x | x \in A \wedge x \in B\}$"
         }
     },
     {
@@ -1726,7 +1734,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Difference: elements in A but not in B"
+            "solution": "Set Difference ($A - B$ or $A \setminus B$): Elements in A that are NOT in B. $A - B = \{x | x \in A \wedge x \notin B\}$. Examples: $\{1,2,3\} - \{2,3,4\} = \{1\}$, $A - \emptyset = A$, $A - A = \emptyset$. NOT commutative: $A - B \neq B - A$ generally. Cardinality: $|A - B| = |A| - |A \cap B|$. Complement: $\overline{A} = U - A$ (universal set minus A). Relation to intersection: $A - B = A \cap \overline{B}$. SQL: SELECT * FROM A EXCEPT SELECT * FROM B. Venn: A circle minus overlapping part.",
+            "formula": "$A - B = \{x | x \in A \wedge x \notin B\}$"
         }
     },
     {
@@ -1761,7 +1770,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Disjoint: no common elements, A ∩ B = ∅"
+            "solution": "Disjoint Sets: Two sets A and B are disjoint if they have NO common elements. $A \cap B = \emptyset$. Examples: $\{1,2\}$ and $\{3,4\}$ are disjoint, even vs odd integers are disjoint. Pairwise disjoint: collection where every pair is disjoint (important for partitions). Properties: (1) $|A \cup B| = |A| + |B|$ when disjoint (no overlap to subtract), (2) Partition: family of pairwise disjoint sets whose union is full set. Applications: probability (mutually exclusive events), data structures (disjoint sets/union-find), Venn diagrams (non-overlapping circles).",
+            "formula": "Disjoint: $A \cap B = \emptyset$"
         }
     },
     {
@@ -1778,8 +1788,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "A ∪ A = A",
-            "formula": "A ∪ A = A"
+            "solution": "Idempotent Law (Union): $A \cup A = A$. Set union with itself returns same set. Idempotent = 'same power' (operation repeated gives same result). Example: $\{1,2\} \cup \{1,2\} = \{1,2\}$. Dual law: $A \cap A = A$ (intersection idempotent too). Parallel in logic: $p \vee p \equiv p$ and $p \wedge p \equiv p$. Used for simplifying set expressions - redundant unions/intersections can be eliminated. Boolean algebra property.",
+            "formula": "$A \cup A = A$ (idempotent)"
         }
     },
     {
@@ -1796,8 +1806,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "A ∪ ∅ = A",
-            "formula": "A ∪ ∅ = A"
+            "solution": "Identity Law (Union): $A \cup \emptyset = A$. Empty set is identity element for union. Adding nothing changes nothing. Example: $\{1,2\} \cup \emptyset = \{1,2\}$. Dual law: $A \cap U = A$ (universal set is identity for intersection). Parallel: 0 is identity for addition ($x + 0 = x$), FALSE is identity for OR ($p \vee F \equiv p$). One of fundamental set algebra laws. Used in simplification.",
+            "formula": "$A \cup \emptyset = A$ (identity)"
         }
     },
     {
@@ -1814,8 +1824,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "A ∩ U = A",
-            "formula": "A ∩ U = A"
+            "solution": "Identity Law (Intersection): $A \cap U = A$ where U is universal set. Intersection with universe leaves set unchanged. Example: $\{1,2\} \cap \mathbb{Z} = \{1,2\}$ (assuming universe is integers). Dual of $A \cup \emptyset = A$. Parallel: 1 is identity for multiplication ($x \times 1 = x$), TRUE is identity for AND ($p \wedge T \equiv p$). Fundamental set algebra law.",
+            "formula": "$A \cap U = A$ (identity)"
         }
     },
     {
@@ -1832,8 +1842,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "A ∪ U = U",
-            "formula": "A ∪ U = U"
+            "solution": "Domination Law (Union): $A \cup U = U$. Union with universal set gives universal set. Everything ORed with everything = everything. Example: $\{1,2\} \cup \mathbb{Z} = \mathbb{Z}$. Universe dominates - absorbs any subset. Dual: $A \cap \emptyset = \emptyset$ (empty dominates intersection). Parallel: TRUE dominates OR ($p \vee T \equiv T$), 0 dominates multiplication in some systems.",
+            "formula": "$A \cup U = U$ (domination)"
         }
     },
     {
@@ -1850,8 +1860,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "A ∩ ∅ = ∅",
-            "formula": "A ∩ ∅ = ∅"
+            "solution": "Domination Law (Intersection): $A \cap \emptyset = \emptyset$. Intersection with empty set always gives empty set. Nothing intersected with nothing = nothing. Example: $\{1,2,3\} \cap \emptyset = \emptyset$. Empty set dominates intersection - absorbing element. Dual: $A \cup U = U$ (universe dominates union). Parallel: FALSE dominates AND ($p \wedge F \equiv F$), 0 dominates multiplication ($x \times 0 = 0$).",
+            "formula": "$A \cap \emptyset = \emptyset$ (domination)"
         }
     },
     {
@@ -1868,8 +1878,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "A ∪ A^c = U",
-            "formula": "A ∪ A' = U"
+            "solution": "Complement Law (Union): $A \cup \overline{A} = U$. Set union with its complement gives universal set. Everything is either in A or not in A (law of excluded middle for sets). Example: {even integers} $\cup$ {odd integers} = all integers. Partition property. Dual: $A \cap \overline{A} = \emptyset$ (set and complement are disjoint). Parallel: $p \vee \neg p \equiv T$.",
+            "formula": "$A \cup A' = U$ (complement)"
         }
     },
     {
@@ -1886,8 +1896,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "A ∩ A^c = ∅",
-            "formula": "A ∩ A' = ∅"
+            "solution": "Complement Law (Intersection): $A \cap \overline{A} = \emptyset$. Set and its complement are disjoint - no element can be both in A and not in A (law of non-contradiction for sets). Example: {even integers} $\cap$ {odd integers} = $\emptyset$. Fundamental disjointness. Dual: $A \cup \overline{A} = U$ (union covers universe). Parallel: $p \wedge \neg p \equiv F$.",
+            "formula": "$A \cap A' = \emptyset$ (complement)"
         }
     },
     {
@@ -1904,8 +1914,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "(A ∪ B)^c = A^c ∩ B^c",
-            "formula": "(A ∪ B)' = A' ∩ B'"
+            "solution": "De Morgan's Law for Sets (Union): $(A \cup B)' = A' \cap B'$. Complement of union = intersection of complements. 'Not in (A OR B)' = 'Not in A AND not in B'. Example: complement of (students OR teachers) = (non-students) AND (non-teachers). Proof via element membership. Dual: $(A \cap B)' = A' \cup B'$. Parallel to logic: $\neg(p \vee q) \equiv \neg p \wedge \neg q$. Essential for Boolean simplification.",
+            "formula": "$(A \cup B)' = A' \cap B'$"
         }
     },
     {
@@ -1922,8 +1932,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "(A ∩ B)^c = A^c ∪ B^c",
-            "formula": "(A ∩ B)' = A' ∪ B'"
+            "solution": "De Morgan's Law for Sets (Intersection): $(A \cap B)' = A' \cup B'$. Complement of intersection = union of complements. 'Not in (A AND B)' = 'Not in A OR not in B'. Example: complement of (cs-majors AND seniors) = (non-cs-majors) OR (non-seniors). Generalizes to n sets. Dual: $(A \cup B)' = A' \cap B'$. Parallel to logic: $\neg(p \wedge q) \equiv \neg p \vee \neg q$.",
+            "formula": "$(A \cap B)' = A' \cup B'$"
         }
     },
     {
@@ -1940,8 +1950,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "A ∪ (A ∩ B) = A",
-            "formula": "Absorption"
+            "solution": "Absorption Law (Union form): $A \cup (A \cap B) = A$. If A is true, union evaluates to A. If A is false, $(A \cap B)$ is false, so union is still A. Proof: $A \cup (A \cap B) = (A \cap U) \cup (A \cap B) = A \cap (U \cup B) = A \cap U = A$ (using distributive, domination). Dual: $A \cap (A \cup B) = A$. Simplification law. Parallel in logic: $p \vee (p \wedge q) \equiv p$.",
+            "formula": "$A \cup (A \cap B) = A$ (absorption)"
         }
     },
     {
@@ -1958,8 +1968,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "A ∩ (A ∪ B) = A",
-            "formula": "Absorption"
+            "solution": "Absorption Law (Intersection form): $A \cap (A \cup B) = A$. If A is true, result is A. If A is false, intersection is false = A. Symmetric to union absorption. Proof: $A \cap (A \cup B) = (A \cap A) \cup (A \cap B) = A \cup (A \cap B) = A$ (distributive, idempotent, absorption). Dual: $A \cup (A \cap B) = A$. Parallel in logic: $p \wedge (p \vee q) \equiv p$.",
+            "formula": "$A \cap (A \cup B) = A$ (absorption)"
         }
     },
     {
@@ -1976,8 +1986,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Inclusion-exclusion for 2 sets",
-            "formula": "|A ∪ B| = |A| + |B| - |A ∩ B|"
+            "solution": "Inclusion-Exclusion Principle (2 sets): $|A \cup B| = |A| + |B| - |A \cap B|$. Add individual sizes, subtract overlap (counted twice). Example: |CS students| + |Math students| counts double-majors twice, so subtract |CS $\cap$ Math|. Generalizes to n sets with alternating sum. For 3: $|A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|$. Foundation of counting problems, probability.",
+            "formula": "$|A \cup B| = |A| + |B| - |A \cap B|$"
         }
     },
     {
@@ -1994,8 +2004,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Cartesian product: |A × B| = |A| × |B|",
-            "formula": "|A × B| = |A| × |B|"
+            "solution": "Cartesian Product Cardinality: $|A \times B| = |A| \times |B|$. Cartesian product $A \times B = \{(a,b) | a \in A, b \in B\}$ is set of all ordered pairs. For each of |A| choices in first position, |B| choices in second = |A|×|B| total pairs. Example: {1,2} × {a,b,c} has 2×3=6 pairs. Extends to n sets: $|A_1 \times ... \times A_n| = |A_1| \times ... \times |A_n|$ (multiplication principle). Database: cross-join size.",
+            "formula": "$|A \times B| = |A| \times |B|$"
         }
     },
     {
@@ -2046,7 +2056,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Multigraph: multiple (parallel) edges allowed between same vertices"
+            "solution": "Multigraph: Graph allowing MULTIPLE (parallel) edges between same pair of vertices. Example: two cities connected by multiple roads/flights. Can also allow self-loops. Used when edge multiplicity matters. Applications: network flow (capacity on multiple channels), transportation networks, electrical circuits (parallel resistors). Differs from simple graph (at most one edge per vertex pair). Can be weighted (capacities) or unweighted.",
+            "formula": "Multigraph: parallel edges allowed"
         }
     },
     {
@@ -2132,7 +2143,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Isolated vertex has degree 0 (no edges)"
+            "solution": "Isolated Vertex: Vertex with degree 0 - no edges incident to it. Disconnected from rest of graph. Example: single person with no friends in social network. Graph with isolated vertex is disconnected (unless it's the only vertex). Removing isolated vertex doesn't change connectivity. Component of size 1. Found in sparse networks, data networks with unconnected nodes.",
+            "formula": "deg(v) = 0"
         }
     },
     {
@@ -2179,7 +2191,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Each vertex connected to all other n-1 vertices"
+            "solution": "Complete Graph Vertex Degree: In $K_n$, each vertex connected to all OTHER vertices. Degree = $n-1$ (connected to $n-1$ others, not to itself in simple graph). Total degree sum = $n(n-1) = 2|E|$ (handshaking). Highest degree possible in simple graph with n vertices. Complete graph is $(n-1)$-regular. All vertices have same degree.",
+            "formula": "deg(v) = n-1 in $K_n$"
         }
     },
     {
@@ -2209,7 +2222,8 @@ Questions.register([
         "correctAnswer": 12,
         "tolerance": 0,
         "explanation": {
-            "solution": "3 × 4 = 12"
+            "solution": "Calculation: $3 \times 4 = 12$ edges in $K_{3,4}$. Each of 3 vertices in first set connects to all 4 in second set.",
+            "formula": "$m \times n$ edges"
         }
     },
     {
@@ -2226,7 +2240,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "k-regular: all vertices have same degree k"
+            "solution": "k-Regular Graph: ALL vertices have the SAME degree k. Examples: (1) $K_n$ is $(n-1)$-regular, (2) Cycle $C_n$ is 2-regular, (3) Petersen graph is 3-regular. Total edges in k-regular graph with n vertices: $\frac{nk}{2}$ (handshaking: $\sum deg = nk = 2|E|$). Regular graphs have high symmetry. Applications: network design (balanced connectivity), coding theory.",
+            "formula": "deg(v) = k for all v"
         }
     },
     {
@@ -2243,8 +2258,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Cycle with n vertices has exactly n edges",
-            "formula": "|E| = n"
+            "solution": "Cycle Graph $C_n$: Closed path forming a ring with n vertices and n edges. Each vertex has degree 2 (connected to 2 neighbors). Minimum edges to create cycle = 3 ($C_3$ = triangle). 2-regular graph. Examples: $C_3$ (triangle), $C_4$ (square), $C_5$ (pentagon). No start/end vertex. Euler circuit exists (all even degrees). Applications: circular arrangements, clock algorithms.",
+            "formula": "$|V| = n, |E| = n$"
         }
     },
     {
@@ -2261,8 +2276,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Path: n vertices connected in line = n-1 edges",
-            "formula": "|E| = n-1"
+            "solution": "Path Graph $P_n$: Linear sequence of n vertices connected by edges, with n-1 edges. No cycles. Endpoints (degree 1), internal vertices (degree 2). Simplest connected graph. Examples: $P_2$ (single edge), $P_3$ (two edges in line). Tree with exactly 2 leaves. Removing path from cycle leaves another path. Found in: linked lists, shortest paths.",
+            "formula": "$|V| = n, |E| = n-1$"
         }
     },
     {
@@ -2297,7 +2312,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Tree = connected + acyclic"
+            "solution": "Tree Definition: Connected AND acyclic graph. Fundamental structure in graph theory. Alternative definition: Acyclic + $n-1$ edges, or Connected + $n-1$ edges, or Unique path between any two vertices. Minimal connected graph (removing any edge disconnects). Maximal acyclic graph (adding any edge creates cycle). Applications: hierarchies, spanning trees, decision trees, file systems.",
+            "formula": "Tree = Connected + Acyclic"
         }
     },
     {
@@ -2314,7 +2330,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Adding edge to tree creates exactly one cycle"
+            "solution": "Adding Edge to Tree: Creates EXACTLY ONE cycle. Why? Tree has unique path between any two vertices. Adding edge $(u,v)$ creates second path between u and v, forming cycle with original path. Only one cycle because tree is minimally connected. Applications: finding fundamental cycles in graph, network design (avoiding loops).",
+            "formula": "+1 edge $\\rightarrow$ 1 cycle"
         }
     },
     {
@@ -2331,7 +2348,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Removing any edge from tree disconnects it into 2 components"
+            "solution": "Removing Edge from Tree: Disconnects graph into TWO connected components. Why? Tree has unique path between vertices - path using removed edge breaks. No alternate path exists (would create cycle, contradicting tree). Each tree with $n \geq 2$ has at least 2 pendant vertices (degree 1), good candidates for edge removal. Applications: tree decomposition, cut edges.",
+            "formula": "-1 edge $\\rightarrow$ 2 components"
         }
     },
     {
@@ -2361,7 +2379,8 @@ Questions.register([
         "correctAnswer": 16,
         "tolerance": 0,
         "explanation": {
-            "solution": "4^(4-2) = 4² = 16"
+            "solution": "Calculation using Cayley's formula: $n^{n-2} = 4^{4-2} = 4^2 = 16$ spanning trees for $K_4$.",
+            "formula": "$4^{2} = 16$"
         }
     },
     {
@@ -2378,7 +2397,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Forest = acyclic graph (disjoint union of trees)"
+            "solution": "Forest: Acyclic graph (can be disconnected). Disjoint union of trees. If forest has k connected components (k trees), Equivalently: graph with no cycles. Forest with n vertices and k components has $n-k$ edges. When k=1, forest is a tree. Applications: disjoint set data structure, disconnected networks, MST before connecting components.",
+            "formula": "Forest = Acyclic graph = Disjoint trees"
         }
     },
     {
@@ -2395,8 +2415,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Each tree has (vertices - 1) edges, total = n - k edges",
-            "formula": "|E| = n - k"
+            "solution": "Forest Edge Count: Forest with n vertices and k trees (k connected components) has exactly $n-k$ edges. Reasoning: Each of k trees contributes $(\\text{vertices in tree}) - 1$ edges. Total edges = $(v_1-1) + (v_2-1) + ... + (v_k-1) = (v_1+v_2+...+v_k) - k = n - k$. When k=1 (single tree), $n-1$ edges. When k=n (all isolated), 0 edges. Applications: minimum spanning forest has $n-k$ edges for k components.",
+            "formula": "$|E| = n - k$ (forest)"
         }
     },
     {
@@ -2413,7 +2433,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Bipartite iff no odd cycle (2-colorable)"
+            "solution": "Bipartite Characterization: Graph is bipartite $\\iff$ it contains NO odd-length cycles. Equivalently: 2-colorable (vertices colored with 2 colors, adjacent vertices different colors). Proof: If odd cycle exists, alternating colors around cycle causes contradiction at return. Converse: DFS with 2-color coloring succeeds iff no odd cycles. Examples: Trees (no cycles), even cycles, complete bipartite $K_{m,n}$. Non-examples: Odd cycles, $K_5$. Applications: matching problems (job assignment), Hall's marriage theorem."
         }
     },
     {
@@ -2430,7 +2450,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Trees have no cycles (hence no odd cycles) → bipartite"
+            "solution": "Trees are Bipartite: Every tree is bipartite because trees are acyclic - they contain NO cycles, hence no odd cycles. Can 2-color any tree: pick root, alternate colors by levels (BFS coloring). Partition vertices by odd/even distance from root. One of many special properties of trees: connected, acyclic, bipartite, $n-1$ edges, unique paths.",
+            "formula": "Tree $\\Rightarrow$ Bipartite"
         }
     },
     {
@@ -2447,7 +2468,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Bipartite = 2-colorable → χ(G) = 2"
+            "solution": "Chromatic Number of Bipartite: Bipartite graph is 2-colorable by definition, so $\\chi(G) = 2$ (if graph has at least one edge). If graph has no edges, $\\chi(G) = 1$. Minimum colors needed = 2 since vertices in same partition can share color,different partitions need different colors. Bipartite characterization: $\\chi(G) \\leq 2 \\iff$ graph is bipartite (or empty).",
+            "formula": "$\\chi(\\text{Bipartite}) = 2$"
         }
     },
     {
@@ -2482,8 +2504,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "From Euler's formula: e ≤ 3n - 6",
-            "formula": "e ≤ 3n - 6"
+            "solution": "Maximum Planar Edges: For simple planar graph with $n \\geq 3$ vertices, $e \\leq 3n - 6$. Derivation from Euler ($v-e+f=2$): Each face has $\\geq 3$ edges on boundary (simple graph), each edge borders $\\leq 2$ faces, so $3f \\leq 2e$. Substitute: $v - e + 2e/3 \\geq 2 \\Rightarrow e \\leq 3v-6$. Used to prove non-planarity: if $e > 3n-6$, graph is non-planar. For bipartite planar: $e \\leq 2n-4$ (tighter bound, each face has $\\geq 4$ edges).",
+            "formula": "$e \\leq 3n - 6$ (planar)"
         }
     },
     {
@@ -2495,7 +2517,8 @@ Questions.register([
         "correctAnswer": 18,
         "tolerance": 0,
         "explanation": {
-            "solution": "3(8) - 6 = 18"
+            "solution": "Calculation: $3(8) - 6 = 24 - 6 = 18$ maximum edges for planar graph with 8 vertices.",
+            "formula": "$3n - 6 = 18$"
         }
     },
     {
@@ -2512,7 +2535,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "K₅ has 10 edges > 3(5)-6 = 9, so non-planar by Kuratowski's theorem"
+            "solution": "$K_5$ Non-Planarity: Complete graph on 5 vertices has $\\frac{5(4)}{2} = 10$ edges. Maximum for planar with 5 vertices: $3(5)-6 = 9$ edges. Since $10 > 9$, $K_5$ cannot be planar. Kuratowski's theorem: $K_5$ is one of two minimal non-planar graphs (other is $K_{3,3}$). Any graph containing $K_5$ subdivision is non-planar."
         }
     },
     {
@@ -2529,7 +2552,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "K₃,₃ is non-planar (Kuratowski subdivision)"
+            "solution": "$K_{3,3}$ Non-Planarity: Complete bipartite 3,3 has $3 \\times 3 = 9$ edges. For bipartite planar with 6 vertices: $e \\leq 2(6)-4 = 8$ edges. Since $9 > 8$, $K_{3,3}$ is non-planar. Classical example: 'utilities problem' (3 houses, 3 utilities, can't connect all without crossings). Kuratowski: $K_{3,3}$ is minimal non-planar bipartite.",
+            "formula": "$K_{3,3}$: $e=9 > 2n-4=8$"
         }
     },
     {
@@ -2546,7 +2570,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Kuratowski: planar iff no K₅ or K₃,₃ subdivision"
+            "solution": "Kuratowski's Theorem: Graph is planar $\\iff$ it contains NO subdivision of $K_5$ or $K_{3,3}$. Subdivision: insert vertices into edges (edge subdividing). These are  ONLY two minimal obstructions to planarity. Wagner's theorem (equivalent): planar $\\iff$ no $K_5$ or $K_{3,3}$ minor (contract/delete edges). Planarity testing: linear time algorithms (Hopcroft-Tarjan, Boyer-Myrvold). Fundamental characterization theorem.",
+            "formula": "Planar $\\iff$ no $K_5$ or $K_{3,3}$ subdivision"
         }
     },
     {
@@ -2580,7 +2605,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Eulerian path: exactly 2 odd-degree vertices (start and end)"
+            "solution": "Eulerian Path Condition: Connected graph has Eulerian path (not cycle) $\\iff$ exactly 2 vertices have odd degree. These ODD-degree vertices MUST be start and end of path. All other vertices have even degree (enter = leave). If 0 odd-degree vertices, Eulerian circuit exists (closed). If > 2 odd-degree vertices, no Eulerian path/circuit exists. Constructive: start at odd-degree vertex, traverse edges, end at other odd-degree vertex.",
+            "formula": "Eulerian path: exactly 2 odd vertices"
         }
     },
     {
@@ -2614,7 +2640,7 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Hamiltonian cycle problem is NP-complete"
+            "solution": "Hamiltonian Cycle Complexity: Determining if graph has Hamiltonian cycle is NP-complete. No known polynomial algorithm. Contrast with Eulerian (polynomial: just check degrees). NP-complete even for special cases (cubic graphs, grid graphs). Sufficient conditions exist (Dirac, Ore) but not necessary. Traveling Salesman Problem reduces to Hamiltonian. Practical: use heuristics, approximations, backtracking for small graphs."
         }
     },
     {
@@ -2631,7 +2657,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Proper coloring: adjacent vertices get different colors"
+            "solution": "Chromatic Number $\\chi(G)$: MINIMUM number of colors needed for proper vertex coloring (no two adjacent vertices same color). Graph coloring problem: assign colors to vertices such that edge endpoints have different colors. Applications: register allocation, scheduling, frequency assignment, map coloring (4-color theorem). Computing $\\chi(G)$ is NP-hard. Bounds: $\\chi(G) \\leq \\Delta(G) + 1$ where $\\Delta$ = max degree. Brooks' theorem: tighter bound for connected graphs.",
+            "formula": "$\\chi(G)$ = chromatic number"
         }
     },
     {
@@ -2648,8 +2675,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "Complete graph: every pair adjacent, so need n colors",
-            "formula": "χ(Kn) = n"
+            "solution": "Chromatic Number of $K_n$: $\\chi(K_n) = n$. Every pair of vertices is adjacent in complete graph, so each vertex needs unique color. Requires n colors, achieves maximum chromatic number for n vertices. Example: $K_5$ needs 5 colors. Lower bound: clique number $\\omega(G) \\leq \\chi(G)$ (largest complete subgraph). $K_n$ is its own maximum clique.",
+            "formula": "$\\chi(K_n) = n$"
         }
     },
     {
@@ -2666,7 +2693,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Even cycle is bipartite → χ = 2"
+            "solution": "Even Cycle Coloring: $\\chi(C_n) = 2$ for even n. Even cycles are bipartite (no odd cycles), hence 2-colorable. Alternate colors around cycle: color 1, 2, 1, 2, ..., returns to start with color 2, then start gets color 1 - consistent! Example: $C_4$ (square), $C_6$ (hexagon) all use 2 colors.",
+            "formula": "$\\chi(C_{\\text{even}}) = 2$"
         }
     },
     {
@@ -2683,7 +2711,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Odd cycle not bipartite → χ = 3"
+            "solution": "Odd Cycle Coloring: $\\chi(C_n) = 3$ for odd $n \\geq 3$. Odd cycles NOT bipartite (contain odd cycle themselves). Alternating 2 colors around odd cycle: color 1, 2, 1, 2, ..., 1, when returning to start - conflict! Need 3rd color. Example: Triangle $C_3$ needs 3 colors. Minimal non-bipartite graphs.",
+            "formula": "$\\chi(C_{\\text{odd}}) = 3$"
         }
     },
     {
@@ -2700,8 +2729,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "χ(G) ≤ Δ + 1 where Δ = maximum degree (greedy coloring bound)",
-            "formula": "χ(G) ≤ Δ + 1"
+            "solution": "Greedy Coloring Bound: $\\chi(G) \\leq \\Delta(G) + 1$ where $\\Delta(G)$ is maximum degree. Proof: Greedy algorithm colors vertices sequentially - each vertex has at most $\\Delta$ neighbors, so at most $\\Delta$ colors used by neighbors, leaving at least 1 color available (from $\\Delta+1$ palette). Brooks' theorem (tighter): $\\chi(G) \\leq \\Delta(G)$ for connected graphs except cliques and odd cycles.",
+            "formula": "$\\chi(G) \\leq \\Delta + 1$"
         }
     },
     {
@@ -2718,7 +2747,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "2-colorable = bipartite = no odd cycle"
+            "solution": "2-Colorable = Bipartite: Graph is 2-colorable $\\iff$ it is bipartite $\\iff$ it contains no odd cycles. Partition vertices into 2 independent sets (color classes). Each color class is independent set (no edges within). Constructive: BFS/DFS with alternating colors. If conflict arises, odd cycle detected. Applications: matching, stable marriage, network flow.",
+            "formula": "2-colorable $\\iff$ Bipartite"
         }
     },
     {
@@ -2735,7 +2765,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Isomorphic: same structure up to vertex relabeling"
+            "solution": "Graph Isomorphism: Graphs $G$ and $H$ are isomorphic if there exists bijection $f: V(G) \\to V(H)$ preserving adjacency: $(u,v) \\in E(G) \\iff (f(u), f(v)) \\in E(H)$. Same structure, different labels. Denoted $G \\cong H$. Must preserve: vertex count, edge count, degree sequence, connectedness, cycles, chromatic number. Checking isomorphism: GI problem (graph isomorphism problem) - not known to be in P or NP-complete. Applications: chemical structure comparison, pattern matching.",
+            "formula": "$G \\cong H$ (isomorphic)"
         }
     },
     {
@@ -2752,7 +2783,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Isomorphic graphs have same number of vertices, edges, and degree sequence"
+            "solution": "Isomorphism Invariants: Properties preserved under isomorphism. Necessary conditions for $G \\cong H$: (1) same number of vertices, (2) same number of edges, (3) same degree sequence, (4) same chromatic number, (5) same diameter, (6) same girth (shortest cycle length). These are NECESSARY but NOT SUFFICIENT - two graphs with same invariants may still be non-isomorphic. Degree sequence especially useful quick check.",
+            "formula": "Invariants: $|V|, |E|$, degrees"
         }
     },
     {
@@ -2764,7 +2796,8 @@ Questions.register([
         "correctAnswer": 4,
         "tolerance": 0,
         "explanation": {
-            "solution": "0 edges, 1 edge, 2 edges, 3 edges = 4 non-isomorphic graphs on 3 vertices"
+            "solution": "Non-isomorphic 3-vertex graphs: (1) 0 edges: empty graph, (2) 1 edge: path $P_2$ plus isolated vertex, (3) 2 edges: path $P_3$, (4) 3 edges: triangle $K_3$. Total = 4 non-isomorphic simple graphs on 3 vertices. Maximum possible edges = $\\binom{3}{2} = 3$. Different from labeled graphs (2^3 = 8 possible edge sets).",
+            "formula": "4 non-isomorphic 3-vertex graphs"
         }
     },
     {
@@ -2781,8 +2814,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Each edge contributes 1 to one in-degree and 1 to one out-degree",
-            "formula": "Σ in-deg = Σ out-deg = |E|"
+            "solution": "Directed Graph Degree Sum: Each directed edge $(u,v)$ contributes 1 to out-degree of u and 1 to in-degree of v. Therefore: $\\sum \\text{in-deg}(v) = |E|$ and $\\sum \\text{out-deg}(v) = |E|$. Both sums equal number of edges (each edge counted once in each sum). Handshaking for directed graphs. Example: DAG with n vertices can have up to $\\binom{n}{2}$ edges.",
+            "formula": "$\\sum \\text{in-deg} = \\sum \\text{out-deg} = |E|$"
         }
     },
     {
@@ -2799,7 +2832,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Strongly connected: path exists between every ordered pair of vertices"
+            "solution": "Strongly Connected Digraph: Directed graph where there exists directed path from EVERY vertex to EVERY other vertex (in both directions). Stronger than weakly connected (path in underlying undirected graph). Every vertex reachable from every other vertex following edge directions. Algorithm: Tarjan's or Kosaraju's algorithm finds strongly connected components in $O(V+E)$. Applications: web page ranking, circuit analysis, dependency resolution.",
+            "formula": "Strong: $\\forall u,v: u \\to v$ and $v \\to u$"
         }
     },
     {
@@ -2816,7 +2850,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DAG = Directed Acyclic Graph (no directed cycles)"
+            "solution": "DAG (Directed Acyclic Graph): Directed graph with NO directed cycles. Fundamental structure in computer science. Properties: (1) Has topological ordering (linear ordering of vertices where edges go forward), (2) Has at least one source (in-degree 0) and one sink (out-degree 0). Applications: task scheduling, compilation dependency, version control, Bayesian networks. Can be solved in linear time: DFS-based topological sort. Every DAG is weakly connected or forest.",
+            "formula": "DAG = Directed + Acyclic"
         }
     },
     {
