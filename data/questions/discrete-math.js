@@ -617,7 +617,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "Injective: f(a)=f(b) ⟹ a=b (no two inputs give same output)"
+            "solution": "Injective (One-to-One) Function: Different inputs map to different outputs. Formally: $f(a) = f(b) \\Rightarrow a = b$ (contrapositive: $a \\neq b \\Rightarrow f(a) \\neq f(b)$). No two distinct domain elements map to same range element. Example: $f(x) = 2x$ is injective (different x gives different 2x). Counter-example: $f(x) = x^2$ not injective over reals ($f(-2) = f(2) = 4$). Test: horizontal line test (any horizontal hits graph at most once). Applications: invertible functions require injectivity. Counting: injective functions from m-set to n-set = $P(n,m) = \\frac{n!}{(n-m)!}$ when $m \\leq n$.",
+            "formula": "Injective: $f(a) = f(b) \\Rightarrow a = b$"
         }
     },
     {
@@ -634,7 +635,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Surjective: range = codomain (every b has some a with f(a)=b)"
+            "solution": "Surjective (Onto) Function: Every element in codomain B has at least one pre-image in domain A. Range equals codomain. Formally: $\\forall b \\in B, \\exists a \\in A$ such that $f(a) = b$. All possible outputs are actually achieved. Example: $f: \\mathbb{R} \\to \\mathbb{R}, f(x) = x^3$ is surjective (every real has cube root). Counter-example: $f: \\mathbb{R} \\to \\mathbb{R}, f(x) = x^2$ not surjective (negative numbers have no pre-image). Test: cover entire codomain. Applications: surjective functions allow 'onto' mappings. Note: function onto B but injective gives bijection.",
+            "formula": "Surjective: range = codomain"
         }
     },
     {
@@ -651,7 +653,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Bijection = one-to-one correspondence (both injective and surjective)"
+            "solution": "Bijection: Function that is BOTH injective (one-to-one) AND surjective (onto). Perfect one-to-one correspondence between domain and codomain - each element in A maps to unique element in B, and every B element is mapped to. Properties: (1) Has inverse function $f^{-1}$, (2) Establishes equality of cardinalities $|A| = |B|$, (3) Reversible/invertible. Example: $f: \\mathbb{R} \\to \\mathbb{R}, f(x) = 2x + 3$ is bijection. Counting: bijections from n-set to itself = $n!$ (permutations). Applications: cryptography (encryption must be bijective), equivalence of sets, isomorphisms in algebra.",
+            "formula": "Bijection = Injective $\\cap$ Surjective"
         }
     },
     {
@@ -699,7 +702,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Add 1 each step: T(n) = n"
+            "solution": "Linear Recurrence $T(n) = T(n-1) + 1$: adds constant 1 at each step. Unrolling: $T(n) = T(n-1) + 1 = T(n-2) + 2 = ... = T(0) + n = 0 + n = n$. This is arithmetic progression with common difference 1. Pattern: $T(0)=0, T(1)=1, T(2)=2, T(3)=3, ...$. Represents simple counting or linear growth. Example: counting loop iterations. General form: $T(n) = T(n-1) + c$ has solution $T(n) = cn + T(0)$.",
+            "formula": "$T(n) = T(n-1) + 1, T(0) = 0 \\Rightarrow T(n) = n$"
         }
     },
     {
@@ -716,7 +720,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Doubles each step: T(n) = 2ⁿ"
+            "solution": "Geometric Recurrence $T(n) = 2T(n-1)$: multiplies by 2 at each step. Unrolling: $T(n) = 2T(n-1) = 2^2T(n-2) = 2^3T(n-3) = ... = 2^nT(0) = 2^n \\cdot 1 = 2^n$. Exponential growth - doubles every step. Pattern: $T(0)=1, T(1)=2, T(2)=4, T(3)=8, ...$. Example: binary tree node count, divide-and-conquer with 2 subproblems. General: $T(n) = rT(n-1)$ has solution $T(n) = r^n \\cdot T(0)$. Much faster growth than linear recurrences.",
+            "formula": "$T(n) = 2T(n-1), T(0) = 1 \\Rightarrow T(n) = 2^n$"
         }
     },
     {
@@ -733,7 +738,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Depends on two previous terms → second order"
+            "solution": "Fibonacci Second-Order Recurrence: $F_n = F_{n-1} + F_{n-2}$ depends on TWO previous terms, making it second-order (vs first-order like $T(n) = T(n-1) + c$). Initial conditions: $F_0 = 0, F_1 = 1$. Sequence: 0,1,1,2,3,5,8,13,21,... Closed form (Binet's formula): $F_n = \\frac{\\phi^n - \\psi^n}{\\sqrt{5}}$ where $\\phi = \\frac{1+\\sqrt{5}}{2}$ (golden ratio), $\\psi = \\frac{1-\\sqrt{5}}{2}$. Growth: $F_n \\approx \\frac{\\phi^n}{\\sqrt{5}}$ (exponential but slower than $2^n$). Applications: nature patterns, algorithm analysis, dynamic programming.",
+            "formula": "$F_n = F_{n-1} + F_{n-2}$ (2nd order linear)"
         }
     },
     {
@@ -750,7 +756,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Group: closed, associative, has identity, every element has inverse"
+            "solution": "Group $(G, *)$: Set G with binary operation * satisfying FOUR axioms: (1) CLOSURE: $\\forall a,b \\in G, a*b \\in G$, (2) ASSOCIATIVITY: $(a*b)*c = a*(b*c)$, (3) IDENTITY: $\\exists e \\in G$ such that $e*a = a*e = a$ for all $a$, (4) INVERSE: $\\forall a \\in G, \\exists a^{-1}$ such that $a*a^{-1} = a^{-1}*a = e$. Examples: $(\\mathbb{Z}, +)$ integers under addition, $(\\mathbb{Q} \\setminus \\{0\\}, \\times)$ rationals under multiplication, permutations under composition. NOT commutativity (that's abelian). Applications: symmetry, cryptography, quantum mechanics.",
+            "formula": "Group: Closure + Associativity + Identity + Inverse"
         }
     },
     {
@@ -767,7 +774,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Abelian = commutative group: a*b = b*a for all a,b"
+            "solution": "Abelian (Commutative) Group: Group with additional COMMUTATIVITY property: $a*b = b*a$ for all $a,b \\in G$. Named after mathematician Niels Henrik Abel. All 4 group axioms PLUS commutativity. Examples: $(\\mathbb{Z}, +)$, $(\\mathbb{R}, +)$, $(\\mathbb{C} \\setminus \\{0\\}, \\times)$ are abelian. Counter-example: matrix multiplication (non-abelian - $AB \\neq BA$ generally). Properties: (1) Easier to work with than non-abelian groups, (2) Fundamental Theorem of Finite Abelian Groups: every finite abelian group is direct product of cyclic groups. Applications: number theory, elliptic curve cryptography.",
+            "formula": "Abelian: Group + Commutativity"
         }
     },
     {
@@ -784,7 +792,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Order of a = smallest n where aⁿ = identity"
+            "solution": "Order of Element: Smallest positive integer $n$ such that $a^n = e$ (identity). Written $|a|$ or $ord(a)$. If no such $n$ exists, element has infinite order. Examples: In $\\mathbb{Z}_6$ under addition, element 2 has order 3 (since $2+2+2 = 6 \\equiv 0$). In multiplicative group mod 7, element 3 has order 6. Properties: (1) Order divides group order (Lagrange), (2) $a^k = e \\iff |a|$ divides $k$, (3) Cyclic group = generated by element of order $|G|$. Applications: finding generators, cryptographic protocols.",
+            "formula": "$|a| = \\min\\{n \\in \\mathbb{N}: a^n = e\\}$"
         }
     },
     {
@@ -819,7 +828,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Lattice: every pair has both least upper bound (∨) and greatest lower bound (∧)"
+            "solution": "Lattice: Partially ordered set (POSET) where every two elements have BOTH: (1) Least Upper Bound (LUB/supremum/join $a \\vee b$), (2) Greatest Lower Bound (GLB/infimum/meet $a \\wedge b$). Join = smallest element $\\geq$ both, Meet = largest element $\\leq$ both. Examples: (1) Power set with $\\subseteq$: join = union, meet = intersection, (2) Integers with divisibility: join = LCM, meet = GCD. Properties: associative, commutative, idempotent ($a \\vee a = a$), absorption ($a \\vee (a \\wedge b) = a$). Bounded lattice: has top (⊤) and bottom (⊥) elements. Applications: Boolean algebra, program analysis.",
+            "formula": "Lattice: $\\forall a,b: \\exists (a \\vee b)$ and $(a \\wedge b)$"
         }
     },
     {
@@ -836,7 +846,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Complement: join with complement = top, meet with complement = bottom"
+            "solution": "Complement in Boolean Algebra: Element $a'$ satisfying TWO laws: (1) $a \\vee a' = 1$ (top/maximum), (2) $a \\wedge a' = 0$ (bottom/minimum). Unique in Boolean algebra (not all lattices have complements). Examples: In power set lattice, complement of set A is $\\overline{A} = U \\setminus A$. In Boolean values $\\{0,1\\}$, complement of 0 is 1. Properties: $(a')' = a$ (involution), De Morgan's laws: $(a \\vee b)' = a' \\wedge b'$ and $(a \\wedge b)' = a' \\vee b'$. Boolean algebra = complemented distributive lattice. Applications: logic gates, set operations, bit manipulation.",
+            "formula": "$a \\vee a' = 1, a \\wedge a' = 0$"
         }
     },
     {
@@ -887,7 +898,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "¬ (1) > ∧ (2) > ∨ (3) > → (4) > ↔ (5)"
+            "solution": "Logical Operator Precedence (highest to lowest): (1) ¬ (NOT) - unary negation, (2) ∧ (AND/conjunction), (3) ∨ (OR/disjunction), (4) → (implication/conditional), (5) ↔ (biconditional/equivalence). Without parentheses: $p \\vee q \\wedge r$ means $p \\vee (q \\wedge r)$, not $(p \\vee q) \\wedge r$. Similarly $p \\rightarrow q \\vee r$ means $p \\rightarrow (q \\vee r)$. Mnemonic: NOT binds tightest (like minus in math), then AND (like multiplication), then OR (like addition), then implications. Always use parentheses when unsure!",
+            "formula": "Precedence: $\\neg > \\wedge > \\vee > \\rightarrow > \\leftrightarrow$"
         }
     },
     {
