@@ -13,7 +13,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Lexer (scanner) reads characters and groups them into tokens (lexemes): keywords, identifiers, literals, operators. It removes whitespace/comments."
+            solution: "Lexical Analyzer (Scanner/Lexer): First phase of compiler, reads source code CHARACTER STREAM and groups characters into TOKENS (lexemes). Token = meaningful unit: keywords (if, while), identifiers (variable names), literals (numbers, strings), operators (+, *, ==), punctuation ({, ;). Process: pattern matching using regular expressions, implemented as DFA (Deterministic Finite Automaton). Also REMOVES whitespace and comments. Output: token sequence passed to parser. Symbol table updated with identifiers. Handles lookahead for multi-character operators (==, <=). Error: invalid character sequences. Tools: Lex, Flex generate lexers from regex specifications. Efficient $O(n)$ - single pass through input.",
+            formula: "Lexer: char stream → token stream (regex/DFA)"
         }
     },
     {
@@ -30,7 +31,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Token patterns (identifiers, numbers, keywords) are regular languages. DFA-based lexers are efficient O(n). Nested structures need CFG (parser's job)."
+            solution: "Regular Expressions for Lexical Analysis: Token patterns are REGULAR LANGUAGES - can be described by regular expressions. Examples: identifier = [a-zA-Z][a-zA-Z0-9]*, integer = [0-9]+, keyword = exact string (if|while|...). Regular languages recognized by FINITE AUTOMATA (DFA/NFA) with $O(n)$ linear time complexity - very efficient for lexical scanning. Why sufficient? Tokens have flat structure (no nesting): numbers, identifiers, keywords don't require context tracking. NESTED structures (balanced parentheses, nested blocks) are CONTEXT-FREE, need CFG and parser (not lexer). CFG for parsing is more powerful but slower than regex. Division of labor: lexer handles simple patterns fast, parser handles complex syntax. Regex → NFA (Thompson's construction) → DFA (subset construction) → minimized DFA for efficiency.",
+            formula: "Tokens: regular language (regex/DFA, $O(n)$)"
         }
     },
     {
@@ -47,7 +49,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "LL(1): Left-to-right scan, Leftmost derivation, 1 symbol lookahead. Predictive parsing - can decide which production to use by looking at next input symbol."
+            solution: "LL(1) Parsing: TOP-DOWN predictive parsing technique. LL = (1) Left-to-right scan of input, (2) Leftmost derivation (expand leftmost non-terminal first), (3) 1 symbol lookahead to decide production. Parser builds parse tree from ROOT → LEAVES. Uses predictive parsing table $M[A,a]$ where $A$ = non-terminal, $a$ = lookahead terminal - at most ONE production per cell (unambiguous). Implemented via: (1) RECURSIVE DESCENT - one function per non-terminal, or (2) TABLE-DRIVEN - explicit stack + parsing table. Requirements: (1) NO LEFT RECURSION, (2) LEFT FACTORED (remove common prefixes), (3) FIRST/FOLLOW sets don't conflict. Efficiency: $O(n)$ for LL(1) grammars. Limitations: cannot handle all CFGs, less powerful than LR parsers. Used for: hand-written parsers, educational purposes.",
+            formula: "LL(1): top-down, 1 lookahead, predictive table"
         }
     },
     {
@@ -64,7 +67,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "LR (bottom-up) can handle left-recursive grammars directly (LL cannot). LR(1) recognizes a larger class of languages than LL(1). But LR is harder to implement."
+            solution: "LR Parsing Power: LR (Left-to-right scan, Rightmost derivation in reverse) is BOTTOM-UP parsing - more powerful than LL (top-down). Advantages: (1) HANDLES LEFT-RECURSIVE GRAMMARS directly - LL requires eliminating left recursion first (transforms grammar). (2) LARGER CLASS OF GRAMMARS - LR(1) recognizes strictly more languages than LL(1). Most programming language constructs are LR but not LL. (3) ERROR DETECTION - detects syntax errors as soon as possible (left-to-right scan). Disadvantages: (1) COMPLEX IMPLEMENTATION - requires parser generator (Yacc/Bison), hard to hand-code. (2) LARGER TABLES - LR(1) canonical tables exponentially large (mitigated by LALR). Power hierarchy: LL(1) ⊂ SLR(1) ⊂ LALR(1) ⊂ LR(1) ⊂ CFG. Trade-off: LL simpler to understand/implement; LR more powerful, industry standard (via tools).",
+            formula: "LR: bottom-up, handles left-recursion, LL ⊂ LR"
         }
     },
     {
@@ -81,7 +85,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "FIRST(α) = set of terminals that can start strings derived from α. If α can derive ε (empty string), then ε ∈ FIRST(α)."
+            solution: "FIRST Set: For grammar symbol (terminal/non-terminal) or string $\\alpha$, FIRST($\\alpha$) = SET OF TERMINALS that can appear as FIRST SYMBOL of strings derivable from $\\alpha$. Rules: (1) If $\\alpha$ is terminal $a$: FIRST($a$) = {$a$}. (2) If $\\alpha$ is non-terminal $A$ and $A \\to a\\beta$ (starts with terminal): add $a$ to FIRST($A$). (3) If $A \\to \\varepsilon$: add $\\varepsilon$ to FIRST($A$). (4) If $A \\to B\\beta$ and $B$ can derive $\\varepsilon$: FIRST($A$) includes FIRST($\\beta$). (5) For string $\\alpha = X_1X_2...X_n$: combine FIRST($X_i$) while $X_i$ nullable. EPSILON IN FIRST($\\alpha$)? Yes, if all symbols $X_1,...,X_n$ can derive $\\varepsilon$ (all nullable). Used in: LL(1) parsing table construction - if $\\varepsilon \\in$ FIRST($\\alpha$), check FOLLOW for production selection.",
+            "formula": "FIRST($\\alpha$) = terminals starting derivations of $\\alpha$"
         }
     },
     {
@@ -98,7 +103,8 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "$ (end marker) is always in FOLLOW(Start). FOLLOW is used in LL(1) to decide production when FIRST contains ε, and in LR to construct reduce actions."
+            solution: "FOLLOW Set: For non-terminal $A$, FOLLOW($A$) = SET OF TERMINALS that can appear IMMEDIATELY AFTER $A$ in some sentential form. Rules: (1) $ (end-of-input) ALWAYS IN FOLLOW(Start symbol). (2) If production $B \\to \\alpha A \\beta$: add FIRST($\\beta$) - {$\\varepsilon$} to FOLLOW($A$). (3) If $B \\to \\alpha A$ (A at end) OR $\\varepsilon \\in$ FIRST($\\beta$): add FOLLOW($B$) to FOLLOW($A$). FOLLOW never contains $\\varepsilon$, only terminals + $. Used in: (1) LL(1) PARSING - when FIRST($\\alpha$) contains $\\varepsilon$, use FOLLOW($A$) to select production $A \\to \\alpha$. Entry $M[A,a]$ where $a \\in$ FOLLOW($A$). (2) LR PARSING - construct REDUCE actions in parsing table. Essential for predictive parsing table construction. Computed iteratively until fixed point.",
+            "formula": "FOLLOW($A$) = terminals immediately after $A$"
         }
     },
     {
@@ -115,7 +121,8 @@ Questions.register([
         ],
         correctAnswer: 1,
         explanation: {
-            solution: "Synthesized attributes: computed from children's attributes (bottom-up). Inherited attributes: passed from parent or siblings (top-down). S-attributed SDDs have only synthesized."
+            solution: "Syntax-Directed Translation (SDT) Attributes: Attach SEMANTIC INFORMATION to grammar symbols via attributes. Two types: (1) SYNTHESIZED ATTRIBUTES - computed from attributes of CHILDREN (bottom-up flow). Example: expression value computed from operand values: $E.val = E_1.val + E_2.val$ for $E \\to E_1 + E_2$. (2) INHERITED ATTRIBUTES - passed DOWN from parent or left siblings (top-down flow). Example: type propagation in declarations. S-ATTRIBUTED DEFINITION: only synthesized attributes - can evaluate during bottom-up parse (LR parsing friendly). L-ATTRIBUTED DEFINITION: synthesized + inherited from parent or LEFT siblings only - can evaluate during top-down parse (one left-to-right pass). Applications: type checking, code generation, translation schemes. Evaluation: build dependency graph, topological sort, evaluate attributes. Parse tree annotations.",
+            "formula": "Synthesized: children→parent. Inherited: parent→children."
         }
     },
     {
@@ -132,7 +139,8 @@ Questions.register([
         ],
         correctAnswer: 2,
         explanation: {
-            solution: "CSE: If expression E computed multiple times with same values, compute once and reuse. This is typically a local optimization within a basic block."
+            solution: "Common Subexpression Elimination (CSE): Code optimization identifying and eliminating REDUNDANT COMPUTATIONS. If expression $E$ computed multiple times with SAME OPERAND VALUES (no intervening modifications), compute ONCE and REUSE result. Example: $a = b + c; ...; d = b + c;$ → $t = b + c; a = t; ...; d = t;$ (if $b,c$ unchanged). Saves: computation time, registers. Typically LOCAL optimization within BASIC BLOCK (straight-line code, single entry/exit, no branches). Can extend to GLOBAL CSE across basic blocks using data flow analysis (available expressions). Implementation: value numbering, or hash-based detection. Trade-off: extra temporary variable vs reduced computation. Especially beneficial for expensive operations (multiplication, memory access). Part of machine-independent optimization pass on intermediate representation (IR).",
+            "formula": "CSE: reuse $E$ if values unchanged (local opt)"
         }
     },
     {
@@ -143,7 +151,7 @@ Questions.register([
         question: "Lexer typically removes:",
         options: ["Keywords", "Identifiers", "Comments and whitespace", "Operators"],
         correctAnswer: 2,
-        explanation: { solution: "Lexer removes whitespace and comments, outputs token stream" }
+        explanation: { solution: "Lexer Whitespace/Comment Removal: Lexical analyzer REMOVES whitespace (spaces, tabs, newlines) and comments before producing token stream. Why? (1) Whitespace is insignificant in most languages (except Python indentation, handled specially). (2) Comments are for humans, irrelevant to compilation. (3) Reduces parser input size, simplifies parsing. Lexer outputs CLEAN token sequence: keywords, identifiers, operators, literals. Exceptions: string literals preserve internal whitespace. Some lexers preserve line numbers for error messages despite removing newlines." }
     },
     {
         id: "cd-lex-011",
@@ -153,7 +161,7 @@ Questions.register([
         question: "Tools like lex/flex generate:",
         options: ["DFA", "PDA", "Turing machine", "NFA only"],
         correctAnswer: 0,
-        explanation: { solution: "Lex/flex convert regex to NFA, then to DFA for efficient token matching" }
+        explanation: { solution: "Lex/Flex Tools: LEXER GENERATORS - accept regex specifications, automatically generate lexical analyzer source code (typically C). Process: (1) Regex → NFA (Thompson's construction), (2) NFA → DFA (subset construction), (3) DFA minimization, (4) Generate code (table-driven or direct). Output: efficient DFA-based scanner. Benefits: rapid development, guaranteed correctness, optimized. Industry standard for compiler construction alongside parser generators (Yacc/Bison). Input format: patterns + actions (C code executed when pattern matches)." }
     },
     {
         id: "cd-parse-010",
@@ -163,7 +171,7 @@ Questions.register([
         question: "Recursive descent parser is a type of:",
         options: ["Bottom-up parser", "Top-down parser", "LR parser", "LALR parser"],
         correctAnswer: 1,
-        explanation: { solution: "Recursive descent: top-down, one function per non-terminal" }
+        explanation: { solution: "Recursive Descent Parser: TOP-DOWN parsing implementation - one RECURSIVE FUNCTION per non-terminal in grammar. Each function: (1) checks lookahead, (2) calls child functions for RHS non-terminals, (3) matches terminals by consuming input. Easy to hand-code for LL(1) grammars. Predictive (no backtracking if LL(1)). Advantages: simple, intuitive, good error messages. Disadvantages: cannot handle left-recursive grammars (infinite recursion!), limited to LL class. Example: parseExpr() calls parseTerm(), which calls parseFactor(). Widely used for hand-written parsers in production compilers." }
     },
     {
         id: "cd-parse-011",
@@ -173,7 +181,10 @@ Questions.register([
         question: "LL(1) grammar is one where parsing table has:",
         options: ["Multiple entries per cell", "At most one entry per cell", "No entries", "Only shift actions"],
         correctAnswer: 1,
-        explanation: { solution: "LL(1): parsing table has at most one production per (non-terminal, terminal) cell" }
+        explanation: {
+            solution: "LL(1) Parsing Table: For LL(1) grammar, predictive parsing table $M[A,a]$ has AT MOST ONE production per cell where $A$ = non-terminal, $a$ = terminal (or $). Construction: For $A \\to \\alpha$, add entry to $M[A,a]$ for all $a \\in$ FIRST($\\alpha$); if $\\varepsilon \\in$ FIRST($\\alpha$), also add for all $a \\in$ FOLLOW($A$). If ANY cell has multiple entries, grammar is NOT LL(1). Empty cells indicate syntax error. Parser uses table + stack: pop $A$, look at input $a$, expand using $M[A,a]$. Deterministic parsing.",
+            formula: "LL(1): each $M[A,a]$ ≤ 1 production"
+        }
     },
     {
         id: "cd-parse-012",
@@ -183,7 +194,7 @@ Questions.register([
         question: "LR(0) items are used to build:",
         options: ["Parse tree", "Canonical collection of LR(0) item sets", "Symbol table", "Lexer"],
         correctAnswer: 1,
-        explanation: { solution: "LR(0) items with closures give canonical collection - basis for SLR, LR(1), LALR parsers" }
+        explanation: { solution: "LR(0) Items: Core of LR parser construction. LR(0) item = production with DOT indicating parse position: $A \\to \\alpha \\cdot \\beta$ means $\\alpha$ recognized, expecting $\\beta$. CLOSURE operation: if item $A \\to \\alpha \\cdot B\\beta$, add all items $B \\to \\cdot\\gamma$ for productions of $B$. GOTO function: advance dot over symbol. Canonical collection = all reachable item sets from initial item $S' \\to \\cdot S$. Each set = parser state. Transitions between states on symbols. Foundation for SLR(1), LALR(1), LR(1) parsing tables. Adding lookahead gives LR(1) items." }
     },
     {
         id: "cd-parse-013",
@@ -193,7 +204,7 @@ Questions.register([
         question: "Shift-reduce conflict occurs when parser can:",
         options: ["Only shift", "Only reduce", "Either shift or reduce", "Neither shift nor reduce"],
         correctAnswer: 2,
-        explanation: { solution: "Shift-reduce conflict: both actions valid - grammar is not LR" }
+        explanation: { solution: "Shift-Reduce Conflict: AMBIGUITY in LR parsing table - parser cannot decide whether to SHIFT (push next input onto stack) or REDUCE (pop and replace by LHS). Occurs when BOTH actions are valid in current state. Indicates grammar is NOT LR(k) for given $k$ (not deterministically parsable). Causes: (1) ambiguous grammar (classic: dangling else), (2) insufficient lookahead. Solutions: (1) rewrite grammar unambiguously, (2) use precedence/associativity rules (Yacc's approach), (3) increase lookahead (SLR→LALR→CLR). Reduce-reduce conflict: multiple reduce actions possible - even worse." }
     },
     {
         id: "cd-parse-014",
@@ -203,7 +214,10 @@ Questions.register([
         question: "LALR(1) merges LR(1) states with:",
         options: ["Same lookahead", "Same core (ignore lookahead)", "Same actions", "No merging"],
         correctAnswer: 1,
-        explanation: { solution: "LALR: merge states with same core, combine lookaheads. Fewer states than LR(1)." }
+        explanation: {
+            solution: "LALR(1) Parser: Lookahead LR - COMPROMISE between SLR(1) (weak) and CLR/LR(1) (powerful but large tables). Construction: build full LR(1) canonical collection, then MERGE states with SAME CORE (ignore lookahead differences), combining lookahead sets. Result: same number of states as SLR (~100s for typical language) but more powerful (resolves conflicts SLR can't). Trade-off: can introduce reduce-reduce conflicts not in LR(1) (rare). Yacc/Bison generate LALR parsers. Power: SLR ⊂ LALR ⊂ LR(1). Industry standard for parser generators - best balance of power and table size.",
+            formula: "LALR: merge LR(1) states by core, combine lookaheads"
+        }
     },
     {
         id: "cd-parse-015",
@@ -213,7 +227,10 @@ Questions.register([
         question: "Which parser type handles the largest class of grammars?",
         options: ["LL(1)", "SLR(1)", "LALR(1)", "CLR(1)/LR(1)"],
         correctAnswer: 3,
-        explanation: { solution: "Power: LL(1) < SLR(1) < LALR(1) < LR(1). CLR handles most grammars." }
+        explanation: {
+            solution: "Parser Power Hierarchy: LL(1) ⊂ SLR(1) ⊂ LALR(1) ⊂ CLR(1)/LR(1) ⊂ LR(k) ⊂ CFG. (1) LL(1): weakest, top-down, no left-recursion, limited conflict resolution. (2) SLR(1): simple LR, uses FOLLOW sets (coarse). (3) LALR(1): merges LR(1) states, industry standard (Yacc/Bison). (4) CLR(1) / LR(1): canonical LR, most powerful deterministic, handles largest CFG subset, but HUGE tables (exponential states). LR(k) for $k>1$ rarely used (tables explosion). Unambiguous CFGs may still not be LR. Most programming languages are LALR(1).",
+            formula: "LL(1) < SLR < LALR < CLR (most powerful)"
+        }
     },
     {
         id: "cd-ic-001",
@@ -223,7 +240,10 @@ Questions.register([
         question: "Three-address code has at most:",
         options: ["One address", "Two addresses", "Three addresses", "Four addresses"],
         correctAnswer: 2,
-        explanation: { solution: "TAC: x = y op z (at most 3 addresses - result and 2 operands)" }
+        explanation: {
+            solution: "Three-Address Code (TAC): INTERMEDIATE REPRESENTATION where each instruction has AT MOST 3 ADDRESSES (operands/results). General form: $x = y \\text{ op } z$ or $x = \\text{op } y$. Examples: $t1 = a + b$, $t2 = t1 * c$, $if\\ t2 < 10\\ goto\\ L1$. Addresses: variables, constants, temporaries, labels. Instructions: assignment, conditional/unconditional jumps, procedure calls, array access. Advantages: (1) machine-independent (portable IR), (2) simple structure (easy optimization), (3) maps easily to assembly (most machines 2-3 address). Representations: quadruples $(op, arg1, arg2, result)$, triples (implicit result), SSA form. Compiler generates TAC from AST, optimizes, then generates target code.",
+            formula: "TAC: $x = y \\text{ op } z$ (max 3 addresses)"
+        }
     },
     {
         id: "cd-ic-002",
@@ -233,7 +253,10 @@ Questions.register([
         question: "Static Single Assignment (SSA) form ensures each variable is:",
         options: ["Used once", "Assigned once", "Never assigned", "Assigned in a loop"],
         correctAnswer: 1,
-        explanation: { solution: "SSA: each variable assigned exactly once. Uses φ-functions for control flow." }
+        explanation: {
+            solution: "Static Single Assignment (SSA): IR form where each variable ASSIGNED EXACTLY ONCE (statically in code). For control flow merges, use $\\phi$ (phi) FUNCTIONS: $x_3 = \\phi(x_1, x_2)$ selects value based on predecessor block. Example: $x=1; if\\, P\\, then\\, x=2; y=x;$ becomes $x_1=1; if\\, P\\, then\\, x_2=2; x_3=\\phi(x_1,x_2); y=x_3;$. Benefits: simplifies many optimizations - def-use chains explicit, no variable overwrites. Use-def and def-use info built-in. Enables: constant propagation, dead code elimination, register allocation. Widely used in modern optimizing compilers (LLVM, GCC). Conversion: from TAC or AST. Reconstruction: from SSA back to normal form for code generation.",
+            formula: "SSA: each variable assigned once, $\\phi$-functions"
+        }
     },
     {
         id: "cd-opt-010",
@@ -243,7 +266,10 @@ Questions.register([
         question: "Loop invariant code motion moves code:",
         options: ["Into the loop", "Out of the loop", "To another function", "To a different file"],
         correctAnswer: 1,
-        explanation: { solution: "Move computations not depending on loop variables outside the loop" }
+        explanation: {
+            solution: "Loop-Invariant Code Motion (LICM): Optimization HOISTING computations that don't change inside loop to OUTSIDE loop (before entry). Invariant = value independent of loop iterations. Example: $for(i=0; i<N; i++)\\, a[i] = x*y + z;$ → $t = x*y + z; for(i=0; i<N; i++)\\, a[i] = t;$ (move $x*y+z$ out). Conditions: (1) computation dominates all loop exits, (2) target variable not modified in loop, (3) safe (no exceptions). Benefit: reduces operations from $O(N)$ executions to $O(1)$. Major loop optimization. Requires dominance analysis, data flow (reaching definitions).",
+            formula: "LICM: hoist invariant out of loop"
+        }
     },
     {
         id: "cd-opt-011",
@@ -253,7 +279,10 @@ Questions.register([
         question: "Strength reduction replaces:",
         options: ["Addition with multiplication", "Expensive operations with cheaper equivalents", "Variables with constants", "Loops with recursion"],
         correctAnswer: 1,
-        explanation: { solution: "E.g., replace i*4 with i<<2, or replace multiplication by addition in loops" }
+        explanation: {
+            solution: "Strength Reduction: Replace EXPENSIVE operations with CHEAPER equivalents producing same result. Common: (1) MULTIPLICATION → SHIFT: $x * 4$ → $x << 2$, $x * 8$ → $x << 3$ (powers of 2). (2) DIVISION/MODULO → SHIFT/AND: $x / 4$ → $x >> 2$, $x \\% 8$ → $x \\& 7$. (3) INDUCTION VARIABLES in loops: $i * c$ → add $c$ per iteration instead of multiply. Example: $for(i=0;i<N;i++)\\, a[i*4]$ → $for(t=0;t<N*4;t+=4)\\, a[t]$. Benefits: faster execution (shifts 10x faster than multiply), reduced latency. Modern compilers do this automatically. Architecture-dependent (RISC vs CISC).",
+            formula: "Strength: expensive → cheap ($* → <<$)"
+        }
     },
     {
         id: "cd-opt-012",
@@ -263,7 +292,10 @@ Questions.register([
         question: "Dead code elimination removes:",
         options: ["All code", "Code whose result is never used", "Comments", "Variable declarations"],
         correctAnswer: 1,
-        explanation: { solution: "Dead code: computations whose results are never used anywhere" }
+        explanation: {
+            solution: "Dead Code Elimination: Remove code whose RESULT IS NEVER USED. Two types: (1) UNREACHABLE CODE - never executed (after return, impossible conditions), (2) USELESS CODE - result computed but never referenced. Example: $x = a + b;$ ...no use of $x$... Delete it! Detection: (1) live variable analysis (backward dataflow), (2) mark reachable blocks (CFG traversal). Benefits: smaller code, faster execution, reduced register pressure. Often exposes more optimization opportunities (cascade). SSA form simplifies detection - easy to identify unused def. Essential optimization pass in all compilers.",
+            formula: "Dead code: result never used OR unreachable"
+        }
     },
     {
         id: "cd-opt-013",
@@ -273,7 +305,10 @@ Questions.register([
         question: "Constant folding evaluates:",
         options: ["Variables at runtime", "Constants at compile time", "Functions at runtime", "Loops at compile time"],
         correctAnswer: 1,
-        explanation: { solution: "Constant folding: 2+3 → 5 at compile time" }
+        explanation: {
+            solution: "Constant Folding: Evaluate CONSTANT EXPRESSIONS at COMPILE TIME instead of runtime. Examples: (1) $2 + 3$ → $5$, (2) $true \\&\\& false$ → $false$, (3) $\"hello\" + \" world\"$ → $\"hello\\ world\"$ (language-dependent). Propagate constants: $x = 5; y = x + 3;$ → $x = 5; y = 8;$. Benefits: reduced runtime computation, enables other optimizations (branch elimination if condition constant). Must respect language semantics (overflow, NaN, exception behavior). Works with constant propagation (dataflow analysis tracking constant values). Simple yet effective optimization - significant speedup for programs with many compile-time evaluable expressions.",
+            formula: "Constant folding: eval const at compile time"
+        }
     },
     {
         id: "cd-cg-001",
@@ -283,7 +318,7 @@ Questions.register([
         question: "Register allocation aims to:",
         options: ["Increase memory usage", "Minimize register usage while maximizing speed", "Eliminate all registers", "Slow down execution"],
         correctAnswer: 1,
-        explanation: { solution: "Assign frequently used values to limited registers, minimize memory accesses" }
+        explanation: { solution: "Register Allocation: Assign program VARIABLES/TEMPORARIES to LIMITED CPU REGISTERS to minimize memory accesses (registers 100x faster than RAM). Challenge: $k$ registers but potentially hundreds of variables. NP-hard problem. Goals: (1) maximize register usage (hot variables in registers), (2) minimize spills to memory, (3) minimize move instructions. Approaches: (1) GRAPH COLORING - interference graph, (2) LINEAR SCAN - fast greedy, (3) priority-based. Live range = region where variable holds value. Interference = variables live simultaneously (can't share register). Crucial for performance - register-heavy code much faster than memory-heavy." }
     },
     {
         id: "cd-cg-002",
@@ -293,7 +328,10 @@ Questions.register([
         question: "Graph coloring is used for:",
         options: ["Lexical analysis", "Parsing", "Register allocation", "Type checking"],
         correctAnswer: 2,
-        explanation: { solution: "Register allocation as graph coloring: nodes=variables, edges=interfering pairs, colors=registers" }
+        explanation: {
+            solution: "Register Allocation via Graph Coloring: Model as GRAPH COLORING problem. (1) Build INTERFERENCE GRAPH: nodes = variables/temporaries, edge between $v_1,v_2$ if they're LIVE SIMULTANEOUSLY (interfere - can't use same register). (2) K-COLOR the graph where $k$ = number of available registers. Each color = register. (3) If colorable with $k$ colors: success! Variables with same color share register (at different times). (4) If not colorable: SPILL lowest-priority variable to memory, rebuild graph, retry. Heuristics: degree-based (color low-degree first), move coalescing (reduce moves). Used in production compilers (GCC, LLVM). Graph coloring NP-complete but works well in practice with good heuristics.",
+            formula: "Register alloc: graph coloring, nodes=vars, edges=interfere"
+        }
     },
     {
         id: "cd2-phase-001",
@@ -303,7 +341,10 @@ Questions.register([
         question: "The phases of a compiler in order are:",
         options: ["Parsing, Lexing, Code Gen", "Lexical, Syntax, Semantic, Intermediate, Optimization, Code Gen", "Code Gen, Optimization, Parsing", "Only Parsing and Code Gen"],
         correctAnswer: 1,
-        explanation: { solution: "Phases: Lexical → Syntax → Semantic → IR Gen → Optimization → Code Gen" }
+        explanation: {
+            solution: "Compiler Phases: Sequential stages transforming source to target. Standard 6-phase model: (1) LEXICAL ANALYSIS - char stream → tokens (regex/DFA), (2) SYNTAX ANALYSIS - tokens → parse tree/AST (CFG/parser), (3) SEMANTIC ANALYSIS - type checking, scope resolution, (4) INTERMEDIATE Code GENeration - AST → IR (TAC/SSA), (5) CODE OPTIMIZATION - machine-independent optimizations on IR, (6) CODE GENERATION - IR → target code (assembly/machine). Plus: symbol table (shared), error handler (all phases). Modern: oftenmultiple IRs, multiple optimization passes. Some phases combined for efficiency.",
+            formula: "Phases: Lex → Syntax → Semantic → IR → Opt → CodeGen"
+        }
     },
     {
         id: "cd2-phase-002",
@@ -313,7 +354,10 @@ Questions.register([
         question: "The front-end of compiler includes:",
         options: ["Code generation only", "Lexical, Syntax, Semantic analysis", "Optimization only", "Linking only"],
         correctAnswer: 1,
-        explanation: { solution: "Front-end: source language dependent (lexical, syntax, semantic)" }
+        explanation: {
+            solution: "Compiler FRONT-END: SOURCE LANGUAGE dependent phases analyzing source code structure/semantics: (1) LEXICAL analysis (tokenization), (2) SYNTAX analysis (parsing), (3) SEMANTIC analysis (type checking, scope). Output: IR + symbol table + error messages. Portable across targets - same frontend for different backends (x86, ARM, RISC-V). Example: GCC C frontend, Clang C++ frontend. Separated from backend for modularity - one frontend, many backends (cross-compilation). Front-end checks program correctness, backend generates efficient code.",
+            formula: "Front-end: Lex + Syntax + Semantic (source-dependent)"
+        }
     },
     {
         id: "cd2-phase-003",
@@ -323,7 +367,10 @@ Questions.register([
         question: "The back-end of compiler includes:",
         options: ["Lexical analysis", "Parsing", "Code generation and optimization", "Symbol table"],
         correctAnswer: 2,
-        explanation: { solution: "Back-end: target machine dependent (optimization, code gen)" }
+        explanation: {
+            solution: "Compiler BACK-END: TARGET MACHINE dependent phases generating efficient machine code: (1) CODE OPTIMIZATION - machine-independent (on IR) + machine-dependent (target-specific instructions, addressing modes), (2) CODE GENERATION - IR → assembly/machine code, instruction selection, register allocation, instruction scheduling. Output: relocatable object code or assembly. Separated from frontend for portability - one backend, many frontends (C, C++, Fortran for same target). Example: LLVM backend for x86, ARM backend. Back-end exploits hardware features (SIMD, pipelining, cache) for performance.",
+            formula: "Back-end: Opt + CodeGen (target-dependent)"
+        }
     },
     {
         id: "cd2-phase-004",
@@ -333,7 +380,10 @@ Questions.register([
         question: "Symbol table is used throughout:",
         options: ["Only lexical phase", "Only parsing phase", "All phases", "Only code generation"],
         correctAnswer: 2,
-        explanation: { solution: "Symbol table: shared across all phases, stores identifiers info" }
+        explanation: {
+            solution: "Symbol Table: GLOBAL DATA STRUCTURE mapping identifiers (variable/function names) to their ATTRIBUTES (type, scope, memory location, etc.). Shared across ALL compiler phases. Operations: insert (declaration), lookup (usage), delete (end of scope). Implementation: hash table (fast $O(1)$ average), tree (scoped). Information stored: (1) name, (2) type, (3) scope/nest level, (4) memory address/offset, (5) function signature (params, return type), (6) line number (error messages). Used for: semantic checking (type compatibility, declaration before use), code generation (variable addresses). Scope management: nested scopes via stacked tables or single table with scope field.",
+            formula: "Symbol table: identifier → attributes (all phases)"
+        }
     },
     {
         id: "cd2-lex-001",
@@ -763,7 +813,10 @@ Questions.register([
         question: "Basic block is:",
         options: ["Any sequence of instructions", "Maximal sequence with one entry, one exit, no jumps in/out", "Single instruction", "Entire program"],
         correctAnswer: 1,
-        explanation: { solution: "Basic block: straight-line code, single entry/exit" }
+        explanation: {
+            solution: "Basic Block: MAXIMAL sequence of consecutive THREE-ADDRESS CODE instructions with: (1) ONE ENTRY POINT - only first instruction can be entered (no jumps into middle), (2) ONE EXIT POINT - only last instruction transfers control out (no jumps out from middle). Straight-line code, NO BRANCHES except possibly at end. Identified by: (1) start = first instruction, or target of branch, or instruction after branch, (2) end = branch instruction, or instruction before next start. Used for: local optimization (CSE, dead code within block), data flow analysis. Program partitioned into basic blocks. CFG built from blocks. Example: $t1=a+b; t2=t1*c; ifthen goto L1; t3=t2-5;$ (4 instructions, 1 block if no label inside).",
+            formula: "Basic block: straight-line, 1 entry/1 exit"
+        }
     },
     {
         id: "cd2-cg-005",
@@ -773,7 +826,10 @@ Questions.register([
         question: "Control Flow Graph (CFG) nodes are:",
         options: ["Tokens", "Variables", "Basic blocks", "Registers"],
         correctAnswer: 2,
-        explanation: { solution: "CFG: nodes = basic blocks, edges = control flow" }
+        explanation: {
+            solution: "Control Flow Graph (CFG): Directed graph representing ALL POSSIBLE CONTROL FLOW PATHS through program. Nodes = BASIC BLOCKS (maximal straight-line code sequences). Edges = CONTROL FLOW (jumps, branches, fall-through). Edge from block $B_1$ to $B_2$ if: (1) $B_1$ ends with branch/goto to $B_2$, or (2) $B_1$ falls through to $B_2$ (sequential). Used for: (1) DATA FLOW analysis (reaching defs, live variables), (2) OPTIMIZATION (loop detection, dead code), (3) CODE GENERATION. Properties: Entry node (start), Exit node(s). Loop = back edge (target dominates source). Modern compilers (GCC, LLVM) heavily use CFG for analysis/optimization.",
+            formula: "CFG: nodes=basic blocks, edges=control flow"
+        }
     },
     {
         id: "cd2-cg-006",
@@ -783,7 +839,10 @@ Questions.register([
         question: "Peephole optimization works on:",
         options: ["Entire program", "Small window of instructions", "Single basic block", "IR only"],
         correctAnswer: 1,
-        explanation: { solution: "Peephole: optimize small sliding window of instructions" }
+        explanation: {
+            solution: "Peephole Optimization: LOCAL optimization examining SMALL SLIDING WINDOW (peephole) of adjacent instructions, replacing with better sequence. Window size: typically 2-5 instructions. Transformations: (1) REDUNDANT LOAD/STORE elimination: $st\\ R1,x; ld\\ R1,x$ → $st\\ R1,x$, (2) ALGEBRAIC simplification: $x*1 → x$, $x+0 → x$, (3) STRENGTH REDUCTION: $x*2 → x<<1$, (4) UNREACHABLE CODE after unconditional jump, (5) FLOW OF CONTROL: $goto\\ L1; L1:goto\\ L2$ → $goto\\ L2$. Fast, effective, machine-dependent. Applied late in code generation on assembly/machine code. Multiple passes until no changes. Simple but powerful - catches code generator inefficiencies.",
+            formula: "Peephole: small window, local optimizations"
+        }
     },
     {
         id: "cd2-rt-001",
@@ -793,7 +852,10 @@ Questions.register([
         question: "Activation record (stack frame) contains:",
         options: ["Only return address", "Local variables, parameters, return address, saved registers", "Only global variables", "Only heap data"],
         correctAnswer: 1,
-        explanation: { solution: "Activation record: locals, params, return addr, saved regs, control link" }
+        explanation: {
+            solution: "Activation Record (Stack Frame): Data structure pushed onto RUNTIME STACK for each FUNCTION CALL. Contains ALL information needed for function execution: (1) LOCAL VARIABLES - function's local vars, (2) PARAMETERS - actual arguments passed, (3) RETURN ADDRESS - where to resume after return, (4) SAVED REGISTERS - caller-saved or callee-saved registers, (5) CONTROL/DYNAMIC LINK - pointer to caller's activation record, (6) ACCESS/STATIC LINK - pointer to lexically enclosing scope (for nested functions/closures), (7) RETURN VALUE space (sometimes). Layout varies by architecture/calling convention (cdecl, stdcall). Stack grows downward on most systems. LIFO structure - latest call on top. Essential for recursion - each call gets own activation.",
+            formula: "Activation record: locals+params+retAddr+links"
+        }
     },
     {
         id: "cd2-rt-002",
@@ -803,7 +865,10 @@ Questions.register([
         question: "Static allocation is used for:",
         options: ["Dynamic arrays", "Global variables, constants", "Local variables", "Heap objects"],
         correctAnswer: 1,
-        explanation: { solution: "Static allocation: compile-time known size, globals, constants" }
+        explanation: {
+            solution: "Static Allocation: Memory allocated at COMPILE TIME - addresses and sizes KNOWN before execution. Used for: (1) GLOBAL VARIABLES - accessible throughout program lifetime, (2) CONSTANTS/LITERALS - immutable data, (3) STATIC variables (C/C++ static keyword) - persist across function calls, (4) CODE (instructions). Advantages: (1) FAST - no runtime overhead, (2) SIMPLE - fixed addresses. Disadvantages: (1) size must be compile-time constant, (2) no recursion support, (3) wastes space if not always used. Memory regions: .data (initialized globals), .bss (uninitialized), .rodata (constants), .text (code). Contrast: stack (dynamic, LIFO), heap (dynamic, programmer-managed).",
+            formula: "Static: compile-time alloc, globals/constants"
+        }
     },
     {
         id: "cd2-rt-003",
@@ -813,7 +878,10 @@ Questions.register([
         question: "Stack allocation is used for:",
         options: ["Global variables", "Local variables, function calls", "Dynamic objects", "Static arrays"],
         correctAnswer: 1,
-        explanation: { solution: "Stack: activation records, local variables, LIFO" }
+        explanation: {
+            solution: "Stack Allocation: RUNTIME memory allocation using CALL STACK (LIFO - Last In First Out). Used for: (1) LOCAL VARIABLES - function scope, (2) ACTIVATION RECORDS - function calls, (3) PARAMETERS - argument passing, (4) RETURN addresses, saved registers. Operations: PUSH activation record on call, POP on return. Advantages: (1) AUTOMATIC management - no malloc/free, (2) FAST - increment/decrement stack pointer, (3) LOCALITY - recent data in cache, (4) SUPPORTS RECURSION - each call gets fresh frame. Disadvantages: (1) LIMITED SIZE - stack overflow if deep recursion/large locals, (2) LIFETIME - data destroyed on return. Typical size: 1-8 MB. Stack pointer (SP), frame pointer (FP/BP) registers manage stack.",
+            formula: "Stack: LIFO, activation records, auto-managed"
+        }
     },
     {
         id: "cd2-rt-004",
@@ -823,7 +891,10 @@ Questions.register([
         question: "Heap allocation is used for:",
         options: ["Fixed-size locals", "Dynamically allocated objects (malloc, new)", "Return addresses", "Global constants"],
         correctAnswer: 1,
-        explanation: { solution: "Heap: dynamic allocation, programmer/GC managed" }
+        explanation: {
+            solution: "Heap Allocation: DYNAMIC memory allocation for VARIABLE-SIZED, LONG-LIVED data. Programmer-requested (malloc/new) or garbage-collected (Java, Python). Used for: (1) DYNAMIC STRUCTURES - linked lists, trees, resizable arrays, (2) OBJECTS whose size unknown at compile time, (3) DATA outliving function scope. Operations: allocate (malloc/new), deallocate (free/delete). Management: (1) MANUAL - C/C++, programmer frees (error-prone: leaks, dangling pointers), (2) GARBAGE COLLECTION - Java/Python, automatic reclamation (mark-sweep, copying, generational). Advantages: (1) FLEXIBLE - any size, any lifetime. Disadvantages: (1) SLOW - allocation costly, (2) FRAGMENTATION - external (gaps), internal (unused in block), (3) management complexity. Larger than stack (gigabytes).",
+            formula: "Heap: dynamic alloc, programmer/GC managed"
+        }
     },
     {
         id: "cd2-rt-005",
