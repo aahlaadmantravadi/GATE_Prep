@@ -1431,7 +1431,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "NAT: multiple private IPs share one public IP"
+            "solution": "NAT (Network Address Translation): allows MULTIPLE devices on private network to share SINGLE public IP address. Router maintains NAT translation table: (private IP, port) ↔ (public IP, translated port). Purpose: (1) IP ADDRESS CONSERVATION - conserves scarce IPv4 addresses (one public IP for entire home/office), (2) SECURITY - hides internal network structure, (3) FLEXIBILITY - change internal addressing without affecting external. Types: (1) Static NAT - one-to-one mapping, (2) Dynamic NAT - many-to-one from pool, (3) PAT/NAPT - most common, uses port numbers for multiplexing (masquerading). Drawbacks: breaks end-to-end connectivity, complicates peer-to-peer apps, issues with some protocols (FTP, SIP). IPv6 eliminates need for NAT.",
+            "formula": "NAT: private IPs → single public IP"
         }
     },
     {
@@ -1483,7 +1484,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "ICMP: error messages, ping, traceroute"
+            "solution": "ICMP (Internet Control Message Protocol): Network layer protocol for ERROR REPORTING and DIAGNOSTICS - does NOT carry user data. Encapsulated in IP packets (protocol number 1). Message types: (1) ERROR MESSAGES - Destination Unreachable (host/net/port/protocol unreachable), Time Exceeded (TTL=0, used by traceroute), Parameter Problem, Source Quench (deprecated congestion control). (2) INFORMATIONAL - Echo Request/Reply (ping), Timestamp, Router Advertisement/Solicitation. Tools using ICMP: (1) PING - sends Echo Request, measures RTT from Echo Reply, (2) TRACEROUTE - sends packets with increasing TTL, receives Time Exceeded from each hop. Security: ICMP can be exploited (ping floods, smurf attacks), often filtered by firewalls.",
+            "formula": "ICMP: protocol 1, error reporting + diagnostics"
         }
     },
     {
@@ -1554,7 +1556,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "RIP: distance vector, hop count metric, max 15 hops"
+            "solution": "RIP (Routing Information Protocol): INTERIOR GATEWAY PROTOCOL using Distance Vector algorithm. Characteristics: (1) METRIC - hop count only (simplest), ignores bandwidth/delay, (2) MAX HOPS - 15 (16 = infinity/unreachable), limits network size, (3) UPDATES - broadcasts full routing table every 30 seconds (high overhead), (4) SLOW CONVERGENCE - count-to-infinity problem, uses split horizon and poison reverse. Versions: RIPv1 (classful, no VLSM), RIPv2 (classless, supports VLSM, authentication). Use case: small networks, easy configuration. Replaced by OSPF in larger networks (better scalability, faster convergence, multiple metrics). Transport: UDP port 520.",
+            "formula": "RIP: hop count metric, max 15 hops, 30s updates"
         }
     },
     {
@@ -1571,7 +1574,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "OSPF: link state, Dijkstra, hierarchical areas"
+            "solution": "OSPF (Open Shortest Path First): INTERIOR GATEWAY PROTOCOL using Link State algorithm. Features: (1) DIJKSTRA - each router builds complete topology, computes shortest path tree, (2) FAST CONVERGENCE - LSA flooding immediately on topology change, (3) METRIC - cost (inverse bandwidth by default), administrators can configure, (4) HIERARCHICAL - divides network into areas (Area 0 = backbone), reduces routing table size and LSA flooding scope, (5) CLASSLESS - supports VLSM and CIDR, (6) AUTHENTICATION - MD5 or plaintext. (7) MULTICAST - uses 224.0.0.5 (all OSPF routers), reduces overhead. Advantages over RIP: faster, scales better, loop-free, multiple metrics. More complex configuration. Widely deployed in enterprise networks. Transport: IP protocol 89 (directly over IP).",
+            "formula": "OSPF: link state, Dijkstra, areas, fast convergence"
         }
     },
     {
@@ -1696,7 +1700,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "TCP 3-Way Handshake: 1) Client → Server: SYN (seq=x). 2) Server → Client: SYN-ACK (seq=y, ack=x+1). 3) Client → Server: ACK (seq=x+1, ack=y+1). Connection now ESTABLISHED. Each side learns other's initial sequence number. SYN packets consume one sequence number even though they carry no data."
+            "solution": "TCP 3-Way Handshake (connection establishment): (1) CLIENT → SERVER: SYN packet (SYN flag set, seq=x, initial sequence number randomly chosen). Client enters SYN-SENT state. (2) SERVER → CLIENT: SYN-ACK packet (SYN+ACK flags set, seq=y server's ISN, ack=x+1 acknowledging client's SYN). Server allocates resources, enters SYN-RECEIVED state. (3) CLIENT → SERVER: ACK packet (ACK flag set, seq=x+1, ack=y+1 acknowledging server's SYN). Client enters ESTABLISHED. Server receives ACK, enters ESTABLISHED. Both sides now have synchronized sequence numbers and connection is open for bidirectional data transfer. Purpose: mutual agreement, sequence number synchronization, negotiate options (MSS, window scaling). SYN packets consume 1 sequence number despite carrying no data. SYN flood attack exploits this by sending many SYNs without completing handshake.",
+            "formula": "3-way: SYN → SYN-ACK → ACK"
         }
     },
     {
@@ -1713,7 +1718,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "4-way: FIN, ACK, FIN, ACK (graceful close)"
+            "solution": "TCP 4-Way Handshake (connection termination - graceful close): (1) ACTIVE CLOSE (Client) → PASSIVE CLOSE (Server): FIN packet (FIN flag set). Client enters FIN-WAIT-1. (2) Server → Client: ACK packet (acknowledging FIN). Server enters CLOSE-WAIT (can still send data). Client receives ACK, enters FIN-WAIT-2. (3) Server → Client: FIN packet (when server ready to close). Server enters LAST-ACK. (4) Client → Server: ACK packet (acknowledging server's FIN). Client enters TIME-WAIT for 2×MSL (Maximum Segment Lifetime, typically 2 minutes) to handle delayed packets, then CLOSED. Server receives ACK, immediately CLOSED. Why four-way? TCP is FULL-DUPLEX - each direction must be closed independently. SYN-ACK can combine in handshake (both establishing), but FIN-ACK usually separate (asymmetric closing). Abrupt close: RST packet.",
+            "formula": "4-way: FIN → ACK → FIN → ACK (full-duplex)"
         }
     },
     {
@@ -1748,7 +1754,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "TCP congestion: slow start, cong. avoidance, fast retransmit/recovery"
+            "solution": "TCP Congestion Control: prevents sender from overwhelming NETWORK (vs flow control = prevent overwhelming receiver). Mechanisms: (1) SLOW START - cwnd starts at 1 MSS, DOUBLES every RTT (exponential), continues until ssthresh or loss. (2) CONGESTION AVOIDANCE - after ssthresh, cwnd increases LINEARLY by 1 MSS per RTT (additive increase). (3) FAST RETRANSMIT - on 3 duplicate ACKs, retransmit segment immediately without waiting for timeout. (4) FAST RECOVERY - after fast retransmit, set ssthresh=cwnd/2, cwnd=ssthresh+3, continue congestion avoidance (multiplicative decrease). On TIMEOUT: more severe, indicates serious congestion - set ssthresh=cwnd/2, cwnd=1 MSS, restart slow start. AIMD: Additive Increase Multiplicative Decrease balances efficiency and fairness among competing flows. Modern variants: TCP Reno (described), TCP Tahoe (older), TCP New Reno, TCP CUBIC (default Linux), TCP BBR (bottleneck bandwidth/RTT).",
+            "formula": "SS: exponential, CA: linear, AIMD on loss"
         }
     },
     {
@@ -1765,7 +1772,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "TCP Slow Start: cwnd starts at 1 MSS, DOUBLES every RTT (exponential growth). For each ACK received, cwnd += 1 MSS. Continues until ssthresh (slow start threshold) reached, then switches to congestion avoidance. NOT actually slow - 'slow' refers to starting small before ramping up quickly."
+            "solution": "TCP Slow Start: Initial phase of congestion control. Congestion window (cwnd) starts at 1 MSS (Maximum Segment Size, typically 1460 bytes for Ethernet). For EACH ACK received, cwnd increases by 1 MSS: effective DOUBLING per RTT (exponential growth). Example: cwnd = 1 → send 1 segment → receive 1 ACK → cwnd = 2 → send 2 segments → receive 2 ACKs → cwnd = 4 → etc. Pattern: 1, 2, 4, 8, 16, 32... MSS. Continues until: (1) cwnd reaches slow start threshold (ssthresh), transition to congestion avoidance, OR (2) LOSS detected (3 dup ACKs or timeout). Name 'slow start' is misnomer - starts conservatively (1 MSS) but grows exponentially, quite aggressive. Purpose: probe network capacity without starting too aggressively.",
+            "formula": "SS: cwnd doubles per RTT, cwnd += 1 MSS per ACK"
         }
     },
     {
@@ -1782,7 +1790,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Congestion avoidance: additive increase (1 MSS per RTT)"
+            "solution": "TCP Congestion Avoidance: Entered when cwnd >= ssthresh (slow start threshold) or after fast recovery. LINEAR (additive) increase: cwnd increases by approximately 1 MSS for each full RTT of successfully acknowledged data. Implementation: for each ACK, cwnd += MSS × (MSS/cwnd), accumulating fractional increases until reaching 1 full MSS. Goal: probe for additional bandwidth cautiously - network is near capacity. Continues until: (1) LOSS (3 dup ACKs) → fast retransmit/recovery, set ssthresh=cwnd/2, cwnd=ssthresh+3, OR (2) TIMEOUT → severe congestion, ssthresh=cwnd/2, cwnd=1 MSS, restart slow start. AIMD (Additive Increase Multiplicative Decrease): fair bandwidth sharing among competing flows, stability. Saw-tooth pattern in cwnd vs time graphs.",
+            "formula": "CA: cwnd += 1 MSS per RTT (linear)"
         }
     },
     {
@@ -1799,7 +1808,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Timeout: ssthresh = cwnd/2, cwnd = 1 MSS, slow start"
+            "solution": "TCP Timeout Response (severe congestion): When retransmission timeout (RTO) expires without receiving expected ACK, TCP interprets this as SEVERE NETWORK CONGESTION. Actions: (1) Set ssthresh (slow start threshold) = cwnd/2 (remember current window size), (2) Reset cwnd = 1 MSS (drastic reduction), (3) RESTART SLOW START (exponential growth until ssthresh). Retransmit the timed-out segment. Timeout is more severe than 3 duplicate ACKs - indicates potential complete path failure or heavy congestion. RTO calculated using smoothed RTT and RTT variance (Jacobson's algorithm). Exponential backoff: if subsequent retransmissions also timeout, RTO doubles each time (1s → 2s → 4s → 8s...) to avoid overwhelming congested network. After successful ACK, resume normal slow start → congestion avoidance progression.",
+            "formula": "Timeout: ssthresh=cwnd/2, cwnd=1, slow start"
         }
     },
     {
@@ -1816,7 +1826,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "3 dup ACKs: fast retransmit, cwnd = ssthresh + 3, congestion avoidance"
+            "solution": "TCP Fast Retransmit & Fast Recovery (3 Duplicate ACKs): When receiver gets out-of-order segment, sends duplicate ACK for last in-order byte. If sender receives 3 DUPLICATE ACKs (4 identical ACKs total), infers segment loss WITHOUT waiting for timeout. FAST RETRANSMIT: immediately retransmit the presumed lost segment (the one after the ACK'd sequence). FAST RECOVERY (TCP Reno): (1) Set ssthresh = cwnd/2 (multiplicative decrease), (2) Set cwnd = ssthresh + 3 MSS (inflate window by 3 for the 3 dup ACKs in flight), (3) For each additional dup ACK: cwnd += 1 MSS (temporary inflation), (4) When new ACK arrives (acknowledging retransmitted segment): cwnd = ssthresh (deflate), resume congestion avoidance. Why less severe than timeout? Dup ACKs indicate network still delivering packets (just out of order), not complete failure. Recovers faster than timeout. TCP Tahoe (older): on 3 dup ACKs, treats like timeout (cwnd=1, slow start).",
+            "formula": "Fast: ssthresh=cwnd/2, cwnd=ssthresh+3"
         }
     },
     {
@@ -1833,7 +1844,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DNS (Domain Name System): Translates human-readable domain names (google.com) to IP addresses (142.250.190.14). Hierarchical distributed database. Uses UDP port 53 (TCP for zone transfers). Query types: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (nameserver)."
+            "solution": "DNS (Domain Name System): Internet's DISTRIBUTED HIERARCHICAL naming system translating human-readable domain names (www.google.com) to IP addresses (142.250.190.14) - the 'phone book of the Internet'. Architecture: (1) HIERARCHICAL namespace - root (.), TLDs (.com, .org, .in), second-level (google.com), subdomains (mail.google.com). (2) DISTRIBUTED database - no single point of failure, millions of DNS servers worldwide. Query process: (1) CLIENT → LOCAL DNS SERVER (recursive resolver, typically ISP's), (2) If cached: immediate response. Else ITERATIVE queries: local → ROOT nameserver → TLD nameserver → AUTHORITATIVE nameserver → response. Record types: A (IPv4), AAAA (IPv6), CNAME (canonical name/alias), MX (mail exchange), NS (nameserver), PTR (reverse lookup), TXT (text/SPF). Transport: UDP port 53 (fast queries), TCP port 53 (zone transfers, large responses >512 bytes). Caching: TTL (Time To Live) reduces load. Security: DNSSEC prevents spoofing.",
+            "formula": "DNS: domain → IP, UDP port 53, hierarchical"
         }
     },
     {
@@ -1850,7 +1862,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DNS: port 53 (UDP primarily, TCP for large responses)"
+            "solution": "DNS Port 53: DNS primarily uses UDP port 53 for standard queries and responses. UDP chosen for: (1) SPEED - no connection setup overhead, low latency critical for frequent name lookups, (2) STATELESS - simple request-response, (3) SMALL MESSAGES - typical query/response fits in single packet (<512 bytes originally). TCP port 53 used for: (1) ZONE TRANSFERS - synchronizing DNS data between primary and secondary nameservers (large data), (2) LARGE RESPONSES - when response >512 bytes (common with DNSSEC or many records), response truncated in UDP with TC (Truncation) flag set, client retries over TCP, (3) SECURITY - DNS over TLS (DoT) uses TCP port 853. Modern DNS: EDNS0 extension allows UDP messages >512 bytes (up to 4096 bytes) to reduce TCP fallback. Port 53 must be open bidirectionally for DNS to function.",
+            "formula": "DNS: UDP 53 (queries), TCP 53 (zone xfer/large)"
         }
     },
     {
@@ -1867,7 +1880,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP: port 80 (unencrypted)"
+            "solution": "HTTP Port 80: Standard well-known port for HTTP (HyperText Transfer Protocol) - unencrypted web traffic. When you access http://example.com, browser connects to server's port 80 by default. Port 80 assigned by IANA for HTTP service. Data transmitted in PLAINTEXT - no encryption, vulnerable to eavesdropping/MITM attacks. Can see URLs, headers, cookies, form data in transit. Modern web moving away from HTTP to HTTPS. Many sites auto-redirect 80→443. Browsers mark HTTP sites as 'Not Secure'. Port 80 open on web servers to accept incoming HTTP connections. Firewalls typically allow outbound 80 for web browsing. Alternative HTTP ports: 8080 (HTTP proxy/alternate), 8000, 3000 (development servers).",
+            "formula": "HTTP: port 80, plaintext, insecure"
         }
     },
     {
@@ -1884,7 +1898,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTPS: port 443 (HTTP over TLS/SSL)"
+            "solution": "HTTPS Port 443: Standard well-known port for HTTPS (HTTP Secure) - encrypted web traffic over TLS/SSL. When accessing https://example.com, browser connects to port 443. HTTPS = HTTP + TLS/SSL ENCRYPTION. Provides: (1) CONFIDENTIALITY - data encrypted in transit, unreadable to eavesdroppers, (2) INTEGRITY - tampering detected via cryptographic hashing, (3) AUTHENTICATION - server verified via digital certificates (issued by Certificate Authorities). TLS handshake: negotiates encryption algorithms, exchanges keys, verifies certificate. After handshake, all HTTP data encrypted. Port 443 must be open on servers hosting HTTPS sites. Browsers show padlock icon for HTTPS. HSTS (HTTP Strict Transport Security) forces HTTPS. Certificate errors (expired, self-signed, wrong domain) trigger warnings. Modern web standard - HTTP/2 and HTTP/3 require HTTPS.",
+            "formula": "HTTPS: port 443, HTTP over TLS/SSL, encrypted"
         }
     },
     {
@@ -1901,7 +1916,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "FTP: port 21 (control), port 20 (data)"
+            "solution": "FTP Ports 20 & 21: FTP (File Transfer Protocol) uses TWO separate TCP connections - OUT-OF-BAND control. (1) PORT 21 - CONTROL CONNECTION: persistent TCP connection for commands and responses. Client sends commands (USER, PASS, LIST, RETR, STOR), server sends status codes (200 OK, 550 error). Remains open during entire FTP session. (2) PORT 20 - DATA CONNECTION: separate TCP connection for actual FILE TRANSFER and directory listings. Created for each file transfer or LIST, then closed. Two modes: ACTIVE (server port 20 connects to client's data port) vs PASSIVE (client connects to server's ephemeral port, NAT-friendly). Why separate? Allows simultaneous control and data transfer, different connection management. Security: FTP transmits credentials and data in PLAINTEXT - use FTPS (FTP over TLS) or SFTP (SSH File Transfer Protocol, port 22) for encryption.",
+            "formula": "FTP: port 21 (control), 20 (data), out-of-band"
         }
     },
     {
@@ -1918,7 +1934,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "SSH: port 22 (secure shell)"
+            "solution": "SSH Port 22: Well-known port for SSH (Secure Shell) - encrypted remote access protocol. Provides SECURE: (1) REMOTE LOGIN - command-line access to servers (replaces insecure Telnet port 23), (2) FILE TRANSFER - SCP (Secure Copy) and SFTP (SSH File Transfer Protocol) for encrypted file transfers (replaces FTP), (3) PORT FORWARDING/TUNNELING - encrypt other protocols through SSH tunnel (e.g., tunnel database connections). Security features: (1) ENCRYPTION - all traffic encrypted (AES, ChaCha20), (2) AUTHENTICATION - password or public-key based (SSH keys preferred), (3) INTEGRITY - HMAC prevents tampering. Common use: DevOps, sysadmins accessing servers, Git repository access (git@github.com). Configuration: ~/.ssh/config, authorized_keys. Changing SSH from port 22 (security through obscurity) reduces automated attacks but not proper security.",
+            "formula": "SSH: port 22, encrypted remote access"
         }
     },
     {
@@ -1935,7 +1952,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "SMTP: port 25 (send email)"
+            "solution": "SMTP Port 25: Standard port for SMTP (Simple Mail Transfer Protocol) - email SENDING (PUSH) protocol. Used for: (1) MUA→MTA - client sending email to mail server (outgoing mail), (2) MTA→MTA - mail server relaying to recipient's mail server. SMTP is PUSH protocol - sender initiates transfer. Commands: HELO/EHLO (hello), MAIL FROM (sender), RCPT TO (recipient), DATA (message body), QUIT. Responses: 250 OK, 550 error. Originally plaintext, now often requires: STARTTLS (upgrade to encrypted), AUTH (authenticate sender via SMTP AUTH). Modern email: port 25 often blocked by ISPs for outbound (anti-spam), use port 587 (submission, authenticated) or 465 (SMTPS, deprecated but common). MIME (Multipurpose Internet Mail Extensions) allows non-ASCII content (attachments, HTML). Email retrieval: POP3 (port 110) or  IMAP (port 143).",
+            "formula": "SMTP: port 25, send/relay email, PUSH"
         }
     },
     {
@@ -1952,7 +1970,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DHCP: dynamic assignment of IP, subnet mask, gateway, DNS"
+            "solution": "DHCP (Dynamic Host Configuration Protocol): Automates network configuration - client broadcasts DISCOVER message, DHCP server responds with OFFER (available IP), client sends REQUEST, server sends ACK with configuration. DHCP provides: (1) IP ADDRESS - dynamically assigned from pool with LEASE time (hours/days), client must renew periodically, (2) SUBNET MASK - defines network/host portions, (3) DEFAULT GATEWAY - router IP for reaching other networks, (4) DNS SERVERS - for name resolution, (5) Additional: NTP servers, domain name, TFTP server for diskless boot. Benefits: centralized management, automatic configuration (plug-and-play), IP reuse (leases expire), no manual errors. Ports: UDP 67 (server), 68 (client). DORA process: Discover, Offer, Request, Acknowledge. Lease management: T1 (50% lease) unicast renewal, T2 (87.5%) broadcast renewal, rebinding. Replaced BOOTP and manual static IP assignment.",
+            "formula": "DHCP: auto IP/mask/gateway/DNS, UDP 67/68"
         }
     },
     {
@@ -1969,7 +1988,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP: stateless (each request independent, cookies add state)"
+            "solution": "HTTP Statelessness: HTTP protocol itself is STATELESS - each request is INDEPENDENT, server doesn't retain information about previous requests from same client. No built-in session memory. Request contains ALL information needed to process it (headers, cookies, auth). Benefits: (1) SIMPLICITY - server logic straightforward, (2) SCALABILITY - any server can handle any request (load balancing easy), no synchronization, (3) RELIABILITY - server crash doesn't lose state. Drawbacks: inefficient for applications needing continuity (shopping carts, authentication). Solutions adding state: (1) COOKIES - server sends Set-Cookie, client returns cookie in subsequent requests, (2) SESSION IDs - cookie contains session ID, server stores session data mapped to ID, (3) URL PARAMETERS - pass state in URL (query strings), (4) LOCAL STORAGE - browser-side storage (HTML5). HTTP is stateless, but web applications are stateful via these mechanisms. REST APIs embrace statelessness.",
+            "formula": "HTTP: stateless (cookies/sessions add state)"
         }
     },
     {
@@ -1986,7 +2006,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP methods: GET, POST, PUT, DELETE, HEAD, OPTIONS, PATCH, etc."
+            "solution": "HTTP Request Methods (Verbs): Standard operations on resources (RESTful design). (1) GET - retrieve/read resource, SAFE (no side effects), IDEMPOTENT (multiple calls = same result), data in URL query string, cached. (2) POST - create new resource or submit data, NOT safe, NOT idempotent, data in request body, can upload files. (3) PUT - update/replace entire resource, idempotent (repeated = same state), create if doesn't exist. (4) DELETE - remove resource, idempotent. (5) PATCH - partial update (modify part of resource), not always idempotent. (6) HEAD - like GET but returns headers only (no body), check existence/metadata. (7) OPTIONS - query server for supported methods (CORS preflight). (8) CONNECT - establish tunnel (HTTP proxy). (9) TRACE - diagnostic loop-back. CRUD mapping: Create=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE. Security: validate all inputs, POST/PUT/DELETE require authentication/authorization.",
+            "formula": "HTTP: GET, POST, PUT, DELETE, PATCH, HEAD..."
         }
     },
     {
@@ -2003,7 +2024,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "SMTP (send mail): port 25"
+            "solution": "SMTP (Simple Mail Transfer Protocol): email SENDING protocol using port 25. Client-to-server (MUA→MTA) and server-to-server (MTA→MTA) email delivery. PUSH protocol - sender actively transfers mail to recipient's server. Commands: HELO/EHLO, MAIL FROM, RCPT TO, DATA, QUIT. Modern SMTP requires STARTTLS (encryption) and AUTH (authentication). Port 587 (submission with auth) increasingly common, port 25 often blocked by ISPs for outbound to reduce spam. SMTP only sends - retrieval uses POP3 port 110 or IMAP port 143.",
+            "formula": "SMTP: port 25, send mail, PUSH, TCP"
         }
     },
     {
@@ -2020,7 +2042,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "SMTP pushes mail to server; POP/IMAP pull from server"
+            "solution": "SMTP (Simple Mail Transfer Protocol): PUSH PROTOCOL - sender initiates transfer and actively pushes email to recipient's mail server. Client pushes to outgoing SMTP server, which pushes to recipient's SMTP server. Sender-driven model. In contrast, email RETRIEVAL protocols are PULL: (1) POP3 (Post Office Protocol v3) - client pulls/downloads mail from server to local device, port 110, (2) IMAP (Internet Message Access Protocol) - client pulls/synchronizes mail from server, port 143. Asymmetry: SMTP for outbound (push), POP3/IMAP for inbound (pull). This design reflects original network architecture where user devices were not always online to receive pushed mail.",
+            "formula": "SMTP: PUSH. POP3/IMAP: PULL."
         }
     },
     {
@@ -2037,7 +2060,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "POP3: port 110"
+            "solution": "POP3 (Post Office Protocol version 3): Email RETRIEVAL protocol using port 110 (TCP). Client connects, authenticates, DOWNLOADS mail from server to local device. Three phases: (1) AUTHORIZATION - USER and PASS commands, plaintext authentication (use APOP or TLS), (2) TRANSACTION - LIST (messages), RETR (retrieve/download), DELE (mark for deletion), (3) UPDATE - QUIT triggers actual deletion of marked messages. Traditional POP3: 'download-and-delete' - mail removed from server after retrieval (saves server storage). Modern: can configure 'leave copy on server'. Drawback: mail on single device, multiple devices see different states. Best for: single device, limited server space. IMAP (port 143) better for multi-device access. Secure variant: POP3S (port 995, over TLS).",
+            "formula": "POP3: port 110, download email, TCP"
         }
     },
     {
@@ -2054,7 +2078,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "IMAP: port 143"
+            "solution": "IMAP (Internet Message Access Protocol): Advanced email RETRIEVAL protocol using port 143 (TCP). Unlike POP3, mail stays on SERVER - client synchronizes local view. Features: (1) FOLDER MANAGEMENT - create, delete, rename folders on server, organize mail remotely, (2) SELECTIVE DOWNLOAD - fetch headers first, download full message on demand (bandwidth efficient), (3) SERVER-SIDE SEARCH - query before downloading, (4) MULTI-DEVICE SYNC - same view (read/unread, folders) across all devices (phone, laptop, web), (5) PARTIAL FETCH - retrieve message parts (e.g., text without attachments), (6) FLAGS - seen, answered, deleted, flagged. Phases: connection, authentication, selected (mailbox operations), logout. Advantages over POP3: better for multiple devices, server backup, web mail integration. Disadvantage: requires server storage. Secure: IMAPS (port 993, over TLS). Modern email standard.",
+            "formula": "IMAP: port 143, sync email, server storage"
         }
     },
     {
@@ -2071,7 +2096,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "IMAP: mail stays on server, accessible from anywhere"
+            "solution": "IMAP vs POP3 - IMAP Advantages: (1) MULTI-DEVICE ACCESS - mail synchronized across all devices (phone, laptop, tablet, webmail) - same view everywhere. Read on one device = read on all. POP3: downloads to single device, others don't see changes. (2) SERVER-SIDE ORGANIZATION - folders, searches, flags managed on server. POP3: organization local only. (3) SELECTIVE SYNC - can browse headers, fetch full messages on demand, download only needed parts. Saves bandwidth and storage. POP3: download everything. (4) REMOTE BACKUP - mail always on server, device loss/failure doesn't lose email. POP3: if device dies, mail lost (unless 'leave on server' enabled). (5) BANDWIDTH - fetch only what's needed. POP3: downloads all messages. Tradeoff: IMAP requires server storage quota, POP3 frees server space. Modern recommendation: IMAP for flexibility.",
+            "formula": "IMAP: multi-device, server organization/backup"
         }
     },
     {
@@ -2088,7 +2114,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "MIME: Multipurpose Internet Mail Extensions for binary data"
+            "solution": "MIME (Multipurpose Internet Mail Extensions): Standard extending SMTP to support NON-ASCII content. Original SMTP: only 7-bit ASCII text (a-z, 0-9, basic punctuation). MIME enables: (1) ATTACHMENTS - images, audio, video, PDFs, executables encoded as text (Base64), (2) HTML EMAIL - formatted text, colors, fonts, embedded images, (3) MULTIPLE PARTS - multipart/mixed (attachments), multipart/alternative (text + HTML versions), (4) NON-LATIN SCRIPTS - UTF-8 encoding for international characters (Arabic, Chinese, emoji). MIME headers: (1) MIME-Version: 1.0, (2) Content-Type: text/html; charset=UTF-8, image/jpeg, audio/mp3, application/pdf, multipart/mixed, (3) Content-Transfer-Encoding: base64, quoted-printable, 7bit. Modern email is SMTP + MIME. Security: malware often delivered as MIME attachments, email clients scan/block dangerous types. Similar concept: HTTP also uses MIME types for web content.",
+            "formula": "MIME: extends SMTP, attachments/HTML/non-ASCII"
         }
     },
     {
@@ -2105,7 +2132,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "FTP: 21 for control, 20 for data transfer"
+            "solution": "FTP (File Transfer Protocol): Uses TWO ports - OUT-OF-BAND control model. Port 21: CONTROL connection - persistent TCP connection for commands (USER, PASS, LIST, RETR, STOR, CWD, QUIT) and server responses (status codes: 150, 200, 226, 550). Stays open entire session. Port 20: DATA connection - separate TCP connection for actual file transfers and directory listings. Created per transfer, then closed. Active mode: server port 20 initiates connection to client's data port. Passive mode (PASV): client initiates data connection to server's ephemeral port - preferred for NAT/firewall traversal. Secure alternatives: FTPS (FTP over TLS, explicit/implicit), SFTP (SSH File Transfer, port 22 - different protocol entirely, not FTP-based).",
+            "formula": "FTP: 21 (control), 20 (data), out-of-band"
         }
     },
     {
@@ -2122,7 +2150,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "FTP: out-of-band (control on 21, data on 20)"
+            "solution": "FTP Out-of-Band Control: Uses SEPARATE connections for control (commands/responses on port 21) and data (file transfers on port 20). Control and data are 'out-of-band' - transmitted over independent channels. Advantages: (1) can send commands during file transfer (abort, status), (2) different connection management for control (persistent) vs data (transient), (3) load distribution. Contrast with IN-BAND protocols: HTTP - requests, headers, and content all on same connection (port 80/443). Control 'in-band' with data. Out-of-band: FTP, SIP (VoIP signaling). In-band: HTTP, SMTP. Out-of-band can complicate firewalls/NAT - must open multiple ports. FTP passive mode addresses this by having client initiate both connections.",
+            "formula": "FTP: out-of-band (sep. control & data)"
         }
     },
     {
@@ -2139,7 +2168,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "FTP control: persistent. Data: non-persistent"
+            "solution": "FTP Control Connection: PERSISTENT - established at session start (client connects to server port 21), remains open throughout entire FTP session (multiple file transfers), closed only when client sends QUIT or disconnects. Used for all commands and server responses. Persistence allows stateful session - server remembers current directory, authentication, transfer mode. DATA connection: NON-PERSISTENT - separate TCP connection created for each file transfer or directory listing (LIST), closed after transfer completes. New data connection for each operation. Control persistence simplifies protocol - client doesn't re-authenticate for each file. Similar to HTTP/1.1 persistent connections (Connection: keep-alive), but FTP pioneered this model earlier.",
+            "formula": "FTP control: persistent. Data: per-transfer."
         }
     },
     {
@@ -2156,7 +2186,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "FTP: stateful (maintains user state during session)"
+            "solution": "FTP: STATEFUL PROTOCOL - server maintains state (context) about client during session. State information: (1) AUTHENTICATION - username/password verified, user logged in, (2) CURRENT WORKING DIRECTORY - CWD command changes directory, server remembers path for subsequent operations, (3) TRANSFER MODE - ASCII vs binary mode setting, (4) DATA CONNECTION TYPE - active vs passive mode. Server must allocate resources per session, track session state. Contrast: STATELESS protocols (HTTP, DNS, SMTP) - each request independent, server doesn't remember previous requests. Advantages of stateful: simpler client commands (e.g., 'RETR file.txt' uses current directory, no need to specify full path every time). Disadvantages: server complexity, resource usage (memory per session), scalability challenges. FTP's statefulness contributed to decline - modern protocols prefer stateless for horizontal scaling.",
+            "formula": "FTP: stateful (maintains session context)"
         }
     },
     {
@@ -2173,7 +2204,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP: stateless (each request independent)"
+            "solution": "HTTP: STATELESS PROTOCOL - each request is self-contained and independent. Server doesn't retain memory of previous requests from same client. Request includes ALL necessary information (URL, headers, auth, cookies). No inherent session concept. Benefits: (1) SIMPLICITY - server logic straightforward, (2) SCALABILITY - stateless enables easy load balancing (any server can handle any request), horizontal scaling, no session synchronization needed, (3) RELIABILITY - server restart doesn't lose client state. Web applications layer statefulness ON TOP using cookies (session IDs), local/session storage, URL parameters. REST API design embraces statelessness. Contrast: FTP, SMTP session, Telnet are stateful - server remembers context. HTTP/1.0 vs HTTP/1.1: both stateless in protocol sense, but HTTP/1.1 adds persistent CONNECTIONS (not state, just reuses TCP).",
+            "formula": "HTTP: stateless (request independence)"
         }
     },
     {
@@ -2190,7 +2222,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP 1.0: non-persistent (new TCP connection per request)"
+            "solution": "HTTP/1.0: NON-PERSISTENT connections - NEW TCP connection created for EACH object (HTML, CSS, image, script). Process: (1) client initiates TCP handshake to server, (2) client sends HTTP request, (3) server sends HTTP response, (4) TCP connection CLOSED. Repeat for every object. For webpage with 10 images: 11 separate TCP connections (HTML + 10 images). Overhead: (1) TCP handshake latency (3-way handshake = 1 RTT before data), (2) TCP slow start for each connection (inefficient), (3) server resources - many connections. Total time for N objects: 2N RTTs (N handshakes + N request/response) + N transmission times. Very inefficient! Led to HTTP/1.1 persistent connections. Non-persistent mode can use parallel TCP connections (browsers open multiple simultaneous connections), but still wasteful. HTTP/1.0 is obsolete.",
+            "formula": "HTTP/1.0: non-persistent (1 object per TCP)"
         }
     },
     {
@@ -2207,7 +2240,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP 1.1: persistent (reuse TCP connection)"
+            "solution": "HTTP/1.1: PERSISTENT connections (default behavior) - single TCP connection REUSED for multiple requests/responses. 'Connection: keep-alive' header (default in 1.1). Process: (1) client opens TCP connection, (2) client sends multiple HTTP requests sequentially or pipelined, (3) server sends multiple responses, (4) connection stays open until timeout or explicit close. Benefits: (1) ELIMINATES handshake overhead - only 1 TCP setup for entire page (HTML + all objects), (2) AVOIDS SLOW START - TCP cwnd grows, later requests benefit from larger window, (3) REDUCED LATENCY - no connection setup delay per object, (4) SERVER EFFICIENCY - fewer socket allocations. Pipelining (optional): send requests without waiting for responses - further reduces latency, but complicates HOL blocking. HTTP/1.1 also added chunked encoding, better caching. Persistent connections dramatically improved web performance over HTTP/1.0.",
+            "formula": "HTTP/1.1: persistent (reuse TCP connection)"
         }
     },
     {
@@ -2224,7 +2258,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "HTTP: in-band (request and data on same connection)"
+            "solution": "HTTP: IN-BAND control - requests, responses, headers, and data ALL travel over SAME connection. Request line, headers, and message body (payload) transmitted sequentially on single TCP connection (port 80 or 443). No separate control channel. Client sends 'GET /index.html HTTP/1.1' followed by headers followed by optional body (for POST). Server responds with status line, headers, content - all on same connection. Benefits: simplicity, single port. Contrast: OUT-OF-BAND protocols use SEPARATE channels: (1) FTP - control on port 21, data on port 20, (2) SIP (VoIP) - signaling separate from RTP media streams. Out-of-band: more complex but flexible (can control during data transfer, different QoS for control). In-band: HTTP, SMTP, DNS, Telnet. Modern trend: in-band with multiplexing (HTTP/2 streams, QUIC) for simplicity.",
+            "formula": "HTTP: in-band (all on same connection)"
         }
     },
     {
@@ -2241,7 +2276,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DNS: UDP port 53 (TCP for large responses or zone transfer)"
+            "solution": "DNS Transport: PRIMARILY UDP port 53 for queries and responses. UDP chosen for: (1) Speed - connectionless, low latency; (2) Simplicity - single packet request/response; (3) Stateless - fits DNS design. Original limit: 512 bytes per packet. TCP port 53 used for: (1) ZONE TRANSFERS - AXFR (full) and IXFR (incremental) between primary and secondary nameservers (large datasets, reliable delivery needed); (2) LARGE RESPONSES - when answer exceeds 512 bytes (many records, DNSSEC signatures), UDP response has TC (Truncated) bit set, client retries over TCP; (3) SECURITY - DNS-over-TLS (DoT, port 853), DNS-over-HTTPS (DoH, port 443). Modern extension: EDNS0 allows larger UDP packets (up to 4096 bytes), reducing TCP fallback. Query: Use UDP first. If truncated, retry TCP.",
+            "formula": "DNS: UDP 53 (queries), TCP 53 (zone/large)"
         }
     },
     {
@@ -2258,7 +2294,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DNS: stateless"
+            "solution": "DNS: STATELESS protocol - each query is independent, server doesn't remember previous queries from client. Query contains all information needed (domain name, query type A/AAAA/MX). No session. Server replies, transaction ends. Benefits: simplicity, scalability (any DNS server can answer any query from any client), reliability. Caching adds pseudo-state: resolver caches responses based on TTL (Time To Live), but this is local optimization, not protocol state. Subsequent queries for same domain may hit cache (no server query needed) until TTL expires. However, protocol itself remains stateless - cached or not, each query is isolated transaction. Contrast: FTP maintains session state. DNS queries: fire-and-forget (typically UDP, connectionless). Statelessness crucial for DNS's massive scale and distributed architecture.",
+            "formula": "DNS: stateless (independent queries, caching)"
         }
     },
     {
@@ -2275,7 +2312,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Telnet: port 23"
+            "solution": "Telnet: Port 23 (TCP). Legacy protocol for remote terminal access - connects to remote host and provides command-line interface. User types commands, sent to server, output displayed locally. Originally widespread for remote server administration. MAJOR FLAW: transmits ALL data (including username/password) in PLAINTEXT - no encryption, vulnerable to eavesdropping and MITM attacks. Replaced by SSH (Secure Shell, port 22) which provides ENCRYPTED remote access with strong authentication (password or public-key). SSH is modern standard for secure remote login. Telnet still used: (1) IoT device configuration (local networks), (2) testing TCP services manually (e.g., 'telnet smtp.server.com 25' to test SMTP), (3) legacy embedded systems. Production use: NEVER use Telnet over internet - always SSH. Telnet insecurity is textbook example of why encryption is essential.",
+            "formula": "Telnet: port 23, plaintext, insecure (use SSH)"
         }
     },
     {
@@ -2292,7 +2330,8 @@ Questions.register([
         ],
         "correctAnswer": 3,
         "explanation": {
-            "solution": "SMTP is 25, not 110. POP3 is 110"
+            "solution": "Port Assignment Verification: (1) HTTP: port 80 - correct, standard web traffic, (2) SSH: port 22 - correct, secure shell, (3) DNS: port 53 - correct, domain name system. (4) SMTP: port 110 - INCORRECT! SMTP (Simple Mail Transfer Protocol, email sending) uses port 25, NOT 110. Port 110 is POP3 (Post Office Protocol v3, email retrieval). Common confusion: both are email-related. SMTP = outbound/send (25), POP3 = inbound/retrieve (110), IMAP = inbound/retrieve advanced (143). Remember: twenty-five for sending mail (SMTP), one-ten for popping mail (POP3). Mnemonic: SMTP Send = 25, POP Pull = 110. Other email: port 587 (SMTP submission with auth), 465 (legacy SMTPS), 143 (IMAP), 993 (IMAPS), 995 (POP3S).",
+            "formula": "SMTP=25 (not 110). POP3=110, IMAP=143."
         }
     },
     {
@@ -2309,7 +2348,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Stateful: FTP, POP3, IMAP. Stateless: HTTP, DNS, SMTP"
+            "solution": "Protocol Statefulness: STATEFUL protocols maintain session context/state on server between requests. (1) FTP - server remembers current directory, authentication, transfer settings during session. (2) POP3 - server tracks authorization phase, which messages marked for deletion. (3) IMAP - server maintains folder selections, search context, flags. (4) Telnet/SSH - server maintains terminal state, command history context. STATELESS protocols treat each request independently. (1) HTTP - each request contains all needed info, no session memory (cookies add state at application layer). (2) DNS - each query independent, no session. (3) SMTP - each mail transaction independent (though SMTP session has phases, each mail is isolated). Tradeoff: Stateful = simpler client, complex server, scalability challenges. Stateless = complex client, simple server, horizontal scaling easy. Modern trend: stateless with client-side state management.",
+            "formula": "Stateful: FTP, POP3, IMAP. Stateless: HTTP, DNS, SMTP"
         }
     },
     {
@@ -2326,7 +2366,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "DNS uses UDP. HTTP, FTP, SMTP use TCP"
+            "solution": "UDP Transport Protocol Usage: DNS is the PRIMARY application-layer protocol using UDP (User Datagram Protocol, port 53). UDP characteristics: connectionless, unreliable (no ACKs, retransmission), unordered, low overhead. DNS uses UDP because: (1) queries/responses typically small (<512 bytes originally), fit single packet; (2) speed critical for frequent lookups; (3) application handles retransmission if needed (client timeout, resend query). Other UDP applications: DHCP (67/68), TFTP (69), SNMP (161), NTP (123), VoIP/RTP (variable), online gaming. Most listed use TCP: (1) HTTP (80) - reliable transfer needed for web pages. (2) FTP (20/21) - file integrity critical. (3) SMTP (25) - mail delivery requires reliability. (4) SSH (22) - interactive session, ordering essential. General rule: reliability/ordering needed → TCP. Speed/low overhead → UDP. DNS straddles both (UDP primary, TCP fallback).",
+            "formula": "DNS: UDP (53). HTTP/FTP/SMTP/SSH: TCP."
         }
     },
     {
@@ -2338,7 +2379,8 @@ Questions.register([
         "correctAnswer": 32,
         "tolerance": 0,
         "explanation": {
-            "solution": "4000 × log₂(256) = 4000 × 8 = 32000 bps"
+            "solution": "Shannon Capacity Theorem: Maximum theoretical bit rate over noisy channel. Formula: $C = B \\log_2(1 + SNR)$ where C = capacity (bps), B = bandwidth (Hz), SNR = Signal-to-Noise Ratio (linear, not dB). Given: B = 4 KHz = 4000 Hz, SNR = 255. Calculation: $C = 4000 \\times \\log_2(1 + 255) = 4000 \\times \\log_2(256) = 4000 \\times 8 = 32000$ bps = 32 Kbps. Note: $\\log_2(256) = 8$ because $2^8 = 256$. Shannon's theorem provides UPPER BOUND - no practical coding scheme can exceed this limit given the noise. If SNR in dB: convert to linear using $SNR_{linear} = 10^{SNR_{dB}/10}$. Perfect channel (SNR → ∞): C → ∞. No bandwidth (B=0): C = 0.",
+            "formula": "$C = B \\log_2(1 + SNR)$"
         }
     },
     {
@@ -2355,7 +2397,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Manchester: 50% efficiency (2 signal changes per bit)"
+            "solution": "Manchester Encoding: Line coding combining data and clock - every bit has MID-BIT TRANSITION (self-clocking). Encoding: 0 = high-to-low transition, 1 = low-to-high transition (IEEE 802.3 convention, opposite in Thomas convention). Efficiency = 50% because BAUD RATE (signal changes/sec) = 2 × BIT RATE. To transmit 1 Mbps data, need 2 Mbaud signaling rate. Each bit period requires 2 signal levels. Formula: $\\eta = \\frac{\\text{Bit Rate}}{\\text{Baud Rate}} = \\frac{R}{2R} = 50\\%$. Advantages: (1) self-clocking - easy synchronization, (2) no DC component - can use AC-coupled transmission, (3) error detection - missing transition indicates error. Disadvantage: double bandwidth requirement. Used in: Ethernet 10BASE-T, RFID, NFC. Diff. Manchester: XOR with previous to get transitions.",
+            "formula": "$\\eta = 50\\%$ (baud = 2 × bit rate)"
         }
     },
     {
@@ -2372,7 +2415,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "NRZ-L: signal level indicates bit (high=1, low=0)"
+            "solution": "NRZ-L (Non-Return-to-Zero Level): Line coding scheme using signal LEVEL to represent bit value. Encoding: positive voltage = binary 1, negative voltage = binary 0 (or vice versa, convention varies). 'Non-Return-to-Zero' means signal doesn't return to zero voltage between bits - stays at previous level if consecutive identical bits. 'Level' indicates bit value determined by voltage level, not transitions. Simple implementation, 100% bandwidth efficiency (baud rate = bit rate). Disadvantages: (1) SYNCHRONIZATION LOSS - long strings of identical bits have no transitions, receiver clock drift, (2) DC COMPONENT - average non-zero, problematic for AC-coupled channels. Solutions: scrambling, encoding (Manchester). Contrast: NRZ-I (Invert) uses TRANSITION for 1, no transition for 0. NRZI better for synchronization. Used in: USB (NRZI), RS-232.",
+            "formula": "NRZ-L: level encodes bit (high=1, low=0)"
         }
     },
     {
@@ -2389,7 +2433,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DLL: frames from network layer packets"
+            "solution": "Framing: DATA LINK LAYER (Layer 2) function - encapsulates Network Layer packets into FRAMES for physical transmission. Frame = header + payload (packet) + trailer. Purpose: (1) DELIMITATION - identify frame boundaries in bit stream, (2) ADDRESSING - MAC addresses (source/destination), (3) ERROR DETECTION - CRC/checksum in trailer, (4) FLOW CONTROL - windowing, (5) PROTOCOL INFO - frame type, length. Framing methods: (1) CHARACTER COUNT - header specifies length (error-prone), (2) FLAG BYTES - special start/end delimiters (byte stuffing for data), (3) BIT-LEVEL FLAGS - HDLC uses 01111110, bit stuffing, (4) PHYSICAL LAYER VIOLATIONS - signal encoding violations mark boundaries. Without framing, receiver can't distinguish frames in continuous bit stream. Frames passed to Physical Layer as raw bits. Network Layer deals with packets (logical), DLL with frames (link-specific).",
+            "formula": "DLL: packets → frames (encapsulation)"
         }
     },
     {
@@ -2406,7 +2451,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Bit stuffing: insert 0 after five 1s (HDLC)"
+            "solution": "Bit Stuffing: Technique for FLAG-BASED framing (HDLC, PPP) to prevent data containing flag pattern. HDLC flag: 01111110 (6 consecutive 1s). Problem: what if payload data contains 01111110? Receiver would mistake it for frame boundary. Solution: SENDER inserts a 0 bit after every sequence of FIVE consecutive 1s in data (never allowing six 1s except flags). RECEIVER removes stuffed 0s after five 1s. Example: data 011111011 becomes 0111110011 (0 inserted after 5 ones). Flag bits remain 01111110 unchanged (only appears at boundaries). Overhead: depends on data pattern, worst case ~12.5%. Ensures TRANSPARENCY - any bit pattern can be transmitted without confusion with control sequences. Contrast: CHARACTER stuffing for byte-oriented framing (escape characters). Bit stuffing more efficient, protocol-independent at bit level. Used in: HDLC, PPP, SONET.",
+            "formula": "Bit stuffing: insert 0 after five 1s (not flags)"
         }
     },
     {
@@ -2423,7 +2469,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "CRC: detects all single-bit, odd-bit, burst ≤ degree"
+            "solution": "CRC (Cyclic Redundancy Check): Powerful polynomial-based error DETECTION code. Sender: treats data as polynomial, divides by generator polynomial $G(x)$ (degree $r$), appends REMAINDER (r bits) as checksum. Receiver: divides received data+checksum by same $G(x)$ - remainder 0 = no error. CRC DETECTS (guarantee 100%): (1) ALL SINGLE-BIT ERRORS, (2) ALL DOUBLE-BIT ERRORS (if $G(x)$ has factor $x+1$), (3) ALL ODD number of bit errors (if $G(x)$ has factor $x+1$), (4) ALL BURST ERRORS of length ≤ $r$ (degree of generator), (5) Most longer bursts. Does NOT correct errors, only detects. Common standards: CRC-8, CRC-16, CRC-32 (Ethernet, ZIP). Far superior to simple checksum (XOR) or parity. Implementation: shift registers, very efficient in hardware. Used in: Ethernet, USB, storage devices, networking.",
+            "formula": "CRC: detects all single, odd-bit, burst≤r"
         }
     },
     {
@@ -2435,7 +2482,8 @@ Questions.register([
         "correctAnswer": 5,
         "tolerance": 0,
         "explanation": {
-            "solution": "CRC bits = degree of generator polynomial"
+            "solution": "CRC Checksum Size: Number of CRC bits = DEGREE of generator polynomial $G(x)$. Generator polynomial of degree $r$ produces $r$-bit remainder. Example: $G(x) = x^5 + x^2 + 1$ (degree 5) → 5 checksum bits appended to data. Why? Polynomial division by degree-$r$ divisor produces degree-$(r-1)$ or smaller remainder, represented by $r$ bits. Higher degree = better error detection but more overhead. Common: CRC-1 (parity, degree 1), CRC-8 (degree 8), CRC-16 (degree 16, 99.998% detection), CRC-32 (degree 32, Ethernet/ZIP, extremely reliable). Tradeoff: overhead vs detection capability. For this question: degree 5 generator → 5 checksum bits. Total transmitted = data bits + 5 CRC bits. Receiver checks: (data + CRC) mod G(x) = 0?",
+            "formula": "CRC bits = degree of $G(x)$"
         }
     },
     {
@@ -2452,8 +2500,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Correct t errors: d_min ≥ 2t+1",
-            "formula": "d ≥ 2t+1"
+            "solution": "Hamming Distance for ERROR CORRECTION: Minimum Hamming distance $d_{min}$ required to CORRECT up to $t$ errors = $2t + 1$. Intuition: to correct $t$ errors, need to distinguish corrupted codeword (≤$t$ bits flipped) from all other valid codewords. With $d_{min} = 2t+1$, even with $t$ errors, corrupted codeword is still closer to original than to any other valid codeword (distance ≤$t$ vs >$t$). Example: single error correction ($t=1$) requires $d_{min} ≥ 3$. Valid codewords differ by at least 3 bits. If 1 bit flips, result is distance 1 from original, distance ≥2 from others - can uniquely identify original. Formula: $d_{min} ≥ 2t + 1$ for CORRECTION. Contrast: DETECTION only needs $d_{min} ≥ t + 1$. Hamming codes, Reed-Solomon use this principle. Correction needs more redundancy than detection.",
+            "formula": "$d_{min} \\geq 2t+1$ (correct $t$ errors)"
         }
     },
     {
@@ -2470,8 +2518,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Detect t errors: d_min ≥ t+1",
-            "formula": "d ≥ t+1"
+            "solution": "Hamming Distance for ERROR DETECTION: Minimum Hamming distance $d_{min}$ required to DETECT up to $t$ errors = $t + 1$. Intuition: to detect $t$ errors, any valid codeword must differ from every other valid codeword by MORE than $t$ bits. If $d_{min} = t+1$ and ≤$t$ bits flip, result is not a valid codeword - error detected. But can't determine which valid codeword was original - detection only, not correction. Example: single error detection ($t=1$) requires $d_{min} ≥ 2$. Simple parity bit achieves this: even vs odd parity differ by 1 bit, any single flip changes parity (detected). If $d_{min} = t+2$, can detect $t$ errors OR correct $\\lfloor t/2 \\rfloor$ errors. Formula: $d_{min} ≥ t+1$ for DETECTION. CRC, checksums, parity are detection codes. Less redundancy needed than correction.",
+            "formula": "$d_{min} \\geq t+1$ (detect $t$ errors)"
         }
     },
     {
@@ -2483,8 +2531,8 @@ Questions.register([
         "correctAnswer": 3,
         "tolerance": 0,
         "explanation": {
-            "solution": "2^r ≥ m + r + 1 → 2³ ≥ 4+3+1 = 8 ≥ 8 ✓",
-            "formula": "2^r ≥ m+r+1"
+            "solution": "Hamming Code Parity Bits: For $m$ data bits, number of parity bits $r$ must satisfy $2^r ≥ m + r + 1$. Reason: $r$ parity bits can represent $2^r$ distinct syndromes. Need to encode: (1) NO ERROR (1 syndrome), (2) error in any of $m$ data bit positions, (3) error in any of $r$ parity bit positions. Total: $1 + m + r$ states, so $2^r ≥ m + r + 1$. For $m=4$ data bits: Try $r=2$: $2^2 = 4 < 4+2+1 = 7$ ✗. Try $r=3$: $2^3 = 8 ≥ 4+3+1 = 8$ ✓. Need 3 parity bits. Total codeword: 4 + 3 = 7 bits. Parity bits at positions $2^0=1, 2^1=2, 2^2=4$. Each parity bit covers specific positions based on binary representation. Can correct single-bit errors. Extended Hamming can detect 2-bit errors. Used in: ECC RAM, satellite communication.",
+            "formula": "$2^r \\geq m+r+1$ (m data, r parity)"
         }
     },
     {
@@ -2501,8 +2549,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "η = 1/(1+2a) where a = Tp/Tt",
-            "formula": "η = 1/(1+2a)"
+            "solution": "Stop-and-Wait Efficiency: Sender transmits ONE frame, waits for ACK before next - simplest ARQ protocol. Define: $a = T_p / T_t$ where $T_p$ = propagation delay (one-way), $T_t$ = transmission time (frame duration). Efficiency $\\eta = \\frac{\\text{useful time}}{\\text{total cycle time}} = \\frac{T_t}{T_t + 2T_p} = \\frac{T_t}{T_t(1 + 2a)} = \\frac{1}{1+2a}$. High $a$ (long distance or small frames) → low efficiency, much idle time waiting. For $a=1$ (Tp=Tt): only 33% efficient. For $a$ >> 1: approaches 0%. Improved by pipelining (Go-Back-N, Selective Repeat). Stop-and-wait simple but wasteful for high bandwidth-delay product links (satellite, high-speed networks). Used when: low bandwidth-delay, simplicity valued, or half-duplex channels.",
+            "formula": "$\\eta = \\frac{1}{1+2a}$ where $a = T_p/T_t$"
         }
     },
     {
@@ -2514,7 +2562,8 @@ Questions.register([
         "correctAnswer": 20,
         "tolerance": 1,
         "explanation": {
-            "solution": "a = 100/50 = 2. η = 1/(1+4) = 0.2 = 20%"
+            "solution": "Stop-and-Wait Efficiency Calculation: Given $T_p = 100$ ms (propagation delay), $T_t = 50$ ms (transmission time). Compute $a = T_p/T_t = 100/50 = 2$. Efficiency $\\eta = \\frac{1}{1+2a} = \\frac{1}{1+2(2)} = \\frac{1}{1+4} = \\frac{1}{5} = 0.2 = 20\\%$. Interpretation: sender spends 50 ms transmitting, then 200 ms idle (100 ms for ACK to arrive, 100 ms for next frame's first bit to reach receiver). Only 50 ms of 250 ms cycle is useful = 20%. This is VERY inefficient - 80% idle time! Solution: pipelining (send multiple frames before waiting for ACK). For $a=2$, to achieve near 100% efficiency with Go-Back-N, window size should be $W ≥ 1+2a = 5$ frames.",
+            "formula": "$a=2, \\eta = 1/5 = 20\\%$"
         }
     },
     {
@@ -2531,8 +2580,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "GBN: max W = 2ⁿ - 1",
-            "formula": "W ≤ 2ⁿ-1"
+            "solution": "Go-Back-N Maximum Window Size: With $n$-bit sequence numbers, maximum sender window size $W_{max} = 2^n - 1$. Reason: avoid AMBIGUITY between old and new frames. Sequence numbers wrap around modulo $2^n$. If $W = 2^n$, scenario: sender transmits frames 0 to $2^n-1$, all ACKs lost, sender retransmits. Receiver (expecting frame 0 of next cycle) can't distinguish retransmitted frame 0 (old) from new frame 0. SOLUTION: limit $W ≤ 2^n - 1$. At most $2^n-1$ unACKed frames. Example: $n=3$ bits (seq 0-7), $W_{max}=7$. Sender can have frames 0-6 outstanding. If all lost and retransmitted, receiver at frame 7 knows these are old. GBN retransmits ALL frames after lost one, even if received correctly. Simple receiver (only accepts in-order). Used in: HDLC, older protocols. Selective Repeat has smaller window but more complex.",
+            "formula": "$W_{max} = 2^n - 1$ (Go-Back-N)"
         }
     },
     {
@@ -2549,8 +2598,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "SR: max W = 2^(n-1)",
-            "formula": "W ≤ 2^(n-1)"
+            "solution": "Selective Repeat Maximum Window Size: With $n$-bit sequence numbers, maximum window size $W_{max} = 2^{n-1}$ for BOTH sender and receiver. Reason: prevent overlap between sender's window and receiver's acceptance window. Sequence space $2^n$, but windows at sender and receiver each of size $W$. Worst case: all ACKs delayed, sender and receiver windows maximally separated. To avoid ambiguity (old frame accepted as new or vice versa), require $2W ≤ 2^n$, thus $W ≤ 2^{n-1}$. Example: $n=3$ bits, $W_{max}=2^2=4$. Sender window frames 0-3, receiver window expecting 0-3. If frame 0 lost and ACKs delayed, when sender retransmits frame 0, receiver won't confuse it with frame 0 of next cycle (would be ≥4). SR retransmits ONLY lost frames, buffers out-of-order. Higher efficiency than GBN but complex receiver. Used in: TCP (modified), modern protocols.",
+            "formula": "$W_{max} = 2^{n-1}$ (Selective Repeat)"
         }
     },
     {
@@ -2562,7 +2611,8 @@ Questions.register([
         "correctAnswer": 15,
         "tolerance": 0,
         "explanation": {
-            "solution": "2⁴ - 1 = 15"
+            "solution": "Go-Back-N Window Calculation: Given $n = 4$ bit sequence numbers. Formula: $W_{max} = 2^n - 1 = 2^4 - 1 = 16 - 1 = 15$ frames. Sequence numbers: 0, 1, 2, ..., 15 (wraps to 0). Sender can have up to 15 outstanding (unACKed) frames simultaneously. Why not 16? If sender transmits frames 0-15 and all ACKs lost, when it retransmits frame 0, receiver (expecting frame 0 of next cycle, at seq 0) can't distinguish new from old. Limiting to 15 prevents this ambiguity. GBN advantage: simple receiver (only buffer for next expected frame). Disadvantage: retransmits already-correct frames if one is lost. For high-error channels, wasteful. Most modern protocols use Selective Repeat instead.",
+            "formula": "$2^4 - 1 = 15$"
         }
     },
     {
@@ -2574,7 +2624,8 @@ Questions.register([
         "correctAnswer": 8,
         "tolerance": 0,
         "explanation": {
-            "solution": "2³ = 8"
+            "solution": "Selective Repeat Window Calculation: Given $n = 4$ bit sequence numbers. Formula: $W_{max} = 2^{n-1} = 2^{4-1} = 2^3 = 8$ frames. Both sender and receiver windows limited to 8. Sequence numbers: 0-15. At any time, sender can have 8 outstanding frames, receiver can accept 8 frames (within window). Why half? To prevent sender and receiver window overlap causing ambiguity. If both windows size 8, they partition the sequence space (16 total) into two non-overlapping halves. Example: sender transmits 0-7, receiver ACKs, sender advances to 8-15. Even if ACKs delayed, no confusion between old and new frames. SR efficiency: retransmits only lost frames, receiver buffers out-of-order arrivals. Best for lossy links. Complexity: receiver buffering, sequence number management. TCP uses modified SR.",
+            "formula": "$2^3 = 8$"
         }
     },
     {
@@ -2591,7 +2642,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "CSMA/CD: sense carrier, detect collision (Ethernet)"
+            "solution": "CSMA /CD (Carrier Sense Multiple Access with Collision Detection): Ethernet's MAC protocol for shared medium (bus/hub). CARRIER SENSE: Listen before transmit - if channel busy, defer. Reduces collisions vs pure ALOHA. MULTIPLE ACCESS: Many devices share channel. COLLISION DETECTION: While transmitting, monitor for collision (signal from another station). If detected, ABORT transmission, send jam signal (48 bits, alert others), wait random backoff (exponential), retry. CD improves efficiency over CSMA (no CD) - don't waste time transmitting full frame after collision. Only works on: wired media (Ethernet), can't detect collision on wireless (signal attenuation, hidden terminal). Wireless uses CSMA/CA (Collision Avoidance, RTS/CTS). Minimum frame size ensures collision detected before transmission ends. Obsolete with switches (full-duplex, no collisions), but foundational concept.",
+            "formula": "CSMA/CD: sense+detect, Ethernet wired"
         }
     },
     {
@@ -2608,7 +2660,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Frame must last ≥ 2×propagation time to detect collision"
+            "solution": "CSMA/CD Minimum Frame Size: Frame must be large enough to ensure collision detected BEFORE transmission completes. Constraint: $T_{transmission} ≥ 2 \\times T_{propagation}$ (RTT = Round-Trip Time). Why? Worst case: station A starts transmitting, signal propagates toward station B (max distance away). Just before A's signal arrives, B starts transmitting (didn't sense A's carrier yet). Collision occurs at B. Collision signal propagates back to A. Total time for A to detect = 2 × propagation delay (A→B→A). If A finishes transmitting before collision signal returns, A won't know collision occurred. Formula: $Frame_{min} = Bandwidth \\times RTT = Bandwidth \\times (2 \\times Distance / Speed)$. Ethernet: 64 bytes min (512 bits for 10Mbps, 2.5km max). Too-small frames are collisions undetected. Padding added if payload < minimum.",
+            "formula": "$Frame_{min} = BW \\times 2T_p$"
         }
     },
     {
@@ -2620,7 +2673,8 @@ Questions.register([
         "correctAnswer": 250,
         "tolerance": 10,
         "explanation": {
-            "solution": "RTT = 2 × 2500 / 2×10⁸ = 25μs. Frame = 10M × 25μs = 250 bits"
+            "solution": "CSMA/CD Min Frame Calculation: Given bandwidth = 10 Mbps, max distance = 2.5 km = 2500 m, propagation speed = $2 \\times 10^8$ m/s. (1) Compute one-way propagation delay: $T_p = Distance/Speed = 2500/(2 \\times 10^8) = 12.5 \\mu s$. (2) Compute RTT: $RTT = 2 \\times T_p = 2 \\times 12.5 = 25 \\mu s$. (3) Minimum frame size: $Frame_{min} = Bandwidth \\times RTT = 10 \\times 10^6 \\times 25 \\times 10^{-6} = 250$ bits = 31.25 bytes. For collision detection, frame transmission time must ≥ RTT. If frame < 250 bits, station might finish transmitting before detecting collision. Actual Ethernet uses 64 bytes (512 bits) minimum for 10 Mbps, 2.5 km to account for safety margin and interframe gap. This is fundamental CSMA/CD constraint.",
+            "formula": "$RTT=25\\mu s, Frame=10M \\times 25\\mu s=250$ bits"
         }
     },
     {
@@ -2637,7 +2691,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Token Ring: token circulates, holder transmits"
+            "solution": "Token Ring: Deterministic MAC protocol using TOKEN PASSING. Stations connected in logical ring topology. Special token frame circulates continuously. Rules: (1) Only token holder can transmit data, (2) After transmission (or if no data), station releases token to next, (3) Others wait for token. NO COLLISIONS - deterministic access, unlike CSMA/CD. Advantages: (1) FAIR - guaranteed access within maximum time (token rotation time), (2) PREDICTABLE performance under high load, (3) PRIORITY mechanisms possible. Disadvantages: (1) token overhead, (2) single point of failure (token loss, broken ring), (3) complex maintenance (token regeneration). Variants: Token Ring (IEEE 802.5, IBM, 4/16 Mbps), Token Bus, FDDI (Fiber). Largely replaced by Ethernet switches (full-duplex, no contention). Historical importance in understanding MAC diversity.",
+            "formula": "Token Ring: token passing, deterministic"
         }
     },
     {
@@ -2654,8 +2709,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Pure ALOHA: max = 1/(2e) ≈ 18.4%",
-            "formula": "S_max = 1/(2e)"
+            "solution": "Pure ALOHA Maximum Throughput: Simplest random access protocol - transmit whenever data ready, NO carrier sensing. If collision (detected via ACK timeout), wait random time, retransmit. Vulnerable period = $2 \\times$ frame time (collision if any other station transmits during [ $t-T_f$, $t+T_f$ ] where $T_f$ = frame transmission time). Throughput analysis (Poisson traffic, $G$ = offered load): $S = G \\times e^{-2G}$. Maximum: differentiate, set to 0, get $G_{opt} = 0.5$. $S_{max} = 0.5 \\times e^{-1} = 1/(2e) ≈ 0.184 = 18.4\\%$. Only 18.4% of time used successfully! Very wasteful. Used in: early radio networks (ALOHAnet, Hawaii, 1970s), satellite. Improved by slotting. Modern: rarely used, but conceptually important for understanding contention.",
+            "formula": "$S_{max} = 1/(2e) ≈ 18.4\\%$"
         }
     },
     {
@@ -2672,8 +2727,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Slotted ALOHA: max = 1/e ≈ 36.8%",
-            "formula": "S_max = 1/e"
+            "solution": "Slotted ALOHA Maximum Throughput: Improved ALOHA - time divided into DISCRETE SLOTS (each = frame transmission time). Stations synchronized, can only transmit at slot boundaries. Reduces vulnerable period: collision ONLY if two stations transmit in SAME slot (vs pure ALOHA: collision if transmit within 2 frame times). Vulnerable period = $1 \\times$ frame time (vs 2 for pure). Throughput: $S = G \\times e^{-G}$. Maximum: differentiate, $G_{opt} = 1$, $S_{max} = 1 \\times e^{-1} = 1/e ≈ 0.368 = 36.8\\%$. DOUBLE the throughput of pure ALOHA! Still wasteful (63% collisions/idle at peak). Advantages over pure: better efficiency, simpler analysis. Disadvantages: requires synchronization. Used in: early satellite systems, GSM random access. Modern contention protocols (CSMA/CD/CA) far superior.",
+            "formula": "$S_{max} = 1/e ≈ 36.8\\%$"
         }
     },
     {
@@ -2690,7 +2745,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "IPv4: 32 bits (4 bytes, dotted decimal)"
+            "solution": "IPv4 Address Size: 32 bits (4 bytes) total. Notation: dotted-decimal - four octets (8 bits each) separated by dots. Example: 192.168.1.1 = 11000000.10101000.00000001.00000001 (binary). Address space: $2^{32} = 4,294,967,296$ addresses (≈4.3 billion). Originally designed for classful addressing (Class A/B/C/D/E), now classless (CIDR). Each octet: 0-255 decimal. Network portion + host portion determined by subnet mask. IPv4 exhaustion: addresses depleted (2011), driving IPv6 adoption. Mitigation: NAT (private addresses), CIDR (efficient allocation). Special addresses: 0.0.0.0 (default route), 127.0.0.1 (loopback), 255.255.255.255 (broadcast), private ranges (10.x, 172.16-31.x, 192.168.x). IPv4 header: 20-60 bytes, includes TTL, protocol, checksum.",
+            "formula": "IPv4: 32 bits = 4 bytes, dotted-decimal"
         }
     },
     {
@@ -2707,7 +2763,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "IPv6: 128 bits"
+            "solution": "IPv6 Address Size: 128 bits total - FOUR TIMES larger than IPv4's 32 bits. Notation: colon-hexadecimal - eight groups of 4 hex digits (16 bits each) separated by colons. Example: 2001:0db8:85a3:0000:0000:8a2e:0370:7334. Shorthand rules: (1) omit leading zeros: 0042 → 42, (2) consecutive zero groups → '::' (once only): 2001:0db8::8a2e:0370:7334. Address space: $2^{128} = 3.4 \\times 10^{38}$ addresses - VAST, effectively unlimited (≈$10^{28}$ addresses per person). Designed to: (1) solve IPv4 exhaustion, (2) simplify routing (hierarchical allocation), (3) improve security (IPsec mandatory), (4) eliminate NAT need. No broadcast (uses multicast). IPv6 header: fixed 40 bytes, simpler than IPv4. Adoption growing but still < 50% globally. Dual-stack, tunneling, translation for coexistence.",
+            "formula": "IPv6: 128 bits, colon-hex, $2^{128}$ addresses"
         }
     },
     {
@@ -2719,8 +2776,8 @@ Questions.register([
         "correctAnswer": 254,
         "tolerance": 0,
         "explanation": {
-            "solution": "2^(32-24) - 2 = 256 - 2 = 254",
-            "formula": "2^(32-prefix) - 2"
+            "solution": "Usable Hosts in /24 Subnet: /24 means 24-bit network prefix, leaving $32 - 24 = 8$ bits for host portion. Total addresses: $2^8 = 256$. However, 2 addresses RESERVED: (1) NETWORK ADDRESS - all host bits = 0 (e.g., 192.168.1.0 for 192.168.1.0/24), identifies the subnet itself, (2) BROADCAST ADDRESS - all host bits = 1 (e.g., 192.168.1.255), sends to all hosts in subnet. USABLE host addresses: $2^8 - 2 = 256 - 2 = 254$. Range: 192.168.1.1 to 192.168.1.254 (if network is 192.168.1.0/24). Formula: $Hosts = 2^{host\_bits} - 2 = 2^{(32-prefix)} - 2$. Applies to ALL subnet sizes: /8 → 16,777,214 hosts, /16 → 65,534, /30 → 2 (point-to-point links), /31 → 0 usable (special case for p2p, RFC 3021 allows 2), /32 → single host.",
+            "formula": "$2^{(32-24)} - 2 = 254$ usable hosts"
         }
     },
     {
@@ -2732,7 +2789,8 @@ Questions.register([
         "correctAnswer": 16,
         "tolerance": 0,
         "explanation": {
-            "solution": "2^(32-28) = 2^4 = 16"
+            "solution": "/28 Subnet Total Addresses: /28 prefix means 28 network bits, $32 - 28 = 4$ host bits remaining. Total addresses in subnet (including network and broadcast): $2^4 = 16$ addresses. Breakdown: (1) 1 network address (all host bits 0), (2) 14 usable host addresses (host bits 0001 to 1110), (3) 1 broadcast address (all host bits 1). Example: 192.168.1.16/28 contains 192.168.1.16 (network) to 192.168.1.31 (broadcast). Usable: .17 to .30. /28 commonly used for small subnets (office floor, VLAN). Subnet mask: 255.255.255.240 (binary: 28 ones, 4 zeros). Address range calculation: network address + [0, $2^{host\_bits} - 1$]. /28 wastes least space for 10-14 hosts. Use subnet calculator for complex VLSM.",
+            "formula": "$2^{(32-28)} = 2^4 = 16$ total"
         }
     },
     {
@@ -2749,7 +2807,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "CIDR: Classless Inter-Domain Routing, flexible prefixes"
+            "solution": "CIDR (Classless Inter-Domain Routing): Addressing scheme allowing VARIABLE-LENGTH SUBNET MASKS (VLSM) - flexible prefix lengths rather than fixed classes. Replaces classful addressing (Class A=/8, B=/16, C=/24) which was wasteful. CIDR notation: IP/prefix (e.g., 192.168.1.0/24, 10.0.0.0/8, 203.0.113.0/25). Benefits: (1) EFFICIENT allocation - assign exactly needed address space, reduce waste, (2) ROUTE AGGREGATION (supernetting) - combine multiple networks into single route, reduces routing table size, improve scalability, (3) FLEXIBILITY - subnets of any size. Example: instead of wasting Class C (256 addresses) for 50 hosts, use /26 (64 addresses). Introduced 1993 (RFC 1519) to combat IPv4 exhaustion. Requires routers support CIDR (all modern do). Essential for: ISPs, large enterprises, Internet routing (BGP aggregates with CIDR).",
+            "formula": "CIDR: classless, VLSM, route aggregation"
         }
     },
     {
@@ -2766,7 +2825,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "NAT: maps private ↔ public IP addresses"
+            "solution": "NAT (Network Address Translation): Translates PRIVATE (RFC 1918) IP addresses to PUBLIC IP addresses at network boundary (router). Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 - non-routable on Internet. NAT operation: (1) OUTBOUND - internal host (e.g., 192.168.1.5:12345) sends packet, NAT router replaces source with public IP:port (e.g., 203.0.113.5:6789), records mapping in translation table. (2) INBOUND - response arrives at 203.0.113.5:6789, NAT looks up table, translates destination back to 192.168.1.5:12345, forwards internally. Benefits: IP conservation (entire network shares 1 public IP), security (hides internal topology). Drawbacks: breaks end-to-end model, complicates P2P, VoIP, IPsec. Types: Static NAT (1:1), Dynamic NAT (pool), PAT/NAPT (port-based, most common). IPv6 eliminates NAT need.",
+            "formula": "NAT: private IP ↔ public IP (translation)"
         }
     },
     {
@@ -2783,7 +2843,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "RIP: distance-vector (Bellman-Ford)"
+            "solution": "RIP Routing Protocol Type: DISTANCE-VECTOR algorithm. Each router maintains routing table with distance (metric = hop count) and next-hop to each destination. Periodically (every 30s) broadcasts entire table to neighbors. On receiving update, router applies BELLMAN-FORD algorithm: for each destination, if neighbor's distance+1 < current distance, update route. Converges by iterative exchange. Characteristics: (1) SIMPLE - easy to configure and understand, (2) METRIC - only hop count (ignores bandwidth, latency), (3) SLOW CONVERGENCE - iterative updates, routing loops possible during convergence, (4) COUNT-TO-INFINITY problem - mitigated by max hop limit (15), split horizon, poison reverse. Contrast: LINK-STATE (OSPF) - routers exchange link information, each computes shortest paths using Dijkstra. RIP suitable for small networks only. IGP (Interior Gateway Protocol).",
+            "formula": "RIP: distance-vector, Bellman-Ford, hop count"
         }
     },
     {
@@ -2800,7 +2861,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "OSPF: link-state (Dijkstra)"
+            "solution": "OSPF Routing Protocol Type: LINK-STATE algorithm. Each router discovers neighbors, measures link costs, floods LINK STATE ADVERTISEMENTS (LSAs) to ALL routers in area. Every router builds identical LINK-STATE DATABASE (complete network topology graph). Each router independently runs DIJKSTRA's algorithm on this graph to compute shortest path tree (itself as root) and builds routing table. Updates triggered by topology changes only (not periodic) - FAST CONVERGENCE. Characteristics: (1) SCALABLE - hierarchical areas reduce LSA flooding scope, (2) METRIC - cost (configurable, often inverse bandwidth), (3) LOOP-FREE - SPF algorithm guarantees, (4) SUPPORTS - VLSM, CIDR, authentication, multicast routing. More complex than RIP but far superior for large networks. IGP. Used in: enterprise networks, data centers. Contrast: distance-vector (RIP) iterates, slower, routing loops possible.",
+            "formula": "OSPF: link-state, Dijkstra, LSAs, areas"
         }
     },
     {
@@ -2817,7 +2879,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "BGP: path-vector (inter-domain)"
+            "solution": "BGP Routing Protocol Type: PATH-VECTOR algorithm - extension of distance-vector with FULL PATH information. Used for INTER-DOMAIN routing (between Autonomous Systems, ASs) on the Internet. Each BGP router advertises REACHABLE PREFIXES along with complete AS PATH (sequence of AS numbers traversed). Receiving router uses path for: (1) LOOP PREVENTION - reject routes containing own AS number, (2) POLICY-BASED routing - prefer/avoid routes through specific ASs (business relationships, politics), not just shortest. BGP selects best path using complex DECISION PROCESS: (1) prefer higher local preference, (2) shorter AS path, (3) lower MED, etc. Characteristics: (1) POLICY - routing based on agreements, not just metrics, (2) SCALABLE - handles entire Internet routing table (900K+ prefixes), (3) SLOW convergence - stability over speed. EGP (Exterior Gateway Protocol). Contrast: RIP/OSPF are IGPs within single AS.",
+            "formula": "BGP: path-vector, inter-AS, policy-based"
         }
     },
     {
@@ -2834,7 +2897,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DV: slow convergence, count to infinity"
+            "solution": "Count-to-Infinity Problem: Pathological SLOW CONVERGENCE issue in DISTANCE-VECTOR routing when link fails. Scenario: 3 routers A-B-C in line. A has route to X (distance 1), advertises to B (distance 2), B advertises to C (distance 3). If A-X link fails, A sets distance to X = ∞. But before A's update reaches B, B advertises 'distance 2 to X' to A. A thinks 'route through B exists!' and sets distance = 2+1=3, advertises to B. B receives '3', updates to 4, advertises. This BOUNCING continues, distances incrementing each round (counting to infinity), until reaching maximum (RIP: 16 = ∞). SLOW! Solutions: (1) MAX METRIC (RIP: 16=∞) stops infinite counting, (2) SPLIT HORIZON - don't advertise route back to neighbor learned from, (3) POISON REVERSE - advertise ∞ back to source, (4) HOLD-DOWN timers. Link-state (OSPF) DOES NOT have this problem - global topology knowledge prevents.",
+            "formula": "Count-to-∞: distance-vector slow convergence"
         }
     },
     {
@@ -2851,7 +2915,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "TCP: connection-oriented, reliable (3-way handshake)"
+            "solution": "TCP (Transmission Control Protocol): CONNECTION-ORIENTED (3-way handshake establishes connection before data transfer, 4-way termination), RELIABLE (guaranteed delivery via ACKs, retransmission, sequence numbers, checksums). Features: (1) ORDERED - data arrives in correct order, (2) FLOW CONTROL - receiver window prevents overflow, (3) CONGESTION CONTROL - adapts to network conditions, (4) FULL-DUPLEX - bidirectional communication, (5) BYTE-STREAM - no message boundaries. Overhead: larger header (20-60 bytes), connection setup latency. Use cases: web (HTTP/HTTPS), email (SMTP, IMAP), file transfer (FTP, SSH), where reliability essential. Transport layer protocol (Layer 4).",
+            "formula": "TCP: connection-oriented, reliable, ordered"
         }
     },
     {
@@ -2868,7 +2933,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "UDP: connectionless, best-effort delivery"
+            "solution": "UDP (User Datagram Protocol): CONNECTIONLESS (no handshake, just send), UNRELIABLE (best-effort delivery, no ACKs, no retransmission, packets may be lost/duplicated/reordered). Features: (1) FAST - minimal overhead, low latency, no connection setup, (2) SIMPLE - small header (8 bytes fixed), (3) NO flow/congestion control, (4) MESSAGE-ORIENTED - preserves message boundaries (datagrams). Applications handle reliability if needed. Use cases: (1) REAL-TIME - VoIP, video streaming, online gaming (prefer speed over perfect delivery), (2) DNS queries (small, can retry), (3) DHCP, TFTP, SNMP, NTP. When to use UDP? Speed critical, can tolerate loss, application-level error handling. Contrast TCP: reliable but slower.",
+            "formula": "UDP: connectionless, unreliable, fast"
         }
     },
     {
@@ -2885,7 +2951,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "3-way: SYN → SYN+ACK → ACK"
+            "solution": "TCP 3-Way Handshake: SYN → SYN+ACK → ACK. See earlier detailed explanation (net2-tcp-008). Establishes connection, synchronizes sequence numbers, negotiates options before data transfer.",
+            "formula": "3-way: SYN → SYN+ACK → ACK"
         }
     },
     {
@@ -2902,7 +2969,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Slow start: cwnd doubles each RTT until threshold"
+            "solution": "TCP Slow Start: Exponential growth - congestion window (cwnd) DOUBLES every RTT. See earlier detailed explanation (net2-tcp-012). cwnd starts at 1 MSS, increases by 1 MSS per ACK received (1→2→4→8...). Continues until reaching ssthresh or detecting loss.",
+            "formula": "Slow Start: exponential (doubles per RTT)"
         }
     },
     {
@@ -2919,7 +2987,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Congestion avoidance: +1 MSS per RTT (AIMD)"
+            "solution": "TCP Congestion Avoidance: Linear (additive) increase - cwnd increases by approximately 1 MSS per RTT. See earlier detailed explanation (net2-tcp-013). Used after slow start (cwnd ≥ ssthresh). AIMD: Additive Increase Multiplicative Decrease for fairness.",
+            "formula": "Congestion Avoidance: linear (+1 MSS/RTT)"
         }
     },
     {
@@ -2931,7 +3000,8 @@ Questions.register([
         "correctAnswer": 4294967295,
         "tolerance": 0,
         "explanation": {
-            "solution": "2³² - 1 = 4,294,967,295"
+            "solution": "TCP Sequence Number Field: 32 bits allows sequence numbers from 0 to $2^{32} - 1 = 4,294,967,295$. Sequence numbers track BYTES (not packets) - each byte gets a sequence number. After reaching max, wraps to 0 (modulo $2^{32}$). 32-bit space allows ~4 GB window before wraparound. For modern high-speed networks (10Gbps+), wraparound can occur quickly - Window Scaling option (RFC 1323) extends effective window beyond 64KB. Acknowledgment numbers also 32-bit. Sequence/ACK synchronization in handshake uses random initial sequence numbers (ISN) for security (prevent hijacking).",
+            "formula": "$2^{32} - 1 = 4,294,967,295$"
         }
     },
     {
@@ -2948,7 +3018,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DNS: UDP 53 (TCP for zone transfers)"
+            "solution": "DNS primarily UDP port 53. See earlier comprehensive explanation (net3-dns-004). TCP port 53 for zone transfers and large responses >512 bytes.",
+            "formula": "DNS: UDP 53 (TCP for zone xfer/large)"
         }
     },
     {
@@ -2965,7 +3036,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "HTTP: port 80, HTTPS: port 443"
+            "solution": "HTTP default port 80 (unencrypted). HTTPS port 443 (encrypted over TLS/SSL). See earlier comprehensive explanations (net3-http-002 for port 80, net3-http-003 for port 443).",
+            "formula": "HTTP: 80 (plaintext), HTTPS: 443 (TLS)"
         }
     },
     {
@@ -2982,7 +3054,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "FTP: 21 control, 20 data"
+            "solution": "FTP ports 21 (control) and 20 (data), out-of-band control. See earlier comprehensive explanation (net3-ftp-001). Separate persistent control connection and transient data connections.",
+            "formula": "FTP: 21 (control), 20 (data)"
         }
     },
     {
@@ -2999,7 +3072,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "SMTP: port 25"
+            "solution": "SMTP port 25 for email sending/relay. See earlier comprehensive explanations (net3-email-001, net3-smtp-001). Port 587 for submission with authentication increasingly common.",
+            "formula": "SMTP: port 25 (send/relay)"
         }
     },
     {
@@ -3016,7 +3090,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Telnet: port 23, SSH: port 22"
+            "solution": "Telnet port 23 (plaintext, insecure, legacy remote access). SSH port 22 (encrypted, secure replacement). See earlier comprehensive explanations (net3-port-001 for Telnet, net3-ssh-001 for SSH).",
+            "formula": "Telnet: 23 (insecure), SSH: 22 (secure)"
         }
     },
     {
