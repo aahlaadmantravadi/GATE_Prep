@@ -804,7 +804,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Stack: Last In First Out"
+            "solution": "Stack: Last In First Out (LIFO). Last element pushed is first to be popped. Like a stack of plates - can only add/remove from top. Operations: Push (add to top), Pop (remove from top), Peek (view top). Applications: function call stack, expression evaluation, backtracking, undo functionality. Contrast with Queue (FIFO).",
+            "formula": "LIFO: Last In First Out"
         }
     },
     {
@@ -821,7 +822,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Stack for operators during conversion"
+            "solution": "Infix to Postfix Conversion using Stack: Stack stores operators based on precedence. Scan infix from left to right: operands go to output, operators pushed to stack (pop higher/equal precedence first), parentheses control precedence. Result is postfix expression (no parentheses needed). Example: A+B*C → ABC*+. Detailed in dsa-stack-012.",
+            "formula": "Stack for operator precedence"
         }
     },
     {
@@ -838,7 +840,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "One stack to hold operands"
+            "solution": "Postfix Evaluation using ONE Stack: Stack holds operands/intermediate results. Scan postfix expression: push operands, when operator found pop two operands, apply operation, push result. Final stack top is answer. Example: 23+4* → 5,4 → 20. No precedence ambiguity in postfix. Detailed algorithm in dsa-stack-011.",
+            "formula": "Single stack for operands"
         }
     },
     {
@@ -855,7 +858,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Catalan(3) = 5 = (2n)! / ((n+1)! × n!)"
+            "solution": "Catalan Numbers for BST: Number of structurally different BSTs with n distinct nodes = Catalan(n) = $\\frac{(2n)!}{(n+1)! \\times n!} = \\frac{1}{n+1}\\binom{2n}{n}$. For n=3: $C_3 = \\frac{6!}{4! \\times 3!} = \\frac{720}{24 \\times 6} = 5$ different BSTs. Catalan also counts parenthesizations, mountain ranges, Dyck paths. Recursive: $C_n = \\sum_{i=0}^{n-1} C_i C_{n-1-i}$.",
+            "formula": "$C_n = \\frac{(2n)!}{(n+1)! \\cdot n!}$ (Catalan)"
         }
     },
     {
@@ -872,7 +876,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Queue: First In First Out"
+            "solution": "Queue: First In First Out (FIFO). First element enqueued is first to be dequeued. Like a line at store - people served in order they arrive. Operations: Enqueue (add to rear), Dequeue (remove from front), Peek (view front). Applications: BFS, CPU scheduling, printer queue, buffering. Implemented via array (circular queue) or linked list.",
+            "formula": "FIFO: First In First Out"
         }
     },
     {
@@ -889,7 +894,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Usually n-1 to distinguish full from empty"
+            "solution": "Circular Queue Capacity: Typically holds n-1 elements (one slot wasted) to distinguish between empty and full conditions. Empty: front==rear. Full: (rear+1)%n == front. Without wasting a slot, would need extra flag or count variable. Trade-off: waste one slot for simpler logic. Alternative: use size counter (can then use all n slots).",
+            "formula": "Max capacity = n-1 (or n with counter)"
         }
     },
     {
@@ -906,7 +912,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Deque: double-ended queue"
+            "solution": "Deque (Double-Ended Queue): Supports insertion and deletion at BOTH front and rear ends in O(1). Generalization of both stack and queue. Can implement stack (use one end only) or queue (enqueue at  rear, dequeue at front). Applications: window sliding, work stealing, palindrome checking. Detailed in dsa-queue-012.",
+            "formula": "Deque: insertion/deletion at both ends"
         }
     },
     {
@@ -923,7 +930,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Must traverse from head: O(n)"
+            "solution": "Linked List Access Time: No random access! Must traverse from head sequentially. To access nth element: start at head, follow n next pointers → O(n). Compare to array: direct access at computed address → O(1). Trade-off: linked lists have O(1) insertion/deletion at known positions, arrays have O(1) access but O(n) insertion/deletion.",
+            "formula": "Access time: O(n)"
         }
     },
     {
@@ -940,7 +948,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "DLL: data + next + prev"
+            "solution": "Doubly Linked List Node Structure: Each node contains three fields: (1) data - actual value, (2) next - pointer to next node, (3) prev - pointer to previous node. Allows bidirectional traversal. Enables O(1) deletion of given node (can access predecessor directly). Extra memory for prev pointer. Applications: browser history (back/forward), LRU cache.",
+            "formula": "Node: {data, next, prev}"
         }
     },
     {
@@ -957,7 +966,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Floyd's: slow moves 1, fast moves 2. Meet if cycle"
+            "solution": "Floyd's Cycle Detection (Tortoise-Hare): Use two pointers - slow (moves 1 step), fast (moves 2 steps). If cycle exists, they meet inside cycle. If no cycle, fast reaches NULL. Time O(n), Space O(1). To find cycle start: reset one pointer to head, move both 1 step - they meet at cycle entry. Detailed in dsa-ll-013.",
+            "formula": "Slow: +1, Fast: +2 per iteration"
         }
     },
     {
@@ -974,7 +984,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Skewed tree: height = n-1"
+            "solution": "Binary Tree Maximum Height: Skewed tree (all nodes on one side - left or right) has maximum height. For n nodes: height = n-1. Example: 5 nodes in left-skewed tree → height 4. Minimum height (complete/perfect tree) = $\\lfloor \\log_2 n \\rfloor$. Height affects operation complexity.",
+            "formula": "Max height = n-1 (skewed)"
         }
     },
     {
@@ -991,8 +1002,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Complete: height = ⌊log₂n⌋",
-            "formula": "⌊log₂n⌋"
+            "solution": "Complete Binary Tree Height: Fills levels left-to-right, top-to-bottom. Height = $\\lfloor \\log_2 n \\rfloor$ (minimum possible height for n nodes). Perfect binary tree of height h has exactly $2^{h+1}-1$ nodes. Complete tree has $2^h$ to $2^{h+1}-1$ nodes. Heaps are complete binary trees - enables array representation.",
+            "formula": "$h = \\lfloor \\log_2 n \\rfloor$ (complete)"
         }
     },
     {
@@ -1016,8 +1027,8 @@ Questions.register([
         "correctAnswer": 9,
         "tolerance": 0,
         "explanation": {
-            "solution": "n₂ = n₀ - 1 = 10 - 1 = 9",
-            "formula": "n₂ = n₀ - 1"
+            "solution": "Binary Tree Degree-2 vs Leaf Relationship: For any binary tree, nodes with degree 2 (two children) = leaf nodes - 1. Formula: $n_2 = n_0 - 1$ where $n_2$ = degree-2 nodes, $n_0$ = leaf nodes. So 10 leaves → 9 degree-2 nodes. Proof via edge counting: $n = n_0 + n_1 + n_2$ and edges $= n-1 = n_1 + 2n_2$.",
+            "formula": "$n_2 = n_0 - 1$ (binary tree)"
         }
     },
     {
@@ -1034,7 +1045,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "BST inorder: sorted (ascending)"
+            "solution": "BST Inorder Traversal: Visits nodes in sorted (ascending) order. Traversal: Left subtree → Root → Right subtree. BST property ensures left < root < right, so inorder  gives ascending sequence. To get descending: reverse inorder (Right → Root → Left). Used for sorted iteration over BST. Time: O(n) to visit all nodes.",
+            "formula": "Inorder(BST) = Sorted sequence"
         }
     },
     {
@@ -1051,7 +1063,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Balanced BST: O(log n) search"
+            "solution": "Balanced BST Search: Average and best case O(log n) for balanced trees (AVL, Red-Black). Height is O(log n), search follows one root-to-leaf path. Each comparison eliminates half the remaining nodes (like binary search). Balanced trees maintain O(log n) height through rotations. Compare to skewed BST: O(n) worst case.",
+            "formula": "O(log n) for balanced BST"
         }
     },
     {
@@ -1068,7 +1081,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Skewed BST degenerates to linked list: O(n)"
+            "solution": "Skewed BST Worst Case: When BST degenerates into linked list (all nodes on one side). Happens with sorted/reverse-sorted insertion order without balancing. Height = n-1, search requires traversing all nodes → O(n). Solution: use self-balancing BSTs (AVL, Red-Black) that guarantee O(log n) height via rotations.",
+            "formula": "O(n) worst case (skewed)"
         }
     },
     {
@@ -1114,7 +1128,8 @@ Questions.register([
         "correctAnswer": 20,
         "tolerance": 0,
         "explanation": {
-            "solution": "N(h) = N(h-1)+N(h-2)+1. N(5) = 12+7+1 = 20"
+            "solution": "Minimum Nodes in AVL Tree: Recurrence $N(h) = N(h-1) + N(h-2) + 1$ (Fibonacci-like). $N(0)=1, N(1)=2, N(2)=4, N(3)=7, N(4)=12, N(5)=20$. AVL with minimum nodes resembles Fibonacci tree - highly unbalanced while still satisfying balance factor ≤1. Inversely: maximum height for n nodes ≈ $1.44\\log_2 n$.",
+            "formula": "$N(h) = N(h-1)+N(h-2)+1$"
         }
     },
     {
@@ -1131,7 +1146,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "LL: single right rotation"
+            "solution": "AVL LL Rotation: Left-Left imbalance means node inserted in left subtree of left child. Fix: SINGLE RIGHT rotation at unbalanced node (pivot on left child). Rotation brings left child up, unbalanced node down as right child. Restores balance factor to {-1,0,+1}. Time: O(1).",
+            "formula": "LL: single right rotation"
         }
     },
     {
@@ -1148,7 +1164,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "LR: left rotation then right rotation"
+            "solution": "AVL LR Rotation: Left-Right imbalance means node inserted in right subtree of left child. Fix: DOUBLE rotation - (1) LEFT rotation on left child, (2) RIGHT rotation on unbalanced node. Converts LR to LL, then fixes. Restores balances. Also called Left-Right zig-zag.",
+            "formula": "LR: left then right rotation"
         }
     },
     {
@@ -1165,7 +1182,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Max-heap: parent ≥ both children"
+            "solution": "Max-Heap Property: For every node, parent value ≥ both children values. Largest element at root. Recursively applies to all subtrees. Min-heap reverses: parent ≤ children, smallest at root. Heap is complete binary tree (not BST!). Left vs right child order doesn't matter. Used for priority queues, heap sort.",
+            "formula": "parent ≥ children (max-heap)"
         }
     },
     {
@@ -1199,7 +1217,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Heap sort: O(n log n) always"
+            "solution": "Heap Sort Time Complexity: Guaranteed O(n log n) in ALL cases (best, average, worst). Algorithm: (1) Build max-heap O(n), (2) Extract-max n times, each O(log n) → total O(n log n). In-place sorting. Not stable. Slower than quicksort in practice due to poor cache locality, but worst-case guarantee is valuable.",
+            "formula": "O(n log n) guaranteed"
         }
     },
     {
@@ -1211,7 +1230,8 @@ Questions.register([
         "correctAnswer": 0,
         "tolerance": 0,
         "explanation": {
-            "solution": "Left child = 2i+1 (0-indexed) or 2i (1-indexed)"
+            "solution": "Heap Array Indexing (0-based): For node at index i: left child = 2i+1, right child = 2i+2, parent = $\\lfloor (i-1)/2 \\rfloor$. For 1-based: left = 2i, right = 2i+1, parent = $\\lfloor i/2 \\rfloor$ (simpler formulas). Root at index 0 (or 1). Complete binary tree property enables efficient array mapping.",
+            "formula": "Left = 2i+1 (0-based)"
         }
     },
     {
@@ -1228,7 +1248,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Hash table: O(1) average search"
+            "solution": "Hash Table Average Search: O(1) average case with good hash function and load factor < 1. Directly compute index from key, access in constant time. Assumption: uniform distribution, simple uniform hashing. Collisions handled by chaining (O(1+α)) or open addressing. Worst case: O(n) if all keys collide.",
+            "formula": "O(1) average"
         }
     },
     {
@@ -1245,7 +1266,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Collision: different keys, same hash value"
+            "solution": "Hash Collision: Two different keys k1 ≠ k2 hash to same index h(k1) = h(k2). Inevitable by pigeonhole principle (infinite keys, finite table). Collision resolution: chaining (linked lists at each bucket) or open addressing (probe for next empty slot). Good hash function minimizes, but can't eliminate collisions.",
+            "formula": "h(k1) = h(k2) where k1 ≠ k2"
         }
     },
     {
@@ -1262,7 +1284,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Chaining: each slot has linked list"
+            "solution": "Chaining Collision Resolution: Each bucket contains linked list of all key-value pairs that hash to that index. Insert: append to list at h(k). Search: traverse list at h(k). Load factor α can exceed 1. Average search time O(1+α). Simple, no clustering, but extra memory for pointers.",
+            "formula": "Each bucket = linked list"
         }
     },
     {
@@ -1279,7 +1302,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Linear: try h(k)+1, h(k)+2, ..."
+            "solution": "Linear Probing Collision Resolution: If h(k) occupied, try h(k)+1, h(k)+2, ... (mod m) until empty slot found. Open addressing - all elements in table itself (no pointers). Problem: PRIMARY CLUSTERING - contiguous blocks of occupied slots form, increasing probe length. Deletion tricky (use tombstones). Load factor must be < 1.",
+            "formula": "Probe: h(k), h(k)+1, h(k)+2,..."
         }
     },
     {
@@ -1296,7 +1320,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Linear probing: clusters form, degrade performance"
+            "solution": "Primary Clustering in Linear Probing: Contiguous filled slots cluster together. New keys hashing anywhere in cluster extend it. Long probe sequences develop. Performance degrades significantly as load factor increases. Quadratic probing reduces (but doesn't eliminate via secondary clustering). Double hashing eliminates clustering.",
+            "formula": "Long contiguous filled blocks"
         }
     },
     {
@@ -1313,7 +1338,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "Double: h(k)+i×h'(k) probing"
+            "solution": "Double Hashing: Uses TWO hash functions h1(k) and h2(k). Probe sequence: h1(k), h1(k)+h2(k), h1(k)+2*h2(k), ... (all mod m). h2(k) should never be 0 and should be relatively prime to m (use prime table size). Eliminates both primary and secondary clustering. Best open addressing method but requires good second hash function.",
+            "formula": "Probe: h1(k) + i*h2(k)"
         }
     },
     {
@@ -1325,7 +1351,8 @@ Questions.register([
         "correctAnswer": 2,
         "tolerance": 0,
         "explanation": {
-            "solution": "22%11=0, 33%11=0 (collision), 44%11=0 (collision) = 2 collisions"
+            "solution": "Hash Collision Calculation: h(k)=k%11. 22%11=0 (slot 0), 33%11=0 (collision! slot 0 occupied), 44%11=0 (collision again!). Total collisions = 2. With linear probing: 22 at index 0, 33 at index 1, 44 at index 2. All three keys have same hash value (0).",
+            "formula": "22%11=33%11=44%11=0"
         }
     },
     {
@@ -1342,7 +1369,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "BFS: queue for level-order traversal"
+            "solution": "BFS Uses Queue: Breadth-First Search explores level by level. Queue ensures FIFO - visit nodes in order discovered. Enqueue starting vertex, then repeatedly: dequeue vertex, visit it, enqueue unvisited neighbors. Queue enforces level-order traversal. Applications: shortest path in unweighted graphs, web crawlers. Time: O(V+E).",
+            "formula": "BFS: Queue (FIFO)"
         }
     },
     {
@@ -1359,7 +1387,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DFS: stack (explicit or call stack)"
+            "solution": "DFS Uses Stack: Depth-First Search explores as deep as possible before backtracking. Stack provides LIFO - most recent unvisited neighbor explored first. Implementation: explicit stack or recursion (implicit call stack). Visit vertex, mark visited, push unvisited neighbors. Applications: topological sort, cycle detection, pathfinding. Time: O(V+E).",
+            "formula": "DFS:  Stack or recursion (LIFO)"
         }
     },
     {
@@ -1376,7 +1405,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Visit all vertices and edges: O(V+E)"
+            "solution": "BFS/DFS Time Complexity for Adjacency List: Visit each vertex once (O(V)) and examine each edge once in undirected or twice in directed (O(E)). Total: O(V + E). Space: O(V) for visited array and queue/stack. For adjacency matrix: O(V²) time (must check all entries for each vertex).",
+            "formula": "O(V+E) for adjacency list"
         }
     },
     {
@@ -1393,7 +1423,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "BFS gives shortest path in unweighted graphs"
+            "solution": "BFS Shortest Path: In UNWEIGHTED graphs, BFS finds shortest path (minimum number of edges) from source to all reachable vertices. Why? Level-by-level expansion ensures first visit to vertex is via shortest path. For WEIGHTED graphs, use Dijkstra's (non-negative weights) or Bellman-Ford (allows negative weights).",
+            "formula": "BFS shortest path: unweighted only"
         }
     },
     {
@@ -1410,7 +1441,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Topological sort: only for DAGs"
+            "solution": "Topological Sort for DAGs: Linear ordering of vertices such that for every directed edge u→v, u comes before v in ordering. ONLY possible for Directed Acyclic Graphs (no cycles - would create circular dependency). Algorithm: DFS or Kahn's (BFS-based, remove vertices with in-degree 0). Applications: task scheduling, build systems, prerequisite chains. Time: O(V+E).",
+            "formula": "Topological sort: DAG only"
         }
     }
 ]);
