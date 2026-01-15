@@ -31,7 +31,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "When pivot is always the smallest or largest element, one partition has 0 elements, the other has n-1. This gives n + (n-1) + ... + 1 = O(n²) comparisons."
+            "solution": "Quick Sort Worst Case: Occurs when pivot selection is poor - always picks smallest or largest element. Results in maximally unbalanced partitions: one side empty (0 elements), other has $n-1$ elements. Recurrence becomes $T(n) = T(n-1) + O(n) = n + (n-1) + ... + 1 = \\frac{n(n+1)}{2} = O(n^2)$ comparisons - same as bubble sort! Happens with already sorted/reverse sorted arrays when using first/last as pivot. Solutions: randomized pivot selection (expected $O(n \\log n)$), median-of-three, or use alternative like Merge Sort for guaranteed performance.",
+            "formula": "Worst case: $T(n) = T(n-1) + O(n) = O(n^2)$"
         }
     },
     {
@@ -48,7 +49,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "A stable sort preserves relative order of equal elements. Merge Sort and Insertion Sort are stable. Quick Sort, Heap Sort are typically unstable."
+            "solution": "Stable Sorting: Algorithm preserves relative order of records with equal keys. Example: sorting students by grade, then by name - stable sort keeps name order within same grade. Merge Sort is STABLE (merges preserve order when elements equal). Insertion Sort, Bubble Sort also stable. Quick Sort, Heap Sort, Selection Sort are UNSTABLE (can swap equal elements out of order). Stability important for multi-level sorts, database queries (ORDER BY multiple columns).",
+            "formula": "Stable: equal elements maintain relative order"
         }
     },
     {
@@ -65,7 +67,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Binary search repeatedly divides the search interval in half. This requires the array to be sorted to decide which half to continue searching."
+            "solution": "Binary Search Requirement: Array MUST be sorted. Algorithm repeatedly divides search space in half - compares target with middle element, eliminates left or right half based on comparison. If target < middle: search left. If target > middle: search right. Only works if array is sorted! Time: $O(\\log n)$ comparisons. Space: $O(1)$ iteratively, $O(\\log n)$ recursively (call stack).Applications: searching, lower_bound/upper_bound, binary answer technique.",
+            "formula": "$T(n) = T(n/2) + O(1) = O(\\log n)$"
         }
     },
     {
@@ -82,7 +85,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Dijkstra finds single-source shortest paths in a weighted graph with non-negative edge weights. Uses greedy approach with priority queue."
+            "solution": "Dijkstra's Algorithm: Finds single-source shortest paths in weighted graph with NON-NEGATIVE edge weights. Greedy approach: maintains set of vertices with finalized shortest distances. Uses min-priority queue to extract vertex with minimum distance. Relaxes outgoing edges: if $dist[u] + weight(u,v) < dist[v]$, update $dist[v]$. Time: $O((V+E) \\log V)$ with binary heap, $O(V^2)$ with array, $O(E + V \\log V)$ with Fibonacci heap. Applications: GPS navigation, network routing (OSPF), robotics.",
+            "formula": "Relaxation: $dist[v] = \\min(dist[v], dist[u] + w(u,v))$"
         }
     },
     {
@@ -99,7 +103,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Dijkstra's greedy approach assumes once a node is visited, its shortest path is found. Negative edges can violate this. Use Bellman-Ford for negative edges."
+            "solution": "Dijkstra with Negative Edges: FAILS because greedy assumption breaks. Algorithm assumes once vertex extracted from priority queue, its shortest distance is finalized. Negative edges allow later paths to improve already-finalized distances (shorter path through later-visited vertex with negative edge). Example: $A \\to B$ (weight 1), $A \\to C$ (weight 3), $C \\to B$ (weight -5). Dijkstra finds $dist[B]=1$, but actual shortest is $A \\to C \\to B = -2$. Use Bellman-Ford (handles negative edges, $O(VE)$) or detect negative cycles with Floyd-Warshall.",
+            "formula": "Negative edges violate greedy invariant"
         }
     },
     {
@@ -116,7 +121,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Kruskal's: Sort all edges by weight. Add edges greedily if they don't form a cycle (use Union-Find). Creates MST in O(E log E) time."
+            "solution": "Kruskal's MST Algorithm: GREEDY approach to find Minimum Spanning Tree. Steps: (1) Sort all edges by weight (ascending), (2) Initialize each vertex as separate tree (Union-Find), (3) For each edge $(u,v)$ in sorted order: if $u$ and $v$ in different trees, add edge (UNION), else skip (would create cycle). Stops when $|V|-1$ edges added. Time: $O(E \\log E)$ for sorting + $O(E \\alpha(V))$ for Union-Find $\\approx O(E \\log E)$. Alternative: Prim's algorithm (similar result, different approach). Applications: network design, clustering.",
+            "formula": "$O(E \\log E)$ time complexity"
         }
     },
     {
@@ -133,7 +139,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "DP applies when: (1) Overlapping subproblems - same subproblems solved multiple times, (2) Optimal substructure - optimal solution uses optimal solutions to subproblems."
+            "solution": "Dynamic Programming Applicability: Two key properties required: (1) OVERLAPPING SUBPROBLEMS: same subproblems solved repeatedly in naive recursion (memoization saves recomputation), (2) OPTIMAL SUBSTRUCTURE: optimal solution to problem contains optimal solutions to subproblems. DP methods: Top-down (memoization/recursion with cache) or Bottom-up (tabulation/iteration). Examples: Fibonacci (overlap: F(n-1) and F(n-2) both need F(n-3)), shortest paths, edit distance, knapsack, matrix chain multiplication. NOT applicable when subproblems independent or no optimization (use divide-conquer instead).",
+            "formula": "DP = Overlapping Subproblems + Optimal Substructure"
         }
     },
     {
@@ -150,8 +157,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Master Theorem Case 2: When f(n) = Θ(n^(log_b(a))), then T(n) = Θ(n^(log_b(a)) · log n). The log n factor appears as work per level accumulates.",
-            "formula": "T(n) = Θ(n^(log_b(a)) · log n) when f(n) = Θ(n^(log_b(a)))"
+            "solution": "Master Theorem Case 2: Applies when work per level $f(n)$ EQUALS work from recursive calls $\\Theta(n^{\\log_b a})$. Work is BALANCED across all $\\log_b n$ levels of recursion tree. Result: $T(n) = \\Theta(n^{\\log_b a} \\cdot \\log n)$. The $\\log n$ factor counts the levels. Example: Merge Sort with $T(n) = 2T(n/2) + \\Theta(n)$: $a=2, b=2, \\log_2 2 = 1$, so $f(n)=n = \\Theta(n^1)$ - balanced! Thus $T(n) = \\Theta(n \\log n)$. Other cases: Case 1 (recursion dominates), Case 3 (non-recursive dominates).",
+            "formula": "Case 2: $T(n) = \\Theta(n^{\\log_b a} \\cdot \\log n)$ when $f(n) = \\Theta(n^{\\log_b a})$"
         }
     },
     {
@@ -163,8 +170,8 @@ Questions.register([
         "correctAnswer": 1,
         "tolerance": 0,
         "explanation": {
-            "solution": "Here a=2, b=2, so log_b(a) = log_2(2) = 1. Since f(n) = n = Θ(n^1), we're in Case 2: T(n) = Θ(n log n).",
-            "formula": "log_b(a) = log_2(2) = 1"
+            "solution": "Master Theorem Application: For $T(n) = 2T(n/2) + n$, identify: $a=2$ (subproblems), $b=2$ (division factor), $f(n)=n$ (non-recursive work). Calculate $\\log_b a = \\log_2 2 = 1$. Compare $f(n) = n$ with $n^{\\log_b a} = n^1 = n$: EQUAL! This is Master Theorem Case 2. Result: $T(n) = \\Theta(n^1 \\cdot \\log n) = \\Theta(n \\log n)$. Classic example: Merge Sort. Work balanced across $\\log n$ recursion levels, each doing $\\Theta(n)$ work.",
+            "formula": "$a=2, b=2 \\Rightarrow \\log_2 2 = 1$"
         }
     }
 ]);
