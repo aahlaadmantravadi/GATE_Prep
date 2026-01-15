@@ -660,8 +660,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "α = n/m where n = number of elements, m = table size",
-            "formula": "Load factor α = n/m"
+            "solution": "Load Factor Definition: $\\alpha = n/m$ where n = number of elements currently in hash table, m = table size (number of buckets). Load factor measures how 'full' the hash table is. Examples: 100 elements, 200 buckets → α=0.5 (50% full). Performance degrades as α increases. For chaining: α can exceed 1 (avg chain length = α). For open addressing: must keep α < 1. Rehashing triggered when α exceeds threshold (typical: 0.7-0.75).",
+            "formula": "$\\alpha = \\frac{n}{m}$ (load factor)"
         }
     },
     {
@@ -747,8 +747,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Column-major: B + (j*m + i)*S",
-            "formula": "B + (j*m + i)*S"
+            "solution": "Column-Major Order: Elements stored column by column (Fortran, MATLAB, R). For A[m][n] with base B and element size S: Address of A[i][j] = B + (j*m + i)*S. Skip j complete columns (each with m elements), then i elements in current column. Row-major vs column-major matters for cache performance when traversing matrices. Accessing in wrong order causes cache misses.",
+            "formula": "$B + (j \\times m + i) \\times S$ (column-major)"
         }
     },
     {
@@ -760,7 +760,8 @@ Questions.register([
         "correctAnswer": 1260,
         "tolerance": 0,
         "explanation": {
-            "solution": "1000 + (3*20 + 5)*4 = 1000 + 65*4 = 1260"
+            "solution": "Row-Major Address Calculation: A[10][20] means 10 rows, 20 columns. For A[3][5]: Index = (3*20 + 5) = 60 + 5 = 65. Address = base + index*element_size = 1000 + 65*4 = 1000 + 260 = 1260. Formula: B + (row *num_cols + col)*element_size.",
+            "formula": "$1000 + (3 \\times 20 + 5) \\times 4 = 1260$"
         }
     },
     {
@@ -772,8 +773,8 @@ Questions.register([
         "correctAnswer": 0,
         "tolerance": 0,
         "explanation": {
-            "solution": "n(n+1)/2 elements",
-            "formula": "n(n+1)/2"
+            "solution": "Lower Triangular Matrix Storage: Only store elements on and below main diagonal. For n×n matrix: Row 0 has 1 element, row 1 has 2, ..., row i has (i+1), ..., row (n-1) has n elements. Total = 1 + 2 + 3 + ... + n = $\\frac{n(n+1)}{2}$ elements. Example: 5×5 lower triangular stores $\\frac{5\\times 6}{2} = 15$ elements instead of 25. Space savings significant for large sparse matrices. Row-major mapping: A[i][j] at index $\\frac{i(i+1)}{2} + j$.",
+            "formula": "$\\frac{n(n+1)}{2}$ elements stored"
         }
     },
     {
@@ -785,7 +786,8 @@ Questions.register([
         "correctAnswer": 15,
         "tolerance": 0,
         "explanation": {
-            "solution": "5(5+1)/2 = 15"
+            "solution": "Upper Triangular 5×5 Matrix: Store elements on and above main diagonal. Row 0 has 5 elements, row 1 has 4, row 2 has 3, row 3 has 2, row 4 has 1. Total = 5 + 4 + 3 + 2 + 1 = $\\frac{5 \\times 6}{2} = 15$ elements. Upper and lower triangular  for same n both store $\\frac{n(n+1)}{2}$ elements (symmetric count). Used in Cholesky decomposition, LU factorization.",
+            "formula": "$\\frac{5 \\times 6}{2} = 15$ elements"
         }
     },
     {
