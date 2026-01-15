@@ -13,8 +13,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "Each edge contributes 2 to the sum of degrees (one for each endpoint). Therefore, Σdeg(v) = 2|E|.",
-            "formula": "∑deg(v) = 2e, where e = number of edges"
+            "solution": "Handshaking Theorem (Degree Sum Formula): In any graph, sum of all vertex degrees = TWICE the number of edges. Why? Each edge contributes to degrees of TWO vertices (its endpoints). Counting edges by summing degrees counts each edge TWICE. Formally: $\\sum_{v \\in V} deg(v) = 2|E|$. Corollary: number of odd-degree vertices is ALWAYS EVEN (since sum must be even). Used for: graph invariants, existence proofs, impossibility arguments. Example: can't have graph with 5 vertices of degrees 3,3,3,3,2 (sum=14, not even multiple of edges).",
+            "formula": "$\\sum deg(v) = 2|E|$ (each edge contributes 2 to degree sum)"
         }
     },
     {
@@ -31,8 +31,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "In a complete graph, every vertex is connected to every other vertex. The number of ways to choose 2 vertices from n is C(n,2) = n(n-1)/2.",
-            "formula": "Edges in Kₙ = n(n-1)/2"
+            "solution": "Complete Graph $K_n$: EVERY pair of distinct vertices connected by exactly one edge (maximally connected simple graph). Edge count: choose 2 vertices from $n$ = $\\binom{n}{2} = \\frac{n(n-1)}{2}$. Each vertex has degree $n-1$ (connected to all others). Properties: (1) diameter = 1 (any two vertices adjacent), (2) regular graph (all vertices same degree), (3) always Hamiltonian (trivial - any permutation of vertices forms Hamiltonian cycle). $K_5$ and $K_{3,3}$ are smallest non-planar graphs (Kuratowski). Total possible labeled graphs on $n$ vertices = $2^{n(n-1)/2}$ (each edge in/out).",
+            "formula": "$|E(K_n)| = \\binom{n}{2} = \\frac{n(n-1)}{2}$"
         }
     },
     {
@@ -49,7 +49,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "A bipartite graph can be partitioned into two sets where edges only go between sets. An odd-length cycle would require returning to the same set after an odd number of steps, which is impossible."
+            "solution": "Bipartite Graph: Vertices can be partitioned into TWO DISJOINT sets $U$ and $V$ such that EVERY edge connects vertex in $U$ to vertex in $V$ (no edges within same set). Characterization: graph is bipartite $\\iff$ it contains NO ODD-LENGTH CYCLES. Why? Walking odd cycle alternates between sets, but odd steps returns to same set - contradiction. 2-colorable $\\iff$ bipartite. Examples: trees (always bipartite), even cycles, complete bipartite $K_{m,n}$. Applications: matching problems, scheduling, Hall's marriage theorem. Test: BFS/DFS coloring with 2 colors - succeeds iff bipartite.",
+            "formula": "Bipartite $\\iff$ no odd cycles"
         }
     },
     {
@@ -79,8 +80,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "A tree is a connected acyclic graph. The minimum edges for connectivity is n-1. Adding any more edge would create a cycle.",
-            "formula": "Edges in a tree = n - 1"
+            "solution": "Tree: Connected ACYCLIC (no cycles) undirected graph. Equivalent definitions (any 2 imply the 3rd): (1) connected + acyclic, (2) connected + $|E|=n-1$ edges, (3) acyclic + $|E|=n-1$, (4) exactly one path between any two vertices. Minimum edges for connectivity = $n-1$ (fewer disconnects, more creates cycle). Properties: (1) removing any edge disconnects, (2) adding any edge creates exactly one cycle, (3) always bipartite, (4) has at least 2 leaves (degree-1 vertices). Spanning tree of graph $G$: tree subgraph containing all vertices. Applications: network routing, parse trees, MST (minimum spanning tree).",
+            "formula": "Tree: $|E| = |V| - 1$ (connected, acyclic)"
         }
     },
     {
@@ -97,8 +98,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "For any connected planar graph with v vertices, e edges, and r regions (including the infinite region), the formula v - e + r = 2 always holds.",
-            "formula": "v - e + r = 2 (Euler's formula)"
+            "solution": "Euler's Formula for Planar Graphs: For any CONNECTED planar graph embedding with $v$ vertices, $e$ edges, $f$ faces (regions including outer infinite face): $v - e + f = 2$. Applies to ANY planar embedding of connected graph. Derivation: induction on edges/faces. Applications: (1) Prove $K_5$ non-planar: if planar, $5-10+f=2 \\Rightarrow f=7$, but $3f \\leq 2e$ gives $21 \\leq 20$ contradiction. (2) Max edges in planar: $e \\leq 3v-6$ for $v \\geq 3$. (3) Platonic solids: only 5 regular polyhedra. Generalization: for disconnected with $c$ components: $v-e+f=c+1$. Related: Euler characteristic.",
+            "formula": "$v - e + f = 2$ (connected planar graph)"
         }
     },
     {
@@ -115,7 +116,8 @@ Questions.register([
         ],
         "correctAnswer": 0,
         "explanation": {
-            "solution": "An Eulerian circuit (visiting every edge exactly once and returning to start) requires every vertex to have even degree so we can enter and leave each vertex the same number of times."
+            "solution": "Eulerian Circuit: Closed walk visiting EVERY EDGE exactly once, returning to start. Exists in connected graph $\\iff$ ALL vertices have EVEN degree. Why? At each vertex visited (not start/end), must enter and leave same number of times - requires even degree. Start vertex: leave and return same times. Euler's Theorem (1736, Königsberg bridges). Eulerian PATH (not circuit): exists $\\iff$ exactly 2 vertices odd degree (these are endpoints). Algorithm: Hierholzer's algorithm finds circuit in $O(E)$. Applications: Chinese postman problem, DNA sequencing, network traversal. Contrast Hamiltonian (NP-hard).",
+            "formula": "Eulerian circuit $\\iff$ all degrees even"
         }
     },
     {
@@ -132,7 +134,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "Kuratowski's theorem states that a graph is non-planar if and only if it contains a subdivision (homeomorphic copy) of K₅ or K₃,₃."
+            "solution": "Kuratowski's Theorem: Graph is NON-PLANAR $\\iff$ it contains subdivision (homeomorphic subgraph) of $K_5$ (complete graph on 5 vertices) OR $K_{3,3}$ (complete bipartite graph). Subdivision: obtained by inserting vertices into edges (edge replacement). $K_5$: has 10 edges but planar max is $3(5)-6=9$. $K_{3,3}$: bipartite with 9 edges but planar bipartite max is $2v-4=8$. Wagner's theorem (equivalent): non-planar $\\iff$ contains $K_5$ or $K_{3,3}$ as MINOR (contraction/deletion). Planarity testing: linear time algorithms (Hopcroft-Tarjan). Applications: circuit layout, map drawing.",
+            "formula": "Non-planar $\\iff$ contains $K_5$ or $K_{3,3}$ subdivision"
         }
     },
     {
@@ -234,7 +237,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "An equivalence relation must satisfy all three properties: reflexive (aRa for all a), symmetric (aRb implies bRa), and transitive (aRb and bRc implies aRc)."
+            "solution": "Equivalence Relation: Binary relation $R$ on set $A$ satisfying THREE properties: (1) REFLEXIVE: $\\forall a \\in A, aRa$ (every element related to itself), (2) SYMMETRIC: $aRb \\Rightarrow bRa$ (relation goes both ways), (3) TRANSITIVE: $aRb \\land bRc \\Rightarrow aRc$ (relation chains). Equivalence relations PARTITION set into disjoint EQUIVALENCE CLASSES $[a] = \\{x : xRa\\}$. Each element in exactly one class. Examples: (1) equality $=$, (2) congruence mod $n$: $a \\equiv b \\pmod{n}$, (3) same cardinality for sets. Quotient set $A/R$ = set of all equivalence classes. Applications: modular arithmetic, classification.",
+            "formula": "Equiv. relation: reflexive + symmetric + transitive"
         }
     },
     {
@@ -251,7 +255,8 @@ Questions.register([
         ],
         "correctAnswer": 1,
         "explanation": {
-            "solution": "A partial order (POSET) requires reflexivity (aRa), antisymmetry (aRb and bRa implies a=b), and transitivity (aRb and bRc implies aRc)."
+            "solution": "Partial Order (POSET): Binary relation $\\leq$ on set $A$ with three properties: (1) REFLEXIVE: $a \\leq a$ for all $a$, (2) ANTISYMMETRIC: $a \\leq b$ AND $b \\leq a$ $\\Rightarrow$ $a = b$ (no cycles except self-loops), (3) TRANSITIVE: $a \\leq b$ AND $b \\leq c$ $\\Rightarrow$ $a \\leq c$. Differs from equivalence: antisymmetric vs symmetric. Examples: (1) $\\leq$ on integers,  (2) $\\subseteq$ on sets (subset relation), (3) divisibility $|$ on positive integers. HASSE DIAGRAM: graphical representation removing reflexive/transitive edges. TOTAL/LINEAR order: every pair comparable ($a \\leq b$ or $b \\leq a$). Minimal/maximal elements. Applications: lattices, sorting.",
+            "formula": "POSET: reflexive + antisymmetric + transitive"
         }
     },
     {
@@ -281,8 +286,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "For the first position, n choices; for second, n-1 choices; and so on. Total = n × (n-1) × ... × 1 = n!",
-            "formula": "Permutations of n objects = n!"
+            "solution": "Permutations: Arrangements of $n$ distinct objects where ORDER MATTERS. For first position: $n$ choices. After choosing first: $n-1$ remain for second position. Continue: $n \\times (n-1) \\times (n-2) \\times ... \\times 2 \\times 1 = n!$ (n factorial). Permutations of $r$ objects from $n$: $P(n,r) = \\frac{n!}{(n-r)!}$ (ordered selections). Example: arrange 5 books on shelf = $5! = 120$ ways. With repetition: $n^r$ (each of $r$ positions has $n$ choices). Circular permutations: $(n-1)!$ (fix one position). Applications: scheduling, sequences, cryptography.",
+            "formula": "$P(n,n) = n!$, $P(n,r) = \\frac{n!}{(n-r)!}$"
         }
     },
     {
@@ -299,8 +304,8 @@ Questions.register([
         ],
         "correctAnswer": 2,
         "explanation": {
-            "solution": "C(n,r) = n!/((n-r)! × r!). We divide by r! because the order of selection doesn't matter.",
-            "formula": "C(n,r) = n!/((n-r)!r!) = nCr"
+            "solution": "Combinations: Selections of $r$ objects from $n$ where ORDER DOESN'T MATTER. Formula: $C(n,r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}$. Derivation: $P(n,r) = n!/(n-r)!$ counts ordered selections, but each unordered set counted $r!$ times (all permutations) $\\Rightarrow$ divide by $r!$. Properties: (1) $\\binom{n}{r} = \\binom{n}{n-r}$ (symmetry), (2) Pascal's identity: $\\binom{n}{r} = \\binom{n-1}{r} + \\binom{n-1}{r-1}$, (3) $\\sum_{r=0}^n \\binom{n}{r} = 2^n$ (binomial theorem with $x=y=1$). Applications: lottery, committees, probability, binomial coefficients.",
+            "formula": "$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$ (combinations)"
         }
     },
     {
