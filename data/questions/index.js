@@ -1,50 +1,36 @@
-/**
- * Questions Registry - Manages all question data
- */
+
 
 const Questions = {
     _questions: [],
-    pyqMode: 'all', // 'all', 'study', 'pyq'
-    attemptedMode: 'all', // 'all', 'unattempted', 'attempted'
+    pyqMode: 'all',
+    attemptedMode: 'all',
 
-    /**
-     * Set PYQ filter mode
-     */
+
     setPYQMode(mode) {
         this.pyqMode = mode;
     },
 
-    /**
-     * Get PYQ mode
-     */
+
     getPYQMode() {
         return this.pyqMode;
     },
 
-    /**
-     * Set attempted filter mode
-     */
+
     setAttemptedMode(mode) {
         this.attemptedMode = mode;
     },
 
-    /**
-     * Get attempted mode
-     */
+
     getAttemptedMode() {
         return this.attemptedMode;
     },
 
-    /**
-     * Register questions from a topic module
-     */
+
     register(topicQuestions) {
         this._questions = this._questions.concat(topicQuestions);
     },
 
-    /**
-     * Filter questions based on PYQ mode
-     */
+
     _applyPYQFilter(questions) {
         if (this.pyqMode === 'all') return questions;
         if (this.pyqMode === 'pyq') return questions.filter(q => q.isPYQ === true);
@@ -52,17 +38,15 @@ const Questions = {
         return questions;
     },
 
-    /**
-     * Filter questions based on attempted status
-     */
+
     _applyAttemptedFilter(questions) {
         if (this.attemptedMode === 'all') return questions;
 
-        // Get all progress data from Storage
+
         const progress = Storage.get(Storage.KEYS.PROGRESS) || {};
         const attemptedIds = new Set();
 
-        // Collect all question IDs that have been attempted
+
         Object.values(progress).forEach(topicProgress => {
             Object.keys(topicProgress.questions || {}).forEach(qId => {
                 attemptedIds.add(qId);
@@ -163,9 +147,8 @@ const Questions = {
     }
 };
 
-// Questions: Global registry for all question data
-// Individual question files call Questions.register() when loaded
 
-// Log initial state - count will be 0 until question files load
+
+
 console.log('Questions registry initialized');
 

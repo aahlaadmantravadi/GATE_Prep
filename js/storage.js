@@ -1,7 +1,4 @@
-/**
- * Storage Module - Handles localStorage persistence
- * Manages user progress, bookmarks, and statistics
- */
+
 
 const Storage = {
     KEYS: {
@@ -12,9 +9,7 @@ const Storage = {
         STREAK: 'gate_quiz_streak'
     },
 
-    /**
-     * Initialize storage with default values if empty
-     */
+
     init() {
         if (!this.get(this.KEYS.PROGRESS)) {
             this.set(this.KEYS.PROGRESS, {});
@@ -30,9 +25,7 @@ const Storage = {
         }
     },
 
-    /**
-     * Get data from localStorage
-     */
+
     get(key) {
         try {
             const data = localStorage.getItem(key);
@@ -43,9 +36,7 @@ const Storage = {
         }
     },
 
-    /**
-     * Set data in localStorage
-     */
+
     set(key, value) {
         try {
             localStorage.setItem(key, JSON.stringify(value));

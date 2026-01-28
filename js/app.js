@@ -26,13 +26,13 @@ const App = {
                 localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
             });
 
-            // Restore preference
+
             if (localStorage.getItem('sidebarCollapsed') === 'true') {
                 sidebar.classList.add('collapsed');
             }
         }
 
-        // Floating open button
+
         if (openBtn && sidebar) {
             openBtn.addEventListener('click', () => {
                 sidebar.classList.remove('collapsed');
@@ -42,23 +42,22 @@ const App = {
     },
 
     setupPYQToggle() {
-        // Update counts
         const counts = Questions.getRawCounts();
         document.getElementById('count-all').textContent = counts.all;
         document.getElementById('count-study').textContent = counts.study;
         document.getElementById('count-pyq').textContent = counts.pyq;
 
-        // Handle toggle buttons
+
         document.querySelectorAll('.pyq-toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const mode = btn.dataset.pyqMode;
                 Questions.setPYQMode(mode);
 
-                // Update active state
+
                 document.querySelectorAll('.pyq-toggle-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Refresh dashboard
+
                 this.renderDashboard();
                 this.updateTopicBadges();
             });
@@ -66,20 +65,19 @@ const App = {
     },
 
     setupAttemptedToggle() {
-        // Update counts
         this.updateAttemptedCounts();
 
-        // Handle toggle buttons
+
         document.querySelectorAll('.attempted-toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const mode = btn.dataset.attemptedMode;
                 Questions.setAttemptedMode(mode);
 
-                // Update active state
+
                 document.querySelectorAll('.attempted-toggle-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Refresh dashboard
+
                 this.renderDashboard();
                 this.updateTopicBadges();
                 this.updateAttemptedCounts();
@@ -95,7 +93,7 @@ const App = {
     },
 
     setupEventListeners() {
-        // Navigation items
+
         document.querySelectorAll('.nav-item[data-view]').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -103,7 +101,7 @@ const App = {
             });
         });
 
-        // Topic navigation items
+
         document.querySelectorAll('.nav-item[data-topic]').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -111,12 +109,12 @@ const App = {
             });
         });
 
-        // Quick actions
+
         document.getElementById('startRandomQuiz')?.addEventListener('click', () => this.startRandomQuiz());
         document.getElementById('reviewWrong')?.addEventListener('click', () => this.startReviewQuiz('wrong'));
         document.getElementById('reviewBookmarks')?.addEventListener('click', () => this.startReviewQuiz('bookmarks'));
 
-        // Quiz controls
+
         document.getElementById('exitQuiz')?.addEventListener('click', () => this.exitQuiz());
         document.getElementById('submitAnswer')?.addEventListener('click', () => this.submitAnswer());
         document.getElementById('nextQuestion')?.addEventListener('click', () => this.nextQuestion());
@@ -139,11 +137,11 @@ const App = {
             document.getElementById('submitAnswer').disabled = !QuizEngine.hasSelection();
         });
 
-        // Mid-quiz filter access button
+
         document.getElementById('changeFilterInQuiz')?.addEventListener('click', () => {
             if (confirm('Exit quiz and change filter settings?')) {
                 this.exitQuiz();
-                // Scroll to filter toggles after a short delay
+
                 setTimeout(() => {
                     const container = document.querySelector('.attempted-toggle-container');
                     if (container) {

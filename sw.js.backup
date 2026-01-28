@@ -1,5 +1,5 @@
 const CACHE_NAME = 'gate-quiz-v3';
-const CORE_ASSETS = [
+const ASSETS_TO_CACHE = [
     './',
     './index.html',
     './css/styles.css',
@@ -73,7 +73,7 @@ const CORE_ASSETS = [
     './data/questions/10-gateoverflow-pyq.js'
 ];
 
-
+// Install: Cache all assets
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -84,7 +84,7 @@ self.addEventListener('install', event => {
     );
 });
 
-// Activate event
+// Activate: Clean up old caches
 self.addEventListener('activate', event => {
     event.waitUntil(
         caches.keys().then(cacheNames => {
@@ -99,7 +99,7 @@ self.addEventListener('activate', event => {
     );
 });
 
-// Fetch event
+// Fetch: Stale-While-Revalidate pattern
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)

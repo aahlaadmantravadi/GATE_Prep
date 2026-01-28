@@ -1,6 +1,4 @@
-/**
- * Quiz Engine - Core quiz logic and question handling
- */
+
 
 const QuizEngine = {
     currentQuiz: null,
@@ -8,9 +6,7 @@ const QuizEngine = {
     selectedAnswers: [],
     isAnswered: false,
 
-    /**
-     * Topic configuration with metadata
-     */
+
     topics: {
         'engineering-math': {
             name: 'Engineering Mathematics',
@@ -74,9 +70,7 @@ const QuizEngine = {
         }
     },
 
-    /**
-     * Start a quiz with given questions
-     */
+
     startQuiz(questions, topic = 'Mixed') {
         this.currentQuiz = {
             questions: this.shuffleArray([...questions]),
@@ -90,9 +84,7 @@ const QuizEngine = {
         return this.getCurrentQuestion();
     },
 
-    /**
-     * Get current question
-     */
+
     getCurrentQuestion() {
         if (!this.currentQuiz || this.currentIndex >= this.currentQuiz.questions.length) {
             return null;
@@ -100,9 +92,7 @@ const QuizEngine = {
         return this.currentQuiz.questions[this.currentIndex];
     },
 
-    /**
-     * Get quiz progress
-     */
+
     getProgress() {
         if (!this.currentQuiz) return { current: 0, total: 0, percentage: 0 };
         return {
@@ -112,9 +102,7 @@ const QuizEngine = {
         };
     },
 
-    /**
-     * Select an answer (for MCQ/MSQ)
-     */
+
     selectOption(optionIndex) {
         if (this.isAnswered) return;
 
@@ -134,18 +122,14 @@ const QuizEngine = {
         return this.selectedAnswers;
     },
 
-    /**
-     * Set NAT answer
-     */
+
     setNATAnswer(value) {
         if (this.isAnswered) return;
         this.selectedAnswers = [parseFloat(value)];
         return this.selectedAnswers;
     },
 
-    /**
-     * Submit the current answer and check correctness
-     */
+
     submitAnswer() {
         if (this.isAnswered || this.selectedAnswers.length === 0) return null;
 
@@ -169,10 +153,10 @@ const QuizEngine = {
 
         this.isAnswered = true;
 
-        // Record in storage
+
         Storage.recordAnswer(question.id, question.topic, isCorrect);
 
-        // Store in quiz answers
+
         this.currentQuiz.answers.push({
             questionId: question.id,
             userAnswer: this.selectedAnswers,
@@ -186,9 +170,7 @@ const QuizEngine = {
         };
     },
 
-    /**
-     * Move to next question
-     */
+
     nextQuestion() {
         if (!this.currentQuiz) return null;
 
@@ -203,9 +185,7 @@ const QuizEngine = {
         return this.getCurrentQuestion();
     },
 
-    /**
-     * Finish the quiz and return results
-     */
+
     finishQuiz() {
         if (!this.currentQuiz) return null;
 
@@ -223,9 +203,7 @@ const QuizEngine = {
         return results;
     },
 
-    /**
-     * Get questions for a topic
-     */
+
     getTopicQuestions(topicKey, count = null) {
         const topicQuestions = Questions.getByTopic(topicKey);
         if (count && count < topicQuestions.length) {
@@ -234,24 +212,18 @@ const QuizEngine = {
         return topicQuestions;
     },
 
-    /**
-     * Get random questions across all topics
-     */
+
     getRandomQuestions(count = 20) {
         const allQuestions = Questions.getAll();
         return this.shuffleArray(allQuestions).slice(0, Math.min(count, allQuestions.length));
     },
 
-    /**
-     * Get questions by IDs (for bookmarks/review)
-     */
+
     getQuestionsByIds(ids) {
         return Questions.getByIds(ids);
     },
 
-    /**
-     * Shuffle array using Fisher-Yates algorithm
-     */
+
     shuffleArray(array) {
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
@@ -261,9 +233,7 @@ const QuizEngine = {
         return shuffled;
     },
 
-    /**
-     * Check if answer is selected for current question
-     */
+
     hasSelection() {
         return this.selectedAnswers.length > 0;
     }
