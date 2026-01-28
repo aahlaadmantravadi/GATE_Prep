@@ -195,10 +195,10 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "All dogs are animals. All animals are living things. Therefore:",
         "options": [
-            "All living things are dogs",
+            "No conclusion possible",
             "Some animals are not dogs",
             "All dogs are living things",
-            "No conclusion possible"
+            "All living things are dogs"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -212,12 +212,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "Statement: Some books are pens. All pens are erasers. Conclusion: Some books are erasers.",
         "options": [
-            "Definitely false",
             "Cannot determine",
             "Probably true",
-            "Definitely true"
+            "Definitely true",
+            "Definitely false"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Books ∩ Pens ≠ ∅. Pens ⊂ Erasers. So some books (those that are pens) are erasers. Definitely true."
         }
@@ -229,12 +229,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "If South-East becomes North, what does North-West become?",
         "options": [
-            "South-East",
-            "West",
             "East",
-            "South"
+            "South-East",
+            "South",
+            "West"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Rotation: SE→N is 135° anti-clockwise. Apply same to NW: NW→S"
         }
@@ -246,12 +246,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "A is B's brother. C is A's mother. D is C's father. What is B to D?",
         "options": [
-            "Granddaughter",
-            "Son",
             "Grandchild",
-            "Grandson"
+            "Grandson",
+            "Granddaughter",
+            "Son"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "D is grandfather (C's father), A and B are C's children. B is D's grandchild (could be grandson or granddaughter)."
         }
@@ -264,8 +264,8 @@ Questions.register([
         "question": "In a row of 50 students, Ram is 18th from left. What is his position from right?",
         "options": [
             "33rd",
-            "34th",
             "31st",
+            "34th",
             "32nd"
         ],
         "correctAnswer": 0,
@@ -281,12 +281,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "If GATE = HBUF, then EXAM = ?",
         "options": [
-            "FZBO",
-            "FYBN",
+            "FYBM",
             "EZAM",
-            "FYBM"
+            "FZBO",
+            "FYBN"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Each letter shifted by +1: E→F, X→Y, A→B, M→N. EXAM = FYBN"
         }
@@ -299,11 +299,11 @@ Questions.register([
         "question": "If 123 = CAB, 456 = FED, then 789 = ?",
         "options": [
             "GHI",
+            "IGH",
             "HGI",
-            "IHG",
-            "IGH"
+            "IHG"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Pattern: reverse order and position→letter. 789 → 9=I, 8=H, 7=G → IHG"
         }
@@ -315,12 +315,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "Pointing to a photograph, a man says 'The person is the son of my father's only daughter.' Who is in the photograph?",
         "options": [
-            "Father",
-            "Son",
             "Nephew",
-            "Brother"
+            "Son",
+            "Brother",
+            "Father"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Father's only daughter = sister. Son of sister = nephew."
         }
@@ -334,10 +334,10 @@ Questions.register([
         "options": [
             "Grandfather",
             "Father",
-            "Brother",
-            "Uncle"
+            "Uncle",
+            "Brother"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "D = brother of B, C is sibling, E is C's son. D is E's uncle."
         }
@@ -349,10 +349,10 @@ Questions.register([
         "subtopic": "Quantitative",
         "question": "If a pie chart for monthly expenses shows 90° for rent, what percentage is rent?",
         "options": [
+            "45%",
             "30%",
-            "10%",
             "25%",
-            "45%"
+            "10%"
         ],
         "correctAnswer": 2,
         "explanation": {

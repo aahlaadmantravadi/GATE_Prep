@@ -6,10 +6,10 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "According to the Handshaking Theorem, the sum of degrees of all vertices in a graph equals:",
         "options": [
-            "Number of vertices squared",
+            "Number of vertices",
             "Number of edges",
             "Twice the number of edges",
-            "Number of vertices"
+            "Number of vertices squared"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -25,9 +25,9 @@ Questions.register([
         "question": "In a complete graph Kₙ, the number of edges is:",
         "options": [
             "n(n-1)/2",
+            "n",
             "n-1",
-            "n²",
-            "n"
+            "n²"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -73,12 +73,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A tree with n vertices has exactly:",
         "options": [
-            "n edges",
-            "2n edges",
             "n+1 edges",
-            "n-1 edges"
+            "2n edges",
+            "n-1 edges",
+            "n edges"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Tree: Connected ACYCLIC (no cycles) undirected graph. Equivalent definitions (any 2 imply the 3rd): (1) connected + acyclic, (2) connected + $|E|=n-1$ edges, (3) acyclic + $|E|=n-1$, (4) exactly one path between any two vertices. Minimum edges for connectivity = $n-1$ (fewer disconnects, more creates cycle). Properties: (1) removing any edge disconnects, (2) adding any edge creates exactly one cycle, (3) always bipartite, (4) has at least 2 leaves (degree-1 vertices). Spanning tree of graph $G$: tree subgraph containing all vertices. Applications: network routing, parse trees, MST (minimum spanning tree).",
             "formula": "Tree: $|E| = |V| - 1$ (connected, acyclic)"
@@ -91,12 +91,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Euler's formula for connected planar graphs states: v - e + r = ?",
         "options": [
-            "0",
-            "2",
             "n",
-            "1"
+            "0",
+            "1",
+            "2"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Euler's Formula for Planar Graphs: For any CONNECTED planar graph embedding with $v$ vertices, $e$ edges, $f$ faces (regions including outer infinite face): $v - e + f = 2$. Applies to ANY planar embedding of connected graph. Derivation: induction on edges/faces. Applications: (1) Prove $K_5$ non-planar: if planar, $5-10+f=2 \\Rightarrow f=7$, but $3f \\leq 2e$ gives $21 \\leq 20$ contradiction. (2) Max edges in planar: $e \\leq 3v-6$ for $v \\geq 3$. (3) Platonic solids: only 5 regular polyhedra. Generalization: for disconnected with $c$ components: $v-e+f=c+1$. Related: Euler characteristic.",
             "formula": "$v - e + f = 2$ (connected planar graph)"
@@ -110,9 +110,9 @@ Questions.register([
         "question": "An Eulerian circuit exists in a connected graph if and only if:",
         "options": [
             "All vertices have even degree",
+            "All vertices have odd degree",
             "Exactly two vertices have odd degree",
-            "The graph is complete",
-            "All vertices have odd degree"
+            "The graph is complete"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -127,12 +127,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "K₅ and K₃,₃ are important because any non-planar graph must contain a subgraph homeomorphic to:",
         "options": [
+            "K₃ or K₂,₂",
             "K₅ or K₃,₃",
             "K₄ or K₂,₃",
-            "K₃ or K₂,₂",
             "K₆ or K₄,₄"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Kuratowski's Theorem: Graph is NON-PLANAR $\\iff$ it contains subdivision (homeomorphic subgraph) of $K_5$ (complete graph on 5 vertices) OR $K_{3,3}$ (complete bipartite graph). Subdivision: obtained by inserting vertices into edges (edge replacement). $K_5$: has 10 edges but planar max is $3(5)-6=9$. $K_{3,3}$: bipartite with 9 edges but planar bipartite max is $2v-4=8$. Wagner's theorem (equivalent): non-planar $\\iff$ contains $K_5$ or $K_{3,3}$ as MINOR (contraction/deletion). Planarity testing: linear time algorithms (Hopcroft-Tarjan). Applications: circuit layout, map drawing.",
             "formula": "Non-planar $\\iff$ contains $K_5$ or $K_{3,3}$ subdivision"
@@ -146,8 +146,8 @@ Questions.register([
         "question": "The implication p → q is false only when:",
         "options": [
             "p is false and q is false",
-            "p is true and q is true",
             "p is false and q is true",
+            "p is true and q is true",
             "p is true and q is false"
         ],
         "correctAnswer": 3,
@@ -162,12 +162,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "The biconditional p ↔ q is true when:",
         "options": [
-            "p and q have different values",
-            "p is true only",
+            "p and q have same truth values",
             "q is true only",
-            "p and q have same truth values"
+            "p and q have different values",
+            "p is true only"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Biconditional (p ↔ q): True when both have SAME truth value. Also called 'if and only if' (iff). Truth table: T↔T=T, T↔F=F, F↔T=F, F↔F=T. Equivalent to: (p → q) ∧ (q → p). Used to express necessary and sufficient conditions."
         }
@@ -181,8 +181,8 @@ Questions.register([
         "options": [
             "Contradiction",
             "Tautology",
-            "Contingency",
-            "Satisfiable"
+            "Satisfiable",
+            "Contingency"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -196,12 +196,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "A compound proposition that is always false is called:",
         "options": [
+            "Contradiction",
             "Contingency",
-            "Satisfiable",
             "Tautology",
-            "Contradiction"
+            "Satisfiable"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Contradiction: A compound proposition that is ALWAYS FALSE regardless of truth assignments. Examples: p ∧ ¬p (a variable can't be both true and false), F (false constant). Contradictions are unsatisfiable. Negation of a tautology is a contradiction."
         }
@@ -215,10 +215,10 @@ Questions.register([
         "options": [
             "Sound",
             "Valid",
-            "Satisfiable",
-            "Contingency"
+            "Contingency",
+            "Satisfiable"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Contingency: A proposition that is NEITHER a tautology NOR a contradiction. It is TRUE for some truth assignments and FALSE for others. Most 'normal' propositions are contingencies. Example: p ∧ q (true only when both p and q are true)."
         }
@@ -230,12 +230,12 @@ Questions.register([
         "subtopic": "Sets & Relations",
         "question": "A relation R on set A is an equivalence relation if and only if it is:",
         "options": [
+            "Reflexive and transitive",
             "Reflexive and symmetric",
             "Symmetric and transitive",
-            "Reflexive, symmetric, and transitive",
-            "Reflexive and transitive"
+            "Reflexive, symmetric, and transitive"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Equivalence Relation: Binary relation $R$ on set $A$ satisfying THREE properties: (1) REFLEXIVE: $\\forall a \\in A, aRa$ (every element related to itself), (2) SYMMETRIC: $aRb \\Rightarrow bRa$ (relation goes both ways), (3) TRANSITIVE: $aRb \\land bRc \\Rightarrow aRc$ (relation chains). Equivalence relations PARTITION set into disjoint EQUIVALENCE CLASSES $[a] = \\{x : xRa\\}$. Each element in exactly one class. Examples: (1) equality $=$, (2) congruence mod $n$: $a \\equiv b \\pmod{n}$, (3) same cardinality for sets. Quotient set $A/R$ = set of all equivalence classes. Applications: modular arithmetic, classification.",
             "formula": "Equiv. relation: reflexive + symmetric + transitive"
@@ -249,11 +249,11 @@ Questions.register([
         "question": "A relation R on set A is a partial order if it is:",
         "options": [
             "Reflexive, symmetric, and transitive",
-            "Reflexive and transitive only",
             "Reflexive, antisymmetric, and transitive",
+            "Reflexive and transitive only",
             "Irreflexive, symmetric, and transitive"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Partial Order (POSET): Binary relation $\\leq$ on set $A$ with three properties: (1) REFLEXIVE: $a \\leq a$ for all $a$, (2) ANTISYMMETRIC: $a \\leq b$ AND $b \\leq a$ $\\Rightarrow$ $a = b$ (no cycles except self-loops), (3) TRANSITIVE: $a \\leq b$ AND $b \\leq c$ $\\Rightarrow$ $a \\leq c$. Differs from equivalence: antisymmetric vs symmetric. Examples: (1) $\\leq$ on integers,  (2) $\\subseteq$ on sets (subset relation), (3) divisibility $|$ on positive integers. HASSE DIAGRAM: graphical representation removing reflexive/transitive edges. TOTAL/LINEAR order: every pair comparable ($a \\leq b$ or $b \\leq a$). Minimal/maximal elements. Applications: lattices, sorting.",
             "formula": "POSET: reflexive + antisymmetric + transitive"
@@ -280,9 +280,9 @@ Questions.register([
         "question": "The number of ways to arrange n distinct objects is:",
         "options": [
             "n!",
-            "2ⁿ",
             "nⁿ",
-            "n"
+            "n",
+            "2ⁿ"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -298,11 +298,11 @@ Questions.register([
         "question": "The number of ways to choose r objects from n distinct objects (order doesn't matter) is:",
         "options": [
             "nʳ",
+            "n!/r!",
             "n!/((n-r)! × r!)",
-            "n!/(n-r)!",
-            "n!/r!"
+            "n!/(n-r)!"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Combinations: Selections of $r$ objects from $n$ where ORDER DOESN'T MATTER. Formula: $C(n,r) = \\binom{n}{r} = \\frac{n!}{r!(n-r)!}$. Derivation: $P(n,r) = n!/(n-r)!$ counts ordered selections, but each unordered set counted $r!$ times (all permutations) $\\Rightarrow$ divide by $r!$. Properties: (1) $\\binom{n}{r} = \\binom{n}{n-r}$ (symmetry), (2) Pascal's identity: $\\binom{n}{r} = \\binom{n-1}{r} + \\binom{n-1}{r-1}$, (3) $\\sum_{r=0}^n \\binom{n}{r} = 2^n$ (binomial theorem with $x=y=1$). Applications: lottery, committees, probability, binomial coefficients.",
             "formula": "$\\binom{n}{r} = \\frac{n!}{r!(n-r)!}$ (combinations)"
@@ -327,12 +327,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "The number of edges in a wheel graph Wₙ with n vertices (1 hub + (n-1) rim vertices) is:",
         "options": [
-            "2n-2",
             "2(n-1)",
             "n-1",
-            "n"
+            "n",
+            "2n-2"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Wheel Graph Wₙ:\n\nA wheel consists of:\n1. A cycle of n-1 vertices (the 'rim')\n2. One central 'hub' vertex connected to all rim vertices\n\nEdge count = (n-1) rim edges + (n-1) hub-to-rim edges = 2(n-1)\n\nExample: W₄ has 3-cycle + 3 hub edges = 6 edges\n\nNote: Wₙ has n vertices total (n-1 on rim + 1 hub).",
             "formula": "Edges in Wₙ = 2(n-1)"
@@ -358,12 +358,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "The degree of each vertex in a hypercube Qₙ is:",
         "options": [
+            "n-1",
             "n",
-            "2ⁿ",
             "2n",
-            "n-1"
+            "2ⁿ"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Hypercube Qₙ Vertex Degree:\n\nIn Qₙ, each vertex is labeled with an n-bit binary string.\nTwo vertices are adjacent iff their labels differ in exactly 1 bit.\n\nSince there are n bits, each vertex has exactly n neighbors.\n\nQₙ is therefore n-regular (every vertex has degree n).\n\nExample: Q₃ (3D cube) - each corner connects to 3 others.",
             "formula": "Qₙ is n-regular"
@@ -377,11 +377,11 @@ Questions.register([
         "question": "A simple graph with n vertices that is connected must have at least how many edges?",
         "options": [
             "n/2",
-            "n(n-1)/2",
             "n-1",
+            "n(n-1)/2",
             "n"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Minimum Edges for Connectivity:\n\nThe minimum connected graph is a TREE.\n\nA tree on n vertices has exactly n-1 edges.\n\nWhy? Each edge added to a tree creates a cycle.\nRemoving any edge disconnects a tree.\n\nThis is minimum: less than n-1 edges can't connect n vertices.\n\nConversely, n-1 edges that don't form a cycle = tree.",
             "formula": "Minimum edges for connected = n-1 (tree)"
@@ -395,9 +395,9 @@ Questions.register([
         "question": "Maximum edges in a simple planar graph with n ≥ 3 vertices is:",
         "options": [
             "n",
-            "2n",
+            "n(n-1)/2",
             "3n - 6",
-            "n(n-1)/2"
+            "2n"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -412,12 +412,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A graph has a Hamiltonian cycle if:",
         "options": [
+            "It visits every edge exactly once",
             "It has Eulerian path",
             "It visits every vertex exactly once and returns",
-            "It visits every edge exactly once",
             "It is connected"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Hamiltonian Cycle:\n\nA cycle that visits every VERTEX exactly once and returns to start.\n\nContrast with Eulerian:\n• Hamiltonian = every vertex once\n• Eulerian = every edge once\n\nHamiltonian is NP-hard to determine (no polynomial algorithm known).\nEulerian is easy (count odd-degree vertices).\n\nDirac's theorem: If δ(G) ≥ n/2, graph is Hamiltonian."
         }
@@ -429,12 +429,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "An Eulerian path (not cycle) exists if the graph has exactly how many odd-degree vertices?",
         "options": [
-            "0",
-            "2",
             "1",
-            "Any number"
+            "Any number",
+            "2",
+            "0"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Eulerian Path (not cycle):\n\nAn Eulerian path traverses every EDGE exactly once.\n\nExists iff graph has exactly 2 odd-degree vertices.\nThese become the start and end points.\n\nEulerian CYCLE: 0 odd-degree vertices (all even).\n\nReasoning: At each intermediate vertex, you must enter and leave the same number of times, requiring even degree. Start/end can be odd.\n\nExample: Königsberg bridges had 4 odd vertices → no Eulerian path."
         }
@@ -446,12 +446,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "In the complement of graph G, two vertices are adjacent if and only if:",
         "options": [
-            "They are in the same component in G",
-            "They are not adjacent in G",
             "They have same degree in G",
-            "They are adjacent in G"
+            "They are in the same component in G",
+            "They are adjacent in G",
+            "They are not adjacent in G"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Complement Graph Ġ:\n\nIn the complement Ġ, two vertices are adjacent iff they are NOT adjacent in G.\n\nConstruction: Start with complete graph Kₙ, remove all edges of G.\n\nProperties:\nG + Ġ = Kₙ (together they have all possible edges)\n|E(G)| + |E(Ġ)| = n(n-1)/2\n\nExample: If G is a path P₃, then Ġ has the missing edges."
         }
@@ -464,11 +464,11 @@ Questions.register([
         "question": "A graph is self-complementary if:",
         "options": [
             "G = -G",
+            "G has no edges",
             "G ≅ G̅ (isomorphic to its complement)",
-            "G̅ = G",
-            "G has no edges"
+            "G̅ = G"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Self-complementary means G is isomorphic to its own complement"
         }
@@ -480,12 +480,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Number of edges in self-complementary graph with n vertices is:",
         "options": [
-            "n(n-1)/4",
             "n/2",
+            "n(n-1)/2",
             "(n-1)/2",
-            "n(n-1)/2"
+            "n(n-1)/4"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "G and Ḡ split total Kₙ edges equally: n(n-1)/2 ÷ 2 = n(n-1)/4",
             "formula": "Self-complementary: e = n(n-1)/4"
@@ -499,11 +499,11 @@ Questions.register([
         "question": "Vertex connectivity κ(G) is related to minimum degree δ(G) by:",
         "options": [
             "κ(G) = δ(G)",
+            "κ(G) = δ(G) + 1",
             "κ(G) ≤ δ(G)",
-            "κ(G) ≥ δ(G)",
-            "κ(G) = δ(G) + 1"
+            "κ(G) ≥ δ(G)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "κ(G) ≤ λ(G) ≤ δ(G) where λ is edge connectivity",
             "formula": "κ(G) ≤ δ(G)"
@@ -516,12 +516,12 @@ Questions.register([
         "subtopic": "Sets & Relations",
         "question": "A relation R is reflexive if for all a in A:",
         "options": [
-            "(a,a) ∈ R",
-            "(a,a) ∉ R",
             "if (a,b)∈R then (b,a)∈R",
-            "if (a,b)∈R and (b,c)∈R then (a,c)∈R"
+            "(a,a) ∉ R",
+            "if (a,b)∈R and (b,c)∈R then (a,c)∈R",
+            "(a,a) ∈ R"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Reflexive Relation:\n\nR is reflexive if (a,a) ∈ R for ALL a ∈ A.\n\nEvery element must be related to itself.\n\nExamples of reflexive:\n• = (equality): a = a always\n• ≤ (less than or equal): a ≤ a always\n• Divides: a | a always\n\nNon-reflexive: < (strict less than) since a < a is false.\n\nIn matrix: all 1s on the main diagonal."
         }
@@ -535,8 +535,8 @@ Questions.register([
         "options": [
             "a = b",
             "(a,b) ∉ R",
-            "R is empty",
-            "a ≠ b"
+            "a ≠ b",
+            "R is empty"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -550,12 +550,12 @@ Questions.register([
         "subtopic": "Sets & Relations",
         "question": "A relation is an equivalence relation if it is:",
         "options": [
-            "Reflexive, symmetric, and transitive",
             "Reflexive and symmetric",
-            "Symmetric and transitive",
-            "Reflexive and anti-symmetric"
+            "Reflexive and anti-symmetric",
+            "Reflexive, symmetric, and transitive",
+            "Symmetric and transitive"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Equivalence Relation:\n\nR is an equivalence relation if it satisfies:\n1. Reflexive: aRa for all a\n2. Symmetric: aRb ⇒ bRa\n3. Transitive: aRb ∧ bRc ⇒ aRc\n\nEquivalence relations partition a set into equivalence classes.\n\nExamples:\n• = (equality)\n• Same remainder mod n\n• Same cardinality of sets\n\nEach element belongs to exactly one equivalence class."
         }
@@ -567,12 +567,12 @@ Questions.register([
         "subtopic": "Sets & Relations",
         "question": "Equivalence classes form a _____ of the underlying set:",
         "options": [
-            "Subset",
-            "Power set",
             "Partition",
+            "Power set",
+            "Subset",
             "Superset"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Equivalence classes are disjoint and cover the whole set (partition)"
         }
@@ -611,9 +611,9 @@ Questions.register([
         "question": "A function f: A → B is injective (one-to-one) if:",
         "options": [
             "Both B and C",
-            "Different elements of A map to different elements of B",
             "f(a) = f(b) implies a = b",
-            "Every element of B is mapped to"
+            "Every element of B is mapped to",
+            "Different elements of A map to different elements of B"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -628,12 +628,12 @@ Questions.register([
         "subtopic": "Functions",
         "question": "A function f: A → B is surjective (onto) if:",
         "options": [
-            "f is one-to-one",
-            "Every element of B has a preimage in A",
             "f has an inverse",
-            "A and B have same size"
+            "A and B have same size",
+            "Every element of B has a preimage in A",
+            "f is one-to-one"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Surjective (Onto) Function: Every element in codomain B has at least one pre-image in domain A. Range equals codomain. Formally: $\\forall b \\in B, \\exists a \\in A$ such that $f(a) = b$. All possible outputs are actually achieved. Example: $f: \\mathbb{R} \\to \\mathbb{R}, f(x) = x^3$ is surjective (every real has cube root). Counter-example: $f: \\mathbb{R} \\to \\mathbb{R}, f(x) = x^2$ not surjective (negative numbers have no pre-image). Test: cover entire codomain. Applications: surjective functions allow 'onto' mappings. Note: function onto B but injective gives bijection.",
             "formula": "Surjective: range = codomain"
@@ -648,8 +648,8 @@ Questions.register([
         "options": [
             "Injective only",
             "Both injective and surjective",
-            "Neither",
-            "Surjective only"
+            "Surjective only",
+            "Neither"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -677,12 +677,12 @@ Questions.register([
         "subtopic": "Functions",
         "question": "Number of functions from set A (|A|=m) to set B (|B|=n) is:",
         "options": [
+            "m^n",
             "m + n",
             "n^m",
-            "m^n",
             "m × n"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Each of m elements has n choices → nᵐ total functions",
             "formula": "Functions from A to B = n^m"
@@ -696,11 +696,11 @@ Questions.register([
         "question": "The recurrence T(n) = T(n-1) + 1 with T(0) = 0 has solution:",
         "options": [
             "T(n) = n!",
+            "T(n) = 2^n",
             "T(n) = n",
-            "T(n) = 0",
-            "T(n) = 2^n"
+            "T(n) = 0"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Linear Recurrence $T(n) = T(n-1) + 1$: adds constant 1 at each step. Unrolling: $T(n) = T(n-1) + 1 = T(n-2) + 2 = ... = T(0) + n = 0 + n = n$. This is arithmetic progression with common difference 1. Pattern: $T(0)=0, T(1)=1, T(2)=2, T(3)=3, ...$. Represents simple counting or linear growth. Example: counting loop iterations. General form: $T(n) = T(n-1) + c$ has solution $T(n) = cn + T(0)$.",
             "formula": "$T(n) = T(n-1) + 1, T(0) = 0 \\Rightarrow T(n) = n$"
@@ -713,12 +713,12 @@ Questions.register([
         "subtopic": "Recurrence",
         "question": "The recurrence T(n) = 2T(n-1) with T(0) = 1 has solution:",
         "options": [
-            "T(n) = 2^n",
-            "T(n) = 2n",
             "T(n) = n",
-            "T(n) = n²"
+            "T(n) = 2^n",
+            "T(n) = n²",
+            "T(n) = 2n"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Geometric Recurrence $T(n) = 2T(n-1)$: multiplies by 2 at each step. Unrolling: $T(n) = 2T(n-1) = 2^2T(n-2) = 2^3T(n-3) = ... = 2^nT(0) = 2^n \\cdot 1 = 2^n$. Exponential growth - doubles every step. Pattern: $T(0)=1, T(1)=2, T(2)=4, T(3)=8, ...$. Example: binary tree node count, divide-and-conquer with 2 subproblems. General: $T(n) = rT(n-1)$ has solution $T(n) = r^n \\cdot T(0)$. Much faster growth than linear recurrences.",
             "formula": "$T(n) = 2T(n-1), T(0) = 1 \\Rightarrow T(n) = 2^n$"
@@ -731,12 +731,12 @@ Questions.register([
         "subtopic": "Recurrence",
         "question": "Fibonacci sequence Fₙ = Fₙ₋₁ + Fₙ₋₂ is a:",
         "options": [
-            "Divide-and-conquer recurrence",
-            "Non-linear recurrence",
             "Second-order linear recurrence",
-            "First-order linear recurrence"
+            "Divide-and-conquer recurrence",
+            "First-order linear recurrence",
+            "Non-linear recurrence"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Fibonacci Second-Order Recurrence: $F_n = F_{n-1} + F_{n-2}$ depends on TWO previous terms, making it second-order (vs first-order like $T(n) = T(n-1) + c$). Initial conditions: $F_0 = 0, F_1 = 1$. Sequence: 0,1,1,2,3,5,8,13,21,... Closed form (Binet's formula): $F_n = \\frac{\\phi^n - \\psi^n}{\\sqrt{5}}$ where $\\phi = \\frac{1+\\sqrt{5}}{2}$ (golden ratio), $\\psi = \\frac{1-\\sqrt{5}}{2}$. Growth: $F_n \\approx \\frac{\\phi^n}{\\sqrt{5}}$ (exponential but slower than $2^n$). Applications: nature patterns, algorithm analysis, dynamic programming.",
             "formula": "$F_n = F_{n-1} + F_{n-2}$ (2nd order linear)"
@@ -751,8 +751,8 @@ Questions.register([
         "options": [
             "Closure, associativity, identity, inverse",
             "Closure, associativity only",
-            "Distributivity, closure",
-            "Commutativity, closure"
+            "Commutativity, closure",
+            "Distributivity, closure"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -767,12 +767,12 @@ Questions.register([
         "subtopic": "Algebraic Structures",
         "question": "An abelian group additionally requires:",
         "options": [
-            "Inverse elements",
-            "Identity element",
             "Closure",
-            "Commutativity"
+            "Commutativity",
+            "Inverse elements",
+            "Identity element"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Abelian (Commutative) Group: Group with additional COMMUTATIVITY property: $a*b = b*a$ for all $a,b \\in G$. Named after mathematician Niels Henrik Abel. All 4 group axioms PLUS commutativity. Examples: $(\\mathbb{Z}, +)$, $(\\mathbb{R}, +)$, $(\\mathbb{C} \\setminus \\{0\\}, \\times)$ are abelian. Counter-example: matrix multiplication (non-abelian - $AB \\neq BA$ generally). Properties: (1) Easier to work with than non-abelian groups, (2) Fundamental Theorem of Finite Abelian Groups: every finite abelian group is direct product of cyclic groups. Applications: number theory, elliptic curve cryptography.",
             "formula": "Abelian: Group + Commutativity"
@@ -785,12 +785,12 @@ Questions.register([
         "subtopic": "Algebraic Structures",
         "question": "Order of an element a in a group is the smallest positive n such that:",
         "options": [
-            "a = n",
-            "n divides a",
             "aⁿ = e (identity)",
-            "a + n = 0"
+            "a + n = 0",
+            "n divides a",
+            "a = n"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Order of Element: Smallest positive integer $n$ such that $a^n = e$ (identity). Written $|a|$ or $ord(a)$. If no such $n$ exists, element has infinite order. Examples: In $\\mathbb{Z}_6$ under addition, element 2 has order 3 (since $2+2+2 = 6 \\equiv 0$). In multiplicative group mod 7, element 3 has order 6. Properties: (1) Order divides group order (Lagrange), (2) $a^k = e \\iff |a|$ divides $k$, (3) Cyclic group = generated by element of order $|G|$. Applications: finding generators, cryptographic protocols.",
             "formula": "$|a| = \\min\\{n \\in \\mathbb{N}: a^n = e\\}$"
@@ -803,12 +803,12 @@ Questions.register([
         "subtopic": "Algebraic Structures",
         "question": "Lagrange's theorem states that the order of a subgroup:",
         "options": [
+            "Equals the order of the group",
             "Is a prime number",
             "Is greater than the group order",
-            "Divides the order of the group",
-            "Equals the order of the group"
+            "Divides the order of the group"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Lagrange: |H| divides |G| for subgroup H of finite group G",
             "formula": "|H| divides |G|"
@@ -822,9 +822,9 @@ Questions.register([
         "question": "A lattice is a partially ordered set where every two elements have:",
         "options": [
             "Both LUB (join) and GLB (meet)",
-            "Neither LUB nor GLB",
+            "Only a GLB",
             "Only a LUB",
-            "Only a GLB"
+            "Neither LUB nor GLB"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -839,9 +839,9 @@ Questions.register([
         "subtopic": "Algebraic Structures",
         "question": "In a Boolean algebra, complement of element a satisfies:",
         "options": [
-            "a' = a",
             "a ∨ a' = a",
             "a ∧ a' = a",
+            "a' = a",
             "a ∨ a' = 1 and a ∧ a' = 0"
         ],
         "correctAnswer": 3,
@@ -858,8 +858,8 @@ Questions.register([
         "question": "A proposition is satisfiable if:",
         "options": [
             "There exists at least one truth assignment making it true",
-            "It contains no variables",
             "It is always true",
+            "It contains no variables",
             "It is always false"
         ],
         "correctAnswer": 0,
@@ -874,12 +874,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Highest precedence logical operator is:",
         "options": [
-            "¬ (NOT)",
-            "∨ (OR)",
             "∧ (AND)",
-            "→ (implies)"
+            "¬ (NOT)",
+            "→ (implies)",
+            "∨ (OR)"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Logical Operator Precedence (highest to lowest): 1. ¬ (NOT) - unary, binds tightest. 2. ∧ (AND). 3. ∨ (OR). 4. → (implies). 5. ↔ (biconditional). So p ∨ q ∧ r means p ∨ (q ∧ r), not (p ∨ q) ∧ r."
         }
@@ -891,12 +891,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Correct precedence order is:",
         "options": [
-            "¬ > ∧ > ∨ > → > ↔",
             "∧ > ∨ > ¬ > →",
+            "¬ > ∧ > ∨ > → > ↔",
             "↔ > → > ∨ > ∧ > ¬",
             "→ > ∨ > ∧ > ¬"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Logical Operator Precedence (highest to lowest): (1) ¬ (NOT) - unary negation, (2) ∧ (AND/conjunction), (3) ∨ (OR/disjunction), (4) → (implication/conditional), (5) ↔ (biconditional/equivalence). Without parentheses: $p \\vee q \\wedge r$ means $p \\vee (q \\wedge r)$, not $(p \\vee q) \\wedge r$. Similarly $p \\rightarrow q \\vee r$ means $p \\rightarrow (q \\vee r)$. Mnemonic: NOT binds tightest (like minus in math), then AND (like multiplication), then OR (like addition), then implications. Always use parentheses when unsure!",
             "formula": "Precedence: $\\neg > \\wedge > \\vee > \\rightarrow > \\leftrightarrow$"
@@ -909,12 +909,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Double negation law: ¬(¬p) ≡",
         "options": [
-            "p",
             "¬p",
+            "p",
             "F",
             "T"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "¬(¬p) ≡ p",
             "formula": "¬¬p ≡ p"
@@ -927,12 +927,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "De Morgan's law: ¬(p ∧ q) ≡",
         "options": [
-            "p ∨ q",
-            "¬p ∧ ¬q",
             "¬p ∨ ¬q",
-            "p ∧ q"
+            "¬p ∧ ¬q",
+            "p ∧ q",
+            "p ∨ q"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "De Morgan's Law (for AND):\n\n¬(p ∧ q) ≡ ¬p ∨ ¬q\n\n'NOT(p AND q)' = 'NOT p OR NOT q'\n\nMnemonic: Negation flips AND to OR!\n\nTruth table verification:\np q | p∧q | ¬(p∧q) | ¬p | ¬q | ¬p∨¬q\nT T | T   | F      | F | F | F ✔\nT F | F   | T      | F | T | T ✔\nF T | F   | T      | T | F | T ✔\nF F | F   | T      | T | T | T ✔\n\nUsed extensively in digital logic and set theory!",
             "formula": "¬(p ∧ q) ≡ ¬p ∨ ¬q"
@@ -945,12 +945,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "De Morgan's law: ¬(p ∨ q) ≡",
         "options": [
-            "p ∧ q",
             "¬p ∧ ¬q",
-            "¬p ∨ ¬q",
-            "p ∨ q"
+            "p ∧ q",
+            "p ∨ q",
+            "¬p ∨ ¬q"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "De Morgan's Law (for OR):\n\n¬(p ∨ q) ≡ ¬p ∧ ¬q\n\n'NOT(p OR q)' = 'NOT p AND NOT q'\n\nMnemonic: Negation flips OR to AND!\n\nBoth De Morgan's Laws together:\n• ¬(p ∧ q) ≡ ¬p ∨ ¬q\n• ¬(p ∨ q) ≡ ¬p ∧ ¬q\n\nGeneralizes to n variables and to set operations:\n¬(A ∩ B) = Aᶜ ∪ Bᶜ\n¬(A ∪ B) = Aᶜ ∩ Bᶜ",
             "formula": "¬(p ∨ q) ≡ ¬p ∧ ¬q"
@@ -963,12 +963,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Commutative law: p ∧ q ≡",
         "options": [
-            "q ∧ p",
-            "q ∨ p",
             "¬p ∧ ¬q",
-            "p ∨ q"
+            "q ∨ p",
+            "p ∨ q",
+            "q ∧ p"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "p ∧ q ≡ q ∧ p",
             "formula": "p ∧ q ≡ q ∧ p"
@@ -981,12 +981,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Associative law: p ∧ (q ∧ r) ≡",
         "options": [
-            "p ∧ (q ∨ r)",
-            "(p ∧ q) ∧ r",
+            "(p ∧ q) ∨ r",
             "(p ∨ q) ∧ r",
-            "(p ∧ q) ∨ r"
+            "(p ∧ q) ∧ r",
+            "p ∧ (q ∨ r)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "p ∧ (q ∧ r) ≡ (p ∧ q) ∧ r",
             "formula": "p ∧ (q ∧ r) ≡ (p ∧ q) ∧ r"
@@ -999,12 +999,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Distributive law: p ∧ (q ∨ r) ≡",
         "options": [
-            "(p ∧ q) ∨ (p ∧ r)",
-            "(p ∧ q) ∧ (p ∧ r)",
             "(p ∨ q) ∧ (p ∨ r)",
-            "(p ∨ q) ∨ (p ∨ r)"
+            "(p ∨ q) ∨ (p ∨ r)",
+            "(p ∧ q) ∨ (p ∧ r)",
+            "(p ∧ q) ∧ (p ∧ r)"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Distributive Law (AND over OR):\n\np ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)\n\nSimilar to distribution in arithmetic: a × (b + c) = a×b + a×c\n\nAlso works in reverse (Factoring out):\n(p ∧ q) ∨ (p ∧ r) ≡ p ∧ (q ∨ r)\n\nBoth directions are used in simplifying Boolean expressions.\n\nNote: ∨ also distributes over ∧ (unlike regular arithmetic where × doesn't distribute over ×)!",
             "formula": "∧ distributes over ∨"
@@ -1018,11 +1018,11 @@ Questions.register([
         "question": "Distributive law: p ∨ (q ∧ r) ≡",
         "options": [
             "(p ∧ q) ∧ (p ∧ r)",
-            "(p ∨ q) ∧ (p ∨ r)",
+            "(p ∨ q) ∨ (p ∨ r)",
             "(p ∧ q) ∨ (p ∧ r)",
-            "(p ∨ q) ∨ (p ∨ r)"
+            "(p ∨ q) ∧ (p ∨ r)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)",
             "formula": "∨ distributes over ∧"
@@ -1035,12 +1035,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Idempotent law: p ∧ p ≡",
         "options": [
-            "p",
-            "¬p",
             "F",
-            "T"
+            "T",
+            "p",
+            "¬p"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "p ∧ p ≡ p",
             "formula": "p ∧ p ≡ p"
@@ -1053,12 +1053,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Identity law: p ∧ T ≡",
         "options": [
-            "¬p",
             "T",
-            "F",
-            "p"
+            "¬p",
+            "p",
+            "F"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "p ∧ T ≡ p",
             "formula": "p ∧ T ≡ p"
@@ -1071,12 +1071,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Identity law: p ∨ F ≡",
         "options": [
-            "F",
-            "¬p",
             "T",
-            "p"
+            "¬p",
+            "p",
+            "F"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "p ∨ F ≡ p",
             "formula": "p ∨ F ≡ p"
@@ -1089,12 +1089,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Domination law: p ∨ T ≡",
         "options": [
-            "p",
-            "F",
             "T",
-            "¬p"
+            "¬p",
+            "F",
+            "p"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "p ∨ T ≡ T",
             "formula": "p ∨ T ≡ T"
@@ -1109,8 +1109,8 @@ Questions.register([
         "options": [
             "F",
             "p",
-            "¬p",
-            "T"
+            "T",
+            "¬p"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1126,11 +1126,11 @@ Questions.register([
         "question": "Inverse/Negation law: p ∧ ¬p ≡",
         "options": [
             "p",
+            "T",
             "F",
-            "¬p",
-            "T"
+            "¬p"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "p ∧ ¬p ≡ F (contradiction)",
             "formula": "p ∧ ¬p ≡ F"
@@ -1145,10 +1145,10 @@ Questions.register([
         "options": [
             "p",
             "F",
-            "¬p",
-            "T"
+            "T",
+            "¬p"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "p ∨ ¬p ≡ T (tautology - law of excluded middle)",
             "formula": "p ∨ ¬p ≡ T"
@@ -1161,12 +1161,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Absorption law: p ∧ (p ∨ q) ≡",
         "options": [
-            "p ∧ q",
-            "p",
+            "q",
             "p ∨ q",
-            "q"
+            "p ∧ q",
+            "p"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "p ∧ (p ∨ q) ≡ p",
             "formula": "p ∧ (p ∨ q) ≡ p"
@@ -1179,8 +1179,8 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Absorption law: p ∨ (p ∧ q) ≡",
         "options": [
-            "p ∨ q",
             "p ∧ q",
+            "p ∨ q",
             "p",
             "q"
         ],
@@ -1215,12 +1215,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Contrapositive: p → q ≡",
         "options": [
-            "¬p → ¬q",
             "q → p",
-            "p ↔ q",
-            "¬q → ¬p"
+            "¬q → ¬p",
+            "¬p → ¬q",
+            "p ↔ q"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Contrapositive: The logical equivalent of an implication.\n\np → q ≡ ¬q → ¬p\n\nIMPORTANT: Contrapositive is LOGICALLY EQUIVALENT to the original!\n\nRelated forms (NOT equivalent):\n• Original: p → q\n• Converse: q → p ≠ (p → q)\n• Inverse: ¬p → ¬q ≠ (p → q)\n• Contrapositive: ¬q → ¬p ≡ (p → q)\n\nNote: Converse ≡ Inverse (these two are equivalent to each other).",
             "formula": "p → q ≡ ¬q → ¬p"
@@ -1234,11 +1234,11 @@ Questions.register([
         "question": "Converse of p → q is:",
         "options": [
             "¬q → ¬p",
-            "q → p",
+            "¬p → ¬q",
             "p ↔ q",
-            "¬p → ¬q"
+            "q → p"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Converse: q → p (NOT equivalent to original)"
         }
@@ -1250,12 +1250,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Inverse of p → q is:",
         "options": [
-            "q → p",
-            "p ↔ q",
             "¬q → ¬p",
-            "¬p → ¬q"
+            "¬p → ¬q",
+            "p ↔ q",
+            "q → p"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Inverse: ¬p → ¬q (NOT equivalent to original)"
         }
@@ -1267,12 +1267,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "¬(p → q) ≡",
         "options": [
-            "p ∧ ¬q",
-            "¬p ∨ q",
             "¬p ∧ q",
+            "¬p ∨ q",
+            "p ∧ ¬q",
             "p ∨ ¬q"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "¬(p → q) ≡ ¬(¬p ∨ q) ≡ p ∧ ¬q",
             "formula": "¬(p → q) ≡ p ∧ ¬q"
@@ -1285,12 +1285,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "p ↔ q ≡",
         "options": [
-            "(p ∧ q) ∨ (¬p ∧ ¬q)",
             "p ∧ q",
             "(p → q) ∧ (q → p)",
-            "p ∨ q"
+            "p ∨ q",
+            "(p ∧ q) ∨ (¬p ∧ ¬q)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "p ↔ q ≡ (p → q) ∧ (q → p)",
             "formula": "p ↔ q ≡ (p → q) ∧ (q → p)"
@@ -1303,12 +1303,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "p ↔ q can also be written as:",
         "options": [
-            "(p ∧ ¬q) ∨ (¬p ∧ q)",
-            "(p ∨ q) ∧ (¬p ∨ ¬q)",
             "(p ∧ q) ∨ (¬p ∧ ¬q)",
-            "p XOR q"
+            "(p ∧ ¬q) ∨ (¬p ∧ q)",
+            "p XOR q",
+            "(p ∨ q) ∧ (¬p ∨ ¬q)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "p ↔ q ≡ (p ∧ q) ∨ (¬p ∧ ¬q)",
             "formula": "XNOR operation"
@@ -1321,12 +1321,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "p ⊕ q (XOR) ≡",
         "options": [
-            "(p ∧ q) ∨ (¬p ∧ ¬q)",
+            "(p ∧ ¬q) ∨ (¬p ∧ q)",
             "p ∧ q",
             "p ∨ q",
-            "(p ∧ ¬q) ∨ (¬p ∧ q)"
+            "(p ∧ q) ∨ (¬p ∧ ¬q)"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "XOR: true when exactly one is true",
             "formula": "p ⊕ q ≡ (p ∧ ¬q) ∨ (¬p ∧ q)"
@@ -1339,12 +1339,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Modus Ponens: from p and p → q, we can conclude:",
         "options": [
+            "q",
             "p",
             "¬q",
-            "q",
             "¬p"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Modus Ponens (Law of Detachment):\n\nFrom: p and (p → q)\nConclude: q\n\nSymbolically: p, p → q ⊢ q\n\n'If p implies q, and p is true, then q must be true.'\n\nThis is the most fundamental rule of inference!\n\nExample:\n• If it rains, then the ground is wet.\n• It is raining.\n• Therefore, the ground is wet.",
             "formula": "p, p → q ⊢ q"
@@ -1357,12 +1357,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Modus Tollens: from ¬q and p → q, we can conclude:",
         "options": [
-            "¬q",
-            "¬p",
             "p",
-            "q"
+            "¬q",
+            "q",
+            "¬p"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Modus Tollens (Denying the Consequent):\n\nFrom: (p → q) and ¬q\nConclude: ¬p\n\nSymbolically: p → q, ¬q ⊢ ¬p\n\n'If p implies q, and q is false, then p must be false.'\n\nThis uses the contrapositive: p → q ≡ ¬q → ¬p\n\nExample:\n• If it rains, then the ground is wet.\n• The ground is NOT wet.\n• Therefore, it is NOT raining.",
             "formula": "p → q, ¬q ⊢ ¬p"
@@ -1375,12 +1375,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Hypothetical Syllogism: from p → q and q → r, we conclude:",
         "options": [
-            "r",
-            "q",
+            "p",
             "p → r",
-            "p"
+            "q",
+            "r"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Hypothetical Syllogism (Chain Rule):\n\nFrom: (p → q) and (q → r)\nConclude: (p → r)\n\nSymbolically: p → q, q → r ⊢ p → r\n\n'If p leads to q, and q leads to r, then p leads to r.'\n\nThis allows chaining implications!\n\nExample:\n• If I study, I pass the exam.\n• If I pass the exam, I get the job.\n• Therefore, if I study, I get the job.",
             "formula": "p → q, q → r ⊢ p → r"
@@ -1395,10 +1395,10 @@ Questions.register([
         "options": [
             "¬q",
             "¬p",
-            "q",
-            "p"
+            "p",
+            "q"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Disjunctive Syllogism (Eliminating Disjuncts):\n\nFrom: (p ∨ q) and ¬p\nConclude: q\n\nSymbolically: p ∨ q, ¬p ⊢ q\n\n'If one of two things is true, and the first is false, the second must be true.'\n\nExample:\n• Either the bus is late OR I'm early.\n• The bus is NOT late.\n• Therefore, I'm early.",
             "formula": "p ∨ q, ¬p ⊢ q"
@@ -1413,10 +1413,10 @@ Questions.register([
         "options": [
             "p → q",
             "¬p",
-            "p ∧ q",
-            "p ∨ q"
+            "p ∨ q",
+            "p ∧ q"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Addition (Disjunction Introduction): From p being true, we can infer $p \u000bee q$ for ANY proposition q. If p is true, then 'p OR anything' is automatically true. Symbolically: $p \u000bdash p \u000bee q$. Example: 'It's raining' allows us to conclude 'It's raining OR it's sunny' (trivially true since first part is true). Seems obvious but formally important in proof systems. Adds flexibility in logical derivations by introducing new disjuncts.",
             "formula": "$p \u000bdash p \u000bee q$ (addition)"
@@ -1430,9 +1430,9 @@ Questions.register([
         "question": "Simplification: from p ∧ q, we can derive:",
         "options": [
             "p ∨ q",
-            "p → q",
+            "¬p ∧ ¬q",
             "p (or q)",
-            "¬p ∧ ¬q"
+            "p → q"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1447,12 +1447,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Conjunction: from p and q, we can derive:",
         "options": [
-            "p ∧ q",
             "p ∨ q",
             "p → q",
+            "p ∧ q",
             "¬(p ∧ q)"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Conjunction (AND Introduction): From p and q being true separately, we can combine them into $p wedge q$. If we know both facts independently, we can state them as a conjunction. Symbolically: $p, q \u000bdash p wedge q$. Example: 'It's raining' and 'It's cold' together give 'It's raining AND cold'. Fundamental for building compound statements from atomic ones. Converse of simplification.",
             "formula": "$p, q \u000bdash p wedge q$ (conjunction)"
@@ -1465,12 +1465,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "Resolution: from (p ∨ q) and (¬p ∨ r), we conclude:",
         "options": [
-            "q ∨ r",
             "q ∧ r",
+            "q ∨ r",
             "¬p ∧ q",
             "p ∨ r"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Resolution Rule: Foundation of automated theorem proving. From $(p \u000bee q)$ and $(\neg p \u000bee r)$, conclude $(q \u000bee r)$. Reasoning: If p is true, then from $\neg p \u000bee r$, r must be true. If p is false, then from $p \u000bee q$, q must be true. Either way, $q \u000bee r$ holds. Symbolically: $p \u000bee q, \neg p \u000bee r \u000bdash q \u000bee r$. Complete inference rule for propositional logic (with factoring). Used extensively in resolution-based theorem provers and logic programming (Prolog). Eliminates complementary literals (p and $\neg p$).",
             "formula": "$p \u000bee q, \neg p \u000bee r \u000bdash q \u000bee r$ (resolution)"
@@ -1484,11 +1484,11 @@ Questions.register([
         "question": "∀x P(x) means:",
         "options": [
             "There exists x such that P(x) is true",
-            "For all x, P(x) is true",
+            "P(x) is sometimes true",
             "P(x) is a tautology",
-            "P(x) is sometimes true"
+            "For all x, P(x) is true"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Universal Quantifier ($\forall$): 'For all' or 'for every'. $\forall x P(x)$ means P(x) is true for EVERY value of x in the domain. Example: $\forall x in mathbb{Z}, x + 0 = x$ (adding zero works for all integers). To prove: must show holds for arbitrary element. To disprove: find ONE counterexample. Negation: $\neg(\forall x P(x)) equiv exists x \neg P(x)$ (if not all satisfy P, then some violate P). Scope matters in nested quantifiers. Applications: mathematical theorems, formal specifications."
         }
@@ -1500,12 +1500,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "∃x P(x) means:",
         "options": [
+            "There exists at least one x such that P(x) is true",
             "P(x) is always false",
             "For all x, P(x) is true",
-            "No x satisfies P(x)",
-            "There exists at least one x such that P(x) is true"
+            "No x satisfies P(x)"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Existential Quantifier ($exists$): 'There exists' or 'for some'. $exists x P(x)$ means P(x) is true for AT LEAST ONE value of x in domain. Example: $exists x in mathbb{Z}, x^2 = 4$ (true: x=2 or x=-2). To prove: find ONE witness/example. To disprove: must show holds for NONE (equivalent to proving $\forall x \neg P(x)$). Negation: $\neg(exists x P(x)) equiv \forall x \neg P(x)$ (if none exists, then all violate P). Unique existential: $exists! x P(x)$ means exactly one. Applications: existence proofs, database queries (SELECT)."
         }
@@ -1517,12 +1517,12 @@ Questions.register([
         "subtopic": "Propositional Logic",
         "question": "¬(∀x P(x)) ≡",
         "options": [
-            "∃x P(x)",
-            "∃x ¬P(x)",
+            "∀x ¬P(x)",
             "¬∃x P(x)",
-            "∀x ¬P(x)"
+            "∃x P(x)",
+            "∃x ¬P(x)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Quantifier Negation (Universal): $\neg(\forall x P(x)) equiv exists x \neg P(x)$. 'NOT for all x, P(x)' = 'There exists some x where P(x) fails'. Example: Negation of 'All birds can fly' = 'Some bird cannot fly' (penguins!). De Morgan's law for quantifiers. To disprove universal statement, find ONE counterexample. Important for proof techniques: refutation often easier than direct proof.",
             "formula": "$\neg(\forall x P(x)) equiv exists x \neg P(x)$"
@@ -1536,9 +1536,9 @@ Questions.register([
         "question": "¬(∃x P(x)) ≡",
         "options": [
             "∀x ¬P(x)",
+            "∀x P(x)",
             "∃x P(x)",
-            "∃x ¬P(x)",
-            "∀x P(x)"
+            "∃x ¬P(x)"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1566,10 +1566,10 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "In a set, order and repetition of elements:",
         "options": [
-            "Only order matters",
+            "Only repetition matters",
             "Matters",
             "Doesn't matter",
-            "Only repetition matters"
+            "Only order matters"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1583,12 +1583,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "A set with exactly one element is called:",
         "options": [
-            "Empty set",
             "Power set",
-            "Universal set",
-            "Singleton set"
+            "Empty set",
+            "Singleton set",
+            "Universal set"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Singleton Set: A set containing exactly ONE element. Examples: ${5}$, ${emptyset}$ (set containing empty set), ${\text{cat}}$. Cardinality = 1. Important: ${a} \neq a$ (set vs element - different types). Empty set $emptyset$ has cardinality 0. Power set of singleton: $P({a}) = {emptyset, {a}}$ (2 elements). Singleton vs element membership: $a in {a}$ but ${a} \notin {a}$ (unless nested). Used in formal logic, type theory.",
             "formula": "$|{a}| = 1$"
@@ -1601,12 +1601,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "The cardinality of a set is:",
         "options": [
-            "Number of elements in it",
-            "Its first element",
             "Its largest element",
-            "Sum of its elements"
+            "Sum of its elements",
+            "Number of elements in it",
+            "Its first element"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Cardinality: The NUMBER of elements in a set, denoted $|A|$ or sometimes $#A$ or card(A). Examples: $|{1,2,3}| = 3$, $|emptyset| = 0$, $|{a,b,a,c}| = 3$ (repetition ignored). For finite sets: count distinct elements. For infinite sets: different sizes exist ($|mathbb{N}| = aleph_0$ countable, $|mathbb{R}| = 2^{aleph_0}$ uncountable). Two sets have same cardinality if bijection exists between them. Important for: counting problems, comparing set sizes, database query results.",
             "formula": "$|A|$ = cardinality of set $A$"
@@ -1620,9 +1620,9 @@ Questions.register([
         "question": "A ⊆ B means:",
         "options": [
             "Every element of A is in B",
-            "A and B are disjoint",
             "A equals B",
-            "Every element of B is in A"
+            "Every element of B is in A",
+            "A and B are disjoint"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1637,12 +1637,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "A ⊂ B (proper subset) means:",
         "options": [
-            "A ⊆ B only",
             "A ⊆ B and A ≠ B",
-            "A = B",
-            "A ⊇ B"
+            "A ⊇ B",
+            "A ⊆ B only",
+            "A = B"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Proper Subset ($A subset B$ or $A subsetneq B$): A is subset of B BUT A $\neq$ B. Equivalently: $A subseteq B$ and $exists x (x in B land x \notin A)$ (B has something A doesn't). Examples: ${1,2} subset {1,2,3}$, $emptyset subset {1}$. Note: $A \notsubset A$ (set not proper subset of itself). Proper subsets of n-element set: $2^n - 1$ (all subsets except full set). Strict inequality in subset relation. Important: notation varies - some use $subset$ for subset (not necessarily proper), others for proper subset only. Always check context!",
             "formula": "$A subset B iff (A subseteq B land A \neq B)$"
@@ -1673,12 +1673,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "For any set A, ∅ is:",
         "options": [
-            "Not a subset of A",
             "Equal to A",
             "Always a subset of A",
+            "Not a subset of A",
             "Only subset if A is empty"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Empty Set as Universal Subset: $emptyset subseteq A$ for EVERY set A. Proof: Vacuous truth - 'if $x in emptyset$ then $x in A$' is trivially true because antecedent is always false (no element in $emptyset$). False implies anything. Important cases: $emptyset subseteq emptyset$, $emptyset subseteq {emptyset}$. Note: $emptyset in P(A)$ always (empty set is element of every power set). Distinction: $emptyset subseteq A$ (subset) vs $emptyset in A$ (element, only if A explicitly contains empty set). Foundation of set theory, Venn diagrams (empty intersection).",
             "formula": "$emptyset subseteq A$ for all sets $A$"
@@ -1691,12 +1691,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "A ∪ B = ?",
         "options": [
-            "{x : x ∈ A but x ∉ B}",
-            "{x : x ∉ A and x ∉ B}",
+            "{x : x ∈ A or x ∈ B}",
             "{x : x ∈ A and x ∈ B}",
-            "{x : x ∈ A or x ∈ B}"
+            "{x : x ∉ A and x ∉ B}",
+            "{x : x ∈ A but x ∉ B}"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Union ($A cup B$): Set of elements in A OR B (or both). $A cup B = {x | x in A \u000bee x in B}$. Examples: ${1,2} cup {2,3} = {1,2,3}$, $A cup emptyset = A$. Properties: (1) Commutative: $A cup B = B cup A$, (2) Associative: $(A cup B) cup C = A cup (B cup C)$, (3) Idempotent: $A cup A = A$, (4) Identity: $A cup emptyset = A$. Cardinality: $|A cup B| = |A| + |B| - |A cap B|$ (inclusion-exclusion). Generalizes to n sets: $\bigcup_{i=1}^n A_i$. Duality with intersection (De Morgan's laws). Venn diagrams: shaded region covering both circles.",
             "formula": "$A cup B = {x | x in A \u000bee x in B}$"
@@ -1709,10 +1709,10 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "A ∩ B = ?",
         "options": [
+            "{x : x ∈ A or x ∈ B}",
             "{x : x ∈ A but x ∉ B}",
-            "{x : x ∉ A and x ∉ B}",
             "{x : x ∈ A and x ∈ B}",
-            "{x : x ∈ A or x ∈ B}"
+            "{x : x ∉ A and x ∉ B}"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1727,12 +1727,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "A - B (or A \\ B) = ?",
         "options": [
-            "{x : x ∈ A and x ∈ B}",
             "{x : x ∈ A or x ∈ B}",
             "{x : x ∈ B and x ∉ A}",
-            "{x : x ∈ A and x ∉ B}"
+            "{x : x ∈ A and x ∉ B}",
+            "{x : x ∈ A and x ∈ B}"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Set Difference ($A - B$ or $A setminus B$): Elements in A that are NOT in B. $A - B = {x | x in A wedge x \notin B}$. Examples: ${1,2,3} - {2,3,4} = {1}$, $A - emptyset = A$, $A - A = emptyset$. NOT commutative: $A - B \neq B - A$ generally. Cardinality: $|A - B| = |A| - |A cap B|$. Complement: $overline{A} = U - A$ (universal set minus A). Relation to intersection: $A - B = A cap overline{B}$. SQL: SELECT * FROM A EXCEPT SELECT * FROM B. Venn: A circle minus overlapping part.",
             "formula": "$A - B = {x | x in A wedge x \notin B}$"
@@ -1747,8 +1747,8 @@ Questions.register([
         "options": [
             "(A - B) ∪ (B - A)",
             "(A - B) ∩ (B - A)",
-            "(A ∪ B)",
-            "(A ∩ B)"
+            "(A ∩ B)",
+            "(A ∪ B)"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1763,12 +1763,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Two sets are disjoint if:",
         "options": [
+            "A ∩ B = ∅",
             "A = B",
-            "A ⊆ B",
             "A ∪ B = ∅",
-            "A ∩ B = ∅"
+            "A ⊆ B"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Disjoint Sets: Two sets A and B are disjoint if they have NO common elements. $A cap B = emptyset$. Examples: ${1,2}$ and ${3,4}$ are disjoint, even vs odd integers are disjoint. Pairwise disjoint: collection where every pair is disjoint (important for partitions). Properties: (1) $|A cup B| = |A| + |B|$ when disjoint (no overlap to subtract), (2) Partition: family of pairwise disjoint sets whose union is full set. Applications: probability (mutually exclusive events), data structures (disjoint sets/union-find), Venn diagrams (non-overlapping circles).",
             "formula": "Disjoint: $A cap B = emptyset$"
@@ -1781,12 +1781,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Idempotent law: A ∪ A = ?",
         "options": [
+            "A",
             "A^c",
-            "U",
             "∅",
-            "A"
+            "U"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Idempotent Law (Union): $A cup A = A$. Set union with itself returns same set. Idempotent = 'same power' (operation repeated gives same result). Example: ${1,2} cup {1,2} = {1,2}$. Dual law: $A cap A = A$ (intersection idempotent too). Parallel in logic: $p \u000bee p equiv p$ and $p wedge p equiv p$. Used for simplifying set expressions - redundant unions/intersections can be eliminated. Boolean algebra property.",
             "formula": "$A cup A = A$ (idempotent)"
@@ -1799,12 +1799,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Identity law: A ∪ ∅ = ?",
         "options": [
-            "A",
-            "A^c",
             "U",
-            "∅"
+            "∅",
+            "A^c",
+            "A"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Identity Law (Union): $A cup emptyset = A$. Empty set is identity element for union. Adding nothing changes nothing. Example: ${1,2} cup emptyset = {1,2}$. Dual law: $A cap U = A$ (universal set is identity for intersection). Parallel: 0 is identity for addition ($x + 0 = x$), FALSE is identity for OR ($p \u000bee F equiv p$). One of fundamental set algebra laws. Used in simplification.",
             "formula": "$A cup emptyset = A$ (identity)"
@@ -1819,8 +1819,8 @@ Questions.register([
         "options": [
             "∅",
             "A",
-            "A^c",
-            "U"
+            "U",
+            "A^c"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1853,12 +1853,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Domination law: A ∩ ∅ = ?",
         "options": [
-            "∅",
-            "A^c",
             "U",
-            "A"
+            "∅",
+            "A",
+            "A^c"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Domination Law (Intersection): $A cap emptyset = emptyset$. Intersection with empty set always gives empty set. Nothing intersected with nothing = nothing. Example: ${1,2,3} cap emptyset = emptyset$. Empty set dominates intersection - absorbing element. Dual: $A cup U = U$ (universe dominates union). Parallel: FALSE dominates AND ($p wedge F equiv F$), 0 dominates multiplication ($x \times 0 = 0$).",
             "formula": "$A cap emptyset = emptyset$ (domination)"
@@ -1871,12 +1871,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Complement law: A ∪ A^c = ?",
         "options": [
-            "A",
-            "∅",
+            "A^c",
             "U",
-            "A^c"
+            "A",
+            "∅"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Complement Law (Union): $A cup overline{A} = U$. Set union with its complement gives universal set. Everything is either in A or not in A (law of excluded middle for sets). Example: {even integers} $cup$ {odd integers} = all integers. Partition property. Dual: $A cap overline{A} = emptyset$ (set and complement are disjoint). Parallel: $p \u000bee \neg p equiv T$.",
             "formula": "$A cup A' = U$ (complement)"
@@ -1889,12 +1889,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Complement law: A ∩ A^c = ?",
         "options": [
-            "A^c",
             "∅",
-            "A",
-            "U"
+            "U",
+            "A^c",
+            "A"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Complement Law (Intersection): $A cap overline{A} = emptyset$. Set and its complement are disjoint - no element can be both in A and not in A (law of non-contradiction for sets). Example: {even integers} $cap$ {odd integers} = $emptyset$. Fundamental disjointness. Dual: $A cup overline{A} = U$ (union covers universe). Parallel: $p wedge \neg p equiv F$.",
             "formula": "$A cap A' = emptyset$ (complement)"
@@ -1909,8 +1909,8 @@ Questions.register([
         "options": [
             "A^c ∩ B^c",
             "A^c ∪ B^c",
-            "A ∪ B",
-            "A ∩ B"
+            "A ∩ B",
+            "A ∪ B"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1925,9 +1925,9 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "De Morgan's law: (A ∩ B)^c = ?",
         "options": [
+            "A ∩ B",
             "A^c ∩ B^c",
             "A ∪ B",
-            "A ∩ B",
             "A^c ∪ B^c"
         ],
         "correctAnswer": 3,
@@ -1943,12 +1943,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Absorption law: A ∪ (A ∩ B) = ?",
         "options": [
+            "A ∪ B",
             "A",
             "B",
-            "A ∩ B",
-            "A ∪ B"
+            "A ∩ B"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Absorption Law (Union form): $A cup (A cap B) = A$. If A is true, union evaluates to A. If A is false, $(A cap B)$ is false, so union is still A. Proof: $A cup (A cap B) = (A cap U) cup (A cap B) = A cap (U cup B) = A cap U = A$ (using distributive, domination). Dual: $A cap (A cup B) = A$. Simplification law. Parallel in logic: $p \u000bee (p wedge q) equiv p$.",
             "formula": "$A cup (A cap B) = A$ (absorption)"
@@ -1961,12 +1961,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "Absorption law: A ∩ (A ∪ B) = ?",
         "options": [
-            "A ∪ B",
-            "A ∩ B",
             "A",
-            "B"
+            "B",
+            "A ∪ B",
+            "A ∩ B"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Absorption Law (Intersection form): $A cap (A cup B) = A$. If A is true, result is A. If A is false, intersection is false = A. Symmetric to union absorption. Proof: $A cap (A cup B) = (A cap A) cup (A cap B) = A cup (A cap B) = A$ (distributive, idempotent, absorption). Dual: $A cup (A cap B) = A$. Parallel in logic: $p wedge (p \u000bee q) equiv p$.",
             "formula": "$A cap (A cup B) = A$ (absorption)"
@@ -1979,12 +1979,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "|A ∪ B| = ?",
         "options": [
+            "|A| + |B|",
             "|A| + |B| - |A ∩ B|",
-            "|A| - |B|",
             "|A| × |B|",
-            "|A| + |B|"
+            "|A| - |B|"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Inclusion-Exclusion Principle (2 sets): $|A cup B| = |A| + |B| - |A cap B|$. Add individual sizes, subtract overlap (counted twice). Example: |CS students| + |Math students| counts double-majors twice, so subtract |CS $cap$ Math|. Generalizes to n sets with alternating sum. For 3: $|A cup B cup C| = |A| + |B| + |C| - |A cap B| - |A cap C| - |B cap C| + |A cap B cap C|$. Foundation of counting problems, probability.",
             "formula": "$|A cup B| = |A| + |B| - |A cap B|$"
@@ -1997,12 +1997,12 @@ Questions.register([
         "subtopic": "Set Theory",
         "question": "|A × B| where A×B is Cartesian product = ?",
         "options": [
-            "|A| × |B|",
+            "|A| / |B|",
             "|A| + |B|",
             "|A| - |B|",
-            "|A| / |B|"
+            "|A| × |B|"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Cartesian Product Cardinality: $|A \times B| = |A| \times |B|$. Cartesian product $A \times B = {(a,b) | a in A, b in B}$ is set of all ordered pairs. For each of |A| choices in first position, |B| choices in second = |A|×|B| total pairs. Example: {1,2} × {a,b,c} has 2×3=6 pairs. Extends to n sets: $|A_1 \times ... \times A_n| = |A_1| \times ... \times |A_n|$ (multiplication principle). Database: cross-join size.",
             "formula": "$|A \times B| = |A| \times |B|$"
@@ -2015,12 +2015,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A graph G = (V, E) consists of:",
         "options": [
-            "Only edges",
             "A set of vertices and a set of edges",
             "A single vertex and edge",
+            "Only edges",
             "Only vertices"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Graph Definition: G = (V, E) where V is the vertex set and E is the edge set. V contains nodes (vertices), E contains connections (edges) between vertices. Edges can be undirected (bidirectional) or directed (one-way arrows). Notation: |V| = n (vertex count), |E| = m (edge count)."
         }
@@ -2032,10 +2032,10 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "In a simple graph:",
         "options": [
-            "Self-loops and parallel edges are allowed",
+            "Self-loops allowed, parallel edges not",
             "Neither self-loops nor parallel edges",
             "Parallel edges allowed, self-loops not",
-            "Self-loops allowed, parallel edges not"
+            "Self-loops and parallel edges are allowed"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2049,12 +2049,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A multigraph allows:",
         "options": [
-            "Multiple edges between same vertices",
             "Only self-loops",
             "Weighted edges only",
+            "Multiple edges between same vertices",
             "Only directed edges"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Multigraph: Graph allowing MULTIPLE (parallel) edges between same pair of vertices. Example: two cities connected by multiple roads/flights. Can also allow self-loops. Used when edge multiplicity matters. Applications: network flow (capacity on multiple channels), transportation networks, electrical circuits (parallel resistors). Differs from simple graph (at most one edge per vertex pair). Can be weighted (capacities) or unweighted.",
             "formula": "Multigraph: parallel edges allowed"
@@ -2069,10 +2069,10 @@ Questions.register([
         "options": [
             "Number of paths from v",
             "Number of vertices adjacent to v",
-            "None of these",
-            "Number of edges incident to v"
+            "Number of edges incident to v",
+            "None of these"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Vertex Degree: deg(v) = number of edges incident to vertex v. For undirected graphs, each edge incident on v adds 1 to degree. Self-loop adds 2 to degree! For directed graphs: in-degree = incoming edges, out-degree = outgoing edges. Regular graph: all vertices have same degree."
         }
@@ -2084,12 +2084,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Handshaking theorem: Sum of all degrees = ?",
         "options": [
-            "2|E|",
-            "|E|",
             "|V| + |E|",
-            "|V|"
+            "2|E|",
+            "|V|",
+            "|E|"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Handshaking Theorem (Degree Sum Formula):\n\nΣ deg(v) = 2|E|\n\nWhy? Each edge contributes 2 to the total degree sum (one for each endpoint).\n\nConsequences:\n1. Sum of degrees is always EVEN\n2. Number of odd-degree vertices is always EVEN (since even ± even = even, but adding odd number of odds gives odd)\n\nExample: Triangle has 3 vertices of degree 2.\nΣ = 6 = 2 × 3 edges ✔",
             "formula": "Σ deg(v) = 2|E|"
@@ -2102,10 +2102,10 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Number of odd-degree vertices in any graph is always:",
         "options": [
-            "Odd",
+            "Prime",
             "Even",
-            "Zero",
-            "Prime"
+            "Odd",
+            "Zero"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2136,12 +2136,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "An isolated vertex has degree:",
         "options": [
-            "n-1",
+            "0",
             "1",
             "2",
-            "0"
+            "n-1"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Isolated Vertex: Vertex with degree 0 - no edges incident to it. Disconnected from rest of graph. Example: single person with no friends in social network. Graph with isolated vertex is disconnected (unless it's the only vertex). Removing isolated vertex doesn't change connectivity. Component of size 1. Found in sparse networks, data networks with unconnected nodes.",
             "formula": "deg(v) = 0"
@@ -2154,12 +2154,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Complete graph Kn has how many edges?",
         "options": [
-            "n(n-1)/2",
-            "n²",
             "n",
-            "n-1"
+            "n-1",
+            "n(n-1)/2",
+            "n²"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Complete Graph Kₙ Properties:\n\nEvery pair of vertices is connected by an edge.\n\nEdges: |E| = C(n,2) = n(n-1)/2\n\nDerivation: Choose 2 vertices from n → n choose 2 edges.\n\nDegree of each vertex: n-1 (connected to all others)\nΣ degrees = n(n-1) = 2|E| ✔\n\nExamples:\n- K₃ = triangle (3 edges)\n- K₄ = 6 edges\n- K₅ = 10 edges\n- K₆ = 15 edges",
             "formula": "Edges in Kₙ = n(n-1)/2"
@@ -2184,12 +2184,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "In complete graph Kn, every vertex has degree:",
         "options": [
-            "n",
-            "n-1",
             "1",
-            "n+1"
+            "n+1",
+            "n",
+            "n-1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Complete Graph Vertex Degree: In $K_n$, each vertex connected to all OTHER vertices. Degree = $n-1$ (connected to $n-1$ others, not to itself in simple graph). Total degree sum = $n(n-1) = 2|E|$ (handshaking). Highest degree possible in simple graph with n vertices. Complete graph is $(n-1)$-regular. All vertices have same degree.",
             "formula": "deg(v) = n-1 in $K_n$"
@@ -2202,12 +2202,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Complete bipartite graph Km,n has how many edges?",
         "options": [
-            "(m+n)(m+n-1)/2",
-            "m + n - 1",
             "m + n",
-            "m × n"
+            "m × n",
+            "m + n - 1",
+            "(m+n)(m+n-1)/2"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Complete Bipartite Graph Kₘ,ₙ Properties:\n\nVertices partitioned into two sets of sizes m and n.\nEvery vertex in first set connected to every vertex in second set.\nNO edges within the same set.\n\nEdges: |E| = m × n\n\nTotal vertices: m + n\n\nExamples:\n- K₁,ₙ = Star graph (n edges)\n- K₂,₂ = Square/Cycle C₄ (4 edges)\n- K₃,₃ = Utility graph (9 edges, non-planar!)",
             "formula": "Edges = m × n"
@@ -2234,9 +2234,9 @@ Questions.register([
         "question": "A k-regular graph is one where every vertex has degree:",
         "options": [
             "k",
-            "k+1",
+            "k-1",
             "k²",
-            "k-1"
+            "k+1"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2251,12 +2251,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Cycle graph Cn has how many edges?",
         "options": [
-            "2n",
-            "n+1",
+            "n-1",
             "n",
-            "n-1"
+            "n+1",
+            "2n"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Cycle Graph $C_n$: Closed path forming a ring with n vertices and n edges. Each vertex has degree 2 (connected to 2 neighbors). Minimum edges to create cycle = 3 ($C_3$ = triangle). 2-regular graph. Examples: $C_3$ (triangle), $C_4$ (square), $C_5$ (pentagon). No start/end vertex. Euler circuit exists (all even degrees). Applications: circular arrangements, clock algorithms.",
             "formula": "$|V| = n, |E| = n$"
@@ -2271,10 +2271,10 @@ Questions.register([
         "options": [
             "n",
             "n+1",
-            "n-1",
-            "n/2"
+            "n/2",
+            "n-1"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Path Graph $P_n$: Linear sequence of n vertices connected by edges, with n-1 edges. No cycles. Endpoints (degree 1), internal vertices (degree 2). Simplest connected graph. Examples: $P_2$ (single edge), $P_3$ (two edges in line). Tree with exactly 2 leaves. Removing path from cycle leaves another path. Found in: linked lists, shortest paths.",
             "formula": "$|V| = n, |E| = n-1$"
@@ -2289,8 +2289,8 @@ Questions.register([
         "options": [
             "n-1",
             "n+1",
-            "n",
-            "log n"
+            "log n",
+            "n"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2307,10 +2307,10 @@ Questions.register([
         "options": [
             "Disconnected acyclic graph",
             "Complete graph",
-            "Connected graph with cycles",
-            "Connected acyclic graph"
+            "Connected acyclic graph",
+            "Connected graph with cycles"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Tree Definition: Connected AND acyclic graph. Fundamental structure in graph theory. Alternative definition: Acyclic + $n-1$ edges, or Connected + $n-1$ edges, or Unique path between any two vertices. Minimal connected graph (removing any edge disconnects). Maximal acyclic graph (adding any edge creates cycle). Applications: hierarchies, spanning trees, decision trees, file systems.",
             "formula": "Tree = Connected + Acyclic"
@@ -2323,12 +2323,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Adding one edge to a tree creates:",
         "options": [
-            "Another tree",
+            "Exactly one cycle",
             "Two trees",
-            "A disconnected graph",
-            "Exactly one cycle"
+            "Another tree",
+            "A disconnected graph"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Adding Edge to Tree: Creates EXACTLY ONE cycle. Why? Tree has unique path between any two vertices. Adding edge $(u,v)$ creates second path between u and v, forming cycle with original path. Only one cycle because tree is minimally connected. Applications: finding fundamental cycles in graph, network design (avoiding loops).",
             "formula": "+1 edge $\\rightarrow$ 1 cycle"
@@ -2341,12 +2341,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Removing one edge from a tree creates:",
         "options": [
-            "Two connected components",
             "Another tree",
             "A complete graph",
+            "Two connected components",
             "A cycle"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Removing Edge from Tree: Disconnects graph into TWO connected components. Why? Tree has unique path between vertices - path using removed edge breaks. No alternate path exists (would create cycle, contradicting tree). Each tree with $n geq 2$ has at least 2 pendant vertices (degree 1), good candidates for edge removal. Applications: tree decomposition, cut edges.",
             "formula": "-1 edge $\\rightarrow$ 2 components"
@@ -2359,12 +2359,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Number of spanning trees of complete graph Kn is:",
         "options": [
-            "n",
             "n^(n-2)",
             "2^n",
-            "n!"
+            "n!",
+            "n"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Cayley's Formula for Spanning Trees:\n\nThe complete graph Kₙ has exactly n^(n-2) labeled spanning trees.\n\nExamples:\n- K₂: 2^0 = 1 tree (just the edge)\n- K₃: 3^1 = 3 trees\n- K₄: 4^2 = 16 trees\n- K₅: 5^3 = 125 trees\n\nProof methods: Prüfer sequences (bijection), matrix-tree theorem.\n\nThis is a fundamental result in combinatorics and graph enumeration!",
             "formula": "n^(n-2)"
@@ -2390,12 +2390,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A forest is:",
         "options": [
-            "A connected tree",
-            "A complete graph",
             "A graph with cycles",
-            "A disjoint union of trees"
+            "A disjoint union of trees",
+            "A connected tree",
+            "A complete graph"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Forest: Acyclic graph (can be disconnected). Disjoint union of trees. If forest has k connected components (k trees), Equivalently: graph with no cycles. Forest with n vertices and k components has $n-k$ edges. When k=1, forest is a tree. Applications: disjoint set data structure, disconnected networks, MST before connecting components.",
             "formula": "Forest = Acyclic graph = Disjoint trees"
@@ -2408,12 +2408,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A forest with n vertices and k trees has how many edges?",
         "options": [
-            "k-1",
             "n-k",
             "n-1",
-            "n+k"
+            "n+k",
+            "k-1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Forest Edge Count: Forest with n vertices and k trees (k connected components) has exactly $n-k$ edges. Reasoning: Each of k trees contributes $(\\text{vertices in tree}) - 1$ edges. Total edges = $(v_1-1) + (v_2-1) + ... + (v_k-1) = (v_1+v_2+...+v_k) - k = n - k$. When k=1 (single tree), $n-1$ edges. When k=n (all isolated), 0 edges. Applications: minimum spanning forest has $n-k$ edges for k components.",
             "formula": "$|E| = n - k$ (forest)"
@@ -2427,11 +2427,11 @@ Questions.register([
         "question": "A graph is bipartite iff:",
         "options": [
             "It has even vertices",
+            "It is connected",
             "It has parallel edges",
-            "It contains no odd-length cycle",
-            "It is connected"
+            "It contains no odd-length cycle"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Bipartite Characterization: Graph is bipartite $\\iff$ it contains NO odd-length cycles. Equivalently: 2-colorable (vertices colored with 2 colors, adjacent vertices different colors). Proof: If odd cycle exists, alternating colors around cycle causes contradiction at return. Converse: DFS with 2-color coloring succeeds iff no odd cycles. Examples: Trees (no cycles), even cycles, complete bipartite $K_{m,n}$. Non-examples: Odd cycles, $K_5$. Applications: matching problems (job assignment), Hall's marriage theorem."
         }
@@ -2443,12 +2443,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Every tree is:",
         "options": [
-            "Regular",
-            "Complete",
+            "Not bipartite",
             "Bipartite",
-            "Not bipartite"
+            "Regular",
+            "Complete"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Trees are Bipartite: Every tree is bipartite because trees are acyclic - they contain NO cycles, hence no odd cycles. Can 2-color any tree: pick root, alternate colors by levels (BFS coloring). Partition vertices by odd/even distance from root. One of many special properties of trees: connected, acyclic, bipartite, $n-1$ edges, unique paths.",
             "formula": "Tree $\\Rightarrow$ Bipartite"
@@ -2461,12 +2461,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "The chromatic number of a bipartite graph with at least one edge is:",
         "options": [
-            "2",
-            "1",
             "3",
+            "1",
+            "2",
             "n"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Chromatic Number of Bipartite: Bipartite graph is 2-colorable by definition, so $\\chi(G) = 2$ (if graph has at least one edge). If graph has no edges, $\\chi(G) = 1$. Minimum colors needed = 2 since vertices in same partition can share color,different partitions need different colors. Bipartite characterization: $\\chi(G) \\leq 2 \\iff$ graph is bipartite (or empty).",
             "formula": "$\\chi(\\text{Bipartite}) = 2$"
@@ -2479,9 +2479,9 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Euler's formula for connected planar graph: v - e + f = ?",
         "options": [
+            "1",
             "3",
             "0",
-            "1",
             "2"
         ],
         "correctAnswer": 3,
@@ -2498,11 +2498,11 @@ Questions.register([
         "question": "Maximum edges in simple planar graph with n ≥ 3 vertices:",
         "options": [
             "n(n-1)/2",
-            "n-1",
             "3n-6",
+            "n-1",
             "2n-3"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Maximum Planar Edges: For simple planar graph with $n \\geq 3$ vertices, $e \\leq 3n - 6$. Derivation from Euler ($v-e+f=2$): Each face has $\\geq 3$ edges on boundary (simple graph), each edge borders $\\leq 2$ faces, so $3f \\leq 2e$. Substitute: $v - e + 2e/3 \\geq 2 \\Rightarrow e \\leq 3v-6$. Used to prove non-planarity: if $e > 3n-6$, graph is non-planar. For bipartite planar: $e \\leq 2n-4$ (tighter bound, each face has $\\geq 4$ edges).",
             "formula": "$e \\leq 3n - 6$ (planar)"
@@ -2529,11 +2529,11 @@ Questions.register([
         "question": "K₅ (complete graph on 5 vertices) is:",
         "options": [
             "Bipartite",
-            "Non-planar",
+            "Planar",
             "A tree",
-            "Planar"
+            "Non-planar"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "$K_5$ Non-Planarity: Complete graph on 5 vertices has $\\frac{5(4)}{2} = 10$ edges. Maximum for planar with 5 vertices: $3(5)-6 = 9$ edges. Since $10 > 9$, $K_5$ cannot be planar. Kuratowski's theorem: $K_5$ is one of two minimal non-planar graphs (other is $K_{3,3}$). Any graph containing $K_5$ subdivision is non-planar."
         }
@@ -2545,12 +2545,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "K₃,₃ (complete bipartite 3,3) is:",
         "options": [
-            "Non-planar",
             "Planar",
-            "Disconnected",
-            "A tree"
+            "A tree",
+            "Non-planar",
+            "Disconnected"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "$K_{3,3}$ Non-Planarity: Complete bipartite 3,3 has $3 \\times 3 = 9$ edges. For bipartite planar with 6 vertices: $e \\leq 2(6)-4 = 8$ edges. Since $9 > 8$, $K_{3,3}$ is non-planar. Classical example: 'utilities problem' (3 houses, 3 utilities, can't connect all without crossings). Kuratowski: $K_{3,3}$ is minimal non-planar bipartite.",
             "formula": "$K_{3,3}$: $e=9 > 2n-4=8$"
@@ -2563,12 +2563,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Kuratowski's theorem: A graph is planar iff it contains no subdivision of:",
         "options": [
-            "K₆ or K₄,₄",
             "K₅ or K₃,₃",
-            "Any cycle",
-            "K₄ or K₂,₃"
+            "K₄ or K₂,₃",
+            "K₆ or K₄,₄",
+            "Any cycle"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Kuratowski's Theorem: Graph is planar $\\iff$ it contains NO subdivision of $K_5$ or $K_{3,3}$. Subdivision: insert vertices into edges (edge subdividing). These are  ONLY two minimal obstructions to planarity. Wagner's theorem (equivalent): planar $\\iff$ no $K_5$ or $K_{3,3}$ minor (contract/delete edges). Planarity testing: linear time algorithms (Hopcroft-Tarjan, Boyer-Myrvold). Fundamental characterization theorem.",
             "formula": "Planar $\\iff$ no $K_5$ or $K_{3,3}$ subdivision"
@@ -2582,9 +2582,9 @@ Questions.register([
         "question": "An Eulerian circuit exists iff:",
         "options": [
             "All vertices have even degree and graph is connected",
-            "At least one vertex has degree 0",
             "All vertices have odd degree",
-            "Graph is complete"
+            "Graph is complete",
+            "At least one vertex has degree 0"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2598,12 +2598,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "An Eulerian path (not cycle) exists iff connected graph has exactly:",
         "options": [
-            "0 odd-degree vertices",
             "2 odd-degree vertices",
-            "1 odd-degree vertex",
-            "All odd-degree vertices"
+            "All odd-degree vertices",
+            "0 odd-degree vertices",
+            "1 odd-degree vertex"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Eulerian Path Condition: Connected graph has Eulerian path (not cycle) $\\iff$ exactly 2 vertices have odd degree. These ODD-degree vertices MUST be start and end of path. All other vertices have even degree (enter = leave). If 0 odd-degree vertices, Eulerian circuit exists (closed). If > 2 odd-degree vertices, no Eulerian path/circuit exists. Constructive: start at odd-degree vertex, traverse edges, end at other odd-degree vertex.",
             "formula": "Eulerian path: exactly 2 odd vertices"
@@ -2617,11 +2617,11 @@ Questions.register([
         "question": "A Hamiltonian cycle visits:",
         "options": [
             "Every edge exactly once",
-            "Every vertex exactly once and returns",
+            "Only even-degree vertices",
             "Only odd-degree vertices",
-            "Only even-degree vertices"
+            "Every vertex exactly once and returns"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Hamiltonian Cycle: A cycle that visits every VERTEX exactly once.\n\nUnlike Eulerian (edge-based), Hamiltonian is vertex-based.\n\nNo simple necessary and sufficient condition exists!\n\nSufficient conditions (not necessary):\n- Dirac: deg(v) ≥ n/2 for all v → Hamiltonian\n- Ore: deg(u) + deg(v) ≥ n for non-adjacent u,v → Hamiltonian\n\nNP-complete to decide! (Unlike Eulerian which is polynomial)\n\nTSP (Traveling Salesman) is weighted Hamiltonian cycle."
         }
@@ -2633,12 +2633,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Finding Hamiltonian cycle is:",
         "options": [
+            "Undecidable",
             "NP-complete",
             "P (polynomial time)",
-            "Undecidable",
             "Always solvable in O(n)"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Hamiltonian Cycle Complexity: Determining if graph has Hamiltonian cycle is NP-complete. No known polynomial algorithm. Contrast with Eulerian (polynomial: just check degrees). NP-complete even for special cases (cubic graphs, grid graphs). Sufficient conditions exist (Dirac, Ore) but not necessary. Traveling Salesman Problem reduces to Hamiltonian. Practical: use heuristics, approximations, backtracking for small graphs."
         }
@@ -2650,12 +2650,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Chromatic number χ(G) is the minimum number of colors to color vertices such that:",
         "options": [
-            "All vertices same color",
             "Maximum colors used",
-            "All edges same color",
-            "No two adjacent vertices have same color"
+            "All vertices same color",
+            "No two adjacent vertices have same color",
+            "All edges same color"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Chromatic Number $\\chi(G)$: MINIMUM number of colors needed for proper vertex coloring (no two adjacent vertices same color). Graph coloring problem: assign colors to vertices such that edge endpoints have different colors. Applications: register allocation, scheduling, frequency assignment, map coloring (4-color theorem). Computing $\\chi(G)$ is NP-hard. Bounds: $\\chi(G) \\leq \\Delta(G) + 1$ where $\\Delta$ = max degree. Brooks' theorem: tighter bound for connected graphs.",
             "formula": "$\\chi(G)$ = chromatic number"
@@ -2668,12 +2668,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "χ(Kn) = ?",
         "options": [
-            "n-1",
+            "n",
             "2",
             "1",
-            "n"
+            "n-1"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Chromatic Number of $K_n$: $\\chi(K_n) = n$. Every pair of vertices is adjacent in complete graph, so each vertex needs unique color. Requires n colors, achieves maximum chromatic number for n vertices. Example: $K_5$ needs 5 colors. Lower bound: clique number $\\omega(G) \\leq \\chi(G)$ (largest complete subgraph). $K_n$ is its own maximum clique.",
             "formula": "$\\chi(K_n) = n$"
@@ -2687,8 +2687,8 @@ Questions.register([
         "question": "χ(Cn) for even n = ?",
         "options": [
             "2",
-            "3",
             "n",
+            "3",
             "1"
         ],
         "correctAnswer": 0,
@@ -2704,12 +2704,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "χ(Cn) for odd n ≥ 3 is:",
         "options": [
-            "2",
             "3",
-            "1",
-            "n"
+            "2",
+            "n",
+            "1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Odd Cycle Coloring: $\\chi(C_n) = 3$ for odd $n \\geq 3$. Odd cycles NOT bipartite (contain odd cycle themselves). Alternating 2 colors around odd cycle: color 1, 2, 1, 2, ..., 1, when returning to start - conflict! Need 3rd color. Example: Triangle $C_3$ needs 3 colors. Minimal non-bipartite graphs.",
             "formula": "$\\chi(C_{\\text{odd}}) = 3$"
@@ -2722,12 +2722,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "For any graph G, χ(G) ≤:",
         "options": [
-            "Δ(G)",
-            "Δ(G) + 1",
             "1",
-            "n/2"
+            "n/2",
+            "Δ(G) + 1",
+            "Δ(G)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Greedy Coloring Bound: $\\chi(G) \\leq \\Delta(G) + 1$ where $\\Delta(G)$ is maximum degree. Proof: Greedy algorithm colors vertices sequentially - each vertex has at most $\\Delta$ neighbors, so at most $\\Delta$ colors used by neighbors, leaving at least 1 color available (from $\\Delta+1$ palette). Brooks' theorem (tighter): $\\chi(G) \\leq \\Delta(G)$ for connected graphs except cliques and odd cycles.",
             "formula": "$\\chi(G) \\leq \\Delta + 1$"
@@ -2740,12 +2740,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A graph is 2-colorable iff it is:",
         "options": [
-            "Bipartite",
             "Complete",
+            "Connected",
             "Planar",
-            "Connected"
+            "Bipartite"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "2-Colorable = Bipartite: Graph is 2-colorable $\\iff$ it is bipartite $\\iff$ it contains no odd cycles. Partition vertices into 2 independent sets (color classes). Each color class is independent set (no edges within). Constructive: BFS/DFS with alternating colors. If conflict arises, odd cycle detected. Applications: matching, stable marriage, network flow.",
             "formula": "2-colorable $\\iff$ Bipartite"
@@ -2758,12 +2758,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Two graphs are isomorphic if they have:",
         "options": [
-            "Same labels",
             "Same structure (bijection preserving adjacency)",
-            "Same drawing",
-            "Same number of edges only"
+            "Same labels",
+            "Same number of edges only",
+            "Same drawing"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Graph Isomorphism: Graphs $G$ and $H$ are isomorphic if there exists bijection $f: V(G) \\to V(H)$ preserving adjacency: $(u,v) \\in E(G) \\iff (f(u), f(v)) \\in E(H)$. Same structure, different labels. Denoted $G \\cong H$. Must preserve: vertex count, edge count, degree sequence, connectedness, cycles, chromatic number. Checking isomorphism: GI problem (graph isomorphism problem) - not known to be in P or NP-complete. Applications: chemical structure comparison, pattern matching.",
             "formula": "$G \\cong H$ (isomorphic)"
@@ -2776,12 +2776,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Isomorphic graphs must have same:",
         "options": [
-            "Vertex labels",
             "Degree sequence",
-            "Color",
-            "Drawing"
+            "Vertex labels",
+            "Drawing",
+            "Color"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Isomorphism Invariants: Properties preserved under isomorphism. Necessary conditions for $G \\cong H$: (1) same number of vertices, (2) same number of edges, (3) same degree sequence, (4) same chromatic number, (5) same diameter, (6) same girth (shortest cycle length). These are NECESSARY but NOT SUFFICIENT - two graphs with same invariants may still be non-isomorphic. Degree sequence especially useful quick check.",
             "formula": "Invariants: $|V|, |E|$, degrees"
@@ -2825,12 +2825,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A directed graph is strongly connected if:",
         "options": [
+            "It has exactly one source",
             "There's a path from every vertex to every other vertex",
             "It has no cycles",
-            "It's a DAG",
-            "It has exactly one source"
+            "It's a DAG"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Strongly Connected Digraph: Directed graph where there exists directed path from EVERY vertex to EVERY other vertex (in both directions). Stronger than weakly connected (path in underlying undirected graph). Every vertex reachable from every other vertex following edge directions. Algorithm: Tarjan's or Kosaraju's algorithm finds strongly connected components in $O(V+E)$. Applications: web page ranking, circuit analysis, dependency resolution.",
             "formula": "Strong: $\\forall u,v: u \\to v$ and $v \\to u$"
@@ -2843,12 +2843,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "A DAG is:",
         "options": [
-            "Directed Acyclic Graph",
-            "Directed graph with cycles",
             "Complete directed graph",
-            "Undirected graph"
+            "Undirected graph",
+            "Directed Acyclic Graph",
+            "Directed graph with cycles"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DAG (Directed Acyclic Graph): Directed graph with NO directed cycles. Fundamental structure in computer science. Properties: (1) Has topological ordering (linear ordering of vertices where edges go forward), (2) Has at least one source (in-degree 0) and one sink (out-degree 0). Applications: task scheduling, compilation dependency, version control, Bayesian networks. Can be solved in linear time: DFS-based topological sort. Every DAG is weakly connected or forest.",
             "formula": "DAG = Directed + Acyclic"
@@ -2861,12 +2861,12 @@ Questions.register([
         "subtopic": "Graph Theory",
         "question": "Topological sort is possible only for:",
         "options": [
-            "DAGs",
             "Complete graphs",
-            "Graphs with cycles",
-            "Undirected graphs"
+            "Undirected graphs",
+            "DAGs",
+            "Graphs with cycles"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Topological ordering: linear order where all edges go forward; requires DAG"
         }

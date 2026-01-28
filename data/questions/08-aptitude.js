@@ -7,11 +7,11 @@ Questions.register([
         "question": "If A can do a work in 10 days and B can do it in 15 days, how many days will they take working together?",
         "options": [
             "5 days",
-            "6 days",
+            "25 days",
             "12 days",
-            "25 days"
+            "6 days"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "A's rate = 1/10, B's rate = 1/15. Combined rate = 1/10 + 1/15 = 3/30 + 2/30 = 5/30 = 1/6. Time = 6 days.",
             "formula": "Combined time = 1/(1/A + 1/B) = AB/(A+B) = 10×15/(10+15) = 150/25 = 6"
@@ -37,10 +37,10 @@ Questions.register([
         "subtopic": "Quantitative",
         "question": "If the price of an item increases by 20%, by what percentage should consumption decrease to keep expenditure unchanged?",
         "options": [
+            "10%",
             "20%",
-            "25%",
             "16.67%",
-            "10%"
+            "25%"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -55,9 +55,9 @@ Questions.register([
         "subtopic": "Quantitative",
         "question": "Simple Interest on Rs. 500 for 2 years at 5% per annum is:",
         "options": [
-            "Rs. 100",
-            "Rs. 50",
             "Rs. 25",
+            "Rs. 50",
+            "Rs. 100",
             "Rs. 75"
         ],
         "correctAnswer": 1,
@@ -86,11 +86,11 @@ Questions.register([
         "question": "The ratio of boys to girls in a class is 3:2. If there are 25 students total, how many are girls?",
         "options": [
             "15",
+            "8",
             "10",
-            "12",
-            "8"
+            "12"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Total parts = 3 + 2 = 5. Girls = (2/5) × 25 = 10."
         }
@@ -102,12 +102,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "All cats are animals. Some animals are wild. Conclusion: Some cats are wild. This conclusion is:",
         "options": [
-            "Definitely true",
+            "Cannot be determined",
             "Definitely false",
-            "Probably true",
-            "Cannot be determined"
+            "Definitely true",
+            "Probably true"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "While all cats are animals, we don't know if ANY of the cats are among the 'some animals' that are wild. The conclusion doesn't necessarily follow."
         }
@@ -119,12 +119,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "If BRAIN is coded as CSBJO, how is LOGIC coded?",
         "options": [
-            "MPIKD",
-            "MPIJD",
             "MPHJD",
+            "MPIJD",
+            "MPIKD",
             "NQJKF"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Each letter is shifted by +1: B→C, R→S, A→B, I→J, N→O. Applying to LOGIC: L→M, O→P, G→H, I→J, C→D = MPHJD."
         }
@@ -136,12 +136,12 @@ Questions.register([
         "subtopic": "Logical Reasoning",
         "question": "Find the next number: 2, 6, 12, 20, 30, ?",
         "options": [
-            "42",
             "40",
-            "36",
-            "44"
+            "42",
+            "44",
+            "36"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Differences: 4, 6, 8, 10, 12. Pattern: differences increase by 2. Next: 30 + 12 = 42."
         }
@@ -170,10 +170,10 @@ Questions.register([
         "subtopic": "Quantitative",
         "question": "A man travels from A to B at 40 km/hr and returns at 60 km/hr. What is his average speed?",
         "options": [
-            "45 km/hr",
+            "52 km/hr",
             "48 km/hr",
-            "50 km/hr",
-            "52 km/hr"
+            "45 km/hr",
+            "50 km/hr"
         ],
         "correctAnswer": 1,
         "explanation": {

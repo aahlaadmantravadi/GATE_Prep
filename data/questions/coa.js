@@ -6,12 +6,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "The maximum speedup achievable by a K-stage pipeline is:",
         "options": [
-            "K",
+            "2K",
             "K+1",
             "K-1",
-            "2K"
+            "K"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Pipeline speedup = (Time without pipeline)/(Time with pipeline). For n tasks with K stages: Without pipeline = n×K cycles. With pipeline = K + n - 1 cycles. Speedup = nK/(K+n-1). As n→∞, speedup → K. Theoretical maximum equals the number of stages, achieved only with infinite tasks and no hazards.",
             "formula": "$S = \\frac{nK}{K+n-1}$, $S_{max} = K$ as $n \\rightarrow \\infty$"
@@ -24,12 +24,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "A K-stage pipeline with n tasks requires how many clock cycles?",
         "options": [
-            "K × (n - 1)",
-            "K + n - 1",
             "K + n",
-            "K × n"
+            "K × n",
+            "K + n - 1",
+            "K × (n - 1)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "First task requires K cycles to flow through all stages. Each subsequent task adds only 1 cycle (it follows right behind). Total = K + (n-1) = K + n - 1 cycles. This is the 'filling and draining' overhead of the pipeline. With n=1, time = K (same as non-pipelined).",
             "formula": "$Cycles = K + n - 1$"
@@ -42,12 +42,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "A data hazard occurs when:",
         "options": [
-            "An instruction depends on the result of a previous instruction still in the pipeline",
-            "A branch instruction is encountered",
             "Two instructions compete for the same memory location",
-            "The pipeline is empty"
+            "An instruction depends on the result of a previous instruction still in the pipeline",
+            "The pipeline is empty",
+            "A branch instruction is encountered"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Data hazards: RAW, WAR, WAW. RAW most common - result dependency.",
             "formula": "Hazards: RAW (Read After Write), WAR, WAW"
@@ -61,8 +61,8 @@ Questions.register([
         "question": "Operand forwarding (data forwarding) is used to:",
         "options": [
             "Handle branch instructions",
-            "Increase clock frequency",
             "Increase pipeline stages",
+            "Increase clock frequency",
             "Reduce data hazard stalls by bypassing register file"
         ],
         "correctAnswer": 3,
@@ -90,12 +90,12 @@ Questions.register([
         "subtopic": "Memory Hierarchy",
         "question": "In a cache, a 'hit' occurs when:",
         "options": [
-            "The required data is not in cache",
+            "The required data is found in cache",
             "A write operation happens",
-            "The cache is full",
-            "The required data is found in cache"
+            "The required data is not in cache",
+            "The cache is full"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Cache hit: requested data is found in cache (fast access, ~1-2 cycles). Cache miss: data not in cache, must fetch from main memory (slow, ~100+ cycles for DRAM). Hit rate = hits/(hits+misses). High hit rate (95%+) is crucial for performance. Exploits temporal and spatial locality of programs."
         }
@@ -109,10 +109,10 @@ Questions.register([
         "options": [
             "Any cache line",
             "Any line in a specific set",
-            "Exactly one specific cache line",
-            "Two different cache lines"
+            "Two different cache lines",
+            "Exactly one specific cache line"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Direct-mapped: each memory block maps to exactly one cache line, determined by (block address) mod (number of lines). Simple and fast lookup, but prone to conflict misses - two frequently used blocks mapping to same line keep evicting each other. Fully associative (any line) and set-associative (any line in a set) reduce conflicts.",
             "formula": "Line = (Block address) mod (Number of lines)"
@@ -125,12 +125,12 @@ Questions.register([
         "subtopic": "Memory Hierarchy",
         "question": "Write-through vs Write-back: In write-through policy,",
         "options": [
-            "Data is written to both cache and main memory simultaneously",
             "No writes are allowed",
+            "Data is written to both cache and main memory simultaneously",
             "Data is written to main memory only when cache line is replaced",
             "Data is written only to cache"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Write-through: every write updates both cache AND memory immediately. Simpler, memory always consistent, but slower (memory write latency on every write). Write-back: writes go only to cache (set dirty bit), memory updated only when line is evicted. Faster (batch writes) but complex (dirty bit tracking, coherence issues in multiprocessor)."
         }
@@ -155,8 +155,8 @@ Questions.register([
         "subtopic": "Addressing Modes",
         "question": "In immediate addressing mode, the operand is:",
         "options": [
-            "Computed at runtime",
             "In memory",
+            "Computed at runtime",
             "Part of the instruction itself",
             "In a register"
         ],
@@ -172,12 +172,12 @@ Questions.register([
         "subtopic": "Addressing Modes",
         "question": "In register indirect addressing, the register contains:",
         "options": [
-            "Nothing useful",
-            "The address of the operand",
             "The operand value",
-            "The opcode"
+            "The opcode",
+            "The address of the operand",
+            "Nothing useful"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Register indirect: register holds a memory address; operand is at that address. Like dereferencing a pointer in C (*ptr). Example: MOV R1, [R2] - R2 contains address, R1 gets value from memory location in R2. Allows dynamic addressing, array access, data structure traversal. One level of indirection."
         }
@@ -190,11 +190,11 @@ Questions.register([
         "question": "In DMA (Direct Memory Access), data transfer between I/O and memory occurs:",
         "options": [
             "Through CPU using interrupts",
-            "Through the CPU using programmed I/O",
             "Only one byte at a time",
-            "Directly without CPU intervention"
+            "Directly without CPU intervention",
+            "Through the CPU using programmed I/O"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DMA: CPU sets up DMA controller (source, destination, count), then DMA handles the entire block transfer independently. CPU is free for other work during transfer. DMA controller takes control of system bus (cycle stealing or burst mode). Much faster than programmed I/O (CPU moves each byte) or interrupt-driven I/O (interrupt per byte)."
         }
@@ -206,10 +206,10 @@ Questions.register([
         "subtopic": "I/O Organization",
         "question": "Memory-mapped I/O means:",
         "options": [
-            "I/O devices have separate address space",
-            "I/O devices share the same address space as memory",
             "Only memory can be accessed",
-            "I/O operations are disabled"
+            "I/O devices share the same address space as memory",
+            "I/O operations are disabled",
+            "I/O devices have separate address space"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -223,12 +223,12 @@ Questions.register([
         "subtopic": "CPU Architecture",
         "question": "RISC architecture has:",
         "options": [
-            "Complex instructions, few registers",
-            "No registers",
             "Simple instructions, many registers",
-            "Variable instruction length"
+            "No registers",
+            "Variable instruction length",
+            "Complex instructions, few registers"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "RISC (Reduced Instruction Set Computer): simple, fixed-length instructions; many general-purpose registers (32+); load-store architecture (only load/store access memory); most operations complete in one cycle; hardwired control; optimized for pipelining. Examples: ARM, MIPS, RISC-V."
         }
@@ -241,11 +241,11 @@ Questions.register([
         "question": "CISC architecture typically has:",
         "options": [
             "Fixed instruction length",
-            "Only ADD instruction",
             "Variable instruction length",
-            "No microcode"
+            "No microcode",
+            "Only ADD instruction"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "CISC (Complex Instruction Set Computer): variable-length instructions (1-15 bytes); complex operations in single instruction; memory operands in ALU ops; fewer registers; microprogrammed control. Complex decoding makes pipelining harder. Examples: x86, VAX."
         }
@@ -257,12 +257,12 @@ Questions.register([
         "subtopic": "CPU Architecture",
         "question": "Accumulator-based architecture uses:",
         "options": [
-            "One special register (accumulator) for operations",
             "Many general-purpose registers",
+            "One special register (accumulator) for operations",
             "Stack only",
             "No registers"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Accumulator architecture: one operand is always the accumulator register. Instructions like ADD X mean: AC ← AC + M[X]. Simple, short instructions, but bottleneck at accumulator. Many early computers used this design. Now superseded by general-purpose register architectures."
         }
@@ -274,12 +274,12 @@ Questions.register([
         "subtopic": "CPU Architecture",
         "question": "Stack-based architecture uses _____ for operands:",
         "options": [
-            "Accumulator",
-            "Memory only",
+            "Top of stack",
             "Registers",
-            "Top of stack"
+            "Accumulator",
+            "Memory only"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Stack machine: 0-address instructions. Operands implicitly pushed/popped from stack. ADD means: push (pop + pop). Very compact code, good for recursive languages, but limited parallelism and compiler optimization difficulty. Examples: JVM, Forth, some old calculators."
         }
@@ -291,12 +291,12 @@ Questions.register([
         "subtopic": "Addressing Modes",
         "question": "In auto-increment addressing mode, register value:",
         "options": [
-            "Decrements",
-            "Multiplied by 2",
+            "Stays same after access",
             "Increments after memory access",
-            "Stays same after access"
+            "Decrements",
+            "Multiplied by 2"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Auto-increment: EA = R, then R = R + d (where d = data size). Used after the access. Useful for array traversal: (R)+ accesses array element and advances pointer. Auto-decrement: R = R - d, then EA = R containing the new value (pre-decrement). Both reduce instruction count for loops.",
             "formula": "EA = R; R ← R + sizeof(data)"
@@ -309,12 +309,12 @@ Questions.register([
         "subtopic": "Addressing Modes",
         "question": "Base + offset addressing is useful for accessing:",
         "options": [
-            "Structure fields with base pointer",
-            "Array elements",
             "Stack",
+            "Array elements",
+            "Structure fields with base pointer",
             "Constants"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Base + displacement: EA = Base_Register + constant_offset. Perfect for struct/record access: base points to struct start, offset is field position. Also good for stack frames: FP + offset accesses local variables. Compiler knows offsets at compile time, calculates at runtime.",
             "formula": "EA = [Base] + displacement"
@@ -327,12 +327,12 @@ Questions.register([
         "subtopic": "Addressing Modes",
         "question": "PC-relative addressing is commonly used for:",
         "options": [
-            "Branch instructions",
-            "Arithmetic",
             "Array access",
-            "Stack operations"
+            "Branch instructions",
+            "Stack operations",
+            "Arithmetic"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "PC-relative: EA = PC + signed displacement. Used for branch/jump instructions. Allows position-independent code (PIC) - code works regardless of load address. Displacement is typically small (fits in instruction), so branches are usually within a few hundred bytes.",
             "formula": "EA = PC + offset"
@@ -345,12 +345,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "Read After Write (RAW) hazard is also called:",
         "options": [
+            "True dependency",
             "Control dependency",
             "Anti-dependency",
-            "Output dependency",
-            "True dependency"
+            "Output dependency"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "RAW (Read After Write) = true data dependency. Instruction needs result from previous instruction that hasn't finished writing. Example: ADD R1,R2,R3; SUB R4,R1,R5 - SUB needs R1 from ADD. Can't eliminate, must wait or use forwarding. Most common hazard type."
         }
@@ -363,11 +363,11 @@ Questions.register([
         "question": "Write After Read (WAR) hazard is also called:",
         "options": [
             "Structural hazard",
-            "Anti-dependency",
             "True dependency",
+            "Anti-dependency",
             "Output dependency"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "WAR (Write After Read) = anti-dependency. Later instruction writes before earlier instruction reads. Example: ADD R1,R2,R3; SUB R2,R4,R5 - if SUB writes R2 before ADD reads it, wrong value. Occurs in out-of-order execution. Solved by register renaming."
         }
@@ -379,12 +379,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "Operand forwarding (bypassing) reduces stalls by:",
         "options": [
-            "Removing memory access",
-            "Eliminating all hazards",
             "Passing results directly without waiting for write-back",
-            "Using more stages"
+            "Removing memory access",
+            "Using more stages",
+            "Eliminating all hazards"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Forwarding/bypassing: ALU result from EX stage sent directly to dependent instruction's ALU input, bypassing WB stage. Eliminates stall for many RAW hazards. Hardware: muxes select forwarded value. Doesn't help load-use hazard (data from MEM stage comes too late)."
         }
@@ -409,12 +409,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "Branch prediction helps reduce:",
         "options": [
-            "Structural hazards",
             "Control hazards",
             "WAR hazards",
+            "Structural hazards",
             "Data hazards"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Branch prediction reduces control hazards caused by conditional branches. Without it, pipeline stalls until branch outcome known (EX or MEM stage). Prediction guesses direction early, continues fetching. If wrong, must flush pipeline (misprediction penalty). Modern CPUs: >95% accuracy."
         }
@@ -426,12 +426,12 @@ Questions.register([
         "subtopic": "Pipelining",
         "question": "Delayed branch technique:",
         "options": [
-            "Stalls the pipeline",
-            "Uses branch prediction",
             "Executes instruction after branch regardless of outcome",
-            "Uses only unconditional branches"
+            "Stalls the pipeline",
+            "Uses only unconditional branches",
+            "Uses branch prediction"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Delayed branch: instruction in 'delay slot' (immediately after branch) ALWAYS executes, regardless of branch outcome. Compiler fills slot with useful work (instruction from before branch, or from taken path). MIPS uses this. Avoids 1-cycle stall for branches. Less common in modern CPUs."
         }
@@ -443,9 +443,9 @@ Questions.register([
         "subtopic": "Memory Hierarchy",
         "question": "Set-associative cache is a compromise between:",
         "options": [
+            "SRAM and DRAM",
             "RAM and ROM",
             "L1 and L2 cache",
-            "SRAM and DRAM",
             "Direct-mapped and fully-associative"
         ],
         "correctAnswer": 3,
@@ -473,12 +473,12 @@ Questions.register([
         "subtopic": "Memory Hierarchy",
         "question": "Write-through cache:",
         "options": [
+            "Never writes",
             "Writes to both cache and main memory",
             "Writes only to cache",
-            "Never writes",
             "Writes only to main memory"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Write-through: every write updates BOTH cache and main memory simultaneously. Pros: cache and memory always consistent, simple. Cons: slow (every write waits for memory), more memory bandwidth needed. Often uses write buffer to hide latency."
         }
@@ -490,12 +490,12 @@ Questions.register([
         "subtopic": "Memory Hierarchy",
         "question": "Write-back cache:",
         "options": [
-            "Writes to cache first, memory on eviction",
-            "Never writes to memory",
             "Writes to memory immediately",
-            "Has no dirty bit"
+            "Has no dirty bit",
+            "Writes to cache first, memory on eviction",
+            "Never writes to memory"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Write-back: write only to cache, mark block 'dirty'. Write to memory only when dirty block is evicted. Pros: faster writes, less memory traffic. Cons: cache and memory inconsistent, complex recovery on power failure, requires dirty bit per block."
         }
@@ -507,12 +507,12 @@ Questions.register([
         "subtopic": "Memory Hierarchy",
         "question": "Cache miss penalty is the time to:",
         "options": [
-            "Write to cache",
             "Calculate address",
+            "Fetch block from lower level memory",
             "Access cache",
-            "Fetch block from lower level memory"
+            "Write to cache"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Miss penalty: additional time when cache miss occurs to fetch block from main memory (or L2/L3). Typically 50-200 cycles. Total miss time = cache access time + miss penalty. Reducing miss penalty: larger block size (prefetching), multiple cache levels, critical word first."
         }
@@ -525,8 +525,8 @@ Questions.register([
         "question": "Victim cache stores:",
         "options": [
             "Recently evicted blocks",
-            "Most recently used blocks",
             "All cache blocks",
+            "Most recently used blocks",
             "Instruction blocks only"
         ],
         "correctAnswer": 0,
@@ -542,11 +542,11 @@ Questions.register([
         "question": "Programmed I/O requires CPU to:",
         "options": [
             "Use DMA",
-            "Wait in loop checking device status",
             "Use interrupts",
-            "Do nothing"
+            "Do nothing",
+            "Wait in loop checking device status"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Programmed I/O: CPU continuously polls device status register in a loop (busy-waiting) until device ready. Simple but wastes CPU cycles - can't do other work while waiting. Acceptable only for very fast devices or when CPU has nothing else to do."
         }
@@ -558,12 +558,12 @@ Questions.register([
         "subtopic": "I/O Organization",
         "question": "Interrupt-driven I/O frees CPU to do other work because:",
         "options": [
-            "Device signals CPU when ready",
+            "DMA handles everything",
             "There is no I/O",
-            "Device never needs attention",
-            "DMA handles everything"
+            "Device signals CPU when ready",
+            "Device never needs attention"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Interrupt-driven I/O: CPU initiates I/O then continues other work. When device ready, it sends interrupt signal. CPU suspends current task, handles I/O in interrupt handler, then resumes. Much better CPU utilization than polling. Context switch overhead per data transfer."
         }
@@ -575,8 +575,8 @@ Questions.register([
         "subtopic": "I/O Organization",
         "question": "DMA transfers data:",
         "options": [
-            "Only within CPU",
             "Between two CPUs",
+            "Only within CPU",
             "Directly between memory and I/O device",
             "Through CPU"
         ],
@@ -593,11 +593,11 @@ Questions.register([
         "question": "Cycle stealing in DMA means:",
         "options": [
             "CPU steals from DMA",
-            "No cycles are used",
             "DMA takes all memory cycles",
-            "DMA takes memory cycles when CPU isn't using bus"
+            "DMA takes memory cycles when CPU isn't using bus",
+            "No cycles are used"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Cycle stealing: DMA controller 'steals' memory bus cycles from CPU when it needs to transfer data. CPU slightly slowed but not blocked. Alternative: burst mode (DMA takes bus for entire transfer - faster but CPU stalled). Cycle stealing gives better CPU responsiveness."
         }
@@ -609,12 +609,12 @@ Questions.register([
         "subtopic": "Instruction Set",
         "question": "A 3-address instruction format specifies:",
         "options": [
-            "2 sources, 1 destination",
             "Only 1 operand",
+            "3 destinations",
             "1 source, 1 destination",
-            "3 destinations"
+            "2 sources, 1 destination"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "3-address instruction: ADD R1, R2, R3 means R1 ← R2 + R3. Specifies destination and two source operands. Most flexible, preserves source operands. Longer instructions but fewer instructions needed. Common in RISC architectures.",
             "formula": "Result = Source1 op Source2"
@@ -627,12 +627,12 @@ Questions.register([
         "subtopic": "Instruction Set",
         "question": "Opcode expansion allows:",
         "options": [
-            "No operands",
-            "More instructions by using unused bits",
+            "Fewer instructions",
             "Fixed opcode length",
-            "Fewer instructions"
+            "No operands",
+            "More instructions by using unused bits"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Opcode expansion: variable-length opcodes. Common instructions get short opcodes, rare instructions get longer ones (using bits from unused operand fields). Huffman-like encoding. Example: if 3 operand fields rarely all used, use unused field bits for expanded opcodes."
         }
@@ -644,12 +644,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "In direct mapping, block j of main memory maps to cache block:",
         "options": [
-            "n mod j",
             "j",
-            "j mod n (where n = cache blocks)",
-            "j / n"
+            "n mod j",
+            "j / n",
+            "j mod n (where n = cache blocks)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Direct mapping: memory block j maps to cache line = j mod n (where n = number of cache lines). Each memory block has exactly one possible cache location. Simple but causes conflict misses when multiple frequently-used blocks map to same line.",
             "formula": "$Cache\\ line = j \\mod n$"
@@ -663,11 +663,11 @@ Questions.register([
         "question": "Direct mapping address format:",
         "options": [
             "Block + Tag + Word",
-            "Tag + Word",
             "Tag + Block + Word",
-            "Only Tag"
+            "Only Tag",
+            "Tag + Word"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Direct-mapped cache address: Tag (identifies which memory block among those mapping to same line) | Block/Line/Index (selects cache line) | Word/Offset (selects byte within block). Index bits = log₂(cache lines). Offset bits = log₂(block size)."
         }
@@ -679,12 +679,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "Associative (fully) mapping address format:",
         "options": [
-            "Block + Word",
             "Set + Word",
-            "Tag + Word",
-            "Tag + Block + Word"
+            "Tag + Block + Word",
+            "Block + Word",
+            "Tag + Word"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Fully associative: address is just Tag | Word/Offset. No index field - block can go anywhere, so no fixed position to select. Tag is compared against ALL lines in parallel. Most flexible but requires n comparators for n lines, making it expensive for large caches."
         }
@@ -696,12 +696,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "Set-associative mapping address format:",
         "options": [
-            "Tag + Block + Word",
             "Tag + Word",
-            "Tag + Set + Word",
-            "Block + Word"
+            "Tag + Block + Word",
+            "Block + Word",
+            "Tag + Set + Word"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Set-associative: address is Tag | Set | Offset. Set bits select which set (group of n lines). Within set, block can go in any of n positions - tag compared against n lines in that set. Balances flexibility (fewer conflicts) with hardware cost (only n comparators)."
         }
@@ -713,12 +713,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "In direct mapping, number of tag comparators needed:",
         "options": [
-            "n (cache blocks)",
             "1",
+            "log n",
             "0",
-            "log n"
+            "n (cache blocks)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Direct-mapped: only ONE comparator needed. The index field directly selects which cache line to check - then just compare that line's tag with the address tag. No searching. Fast and simple, but limited flexibility leads to conflict misses."
         }
@@ -731,9 +731,9 @@ Questions.register([
         "question": "In fully associative, number of tag comparators needed:",
         "options": [
             "n (number of cache blocks)",
-            "0",
+            "1",
             "log n",
-            "1"
+            "0"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -747,9 +747,9 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "In k-way set-associative, number of tag comparators:",
         "options": [
+            "n",
             "n/k",
             "1",
-            "n",
             "k"
         ],
         "correctAnswer": 3,
@@ -766,8 +766,8 @@ Questions.register([
         "options": [
             "Write to cache and main memory simultaneously",
             "Write only to main memory",
-            "Write only to cache",
-            "Delayed write"
+            "Delayed write",
+            "Write only to cache"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -781,12 +781,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "Write-back policy:",
         "options": [
-            "No writes allowed",
-            "Write to both always",
+            "Write only to cache, update memory on eviction",
             "Write to memory only",
-            "Write only to cache, update memory on eviction"
+            "No writes allowed",
+            "Write to both always"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Write-back: write only to cache, mark block 'dirty'. Memory updated only when dirty block evicted. Faster (no memory wait on write), less memory traffic. But: cache inconsistent with memory until eviction. Needs dirty bit. Complex crash recovery. Most common in modern systems."
         }
@@ -798,12 +798,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "Hit ratio formula:",
         "options": [
-            "Total / Hits",
-            "Misses / Total",
             "Hits / Misses",
-            "Hits / Total accesses"
+            "Hits / Total accesses",
+            "Total / Hits",
+            "Misses / Total"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Hit ratio = Hits / (Hits + Misses) = Hits / Total accesses. Measures cache effectiveness. Higher is better. Typical L1 caches achieve >95% hit ratio. Miss ratio = 1 - hit ratio. Even small improvements in hit ratio significantly impact performance.",
             "formula": "$h = \\frac{Hits}{Hits + Misses}$"
@@ -816,12 +816,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "EMAT with cache hit rate h, cache time c, memory time m:",
         "options": [
-            "h*c + (1-h)*m",
             "c + m",
-            "h*(c+m)",
-            "h*c + (1-h)*(c+m)"
+            "h*c + (1-h)*(c+m)",
+            "h*c + (1-h)*m",
+            "h*(c+m)"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Effective Memory Access Time: On hit (probability h): just cache access = c. On miss (probability 1-h): access cache, find miss, then access memory = c + m. EMAT = h×c + (1-h)×(c+m). Some models simplify to c + (1-h)×m if miss penalty = m.",
             "formula": "$EMAT = h \\cdot c + (1-h) \\cdot (c + m)$"
@@ -834,12 +834,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "TLB effective memory access time with TLB hit h, TLB time t, memory m:",
         "options": [
-            "h*t + m",
             "h*(t+m) + (1-h)*(t+2m)",
             "t + m",
-            "t + h*m"
+            "t + h*m",
+            "h*t + m"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "TLB-based paging: TLB hit (probability h): TLB access + memory access = t + m. TLB miss (probability 1-h): TLB access + page table lookup in memory + data access in memory = t + m + m = t + 2m. EMAT = h(t+m) + (1-h)(t+2m). TLB crucial for paging performance.",
             "formula": "$EMAT = h(t+m) + (1-h)(t+2m)$"
@@ -852,12 +852,12 @@ Questions.register([
         "subtopic": "Cache Memory",
         "question": "n-level paging without TLB: memory accesses for one data access:",
         "options": [
-            "n²",
             "n",
-            "2n",
-            "n+1"
+            "n²",
+            "n+1",
+            "2n"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Multi-level paging without TLB: must traverse n levels of page tables (n memory accesses), then access the data itself (1 more access). Total = n + 1 memory accesses. Very slow without TLB. Example: 3-level paging needs 4 memory accesses per data access.",
             "formula": "Memory accesses = $n + 1$"

@@ -6,12 +6,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "The lexical analyzer converts the source code into:",
         "options": [
-            "Intermediate code",
-            "Tokens",
             "Assembly code",
-            "Parse tree"
+            "Intermediate code",
+            "Parse tree",
+            "Tokens"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Lexical Analyzer (Scanner/Lexer): First phase of compiler, reads source code CHARACTER STREAM and groups characters into TOKENS (lexemes). Token = meaningful unit: keywords (if, while), identifiers (variable names), literals (numbers, strings), operators (+, *, ==), punctuation ({, ;). Process: pattern matching using regular expressions, implemented as DFA (Deterministic Finite Automaton). Also REMOVES whitespace and comments. Output: token sequence passed to parser. Symbol table updated with identifiers. Handles lookahead for multi-character operators (==, <=). Error: invalid character sequences. Tools: Lex, Flex generate lexers from regex specifications. Efficient $O(n)$ - single pass through input.",
             "formula": "Lexer: char stream → token stream (regex/DFA)"
@@ -24,12 +24,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Regular expressions are sufficient for lexical analysis because:",
         "options": [
-            "Tokens can be described using regular patterns",
             "Source code is always regular",
             "Regular expressions are faster than CFG",
+            "Tokens can be described using regular patterns",
             "All of the above"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Regular Expressions for Lexical Analysis: Token patterns are REGULAR LANGUAGES - can be described by regular expressions. Examples: identifier = [a-zA-Z][a-zA-Z0-9]*, integer = [0-9]+, keyword = exact string (if|while|...). Regular languages recognized by FINITE AUTOMATA (DFA/NFA) with $O(n)$ linear time complexity - very efficient for lexical scanning. Why sufficient? Tokens have flat structure (no nesting): numbers, identifiers, keywords don't require context tracking. NESTED structures (balanced parentheses, nested blocks) are CONTEXT-FREE, need CFG and parser (not lexer). CFG for parsing is more powerful but slower than regex. Division of labor: lexer handles simple patterns fast, parser handles complex syntax. Regex → NFA (Thompson's construction) → DFA (subset construction) → minimized DFA for efficiency.",
             "formula": "Tokens: regular language (regex/DFA, $O(n)$)"
@@ -42,12 +42,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LL(1) parsing is:",
         "options": [
-            "Top-down, uses 1 lookahead",
             "Bottom-up, uses k lookahead",
-            "Bottom-up, uses 1 lookahead",
-            "Top-down, uses 0 lookahead"
+            "Top-down, uses 1 lookahead",
+            "Top-down, uses 0 lookahead",
+            "Bottom-up, uses 1 lookahead"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "LL(1) Parsing: TOP-DOWN predictive parsing technique. LL = (1) Left-to-right scan of input, (2) Leftmost derivation (expand leftmost non-terminal first), (3) 1 symbol lookahead to decide production. Parser builds parse tree from ROOT → LEAVES. Uses predictive parsing table $M[A,a]$ where $A$ = non-terminal, $a$ = lookahead terminal - at most ONE production per cell (unambiguous). Implemented via: (1) RECURSIVE DESCENT - one function per non-terminal, or (2) TABLE-DRIVEN - explicit stack + parsing table. Requirements: (1) NO LEFT RECURSION, (2) LEFT FACTORED (remove common prefixes), (3) FIRST/FOLLOW sets don't conflict. Efficiency: $O(n)$ for LL(1) grammars. Limitations: cannot handle all CFGs, less powerful than LR parsers. Used for: hand-written parsers, educational purposes.",
             "formula": "LL(1): top-down, 1 lookahead, predictive table"
@@ -60,9 +60,9 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LR parsing is more powerful than LL parsing because:",
         "options": [
-            "It is simpler to implement",
             "It uses more memory",
             "It produces smaller parse trees",
+            "It is simpler to implement",
             "It can handle left-recursive grammars and more types of grammars"
         ],
         "correctAnswer": 3,
@@ -78,12 +78,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "FIRST(α) contains ε if:",
         "options": [
+            "α starts with a terminal",
             "α starts with a non-terminal that can derive ε",
-            "FIRST never contains ε",
             "α is a single terminal",
-            "α starts with a terminal"
+            "FIRST never contains ε"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "FIRST Set: For grammar symbol (terminal/non-terminal) or string $\\alpha$, FIRST($\\alpha$) = SET OF TERMINALS that can appear as FIRST SYMBOL of strings derivable from $\\alpha$. Rules: (1) If $\\alpha$ is terminal $a$: FIRST($a$) = {$a$}. (2) If $\\alpha$ is non-terminal $A$ and $A \\to a\\beta$ (starts with terminal): add $a$ to FIRST($A$). (3) If $A \\to \\varepsilon$: add $\\varepsilon$ to FIRST($A$). (4) If $A \\to B\\beta$ and $B$ can derive $\\varepsilon$: FIRST($A$) includes FIRST($\\beta$). (5) For string $\\alpha = X_1X_2...X_n$: combine FIRST($X_i$) while $X_i$ nullable. EPSILON IN FIRST($\\alpha$)? Yes, if all symbols $X_1,...,X_n$ can derive $\\varepsilon$ (all nullable). Used in: LL(1) parsing table construction - if $\\varepsilon \\in$ FIRST($\\alpha$), check FOLLOW for production selection.",
             "formula": "FIRST($\\alpha$) = terminals starting derivations of $\\alpha$"
@@ -97,9 +97,9 @@ Questions.register([
         "question": "FOLLOW(A) is used to determine what can appear immediately after non-terminal A. FOLLOW of start symbol always contains:",
         "options": [
             "$ (end of input marker)",
-            "Nothing",
             "All terminals",
-            "ε"
+            "ε",
+            "Nothing"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -115,11 +115,11 @@ Questions.register([
         "question": "In syntax-directed translation, synthesized attributes are computed from:",
         "options": [
             "Siblings only",
+            "Global variables",
             "Parent to children (top-down)",
-            "Children to parent (bottom-up)",
-            "Global variables"
+            "Children to parent (bottom-up)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Syntax-Directed Translation (SDT) Attributes: Attach SEMANTIC INFORMATION to grammar symbols via attributes. Two types: (1) SYNTHESIZED ATTRIBUTES - computed from attributes of CHILDREN (bottom-up flow). Example: expression value computed from operand values: $E.val = E_1.val + E_2.val$ for $E \\to E_1 + E_2$. (2) INHERITED ATTRIBUTES - passed DOWN from parent or left siblings (top-down flow). Example: type propagation in declarations. S-ATTRIBUTED DEFINITION: only synthesized attributes - can evaluate during bottom-up parse (LR parsing friendly). L-ATTRIBUTED DEFINITION: synthesized + inherited from parent or LEFT siblings only - can evaluate during top-down parse (one left-to-right pass). Applications: type checking, code generation, translation schemes. Evaluation: build dependency graph, topological sort, evaluate attributes. Parse tree annotations.",
             "formula": "Synthesized: children→parent. Inherited: parent→children."
@@ -132,12 +132,12 @@ Questions.register([
         "subtopic": "Code Optimization",
         "question": "Common subexpression elimination is an example of:",
         "options": [
-            "Inter-procedural optimization",
             "Peephole optimization",
-            "Local optimization within a basic block",
-            "Machine-dependent optimization"
+            "Inter-procedural optimization",
+            "Machine-dependent optimization",
+            "Local optimization within a basic block"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Common Subexpression Elimination (CSE): Code optimization identifying and eliminating REDUNDANT COMPUTATIONS. If expression $E$ computed multiple times with SAME OPERAND VALUES (no intervening modifications), compute ONCE and REUSE result. Example: $a = b + c; ...; d = b + c;$ → $t = b + c; a = t; ...; d = t;$ (if $b,c$ unchanged). Saves: computation time, registers. Typically LOCAL optimization within BASIC BLOCK (straight-line code, single entry/exit, no branches). Can extend to GLOBAL CSE across basic blocks using data flow analysis (available expressions). Implementation: value numbering, or hash-based detection. Trade-off: extra temporary variable vs reduced computation. Especially beneficial for expensive operations (multiplication, memory access). Part of machine-independent optimization pass on intermediate representation (IR).",
             "formula": "CSE: reuse $E$ if values unchanged (local opt)"
@@ -150,12 +150,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Lexer typically removes:",
         "options": [
-            "Identifiers",
-            "Operators",
             "Comments and whitespace",
-            "Keywords"
+            "Keywords",
+            "Operators",
+            "Identifiers"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Lexer Whitespace/Comment Removal: Lexical analyzer REMOVES whitespace (spaces, tabs, newlines) and comments before producing token stream. Why? (1) Whitespace is insignificant in most languages (except Python indentation, handled specially). (2) Comments are for humans, irrelevant to compilation. (3) Reduces parser input size, simplifies parsing. Lexer outputs CLEAN token sequence: keywords, identifiers, operators, literals. Exceptions: string literals preserve internal whitespace. Some lexers preserve line numbers for error messages despite removing newlines."
         }
@@ -167,12 +167,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Tools like lex/flex generate:",
         "options": [
-            "Turing machine",
-            "NFA only",
             "PDA",
-            "DFA"
+            "NFA only",
+            "DFA",
+            "Turing machine"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Lex/Flex Tools: LEXER GENERATORS - accept regex specifications, automatically generate lexical analyzer source code (typically C). Process: (1) Regex → NFA (Thompson's construction), (2) NFA → DFA (subset construction), (3) DFA minimization, (4) Generate code (table-driven or direct). Output: efficient DFA-based scanner. Benefits: rapid development, guaranteed correctness, optimized. Industry standard for compiler construction alongside parser generators (Yacc/Bison). Input format: patterns + actions (C code executed when pattern matches)."
         }
@@ -184,12 +184,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Recursive descent parser is a type of:",
         "options": [
-            "Bottom-up parser",
-            "LALR parser",
             "Top-down parser",
-            "LR parser"
+            "LALR parser",
+            "LR parser",
+            "Bottom-up parser"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Recursive Descent Parser: TOP-DOWN parsing implementation - one RECURSIVE FUNCTION per non-terminal in grammar. Each function: (1) checks lookahead, (2) calls child functions for RHS non-terminals, (3) matches terminals by consuming input. Easy to hand-code for LL(1) grammars. Predictive (no backtracking if LL(1)). Advantages: simple, intuitive, good error messages. Disadvantages: cannot handle left-recursive grammars (infinite recursion!), limited to LL class. Example: parseExpr() calls parseTerm(), which calls parseFactor(). Widely used for hand-written parsers in production compilers."
         }
@@ -201,12 +201,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LL(1) grammar is one where parsing table has:",
         "options": [
-            "No entries",
             "At most one entry per cell",
             "Only shift actions",
-            "Multiple entries per cell"
+            "Multiple entries per cell",
+            "No entries"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "LL(1) Parsing Table: For LL(1) grammar, predictive parsing table $M[A,a]$ has AT MOST ONE production per cell where $A$ = non-terminal, $a$ = terminal (or $). Construction: For $A \\to \\alpha$, add entry to $M[A,a]$ for all $a \\in$ FIRST($\\alpha$); if $\\varepsilon \\in$ FIRST($\\alpha$), also add for all $a \\in$ FOLLOW($A$). If ANY cell has multiple entries, grammar is NOT LL(1). Empty cells indicate syntax error. Parser uses table + stack: pop $A$, look at input $a$, expand using $M[A,a]$. Deterministic parsing.",
             "formula": "LL(1): each $M[A,a]$ ≤ 1 production"
@@ -236,12 +236,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Shift-reduce conflict occurs when parser can:",
         "options": [
-            "Neither shift nor reduce",
             "Only shift",
             "Either shift or reduce",
+            "Neither shift nor reduce",
             "Only reduce"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Shift-Reduce Conflict: AMBIGUITY in LR parsing table - parser cannot decide whether to SHIFT (push next input onto stack) or REDUCE (pop and replace by LHS). Occurs when BOTH actions are valid in current state. Indicates grammar is NOT LR(k) for given $k$ (not deterministically parsable). Causes: (1) ambiguous grammar (classic: dangling else), (2) insufficient lookahead. Solutions: (1) rewrite grammar unambiguously, (2) use precedence/associativity rules (Yacc's approach), (3) increase lookahead (SLR→LALR→CLR). Reduce-reduce conflict: multiple reduce actions possible - even worse."
         }
@@ -253,12 +253,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LALR(1) merges LR(1) states with:",
         "options": [
+            "Same core (ignore lookahead)",
             "No merging",
             "Same actions",
-            "Same lookahead",
-            "Same core (ignore lookahead)"
+            "Same lookahead"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "LALR(1) Parser: Lookahead LR - COMPROMISE between SLR(1) (weak) and CLR/LR(1) (powerful but large tables). Construction: build full LR(1) canonical collection, then MERGE states with SAME CORE (ignore lookahead differences), combining lookahead sets. Result: same number of states as SLR (~100s for typical language) but more powerful (resolves conflicts SLR can't). Trade-off: can introduce reduce-reduce conflicts not in LR(1) (rare). Yacc/Bison generate LALR parsers. Power: SLR ⊂ LALR ⊂ LR(1). Industry standard for parser generators - best balance of power and table size.",
             "formula": "LALR: merge LR(1) states by core, combine lookaheads"
@@ -271,12 +271,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Which parser type handles the largest class of grammars?",
         "options": [
+            "LALR(1)",
             "SLR(1)",
             "CLR(1)/LR(1)",
-            "LL(1)",
-            "LALR(1)"
+            "LL(1)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Parser Power Hierarchy: LL(1) ⊂ SLR(1) ⊂ LALR(1) ⊂ CLR(1)/LR(1) ⊂ LR(k) ⊂ CFG. (1) LL(1): weakest, top-down, no left-recursion, limited conflict resolution. (2) SLR(1): simple LR, uses FOLLOW sets (coarse). (3) LALR(1): merges LR(1) states, industry standard (Yacc/Bison). (4) CLR(1) / LR(1): canonical LR, most powerful deterministic, handles largest CFG subset, but HUGE tables (exponential states). LR(k) for $k>1$ rarely used (tables explosion). Unambiguous CFGs may still not be LR. Most programming languages are LALR(1).",
             "formula": "LL(1) < SLR < LALR < CLR (most powerful)"
@@ -289,12 +289,12 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "Three-address code has at most:",
         "options": [
-            "Three addresses",
-            "Two addresses",
             "Four addresses",
-            "One address"
+            "Three addresses",
+            "One address",
+            "Two addresses"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Three-Address Code (TAC): INTERMEDIATE REPRESENTATION where each instruction has AT MOST 3 ADDRESSES (operands/results). General form: $x = y \\text{ op } z$ or $x = \\text{op } y$. Examples: $t1 = a + b$, $t2 = t1 * c$, $if\\ t2 < 10\\ goto\\ L1$. Addresses: variables, constants, temporaries, labels. Instructions: assignment, conditional/unconditional jumps, procedure calls, array access. Advantages: (1) machine-independent (portable IR), (2) simple structure (easy optimization), (3) maps easily to assembly (most machines 2-3 address). Representations: quadruples $(op, arg1, arg2, result)$, triples (implicit result), SSA form. Compiler generates TAC from AST, optimizes, then generates target code.",
             "formula": "TAC: $x = y \\text{ op } z$ (max 3 addresses)"
@@ -307,12 +307,12 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "Static Single Assignment (SSA) form ensures each variable is:",
         "options": [
+            "Assigned in a loop",
             "Never assigned",
-            "Assigned once",
             "Used once",
-            "Assigned in a loop"
+            "Assigned once"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Static Single Assignment (SSA): IR form where each variable ASSIGNED EXACTLY ONCE (statically in code). For control flow merges, use $\\phi$ (phi) FUNCTIONS: $x_3 = \\phi(x_1, x_2)$ selects value based on predecessor block. Example: $x=1; if\\, P\\, then\\, x=2; y=x;$ becomes $x_1=1; if\\, P\\, then\\, x_2=2; x_3=\\phi(x_1,x_2); y=x_3;$. Benefits: simplifies many optimizations - def-use chains explicit, no variable overwrites. Use-def and def-use info built-in. Enables: constant propagation, dead code elimination, register allocation. Widely used in modern optimizing compilers (LLVM, GCC). Conversion: from TAC or AST. Reconstruction: from SSA back to normal form for code generation.",
             "formula": "SSA: each variable assigned once, $\\phi$-functions"
@@ -343,10 +343,10 @@ Questions.register([
         "subtopic": "Code Optimization",
         "question": "Strength reduction replaces:",
         "options": [
-            "Loops with recursion",
+            "Variables with constants",
             "Addition with multiplication",
             "Expensive operations with cheaper equivalents",
-            "Variables with constants"
+            "Loops with recursion"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -362,11 +362,11 @@ Questions.register([
         "question": "Dead code elimination removes:",
         "options": [
             "Variable declarations",
-            "All code",
+            "Code whose result is never used",
             "Comments",
-            "Code whose result is never used"
+            "All code"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Dead Code Elimination: Remove code whose RESULT IS NEVER USED. Two types: (1) UNREACHABLE CODE - never executed (after return, impossible conditions), (2) USELESS CODE - result computed but never referenced. Example: $x = a + b;$ ...no use of $x$... Delete it! Detection: (1) live variable analysis (backward dataflow), (2) mark reachable blocks (CFG traversal). Benefits: smaller code, faster execution, reduced register pressure. Often exposes more optimization opportunities (cascade). SSA form simplifies detection - easy to identify unused def. Essential optimization pass in all compilers.",
             "formula": "Dead code: result never used OR unreachable"
@@ -379,12 +379,12 @@ Questions.register([
         "subtopic": "Code Optimization",
         "question": "Constant folding evaluates:",
         "options": [
-            "Constants at compile time",
             "Functions at runtime",
+            "Variables at runtime",
             "Loops at compile time",
-            "Variables at runtime"
+            "Constants at compile time"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Constant Folding: Evaluate CONSTANT EXPRESSIONS at COMPILE TIME instead of runtime. Examples: (1) $2 + 3$ → $5$, (2) $true \\&\\& false$ → $false$, (3) $\"hello\" + \" world\"$ → $\"hello\\ world\"$ (language-dependent). Propagate constants: $x = 5; y = x + 3;$ → $x = 5; y = 8;$. Benefits: reduced runtime computation, enables other optimizations (branch elimination if condition constant). Must respect language semantics (overflow, NaN, exception behavior). Works with constant propagation (dataflow analysis tracking constant values). Simple yet effective optimization - significant speedup for programs with many compile-time evaluable expressions.",
             "formula": "Constant folding: eval const at compile time"
@@ -397,12 +397,12 @@ Questions.register([
         "subtopic": "Code Generation",
         "question": "Register allocation aims to:",
         "options": [
-            "Slow down execution",
-            "Increase memory usage",
             "Minimize register usage while maximizing speed",
-            "Eliminate all registers"
+            "Increase memory usage",
+            "Eliminate all registers",
+            "Slow down execution"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Register Allocation: Assign program VARIABLES/TEMPORARIES to LIMITED CPU REGISTERS to minimize memory accesses (registers 100x faster than RAM). Challenge: $k$ registers but potentially hundreds of variables. NP-hard problem. Goals: (1) maximize register usage (hot variables in registers), (2) minimize spills to memory, (3) minimize move instructions. Approaches: (1) GRAPH COLORING - interference graph, (2) LINEAR SCAN - fast greedy, (3) priority-based. Live range = region where variable holds value. Interference = variables live simultaneously (can't share register). Crucial for performance - register-heavy code much faster than memory-heavy."
         }
@@ -416,10 +416,10 @@ Questions.register([
         "options": [
             "Parsing",
             "Lexical analysis",
-            "Register allocation",
-            "Type checking"
+            "Type checking",
+            "Register allocation"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Register Allocation via Graph Coloring: Model as GRAPH COLORING problem. (1) Build INTERFERENCE GRAPH: nodes = variables/temporaries, edge between $v_1,v_2$ if they're LIVE SIMULTANEOUSLY (interfere - can't use same register). (2) K-COLOR the graph where $k$ = number of available registers. Each color = register. (3) If colorable with $k$ colors: success! Variables with same color share register (at different times). (4) If not colorable: SPILL lowest-priority variable to memory, rebuild graph, retry. Heuristics: degree-based (color low-degree first), move coalescing (reduce moves). Used in production compilers (GCC, LLVM). Graph coloring NP-complete but works well in practice with good heuristics.",
             "formula": "Register alloc: graph coloring, nodes=vars, edges=interfere"
@@ -433,11 +433,11 @@ Questions.register([
         "question": "The phases of a compiler in order are:",
         "options": [
             "Code Gen, Optimization, Parsing",
-            "Only Parsing and Code Gen",
+            "Lexical, Syntax, Semantic, Intermediate, Optimization, Code Gen",
             "Parsing, Lexing, Code Gen",
-            "Lexical, Syntax, Semantic, Intermediate, Optimization, Code Gen"
+            "Only Parsing and Code Gen"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Compiler Phases: Sequential stages transforming source to target. Standard 6-phase model: (1) LEXICAL ANALYSIS - char stream → tokens (regex/DFA), (2) SYNTAX ANALYSIS - tokens → parse tree/AST (CFG/parser), (3) SEMANTIC ANALYSIS - type checking, scope resolution, (4) INTERMEDIATE Code GENeration - AST → IR (TAC/SSA), (5) CODE OPTIMIZATION - machine-independent optimizations on IR, (6) CODE GENERATION - IR → target code (assembly/machine). Plus: symbol table (shared), error handler (all phases). Modern: oftenmultiple IRs, multiple optimization passes. Some phases combined for efficiency.",
             "formula": "Phases: Lex → Syntax → Semantic → IR → Opt → CodeGen"
@@ -468,12 +468,12 @@ Questions.register([
         "subtopic": "Compiler Phases",
         "question": "The back-end of compiler includes:",
         "options": [
-            "Code generation and optimization",
             "Symbol table",
             "Lexical analysis",
+            "Code generation and optimization",
             "Parsing"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Compiler BACK-END: TARGET MACHINE dependent phases generating efficient machine code: (1) CODE OPTIMIZATION - machine-independent (on IR) + machine-dependent (target-specific instructions, addressing modes), (2) CODE GENERATION - IR → assembly/machine code, instruction selection, register allocation, instruction scheduling. Output: relocatable object code or assembly. Separated from frontend for portability - one backend, many frontends (C, C++, Fortran for same target). Example: LLVM backend for x86, ARM backend. Back-end exploits hardware features (SIMD, pipelining, cache) for performance.",
             "formula": "Back-end: Opt + CodeGen (target-dependent)"
@@ -487,11 +487,11 @@ Questions.register([
         "question": "Symbol table is used throughout:",
         "options": [
             "Only parsing phase",
-            "Only lexical phase",
             "Only code generation",
-            "All phases"
+            "All phases",
+            "Only lexical phase"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Symbol Table: GLOBAL DATA STRUCTURE mapping identifiers (variable/function names) to their ATTRIBUTES (type, scope, memory location, etc.). Shared across ALL compiler phases. Operations: insert (declaration), lookup (usage), delete (end of scope). Implementation: hash table (fast $O(1)$ average), tree (scoped). Information stored: (1) name, (2) type, (3) scope/nest level, (4) memory address/offset, (5) function signature (params, return type), (6) line number (error messages). Used for: semantic checking (type compatibility, declaration before use), code generation (variable addresses). Scope management: nested scopes via stacked tables or single table with scope field.",
             "formula": "Symbol table: identifier → attributes (all phases)"
@@ -504,10 +504,10 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Lexical analyzer converts source to:",
         "options": [
-            "Parse tree",
+            "Assembly code",
             "Tokens (lexemes)",
             "Object code",
-            "Assembly code"
+            "Parse tree"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -521,12 +521,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Tokens are described using:",
         "options": [
-            "CFG",
+            "Turing machines",
             "PDA",
-            "Regular expressions",
-            "Turing machines"
+            "CFG",
+            "Regular expressions"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Tokens (identifiers, keywords, etc.) are regular, described by regex"
         }
@@ -538,12 +538,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Lexical analyzer is implemented using:",
         "options": [
-            "Turing machine",
-            "LR parser",
             "DFA/NFA",
-            "PDA"
+            "LR parser",
+            "PDA",
+            "Turing machine"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Lexer = DFA (regex → NFA → DFA)"
         }
@@ -556,11 +556,11 @@ Questions.register([
         "question": "Lex/Flex is a tool for:",
         "options": [
             "Parser generation",
-            "Lexer generation",
             "Code optimization",
+            "Lexer generation",
             "Debugging"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Lex/Flex: generates lexer from regex specification"
         }
@@ -572,12 +572,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Lexer handles:",
         "options": [
+            "Semantic errors",
             "Syntax errors",
             "Recognizing tokens, removing whitespace/comments",
-            "Code generation",
-            "Semantic errors"
+            "Code generation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Lexer: tokenization, remove whitespace, handle comments"
         }
@@ -590,11 +590,11 @@ Questions.register([
         "question": "Syntax analysis (parsing) uses:",
         "options": [
             "Context-sensitive grammar",
+            "Type 0 grammar",
             "Context-free grammar (CFG)",
-            "Regular grammar",
-            "Type 0 grammar"
+            "Regular grammar"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Parsers use CFG for programming language syntax"
         }
@@ -608,8 +608,8 @@ Questions.register([
         "options": [
             "Object code",
             "Parse tree / AST",
-            "Intermediate code",
-            "Token stream"
+            "Token stream",
+            "Intermediate code"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -624,8 +624,8 @@ Questions.register([
         "question": "Top-down parsing builds parse tree:",
         "options": [
             "From root to leaves",
-            "Random order",
             "No tree built",
+            "Random order",
             "From leaves to root"
         ],
         "correctAnswer": 0,
@@ -640,12 +640,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Bottom-up parsing builds parse tree:",
         "options": [
-            "From root to leaves",
-            "From leaves to root",
             "No tree built",
-            "Random order"
+            "From root to leaves",
+            "Random order",
+            "From leaves to root"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Bottom-up: start from input, reduce to start symbol"
         }
@@ -657,12 +657,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Recursive descent parser is a type of:",
         "options": [
+            "Operator precedence parser",
             "Bottom-up parser",
             "LR parser",
-            "Top-down parser",
-            "Operator precedence parser"
+            "Top-down parser"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Recursive descent: top-down, uses recursive functions for non-terminals"
         }
@@ -674,12 +674,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LL(1) grammar conditions: no left recursion, and:",
         "options": [
-            "Right factored",
-            "No conditions",
             "Ambiguous",
-            "Left factored"
+            "Right factored",
+            "Left factored",
+            "No conditions"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "LL(1): no left recursion, left factored, FIRST/FOLLOW don't conflict"
         }
@@ -691,10 +691,10 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "FIRST(α) is:",
         "options": [
-            "Empty set",
+            "Last terminal derivable from α",
             "Set of terminals that begin strings derivable from α",
-            "All non-terminals in α",
-            "Last terminal derivable from α"
+            "Empty set",
+            "All non-terminals in α"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -708,12 +708,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "FOLLOW(A) is:",
         "options": [
-            "First symbol of A",
             "Terminals that can appear immediately after A in some derivation",
-            "Non-terminals after A",
-            "All terminals in grammar"
+            "First symbol of A",
+            "All terminals in grammar",
+            "Non-terminals after A"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "FOLLOW(A) = terminals that can appear right after A"
         }
@@ -726,11 +726,11 @@ Questions.register([
         "question": "LL(k) means:",
         "options": [
             "Right-to-left parsing",
-            "Left-to-right, Leftmost derivation, k symbols lookahead",
             "Left-to-right, Rightmost derivation",
+            "Left-to-right, Leftmost derivation, k symbols lookahead",
             "k productions"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "LL(k): scan Left-to-right, Leftmost derivation, k lookahead"
         }
@@ -742,12 +742,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LR(k) means:",
         "options": [
-            "Right-to-left parsing",
             "Left-to-right, Rightmost derivation (reverse), k lookahead",
             "k reductions",
-            "Left-to-right, Leftmost derivation"
+            "Left-to-right, Leftmost derivation",
+            "Right-to-left parsing"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "LR(k): scan Left-to-right, Rightmost derivation in reverse, k lookahead"
         }
@@ -760,11 +760,11 @@ Questions.register([
         "question": "LR parsers are more powerful than LL parsers because:",
         "options": [
             "They use less memory",
-            "They can handle more grammars (including left-recursive)",
             "They don't need lookahead",
+            "They can handle more grammars (including left-recursive)",
             "They are simpler"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "LR handles larger class of grammars than LL"
         }
@@ -777,11 +777,11 @@ Questions.register([
         "question": "Types of LR parsers in order of power:",
         "options": [
             "LALR < SLR < CLR",
-            "CLR < LALR < SLR",
             "All are equal",
-            "SLR < LALR < CLR"
+            "SLR < LALR < CLR",
+            "CLR < LALR < SLR"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "SLR ⊂ LALR ⊂ CLR (Canonical LR most powerful)"
         }
@@ -810,12 +810,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Shift-Reduce parsing uses:",
         "options": [
-            "Hash table",
+            "Stack",
             "Queue",
             "Tree",
-            "Stack"
+            "Hash table"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "LR parsing uses stack for shift (push) and reduce (pop + push)"
         }
@@ -844,12 +844,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Reduce action in LR parsing:",
         "options": [
-            "Accept input",
             "Shift and reduce simultaneously",
             "Push symbol onto stack",
-            "Pop RHS of production, push LHS"
+            "Pop RHS of production, push LHS",
+            "Accept input"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Reduce: pop |RHS| symbols, push LHS non-terminal"
         }
@@ -862,11 +862,11 @@ Questions.register([
         "question": "Handle in bottom-up parsing is:",
         "options": [
             "All terminals",
+            "The start symbol",
             "Leftmost simple phrase reducible to non-terminal",
-            "Any substring",
-            "The start symbol"
+            "Any substring"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Handle: substring matching RHS of production to reduce"
         }
@@ -878,12 +878,12 @@ Questions.register([
         "subtopic": "Semantic Analysis",
         "question": "Semantic analysis checks:",
         "options": [
-            "Syntax correctness",
-            "Performance",
             "Token validity",
-            "Type checking, scope rules"
+            "Type checking, scope rules",
+            "Performance",
+            "Syntax correctness"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Semantic: type checking, declaration before use, scope rules"
         }
@@ -895,12 +895,12 @@ Questions.register([
         "subtopic": "Semantic Analysis",
         "question": "Syntax-Directed Translation (SDT) attaches:",
         "options": [
-            "Only one attribute",
-            "Assembly code",
             "Semantic rules/actions to grammar productions",
-            "No attributes"
+            "No attributes",
+            "Assembly code",
+            "Only one attribute"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "SDT: semantic rules (attributes) associated with productions"
         }
@@ -912,12 +912,12 @@ Questions.register([
         "subtopic": "Semantic Analysis",
         "question": "S-attributed definition uses only:",
         "options": [
-            "Neither",
-            "Inherited attributes",
             "Both",
-            "Synthesized attributes"
+            "Inherited attributes",
+            "Synthesized attributes",
+            "Neither"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "S-attributed: only synthesized (computed bottom-up)"
         }
@@ -929,12 +929,12 @@ Questions.register([
         "subtopic": "Semantic Analysis",
         "question": "L-attributed definition allows:",
         "options": [
-            "No attributes",
-            "Synthesized + inherited from left siblings or parent",
+            "Any order of evaluation",
             "Only inherited attributes",
-            "Any order of evaluation"
+            "Synthesized + inherited from left siblings or parent",
+            "No attributes"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "L-attributed: inherited from left siblings or parent, synthesized OK"
         }
@@ -946,12 +946,12 @@ Questions.register([
         "subtopic": "Semantic Analysis",
         "question": "Type checking is part of:",
         "options": [
+            "Syntax analysis",
             "Semantic analysis",
             "Lexical analysis",
-            "Syntax analysis",
             "Code generation"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Type checking: semantic phase, ensures type compatibility"
         }
@@ -963,12 +963,12 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "Three-address code (TAC) has at most:",
         "options": [
-            "Unlimited addresses",
             "3 addresses per instruction",
+            "Unlimited addresses",
             "2 addresses",
             "1 address per instruction"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "TAC: x = y op z (at most 3 addresses)"
         }
@@ -980,12 +980,12 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "Common TAC representations include:",
         "options": [
-            "Only assembly",
-            "Parse tree only",
             "Only quadruples",
-            "Quadruples, triples, indirect triples"
+            "Parse tree only",
+            "Quadruples, triples, indirect triples",
+            "Only assembly"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "TAC: quadruples (op, arg1, arg2, result), triples, indirect triples"
         }
@@ -997,12 +997,12 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "Quadruple format is:",
         "options": [
-            "(op, result, arg1, arg2)",
-            "(op, arg1, arg2, result)",
             "Only (op, result)",
-            "(result, op, arg1, arg2)"
+            "(result, op, arg1, arg2)",
+            "(op, arg1, arg2, result)",
+            "(op, result, arg1, arg2)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Quadruple: (operator, arg1, arg2, result)"
         }
@@ -1015,9 +1015,9 @@ Questions.register([
         "question": "Machine-independent optimization is done on:",
         "options": [
             "Binary code",
-            "Assembly code",
+            "Object code",
             "Intermediate code",
-            "Object code"
+            "Assembly code"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1031,10 +1031,10 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Common subexpression elimination removes:",
         "options": [
-            "All variables",
             "All expressions",
+            "All loops",
             "Redundant computation of same expression",
-            "All loops"
+            "All variables"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1048,12 +1048,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Dead code elimination removes:",
         "options": [
+            "Code whose result is never used",
             "Optimized code",
             "Loop code",
-            "Code whose result is never used",
             "All code"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Dead code: unreachable or result never used"
         }
@@ -1065,12 +1065,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Constant folding computes:",
         "options": [
-            "Compile-time evaluation of constant expressions",
             "Runtime constants",
             "Variable values",
-            "Loop bounds"
+            "Loop bounds",
+            "Compile-time evaluation of constant expressions"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Constant folding: evaluate constant expressions at compile time"
         }
@@ -1082,12 +1082,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Loop-invariant code motion:",
         "options": [
-            "Moves computation independent of loop outside the loop",
-            "Removes all loops",
             "Moves code into loops",
-            "Unrolls loops"
+            "Unrolls loops",
+            "Removes all loops",
+            "Moves computation independent of loop outside the loop"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Loop-invariant: move expressions not changing in loop to before loop"
         }
@@ -1100,11 +1100,11 @@ Questions.register([
         "question": "Strength reduction replaces:",
         "options": [
             "Variables with constants",
-            "Functions with inline code",
+            "Expensive operations with cheaper equivalents",
             "Addition with multiplication",
-            "Expensive operations with cheaper equivalents"
+            "Functions with inline code"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Strength reduction: replace * with +, / with shifts, etc."
         }
@@ -1116,12 +1116,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Induction variable elimination in loops:",
         "options": [
-            "Removes or replaces auxiliary loop variables",
-            "Unrolls loops",
             "Converts loops to recursion",
-            "Adds more loop variables"
+            "Removes or replaces auxiliary loop variables",
+            "Adds more loop variables",
+            "Unrolls loops"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Remove induction variables that can be computed from primary induction var"
         }
@@ -1133,12 +1133,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Loop unrolling:",
         "options": [
-            "Converts loop to function",
             "Removes loop entirely",
             "Replicates loop body to reduce overhead",
-            "Creates more loop iterations"
+            "Creates more loop iterations",
+            "Converts loop to function"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Unrolling: replicate body n times, reduce loop control overhead"
         }
@@ -1150,10 +1150,10 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Function inlining:",
         "options": [
-            "Removes function",
+            "Calls function recursively",
             "Replaces function call with function body",
             "Adds function parameters",
-            "Calls function recursively"
+            "Removes function"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1167,10 +1167,10 @@ Questions.register([
         "subtopic": "Code Generation",
         "question": "Code generator produces:",
         "options": [
-            "Tokens",
+            "Parse tree",
             "Intermediate code",
             "Target machine code",
-            "Parse tree"
+            "Tokens"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1184,9 +1184,9 @@ Questions.register([
         "subtopic": "Code Generation",
         "question": "Register allocation is:",
         "options": [
-            "Loading from disk",
-            "Removing registers",
             "Allocating memory to variables",
+            "Removing registers",
+            "Loading from disk",
             "Assigning variables to limited CPU registers"
         ],
         "correctAnswer": 3,
@@ -1201,9 +1201,9 @@ Questions.register([
         "subtopic": "Code Generation",
         "question": "Register allocation using graph coloring: nodes are:",
         "options": [
-            "Instructions",
             "Basic blocks",
             "Registers",
+            "Instructions",
             "Variables (live ranges)"
         ],
         "correctAnswer": 3,
@@ -1219,11 +1219,11 @@ Questions.register([
         "question": "Basic block is:",
         "options": [
             "Single instruction",
-            "Any sequence of instructions",
             "Maximal sequence with one entry, one exit, no jumps in/out",
-            "Entire program"
+            "Entire program",
+            "Any sequence of instructions"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Basic Block: MAXIMAL sequence of consecutive THREE-ADDRESS CODE instructions with: (1) ONE ENTRY POINT - only first instruction can be entered (no jumps into middle), (2) ONE EXIT POINT - only last instruction transfers control out (no jumps out from middle). Straight-line code, NO BRANCHES except possibly at end. Identified by: (1) start = first instruction, or target of branch, or instruction after branch, (2) end = branch instruction, or instruction before next start. Used for: local optimization (CSE, dead code within block), data flow analysis. Program partitioned into basic blocks. CFG built from blocks. Example: $t1=a+b; t2=t1*c; ifthen goto L1; t3=t2-5;$ (4 instructions, 1 block if no label inside).",
             "formula": "Basic block: straight-line, 1 entry/1 exit"
@@ -1237,11 +1237,11 @@ Questions.register([
         "question": "Control Flow Graph (CFG) nodes are:",
         "options": [
             "Tokens",
-            "Registers",
             "Basic blocks",
-            "Variables"
+            "Variables",
+            "Registers"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Control Flow Graph (CFG): Directed graph representing ALL POSSIBLE CONTROL FLOW PATHS through program. Nodes = BASIC BLOCKS (maximal straight-line code sequences). Edges = CONTROL FLOW (jumps, branches, fall-through). Edge from block $B_1$ to $B_2$ if: (1) $B_1$ ends with branch/goto to $B_2$, or (2) $B_1$ falls through to $B_2$ (sequential). Used for: (1) DATA FLOW analysis (reaching defs, live variables), (2) OPTIMIZATION (loop detection, dead code), (3) CODE GENERATION. Properties: Entry node (start), Exit node(s). Loop = back edge (target dominates source). Modern compilers (GCC, LLVM) heavily use CFG for analysis/optimization.",
             "formula": "CFG: nodes=basic blocks, edges=control flow"
@@ -1255,9 +1255,9 @@ Questions.register([
         "question": "Peephole optimization works on:",
         "options": [
             "Small window of instructions",
-            "Single basic block",
             "IR only",
-            "Entire program"
+            "Entire program",
+            "Single basic block"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1272,10 +1272,10 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Activation record (stack frame) contains:",
         "options": [
-            "Only return address",
-            "Local variables, parameters, return address, saved registers",
             "Only global variables",
-            "Only heap data"
+            "Local variables, parameters, return address, saved registers",
+            "Only heap data",
+            "Only return address"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1290,12 +1290,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Static allocation is used for:",
         "options": [
-            "Global variables, constants",
             "Dynamic arrays",
+            "Local variables",
             "Heap objects",
-            "Local variables"
+            "Global variables, constants"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Static Allocation: Memory allocated at COMPILE TIME - addresses and sizes KNOWN before execution. Used for: (1) GLOBAL VARIABLES - accessible throughout program lifetime, (2) CONSTANTS/LITERALS - immutable data, (3) STATIC variables (C/C++ static keyword) - persist across function calls, (4) CODE (instructions). Advantages: (1) FAST - no runtime overhead, (2) SIMPLE - fixed addresses. Disadvantages: (1) size must be compile-time constant, (2) no recursion support, (3) wastes space if not always used. Memory regions: .data (initialized globals), .bss (uninitialized), .rodata (constants), .text (code). Contrast: stack (dynamic, LIFO), heap (dynamic, programmer-managed).",
             "formula": "Static: compile-time alloc, globals/constants"
@@ -1308,12 +1308,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Stack allocation is used for:",
         "options": [
-            "Local variables, function calls",
             "Dynamic objects",
             "Static arrays",
+            "Local variables, function calls",
             "Global variables"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Stack Allocation: RUNTIME memory allocation using CALL STACK (LIFO - Last In First Out). Used for: (1) LOCAL VARIABLES - function scope, (2) ACTIVATION RECORDS - function calls, (3) PARAMETERS - argument passing, (4) RETURN addresses, saved registers. Operations: PUSH activation record on call, POP on return. Advantages: (1) AUTOMATIC management - no malloc/free, (2) FAST - increment/decrement stack pointer, (3) LOCALITY - recent data in cache, (4) SUPPORTS RECURSION - each call gets fresh frame. Disadvantages: (1) LIMITED SIZE - stack overflow if deep recursion/large locals, (2) LIFETIME - data destroyed on return. Typical size: 1-8 MB. Stack pointer (SP), frame pointer (FP/BP) registers manage stack.",
             "formula": "Stack: LIFO, activation records, auto-managed"
@@ -1326,12 +1326,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Heap allocation is used for:",
         "options": [
+            "Return addresses",
             "Dynamically allocated objects (malloc, new)",
-            "Global constants",
             "Fixed-size locals",
-            "Return addresses"
+            "Global constants"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Heap Allocation: DYNAMIC memory allocation for VARIABLE-SIZED, LONG-LIVED data. Programmer-requested (malloc/new) or garbage-collected (Java, Python). Used for: (1) DYNAMIC STRUCTURES - linked lists, trees, resizable arrays, (2) OBJECTS whose size unknown at compile time, (3) DATA outliving function scope. Operations: allocate (malloc/new), deallocate (free/delete). Management: (1) MANUAL - C/C++, programmer frees (error-prone: leaks, dangling pointers), (2) GARBAGE COLLECTION - Java/Python, automatic reclamation (mark-sweep, copying, generational). Advantages: (1) FLEXIBLE - any size, any lifetime. Disadvantages: (1) SLOW - allocation costly, (2) FRAGMENTATION - external (gaps), internal (unused in block), (3) management complexity. Larger than stack (gigabytes).",
             "formula": "Heap: dynamic alloc, programmer/GC managed"
@@ -1344,12 +1344,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Access link (static link) in activation record is used for:",
         "options": [
+            "Accessing non-local variables in lexically enclosing scopes",
             "Dynamic scoping",
             "Garbage collection",
-            "Returning to caller",
-            "Accessing non-local variables in lexically enclosing scopes"
+            "Returning to caller"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Static link: access variables in lexically enclosing scope"
         }
@@ -1362,11 +1362,11 @@ Questions.register([
         "question": "Control link (dynamic link) points to:",
         "options": [
             "Heap start",
-            "Caller's activation record",
             "Global data",
-            "Lexically enclosing scope"
+            "Lexically enclosing scope",
+            "Caller's activation record"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Dynamic/control link: points to caller's frame for return"
         }
@@ -1378,12 +1378,12 @@ Questions.register([
         "subtopic": "Compiler Phases",
         "question": "Number of phases in a typical compiler:",
         "options": [
-            "5",
-            "7",
             "6",
+            "7",
+            "5",
             "4"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "6 phases: Lexical, Syntax, Semantic, ICG, Optimization, Code Gen"
         }
@@ -1395,12 +1395,12 @@ Questions.register([
         "subtopic": "Compiler Phases",
         "question": "Analysis phase of compiler includes:",
         "options": [
-            "Code generation only",
-            "Code optimization only",
+            "None of these",
             "Lexical, Syntax, Semantic analysis",
-            "None of these"
+            "Code generation only",
+            "Code optimization only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Analysis (front-end): Lexical + Syntax + Semantic"
         }
@@ -1412,12 +1412,12 @@ Questions.register([
         "subtopic": "Compiler Phases",
         "question": "Synthesis phase of compiler includes:",
         "options": [
+            "Symbol table only",
             "ICG, Optimization, Code Generation",
-            "Parsing only",
             "Lexical analysis",
-            "Symbol table only"
+            "Parsing only"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Synthesis (back-end): ICG + Optimization + Code Gen"
         }
@@ -1431,8 +1431,8 @@ Questions.register([
         "options": [
             "Symbol table entry",
             "Smallest unit of program (actual text)",
-            "Token type",
-            "Internal representation"
+            "Internal representation",
+            "Token type"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1446,9 +1446,9 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Types of tokens include:",
         "options": [
+            "Only operators",
             "Only identifiers",
             "Only keywords",
-            "Only operators",
             "Identifier, keyword, operator, literal, special symbol"
         ],
         "correctAnswer": 3,
@@ -1463,10 +1463,10 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Lexical analyzer is implemented using:",
         "options": [
-            "Stack",
             "Turing machine",
+            "PDA",
             "DFA (from regular expression)",
-            "PDA"
+            "Stack"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1480,12 +1480,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Maximal munch rule means:",
         "options": [
+            "Error recovery",
             "Match longest prefix when ambiguous",
             "Read minimum characters",
-            "Error recovery",
             "Ignore comments"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Longest prefix match: '==' chosen over '=' + '='"
         }
@@ -1557,12 +1557,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Parser is implemented using:",
         "options": [
-            "DPDA (Deterministic PDA)",
-            "NFA",
             "Linear bounded automata",
-            "DFA"
+            "DPDA (Deterministic PDA)",
+            "DFA",
+            "NFA"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Parser = DPDA (handles CFG for programming languages)"
         }
@@ -1574,8 +1574,8 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LL(1) parser uses:",
         "options": [
-            "Random",
             "RMD",
+            "Random",
             "Bottom-up",
             "LMD (Left to right, Leftmost derivation)"
         ],
@@ -1591,12 +1591,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LR(1) parser uses:",
         "options": [
-            "No derivation",
-            "LMD",
+            "Only LMD",
             "Reverse of RMD (bottom-up)",
-            "Only LMD"
+            "No derivation",
+            "LMD"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "LR: Left-to-right, Rightmost derivation in Reverse"
         }
@@ -1608,12 +1608,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Hierarchy of LR parsers (weakest to strongest):",
         "options": [
-            "LALR < SLR < CLR",
+            "SLR < LALR < CLR",
             "CLR < LALR < SLR",
-            "All equal",
-            "SLR < LALR < CLR"
+            "LALR < SLR < CLR",
+            "All equal"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Power: SLR(1) ⊂ LALR(1) ⊂ CLR(1)"
         }
@@ -1625,12 +1625,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LL(1) grammar cannot have:",
         "options": [
-            "Left recursion or common prefix",
+            "Terminals",
             "Right recursion",
             "Production rules",
-            "Terminals"
+            "Left recursion or common prefix"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "LL(1): no left recursion, no common prefix (left factor)"
         }
@@ -1642,12 +1642,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "FIRST set contains:",
         "options": [
-            "Variables",
-            "Only ε",
             "Terminals that can start strings derived from symbol",
-            "Only $"
+            "Only ε",
+            "Only $",
+            "Variables"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "FIRST(X) = terminals that can begin strings derived from X"
         }
@@ -1660,11 +1660,11 @@ Questions.register([
         "question": "FOLLOW set contains:",
         "options": [
             "Never contains $",
+            "Terminals that can appear after a variable",
             "Terminals only",
-            "Variables",
-            "Terminals that can appear after a variable"
+            "Variables"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "FOLLOW(A) = terminals that can appear immediately after A"
         }
@@ -1676,12 +1676,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Grammar is LL(1) if for all A → α | β:",
         "options": [
-            "FIRST(α) ∩ FIRST(β) = ∅ and other conditions",
-            "FIRST(α) ∩ FIRST(β) ≠ ∅",
             "Always LL(1)",
-            "Never LL(1)"
+            "FIRST(α) ∩ FIRST(β) ≠ ∅",
+            "Never LL(1)",
+            "FIRST(α) ∩ FIRST(β) = ∅ and other conditions"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "LL(1) condition: FIRST(α) ∩ FIRST(β) = ∅, and if ε in FIRST, check FOLLOW"
         }
@@ -1694,11 +1694,11 @@ Questions.register([
         "question": "Shift-Reduce conflict occurs when:",
         "options": [
             "Only shift possible",
-            "Both shift and reduce possible in same state",
             "Neither possible",
+            "Both shift and reduce possible in same state",
             "Two reduces possible"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "SR conflict: parser can't decide between shift and reduce"
         }
@@ -1710,12 +1710,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Reduce-Reduce conflict occurs when:",
         "options": [
+            "Two different reductions possible in same state",
             "Shift and reduce",
-            "Only one reduce",
             "No conflict",
-            "Two different reductions possible in same state"
+            "Only one reduce"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "RR conflict: multiple productions valid for reduction"
         }
@@ -1727,12 +1727,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Operator precedence grammar requires:",
         "options": [
-            "Only terminals",
-            "Two variables adjacent",
             "No two variables adjacent and no ε productions",
-            "Always ε productions"
+            "Always ε productions",
+            "Only terminals",
+            "Two variables adjacent"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "OPG: no VV adjacent, no ε, allows some ambiguous grammars"
         }
@@ -1744,12 +1744,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "Synthesized attribute depends on:",
         "options": [
-            "Siblings",
-            "Children nodes",
             "Parent node",
-            "Root only"
+            "Root only",
+            "Siblings",
+            "Children nodes"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Synthesized: computed from children (bottom-up)"
         }
@@ -1761,12 +1761,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "Inherited attribute depends on:",
         "options": [
-            "Only leaves",
-            "Right siblings only",
             "Children",
-            "Parent and/or left siblings"
+            "Only leaves",
+            "Parent and/or left siblings",
+            "Right siblings only"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Inherited: from parent or left siblings (top-down/left-right)"
         }
@@ -1778,12 +1778,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "S-attributed grammar uses:",
         "options": [
+            "Only synthesized attributes",
             "Both equally",
-            "Only inherited attributes",
             "No attributes",
-            "Only synthesized attributes"
+            "Only inherited attributes"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "S-attributed: synthesized only, can use bottom-up parsing"
         }
@@ -1795,12 +1795,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "L-attributed grammar uses:",
         "options": [
-            "Only right sibling",
+            "Synthesized + restricted inherited (parent/left sibling)",
             "Only inherited",
-            "No attributes",
-            "Synthesized + restricted inherited (parent/left sibling)"
+            "Only right sibling",
+            "No attributes"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "L-attributed: synthesized + inherited from parent/left siblings"
         }
@@ -1812,12 +1812,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "Relationship between S-attributed and L-attributed:",
         "options": [
-            "L ⊂ S",
-            "S ⊂ L (every S-attributed is L-attributed)",
+            "Incomparable",
             "Equal",
-            "Incomparable"
+            "L ⊂ S",
+            "S ⊂ L (every S-attributed is L-attributed)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Every S-attributed grammar is also L-attributed"
         }
@@ -1829,12 +1829,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "S-attributed evaluation order:",
         "options": [
-            "Random",
+            "Post-order (reverse RMD)",
             "Pre-order",
-            "In-order",
-            "Post-order (reverse RMD)"
+            "Random",
+            "In-order"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "S-attributed: bottom-up (reverse of RMD)"
         }
@@ -1846,12 +1846,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "L-attributed evaluation order:",
         "options": [
-            "In-order (depth-first left-to-right)",
-            "Post-order",
             "Reverse pre-order",
-            "Random"
+            "Post-order",
+            "Random",
+            "In-order (depth-first left-to-right)"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "L-attributed: in-order traversal (topological)"
         }
@@ -1863,9 +1863,9 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "3-address code has at most:",
         "options": [
+            "1 address",
             "2 addresses per instruction",
             "4 addresses",
-            "1 address",
             "3 addresses per instruction (including LHS)"
         ],
         "correctAnswer": 3,
@@ -1881,11 +1881,11 @@ Questions.register([
         "question": "DAG (Directed Acyclic Graph) is used for:",
         "options": [
             "Parsing only",
+            "Lexical analysis",
             "Eliminating common subexpressions",
-            "Syntax errors",
-            "Lexical analysis"
+            "Syntax errors"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DAG: common subexpression elimination"
         }
@@ -1897,10 +1897,10 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "SSA (Static Single Assignment) means:",
         "options": [
-            "Multiple assignments to same variable",
-            "Each variable assigned exactly once",
             "Dynamic assignment",
-            "No assignments"
+            "Each variable assigned exactly once",
+            "No assignments",
+            "Multiple assignments to same variable"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1914,12 +1914,12 @@ Questions.register([
         "subtopic": "Intermediate Code",
         "question": "Basic block starts with:",
         "options": [
-            "Any instruction",
+            "Only return",
             "Only function call",
-            "Leader (first instruction or target of jump)",
-            "Only return"
+            "Any instruction",
+            "Leader (first instruction or target of jump)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Basic block: starts with leader, ends with jump/return"
         }
@@ -1943,12 +1943,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Constant folding means:",
         "options": [
+            "Adding constants",
             "Evaluating constant expressions at compile time",
-            "Removing constants",
             "Folding code",
-            "Adding constants"
+            "Removing constants"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "x = 2*3+5 → x = 11 at compile time"
         }
@@ -1960,12 +1960,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Copy propagation replaces:",
         "options": [
-            "Functions with code",
-            "Constants with variables",
+            "Nothing",
             "Uses of variable with its definition",
-            "Nothing"
+            "Functions with code",
+            "Constants with variables"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "x=y; z=x+1 → z=y+1 (propagate x=y)"
         }
@@ -1977,12 +1977,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Strength reduction replaces:",
         "options": [
-            "Expensive operations with cheaper equivalents",
             "Nothing",
-            "Addition with subtraction",
-            "Strong operators with weaker ones"
+            "Strong operators with weaker ones",
+            "Expensive operations with cheaper equivalents",
+            "Addition with subtraction"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "x=y*2 → x=y<<1 (shift cheaper than multiply)"
         }
@@ -1995,11 +1995,11 @@ Questions.register([
         "question": "Dead code elimination removes:",
         "options": [
             "All code",
-            "Comments only",
             "Code that doesn't affect output",
-            "Loops only"
+            "Loops only",
+            "Comments only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Remove unreachable code or code with unused results"
         }
@@ -2011,9 +2011,9 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Common subexpression elimination is done using:",
         "options": [
-            "Queue",
-            "DAG",
             "Stack",
+            "DAG",
+            "Queue",
             "Heap"
         ],
         "correctAnswer": 1,
@@ -2028,12 +2028,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Loop invariant code motion moves:",
         "options": [
-            "Invariant code outside the loop",
-            "Variables only",
             "Nothing",
-            "Code into loop"
+            "Variables only",
+            "Code into loop",
+            "Invariant code outside the loop"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Move computations that don't change inside loop to outside"
         }
@@ -2045,9 +2045,9 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Loop unrolling:",
         "options": [
+            "Creates new loops",
             "Deletes loops",
             "Rolls up loop",
-            "Creates new loops",
             "Replicates loop body to reduce iterations"
         ],
         "correctAnswer": 3,
@@ -2062,12 +2062,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Peephole optimization examines:",
         "options": [
+            "Only loops",
             "Small window of instructions",
             "Entire program",
-            "Only loops",
             "Only functions"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Peephole: local optimization on small instruction sequences"
         }
@@ -2079,12 +2079,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Induction variable elimination optimizes:",
         "options": [
-            "Constants",
-            "Loop index variables linked by linear relationship",
             "Function calls",
-            "Arrays"
+            "Arrays",
+            "Loop index variables linked by linear relationship",
+            "Constants"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "If j=4*i in loop, eliminate i, use j directly"
         }
@@ -2097,8 +2097,8 @@ Questions.register([
         "question": "Activation record contains:",
         "options": [
             "Local variables, parameters, return address, saved registers",
-            "Only data",
             "Only code",
+            "Only data",
             "Only return address"
         ],
         "correctAnswer": 0,
@@ -2113,12 +2113,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Static scope (lexical scope) determines binding at:",
         "options": [
-            "Compile time",
             "Link time",
             "Runtime",
+            "Compile time",
             "Load time"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Static: scope determined by program structure"
         }
@@ -2130,12 +2130,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Dynamic scope determines binding at:",
         "options": [
-            "Runtime based on calling sequence",
             "Never",
+            "Link time",
             "Compile time",
-            "Link time"
+            "Runtime based on calling sequence"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Dynamic: binding based on call stack at runtime"
         }
@@ -2187,12 +2187,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Which phase of compiler uses regular expressions?",
         "options": [
-            "Code generation",
             "Syntax analysis",
-            "Lexical analysis",
-            "Semantic analysis"
+            "Code generation",
+            "Semantic analysis",
+            "Lexical analysis"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Lexical analyzer uses RE → NFA → DFA for tokenization"
         }
@@ -2205,12 +2205,12 @@ Questions.register([
         "subtopic": "Lexical Analysis",
         "question": "Which is NOT a valid token in C?",
         "options": [
-            "abc123",
-            "__LINE__",
             "123abc",
-            "_var"
+            "_var",
+            "abc123",
+            "__LINE__"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Identifiers cannot start with digit: 123abc is invalid"
         }
@@ -2223,12 +2223,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Which grammar is suitable for LR parsing but not LL?",
         "options": [
-            "Left recursive grammar",
             "ε-free grammar",
+            "Left recursive grammar",
             "Right recursive grammar",
             "Ambiguous grammar"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Left recursion: allowed in LR, not in LL"
         }
@@ -2241,12 +2241,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "In SLR parsing, reduce action uses:",
         "options": [
-            "Both FIRST and FOLLOW",
+            "FOLLOW set",
             "Neither",
-            "FIRST set",
-            "FOLLOW set"
+            "Both FIRST and FOLLOW",
+            "FIRST set"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "SLR: reduce on symbols in FOLLOW(LHS)"
         }
@@ -2261,8 +2261,8 @@ Questions.register([
         "options": [
             "Rightmost derivation in reverse",
             "Preorder traversal",
-            "Leftmost derivation",
-            "Postorder traversal"
+            "Postorder traversal",
+            "Leftmost derivation"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2277,10 +2277,10 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Handle in shift-reduce parsing is:",
         "options": [
+            "Leftmost terminal",
             "Any production",
-            "Rightmost nonterminal",
             "A substring matching RHS that reduces to LHS",
-            "Leftmost terminal"
+            "Rightmost nonterminal"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -2295,12 +2295,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "LALR(1) parser is:",
         "options": [
-            "Same as CLR(1)",
-            "Same as SLR",
+            "More powerful than CLR(1)",
             "Less powerful than CLR(1) but same states as SLR",
-            "More powerful than CLR(1)"
+            "Same as CLR(1)",
+            "Same as SLR"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "LALR: CLR states merged (same as SLR count), less power than CLR"
         }
@@ -2346,8 +2346,8 @@ Questions.register([
         "options": [
             "Neither LL nor LR",
             "LR(1)",
-            "Both LL and LR",
-            "LL(1)"
+            "LL(1)",
+            "Both LL and LR"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2362,12 +2362,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Number of items in canonical collection for S→AB, A→a, B→b:",
         "options": [
-            "7",
-            "3",
             "9",
+            "3",
+            "7",
             "5"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Augmented: S'→S. States: I0 to I6 typically = 7 states"
         }
@@ -2380,12 +2380,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "FIRST(ε) = ?",
         "options": [
-            "{ε}",
             "All terminals",
-            "{}",
-            "Error"
+            "Error",
+            "{ε}",
+            "{}"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "FIRST(ε) = {ε}"
         }
@@ -2398,12 +2398,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "Given E→E+T|T, T→T*F|F, F→(E)|id. FIRST(E) = ?",
         "options": [
-            "{+, *, (, id}",
             "{E, T, F}",
             "{+, *}",
-            "{(, id}"
+            "{(, id}",
+            "{+, *, (, id}"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "FIRST(E) = FIRST(T) = FIRST(F) = {(, id}"
         }
@@ -2417,11 +2417,11 @@ Questions.register([
         "question": "FOLLOW(start symbol) always contains:",
         "options": [
             "ε",
-            "Nothing",
+            "$ (end marker)",
             "All terminals",
-            "$ (end marker)"
+            "Nothing"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "FOLLOW(S) always contains $ by definition"
         }
@@ -2434,12 +2434,12 @@ Questions.register([
         "subtopic": "Parsing",
         "question": "If A→αBβ then FOLLOW(B) contains:",
         "options": [
-            "FIRST(A)",
             "FIRST(β) - {ε}",
-            "FOLLOW(A) only",
-            "Nothing"
+            "FIRST(A)",
+            "Nothing",
+            "FOLLOW(A) only"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "FOLLOW(B) includes FIRST(β) - {ε}. If ε in FIRST(β), add FOLLOW(A)"
         }
@@ -2452,12 +2452,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "Which is true for S-attributed grammar?",
         "options": [
+            "Needs multiple passes",
             "Can use bottom-up parser (LR)",
-            "Cannot be parsed",
             "Can use top-down parser",
-            "Needs multiple passes"
+            "Cannot be parsed"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "S-attributed: only synthesized, evaluated bottom-up (LR)"
         }
@@ -2470,10 +2470,10 @@ Questions.register([
         "subtopic": "SDT",
         "question": "L-attributed definition allows inherited attributes from:",
         "options": [
-            "Any node",
             "Children",
+            "Right siblings",
             "Parent and left siblings only",
-            "Right siblings"
+            "Any node"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -2488,12 +2488,12 @@ Questions.register([
         "subtopic": "SDT",
         "question": "Annotated parse tree is used in:",
         "options": [
+            "Lexical analysis",
             "Syntax directed translation",
             "Linking",
-            "Lexical analysis",
             "Code generation only"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "SDT: parse tree with attribute values = annotated parse tree"
         }
@@ -2507,11 +2507,11 @@ Questions.register([
         "question": "Given E→E1+T {E.val = E1.val + T.val}. 'val' is:",
         "options": [
             "Neither",
-            "Synthesized attribute",
             "Inherited attribute",
-            "Both"
+            "Both",
+            "Synthesized attribute"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "val of E computed from children: synthesized"
         }
@@ -2525,11 +2525,11 @@ Questions.register([
         "question": "Given D→TL {L.type=T.type}, L→L1,id {L1.type=L.type}. 'type' for L is:",
         "options": [
             "Both",
-            "Synthesized",
+            "Inherited",
             "Neither",
-            "Inherited"
+            "Synthesized"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "L.type comes from parent (T) or left sibling: inherited"
         }
@@ -2568,12 +2568,12 @@ Questions.register([
         "subtopic": "3AC",
         "question": "Quadruple representation stores:",
         "options": [
-            "(arg1, arg2, op)",
             "(op, arg1, result)",
             "(op, result)",
-            "(op, arg1, arg2, result)"
+            "(op, arg1, arg2, result)",
+            "(arg1, arg2, op)"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Quadruple: (operator, arg1, arg2, result)"
         }
@@ -2586,9 +2586,9 @@ Questions.register([
         "subtopic": "3AC",
         "question": "Triple representation saves space by:",
         "options": [
+            "Using hash table",
             "Not storing operator",
             "Compression",
-            "Using hash table",
             "Not storing result (use statement number)"
         ],
         "correctAnswer": 3,
@@ -2604,12 +2604,12 @@ Questions.register([
         "subtopic": "3AC",
         "question": "DAG (Directed Acyclic Graph) helps in:",
         "options": [
+            "Register allocation",
             "Linking",
             "Common subexpression elimination",
-            "Register allocation",
             "Syntax analysis"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DAG identifies and eliminates common subexpressions"
         }
@@ -2623,11 +2623,11 @@ Questions.register([
         "question": "x=2*y can be optimized to x=y<<1. This is:",
         "options": [
             "Copy propagation",
-            "Dead code elimination",
+            "Strength reduction",
             "Constant folding",
-            "Strength reduction"
+            "Dead code elimination"
         ],
-        "correctAnswer": 3,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Replacing * with << is strength reduction"
         }
@@ -2640,12 +2640,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "x=3*2+1 becomes x=7 at compile time. This is:",
         "options": [
-            "Dead code",
             "Constant folding",
+            "Inlining",
             "Strength reduction",
-            "Inlining"
+            "Dead code"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Compile-time evaluation = constant folding"
         }
@@ -2658,12 +2658,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "if(false) {x=1;} can be removed. This is:",
         "options": [
-            "Dead code elimination",
-            "Loop optimization",
+            "Constant folding",
             "Copy propagation",
-            "Constant folding"
+            "Loop optimization",
+            "Dead code elimination"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Unreachable code removal = dead code elimination"
         }
@@ -2678,8 +2678,8 @@ Questions.register([
         "options": [
             "Loop unrolling",
             "Code motion",
-            "Strength reduction",
-            "Dead code"
+            "Dead code",
+            "Strength reduction"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2694,12 +2694,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "for(i=0;i<100;i++)f(); → 100 calls of f() without loop. This is:",
         "options": [
-            "Loop unrolling",
             "Code motion",
+            "Loop unrolling",
             "CSE",
             "Inlining"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Expanding loop body = loop unrolling"
         }
@@ -2712,12 +2712,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "y=x; z=y+1; → z=x+1; is:",
         "options": [
-            "Copy propagation",
             "Dead code",
             "Constant folding",
+            "Copy propagation",
             "CSE"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Replacing y with x = copy propagation"
         }
@@ -2730,12 +2730,12 @@ Questions.register([
         "subtopic": "Optimization",
         "question": "Peephole optimization works on:",
         "options": [
-            "Parse tree",
-            "Small window of target code",
             "Source code",
-            "Entire program"
+            "Parse tree",
+            "Entire program",
+            "Small window of target code"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Peephole: local optimization on instruction window"
         }
@@ -2766,9 +2766,9 @@ Questions.register([
         "subtopic": "Code Generation",
         "question": "Register allocation is modeled as:",
         "options": [
+            "Maximum flow",
             "Minimum spanning tree",
             "Shortest path problem",
-            "Maximum flow",
             "Graph coloring problem"
         ],
         "correctAnswer": 3,
@@ -2785,11 +2785,11 @@ Questions.register([
         "question": "Live variable analysis determines:",
         "options": [
             "Loop bounds",
+            "Variables never used",
             "Variables used after a point",
-            "Constant values",
-            "Variables never used"
+            "Constant values"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Live: variable may be used later before redefinition"
         }
@@ -2816,11 +2816,11 @@ Questions.register([
         "question": "Instruction selection is part of:",
         "options": [
             "Lexical analysis",
-            "Code generation",
+            "Optimization only",
             "Parsing",
-            "Optimization only"
+            "Code generation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Code gen: instruction selection, register allocation, scheduling"
         }
@@ -2833,12 +2833,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Activation record for a function call contains:",
         "options": [
-            "Parameters, locals, return address, saved registers",
-            "Only return address",
+            "Only parameters",
             "Only code",
-            "Only parameters"
+            "Parameters, locals, return address, saved registers",
+            "Only return address"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "AR: params, return addr, saved regs, locals, control/access links"
         }
@@ -2851,12 +2851,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Static link in activation record is used for:",
         "options": [
-            "Dynamic scoping",
             "Register saving",
             "Accessing enclosing scope variables (lexical scoping)",
-            "Return address"
+            "Return address",
+            "Dynamic scoping"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Static link: access lexically enclosing scope"
         }
@@ -2869,12 +2869,12 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Display is used to optimize access to:",
         "options": [
-            "Nested scope variables",
             "Global variables",
+            "Heap",
             "Local variables only",
-            "Heap"
+            "Nested scope variables"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Display: array of pointers for fast nested scope access"
         }
@@ -2887,9 +2887,9 @@ Questions.register([
         "subtopic": "Runtime",
         "question": "Tail recursion can be converted to:",
         "options": [
-            "Multiple recursion",
             "Nested recursion",
             "Mutual recursion",
+            "Multiple recursion",
             "Iteration (loop)"
         ],
         "correctAnswer": 3,
