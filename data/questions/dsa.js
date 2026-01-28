@@ -6,12 +6,12 @@ Questions.register([
         "subtopic": "Arrays & Strings",
         "question": "Time complexity of accessing an element in an array by index is:",
         "options": [
-            "O(1)",
             "O(log n)",
             "O(n)",
+            "O(1)",
             "O(n²)"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Arrays provide O(1) random access because elements stored contiguously in memory. Address calculation: Address(A[i]) = Base + i times element_size. GATE: Direct addressing via index. No traversal needed unlike linked lists. Trade-off: insertion/deletion O(n) due to shifting.",
             "formula": "Address(A[i]) = Base + i times size"
@@ -24,12 +24,12 @@ Questions.register([
         "subtopic": "Linked Lists",
         "question": "Which operation is O(1) in a doubly linked list but O(n) in a singly linked list?",
         "options": [
-            "Insertion at head",
-            "Insertion at tail (with tail pointer)",
             "Deletion of a given node",
-            "Searching an element"
+            "Searching an element",
+            "Insertion at tail (with tail pointer)",
+            "Insertion at head"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Deletion of given node: SLL needs previous node (O(n) traversal). DLL has prev pointer - directly access and update. GATE: DLL advantage - bidirectional traversal, O(1) deletion if node pointer given. SLL only forward traversal.",
             "formula": "SLL delete: O(n); DLL delete: O(1) with node pointer"
@@ -42,10 +42,10 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "The data structure used for implementing function calls is:",
         "options": [
-            "Queue",
-            "Stack",
             "Heap",
-            "Graph"
+            "Stack",
+            "Graph",
+            "Queue"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -60,8 +60,8 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "In a circular queue with size n, the formula for rear after insertion is:",
         "options": [
-            "rear + 1",
             "rear - 1",
+            "rear + 1",
             "(rear + 1) % n",
             "(rear - 1) % n"
         ],
@@ -78,12 +78,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "A complete binary tree with n nodes has height:",
         "options": [
+            "⌈log₂n⌉",
             "n",
             "n-1",
-            "⌊log₂n⌋",
-            "⌈log₂n⌉"
+            "⌊log₂n⌋"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "A complete binary tree fills levels top-to-bottom, left-to-right. Height = ⌊log₂n⌋. Maximum nodes at height h = 2^(h+1) - 1.",
             "formula": "Height = ⌊log₂n⌋"
@@ -96,12 +96,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "Inorder traversal of a Binary Search Tree gives elements in:",
         "options": [
-            "Random order",
-            "Ascending order",
             "Descending order",
-            "Level order"
+            "Random order",
+            "Level order",
+            "Ascending order"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "BST property: left < root < right for all nodes. Inorder traversal (Left-Root-Right) visits in ascending order. GATE: This makes BST useful for sorted data operations. Preorder gives prefix, Postorder gives postfix expression.",
             "formula": "Inorder(BST) = Sorted ascending order"
@@ -129,10 +129,10 @@ Questions.register([
         "options": [
             "Any leaf node",
             "The last node",
-            "The root",
-            "Cannot be determined"
+            "Cannot be determined",
+            "The root"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Max-heap property: parent >= all descendants. Root has maximum value. Min-heap: root has minimum. GATE: Heap operations - insert O(log n), extract-max O(log n), build-heap O(n). Used in heapsort, priority queues.",
             "formula": "Max-heap: root = maximum; Operations O(log n)"
@@ -164,11 +164,11 @@ Questions.register([
         "question": "Time complexity of inserting at the beginning of an array of size n is:",
         "options": [
             "O(1)",
-            "O(log n)",
             "O(n)",
+            "O(log n)",
             "O(n log n)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Insert at index 0: shift all n elements right, O(n) time.",
             "formula": "Array insert at i: O(n-i) shifts"
@@ -181,12 +181,12 @@ Questions.register([
         "subtopic": "Arrays & Strings",
         "question": "Time complexity of deleting from the end of a dynamic array is:",
         "options": [
-            "O(n)",
-            "O(log n)",
             "O(1) amortized",
-            "O(n²)"
+            "O(n²)",
+            "O(log n)",
+            "O(n)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Array End Deletion:\n\nDeleting from the end is O(1) because:\n1. No shifting required\n2. Just decrement the size counter\n\nThe memory slot may still contain the old value (garbage), but logically the array is shorter.\n\nDynamic arrays may occasionally shrink (copy to smaller array) for memory efficiency, but this is amortized O(1)."
         }
@@ -216,12 +216,12 @@ Questions.register([
         "subtopic": "Linked Lists",
         "question": "Time complexity of searching in an unsorted linked list of n elements is:",
         "options": [
+            "O(n log n)",
             "O(1)",
             "O(log n)",
-            "O(n)",
-            "O(n log n)"
+            "O(n)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Traverse from head, check each. Worst/avg O(n). No random access for binary search.",
             "formula": "LL search: O(n)"
@@ -234,12 +234,12 @@ Questions.register([
         "subtopic": "Linked Lists",
         "question": "A circular linked list's last node points to:",
         "options": [
-            "NULL",
             "The head node",
             "Itself",
+            "NULL",
             "The second node"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Circular Linked List:\n\nIn a circular LL, the last node's 'next' points back to the head, forming a closed loop.\n\nAdvantages:\n1. Can traverse entire list from any node\n2. Useful for round-robin scheduling\n3. No NULL pointers to check\n\nDetection: Keep tracking visited nodes or use two-pointer technique.\n\nVariation: Doubly circular - last.next = head AND head.prev = last."
         }
@@ -253,10 +253,10 @@ Questions.register([
         "options": [
             "Recursion",
             "Hash table",
-            "Two pointers (slow and fast)",
-            "Stack"
+            "Stack",
+            "Two pointers (slow and fast)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Two pointers: slow +1, fast +2. Meet if cycle. To find start: reset one to head, both move +1, meet at start.",
             "formula": "Floyd: O(n) time, O(1) space"
@@ -269,12 +269,12 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "Stack operations (push, pop, peek) have time complexity:",
         "options": [
+            "O(1)",
             "O(n)",
             "O(log n)",
-            "O(1)",
             "O(n²)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Push/Pop/Peek all O(1) - access top only.",
             "formula": "Stack: All ops O(1)"
@@ -287,12 +287,12 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "Postfix expression evaluation uses:",
         "options": [
-            "Queue",
-            "Stack",
+            "Graph",
             "Tree",
-            "Graph"
+            "Stack",
+            "Queue"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Postfix Expression Evaluation using Stack:\n\nAlgorithm:\n1. Scan expression left to right\n2. If OPERAND: push onto stack\n3. If OPERATOR: pop two operands, apply operator, push result\n4. After scanning: stack top = final result\n\nExample: 2 3 + 4 × evaluates to 20\n- Push 2, Push 3\n- See +: Pop 3,2 → compute 2+3=5 → Push 5\n- Push 4\n- See ×: Pop 4,5 → compute 5×4=20 → Push 20\n\nNote: Second popped operand is the LEFT operand for subtraction/division!"
         }
@@ -304,10 +304,10 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "Infix to postfix conversion uses:",
         "options": [
-            "One queue",
-            "One stack",
             "Two stacks",
-            "Priority queue"
+            "One stack",
+            "Priority queue",
+            "One queue"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -321,10 +321,10 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "Balanced parentheses checking is done using:",
         "options": [
-            "Queue",
+            "Linked list only",
             "Stack",
-            "Array only",
-            "Linked list only"
+            "Queue",
+            "Array only"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -338,12 +338,12 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "BFS (Breadth-First Search) uses which data structure?",
         "options": [
+            "Hash Table",
             "Stack",
-            "Queue",
             "Priority Queue",
-            "Hash Table"
+            "Queue"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "BFS (Breadth-First Search) uses Queue:\n\nAlgorithm:\n1. Enqueue starting vertex, mark visited\n2. While queue not empty:\n   - Dequeue vertex u\n   - Process u\n   - Enqueue all unvisited neighbors of u, mark visited\n\nWhy Queue? FIFO ensures level-by-level exploration.\n\nApplications:\n- Shortest path in unweighted graph\n- Level-order tree traversal\n- Web crawling\n- Social network friend-of-friend\n\nTime: O(V+E), Space: O(V) for queue and visited array"
         }
@@ -355,12 +355,12 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "Priority queue always removes the element with:",
         "options": [
-            "Newest element",
-            "Oldest element",
             "Highest (or lowest) priority",
-            "Random element"
+            "Random element",
+            "Newest element",
+            "Oldest element"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Priority Queue:\n\nElements are removed in ORDER OF PRIORITY, not insertion order.\n\nImplementations:\n1. Unsorted array: Insert O(1), Extract O(n)\n2. Sorted array: Insert O(n), Extract O(1)\n3. Binary Heap (best): Insert O(log n), Extract O(log n)\n4. Fibonacci Heap: Insert O(1) amortized, Decrease-key O(1) amortized\n\nApplications:\n- Dijkstra's algorithm (needs decrease-key)\n- Huffman coding\n- Job scheduling\n- A* search algorithm\n- Heap sort"
         }
@@ -372,12 +372,12 @@ Questions.register([
         "subtopic": "Stacks & Queues",
         "question": "A double-ended queue (deque) allows insertion and deletion at:",
         "options": [
+            "Both front and rear",
             "Front only",
             "Rear only",
-            "Both front and rear",
             "Middle only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Double-Ended Queue (Deque):\n\nOperations supported at BOTH ends in O(1):\n- push_front / push_back\n- pop_front / pop_back\n- peek_front / peek_back\n\nImplementations:\n1. Doubly linked list: O(1) all operations, extra pointer overhead\n2. Circular array: O(1) amortized, better cache locality\n\nApplications:\n- Sliding window maximum (use as monotonic deque)\n- Work stealing in parallel processing\n- Undo-redo functionality\n- BFS where you need to sometimes prioritize (like 0-1 BFS)"
         }
@@ -389,12 +389,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "A binary tree with n nodes has how many NULL pointers?",
         "options": [
-            "n",
-            "n-1",
             "n+1",
+            "n-1",
+            "n",
             "2n"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Binary Tree NULL Pointers:\n\nTotal pointers: Each node has 2 child pointers → 2n total\nNon-NULL pointers: Each edge uses one pointer → n-1 edges\nNULL pointers: 2n - (n-1) = n + 1\n\nAlternatively: Induction proof\n- Single node: 2 NULL pointers = 1 + 1 ✔\n- Adding a node converts 1 NULL to edge and adds 2 new NULLs\n  Net change: -1 + 2 = +1 NULL \n  So n nodes → n+1 NULLs ✔\n\nThis is a frequently tested formula!",
             "formula": "NULL pointers = n+1"
@@ -408,11 +408,11 @@ Questions.register([
         "question": "Number of leaf nodes in a full binary tree with n internal nodes is:",
         "options": [
             "n",
-            "n-1",
             "n+1",
-            "2n"
+            "2n",
+            "n-1"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Full Binary Tree Leaf Formula:\n\nA FULL binary tree: every node has 0 or 2 children (never 1).\n\nLet i = internal nodes (degree 2), L = leaf nodes (degree 0)\n\nRelation: L = i + 1\n\nProof by edge counting:\n- Total nodes = i + L\n- Edges = nodes - 1 = i + L - 1\n- Also, edges = 2i (each internal node contributes 2 edges)\n- So: 2i = i + L - 1 → L = i + 1\n\nExample: 5 internal nodes → 6 leaves",
             "formula": "Leaves = Internal nodes + 1"
@@ -425,9 +425,9 @@ Questions.register([
         "subtopic": "Trees",
         "question": "Maximum nodes in a binary tree of height h (root at height 0) is:",
         "options": [
-            "h",
             "2h",
             "2^h",
+            "h",
             "2^(h+1) - 1"
         ],
         "correctAnswer": 3,
@@ -443,12 +443,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "BST search time complexity (average case) is:",
         "options": [
-            "O(1)",
             "O(log n)",
+            "O(1)",
             "O(n)",
             "O(n log n)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "BST Search Time Complexity:\n\nAverage case (balanced): O(log n)\n- Height ≈ log n, search follows one path from root\n\nWorst case (skewed): O(n)\n- All nodes on one side → height = n-1\n- Happens with sorted input and no balancing\n\nTo guarantee O(log n): Use balanced BSTs (AVL, Red-Black, B-trees)\n\nSearch algorithm:\n1. If root is NULL → not found\n2. If key = root.data → found\n3. If key < root.data → search left subtree\n4. Else → search right subtree"
         }
@@ -460,12 +460,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "BST property states that for every node, all nodes in left subtree are:",
         "options": [
+            "Either greater or less",
             "Greater",
             "Less",
-            "Equal",
-            "Either greater or less"
+            "Equal"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "BST Property (Binary Search Tree Invariant):\n\nFor EVERY node in the tree:\n- ALL nodes in left subtree < current node\n- ALL nodes in right subtree > current node\n\nThis property holds recursively throughout the tree.\n\nConsequences:\n1. Inorder traversal gives sorted order\n2. Minimum is leftmost node\n3. Maximum is rightmost node\n4. Searching is efficient (binary search on tree)\n\nVariations: Some BSTs allow duplicates (usually in right subtree)."
         }
@@ -477,10 +477,10 @@ Questions.register([
         "subtopic": "Trees",
         "question": "Deleting a node with two children in BST replaces it with:",
         "options": [
-            "Left child",
             "Right child",
+            "Any child",
             "Inorder successor or predecessor",
-            "Any child"
+            "Left child"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -495,11 +495,11 @@ Questions.register([
         "question": "AVL tree is a BST where for every node, height difference between left and right subtrees is at most:",
         "options": [
             "0",
-            "1",
             "2",
-            "log n"
+            "log n",
+            "1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "AVL Tree Balance Factor:\n\nBalance Factor = height(left subtree) - height(right subtree)\n\nFor AVL tree: BF ∈ {-1, 0, +1} for EVERY node\n- BF = 0: perfectly balanced\n- BF = +1: left-heavy\n- BF = -1: right-heavy\n\nIf |BF| ≥ 2 after insert/delete → REBALANCE with rotations\n\nHeight guarantee: h ≤ 1.44 × log₂(n+2), ensuring O(log n) operations\n\nNamed after inventors Adelson-Velsky and Landis (1962)."
         }
@@ -511,9 +511,9 @@ Questions.register([
         "subtopic": "Trees",
         "question": "AVL tree guarantees search, insert, delete in:",
         "options": [
-            "O(1)",
-            "O(log n)",
             "O(n)",
+            "O(log n)",
+            "O(1)",
             "O(n log n)"
         ],
         "correctAnswer": 1,
@@ -528,12 +528,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "AVL tree rotations are used to:",
         "options": [
-            "Speed up search",
-            "Restore balance after insert/delete",
             "Reduce memory",
-            "Sort elements"
+            "Speed up search",
+            "Sort elements",
+            "Restore balance after insert/delete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "AVL Tree Rotations:\n\nFour imbalance cases and their fixes:\n\n1. LL (Left-Left): Node inserted in left subtree of left child\n   Fix: Single RIGHT rotation at unbalanced node\n\n2. RR (Right-Right): Node inserted in right subtree of right child\n   Fix: Single LEFT rotation at unbalanced node\n\n3. LR (Left-Right): Node inserted in right subtree of left child\n   Fix: LEFT rotation at left child, then RIGHT rotation at node\n\n4. RL (Right-Left): Node inserted in left subtree of right child\n   Fix: RIGHT rotation at right child, then LEFT rotation at node\n\nAfter rotation, balance factor returns to {-1, 0, +1}."
         }
@@ -547,10 +547,10 @@ Questions.register([
         "options": [
             "Linked list",
             "Binary search tree",
-            "Array",
-            "Hash table"
+            "Hash table",
+            "Array"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Heap Array Representation:\n\nComplete binary tree maps perfectly to array (0-indexed):\n\nFor node at index i:\n- Parent: floor((i-1)/2)\n- Left child: 2i + 1\n- Right child: 2i + 2\n\nFor 1-indexed:\n- Parent: floor(i/2)\n- Left child: 2i\n- Right child: 2i + 1\n\nAdvantages over pointer-based tree:\n1. No pointer overhead\n2. Excellent cache locality\n3. Easy to implement\n\nHeap is NOT a BST! Only parent-child ordering matters, not left-right."
         }
@@ -563,11 +563,11 @@ Questions.register([
         "question": "Heapify operation (build heap from array) takes:",
         "options": [
             "O(log n)",
+            "O(n²)",
             "O(n)",
-            "O(n log n)",
-            "O(n²)"
+            "O(n log n)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Build Heap (Heapify) Complexity:\n\nNaive analysis: Insert n elements, each O(log n) → O(n log n)\nBut bottom-up heapify is actually O(n)!\n\nWhy? Most nodes are at bottom levels.\n- n/2 leaves: 0 work\n- n/4 nodes: 1 swap max\n- n/8 nodes: 2 swaps max\n...\nSum = n/4·1 + n/8·2 + n/16·3 + ... = O(n)\n\nBottom-up: Start from last non-leaf (index n/2-1) and sift down each. Much more efficient than top-down construction!"
         }
@@ -596,12 +596,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "Heap sort time complexity is:",
         "options": [
-            "O(n)",
             "O(n log n)",
             "O(n²)",
-            "O(log n)"
+            "O(log n)",
+            "O(n)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Heap Sort Complexity:\n\nStep 1: Build max-heap from array: O(n)\nStep 2: Repeatedly extract-max and place at end: n × O(log n)\n\nTotal: O(n) + O(n log n) = O(n log n)\n\nAdvantages:\n- In-place sorting (no extra space like merge sort)\n- Guaranteed O(n log n) worst case (unlike quicksort)\n\nDisadvantages:\n- Not stable (doesn't preserve order of equal elements)\n- Poor cache locality compared to quicksort\n- Rarely faster than optimized quicksort in practice"
         }
@@ -613,12 +613,12 @@ Questions.register([
         "subtopic": "Hashing",
         "question": "Hash table with chaining uses _____ to handle collisions:",
         "options": [
-            "Open addressing",
             "Linked lists",
+            "Sorting",
             "Binary trees",
-            "Sorting"
+            "Open addressing"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Hash Table Collision Resolution - Chaining:\n\nEach bucket stores a linked list (chain) of entries.\n\nInsertion: Hash to bucket, append to list → O(1)\nSearch: Hash to bucket, search list → O(1+α) average, O(n) worst\nDeletion: Hash to bucket, find and remove → O(1+α) average\n\nα = n/m is load factor (elements/buckets)\n\nAdvantages:\n- Simple to implement\n- No clustering issues\n- Load factor can exceed 1\n\nDisadvantages:\n- Extra memory for pointers\n- Cache-unfriendly due to pointer chasing"
         }
@@ -630,10 +630,10 @@ Questions.register([
         "subtopic": "Hashing",
         "question": "In linear probing, if position h(k) is occupied, we try:",
         "options": [
-            "h(k)+1, h(k)+4, h(k)+9...",
+            "Random positions",
             "h(k)+1, h(k)+2, h(k)+3...",
             "h(k)×2, h(k)×3...",
-            "Random positions"
+            "h(k)+1, h(k)+4, h(k)+9..."
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -648,9 +648,9 @@ Questions.register([
         "question": "Quadratic probing tries positions:",
         "options": [
             "h(k)+1², h(k)+2², h(k)+3²...",
-            "h(k)+1, h(k)+2, h(k)+3...",
             "h(k)×1, h(k)×2, h(k)×3...",
-            "Random positions"
+            "Random positions",
+            "h(k)+1, h(k)+2, h(k)+3..."
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -682,12 +682,12 @@ Questions.register([
         "subtopic": "Hashing",
         "question": "For a good hash table, the load factor should typically be:",
         "options": [
-            "Greater than 1",
-            "Less than 1 (e.g., 0.7)",
             "Exactly 1",
-            "As high as possible"
+            "Greater than 1",
+            "As high as possible",
+            "Less than 1 (e.g., 0.7)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Hash Table Load Factor Guidelines:\n\nα = n/m (elements / table size)\n\nChaining:\n- Works fine with α > 1\n- Average chain length = α\n- Resize when α > 1-2 for performance\n\nOpen Addressing:\n- MUST have α < 1\n- Performance degrades rapidly as α → 1\n- Typical threshold: α = 0.5-0.75\n\nResizing:\n- Double table size when threshold exceeded\n- Rehash all elements to new table\n- Amortized O(1) insertion despite occasional O(n) resize"
         }
@@ -699,12 +699,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "A trie (prefix tree) search time for a string of length m is:",
         "options": [
+            "O(m)",
             "O(1)",
             "O(log n)",
-            "O(m)",
             "O(n)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Trie Search Complexity:\n\nTime: O(m) where m = length of search string\n\nAlgorithm:\n1. Start at root\n2. For each character c in string:\n   - If child[c] exists, move to it\n   - Else, return 'not found'\n3. Check if current node is end-of-word\n\nKey insight: O(m) is INDEPENDENT of dictionary size n!\n\nCompare to:\n- Hash table: O(m) average (must hash entire string)\n- BST of strings: O(m × log n) (string comparison is O(m))\n\nTries are especially efficient for prefix queries."
         }
@@ -716,12 +716,12 @@ Questions.register([
         "subtopic": "Trees",
         "question": "Tries are efficient for:",
         "options": [
-            "Numeric data",
             "Prefix-based string operations",
+            "Numeric data",
             "Graph traversal",
             "Sorting numbers"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Trie Applications:\n\n1. AUTOCOMPLETE\n   - Find all words with given prefix in O(p + k)\n   - p = prefix length, k = number of matches\n\n2. SPELL CHECKING\n   - Check if word exists: O(m)\n   - Suggest corrections by exploring nearby nodes\n\n3. IP ROUTING\n   - Longest prefix matching for network addresses\n\n4. WORD GAMES\n   - Boggle, Scrabble word validation\n\n5. DICTIONARY IMPLEMENTATION\n   - Space-efficient when strings share prefixes\n\nVariants: Patricia trie (compressed), Suffix trie/tree"
         }
@@ -733,12 +733,12 @@ Questions.register([
         "subtopic": "Arrays",
         "question": "Row-major order address of A[i][j] in m×n array (base B, element size S):",
         "options": [
-            "B + (i*n + j)*S",
             "B + (j*m + i)*S",
+            "B + (i*n + j)*S",
             "B + i + j",
             "B + i*j*S"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Row-Major Order: Elements stored row by row. For A[m][n] with base B and element size S: Address of A[i][j] = B + (i*n + j)*S. We skip i complete rows (each with n elements), then j elements in current row. C, C++, Java use row-major. Fortran uses column-major.",
             "formula": "B + (i*n + j)*S"
@@ -751,12 +751,12 @@ Questions.register([
         "subtopic": "Arrays",
         "question": "Column-major order address of A[i][j] in m×n array (base B, element size S):",
         "options": [
-            "B + (i*n + j)*S",
-            "B + (j*m + i)*S",
+            "B + i*j*S",
             "B + i + j",
-            "B + i*j*S"
+            "B + (i*n + j)*S",
+            "B + (j*m + i)*S"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Column-Major Order: Elements stored column by column (Fortran, MATLAB, R). For A[m][n] with base B and element size S: Address of A[i][j] = B + (j*m + i)*S. Skip j complete columns (each with m elements), then i elements in current column. Row-major vs column-major matters for cache performance when traversing matrices. Accessing in wrong order causes cache misses.",
             "formula": "$B + (j \\times m + i) \\times S$ (column-major)"
@@ -826,12 +826,12 @@ Questions.register([
         "subtopic": "Stack",
         "question": "Infix to postfix conversion uses:",
         "options": [
+            "Graph",
             "Queue",
-            "Stack",
             "Tree",
-            "Graph"
+            "Stack"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Infix to Postfix Conversion using Stack: Stack stores operators based on precedence. Scan infix from left to right: operands go to output, operators pushed to stack (pop higher/equal precedence first), parentheses control precedence. Result is postfix expression (no parentheses needed). Example: A+B*C → ABC*+. Detailed in dsa-stack-012.",
             "formula": "Stack for operator precedence"
@@ -844,12 +844,12 @@ Questions.register([
         "subtopic": "Stack",
         "question": "Postfix evaluation uses:",
         "options": [
-            "Two stacks",
             "One stack",
+            "No data structure",
             "Queue",
-            "No data structure"
+            "Two stacks"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Postfix Evaluation using ONE Stack: Stack holds operands/intermediate results. Scan postfix expression: push operands, when operator found pop two operands, apply operation, push result. Final stack top is answer. Example: 23+4* → 5,4 → 20. No precedence ambiguity in postfix. Detailed algorithm in dsa-stack-011.",
             "formula": "Single stack for operands"
@@ -862,12 +862,12 @@ Questions.register([
         "subtopic": "Stack",
         "question": "Number of possible BSTs with n nodes = Catalan(n). For n=3 = ?",
         "options": [
-            "3",
             "4",
             "5",
+            "3",
             "6"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Catalan Numbers for BST: Number of structurally different BSTs with n distinct nodes = Catalan(n) = $\\frac{(2n)!}{(n+1)! \\times n!} = \\frac{1}{n+1}\\binom{2n}{n}$. For n=3: $C_3 = \\frac{6!}{4! \\times 3!} = \\frac{720}{24 \\times 6} = 5$ different BSTs. Catalan also counts parenthesizations, mountain ranges, Dyck paths. Recursive: $C_n = \\sum_{i=0}^{n-1} C_i C_{n-1-i}$.",
             "formula": "$C_n = \\frac{(2n)!}{(n+1)! \\cdot n!}$ (Catalan)"
@@ -880,10 +880,10 @@ Questions.register([
         "subtopic": "Queue",
         "question": "Queue follows:",
         "options": [
-            "LIFO",
+            "Priority",
             "FIFO",
             "Random",
-            "Priority"
+            "LIFO"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -898,12 +898,12 @@ Questions.register([
         "subtopic": "Queue",
         "question": "Circular queue of size n can hold maximum:",
         "options": [
-            "n elements",
-            "n-1 elements (one slot wasted)",
             "n+1 elements",
-            "Unlimited"
+            "Unlimited",
+            "n elements",
+            "n-1 elements (one slot wasted)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Circular Queue Capacity: Typically holds n-1 elements (one slot wasted) to distinguish between empty and full conditions. Empty: front==rear. Full: (rear+1)%n == front. Without wasting a slot, would need extra flag or count variable. Trade-off: waste one slot for simpler logic. Alternative: use size counter (can then use all n slots).",
             "formula": "Max capacity = n-1 (or n with counter)"
@@ -916,12 +916,12 @@ Questions.register([
         "subtopic": "Queue",
         "question": "Deque supports:",
         "options": [
-            "Insert/delete at both ends",
             "Insert at rear only",
+            "Random access",
             "Delete at front only",
-            "Random access"
+            "Insert/delete at both ends"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Deque (Double-Ended Queue): Supports insertion and deletion at BOTH front and rear ends in O(1). Generalization of both stack and queue. Can implement stack (use one end only) or queue (enqueue at  rear, dequeue at front). Applications: window sliding, work stealing, palindrome checking. Detailed in dsa-queue-012.",
             "formula": "Deque: insertion/deletion at both ends"
@@ -934,12 +934,12 @@ Questions.register([
         "subtopic": "Linked List",
         "question": "Time to access nth element in singly linked list:",
         "options": [
-            "O(1)",
             "O(n)",
             "O(log n)",
+            "O(1)",
             "O(n²)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Linked List Access Time: No random access! Must traverse from head sequentially. To access nth element: start at head, follow n next pointers → O(n). Compare to array: direct access at computed address → O(1). Trade-off: linked lists have O(1) insertion/deletion at known positions, arrays have O(1) access but O(n) insertion/deletion.",
             "formula": "Access time: O(n)"
@@ -952,12 +952,12 @@ Questions.register([
         "subtopic": "Linked List",
         "question": "Doubly linked list node has:",
         "options": [
-            "Only data",
-            "Data + next pointer",
+            "Only pointers",
             "Data + next + prev pointers",
-            "Only pointers"
+            "Data + next pointer",
+            "Only data"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Doubly Linked List Node Structure: Each node contains three fields: (1) data - actual value, (2) next - pointer to next node, (3) prev - pointer to previous node. Allows bidirectional traversal. Enables O(1) deletion of given node (can access predecessor directly). Extra memory for prev pointer. Applications: browser history (back/forward), LRU cache.",
             "formula": "Node: {data, next, prev}"
@@ -970,9 +970,9 @@ Questions.register([
         "subtopic": "Linked List",
         "question": "Detecting cycle in linked list (Floyd's algorithm) uses:",
         "options": [
-            "One pointer",
-            "Two pointers (slow and fast)",
             "Stack",
+            "Two pointers (slow and fast)",
+            "One pointer",
             "Queue"
         ],
         "correctAnswer": 1,
@@ -990,10 +990,10 @@ Questions.register([
         "options": [
             "log n",
             "n",
-            "n-1",
-            "n/2"
+            "n/2",
+            "n-1"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Binary Tree Maximum Height: Skewed tree (all nodes on one side - left or right) has maximum height. For n nodes: height = n-1. Example: 5 nodes in left-skewed tree → height 4. Minimum height (complete/perfect tree) = $\\lfloor \\log_2 n \\rfloor$. Height affects operation complexity.",
             "formula": "Max height = n-1 (skewed)"
@@ -1007,9 +1007,9 @@ Questions.register([
         "question": "Complete binary tree with n nodes has height:",
         "options": [
             "n",
-            "n-1",
+            "2ⁿ",
             "⌊log₂n⌋",
-            "2ⁿ"
+            "n-1"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1049,10 +1049,10 @@ Questions.register([
         "subtopic": "Trees",
         "question": "Inorder traversal of BST gives:",
         "options": [
-            "Random order",
+            "Level order",
             "Sorted order",
             "Reverse sorted",
-            "Level order"
+            "Random order"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1067,12 +1067,12 @@ Questions.register([
         "subtopic": "BST",
         "question": "Average case search in balanced BST:",
         "options": [
-            "O(1)",
-            "O(log n)",
+            "O(n log n)",
             "O(n)",
-            "O(n log n)"
+            "O(log n)",
+            "O(1)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Balanced BST Search: Average and best case O(log n) for balanced trees (AVL, Red-Black). Height is O(log n), search follows one root-to-leaf path. Each comparison eliminates half the remaining nodes (like binary search). Balanced trees maintain O(log n) height through rotations. Compare to skewed BST: O(n) worst case.",
             "formula": "O(log n) for balanced BST"
@@ -1085,12 +1085,12 @@ Questions.register([
         "subtopic": "BST",
         "question": "Worst case search in BST (skewed):",
         "options": [
-            "O(1)",
-            "O(log n)",
             "O(n)",
-            "O(n²)"
+            "O(n²)",
+            "O(log n)",
+            "O(1)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Skewed BST Worst Case: When BST degenerates into linked list (all nodes on one side). Happens with sorted/reverse-sorted insertion order without balancing. Height = n-1, search requires traversing all nodes → O(n). Solution: use self-balancing BSTs (AVL, Red-Black) that guarantee O(log n) height via rotations.",
             "formula": "O(n) worst case (skewed)"
@@ -1105,8 +1105,8 @@ Questions.register([
         "options": [
             "Just remove",
             "Replace with inorder successor/predecessor",
-            "Rebuild tree",
-            "Mark as deleted"
+            "Mark as deleted",
+            "Rebuild tree"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1120,12 +1120,12 @@ Questions.register([
         "subtopic": "AVL",
         "question": "AVL tree balance factor for each node:",
         "options": [
+            "Only positive",
             "Any value",
-            "-1, 0, or 1",
             "Only 0",
-            "Only positive"
+            "-1, 0, or 1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "AVL Balance Factor: For every node, |height(left subtree) - height(right subtree)| ≤ 1. Balance factor = -1, 0, or +1. If |BF| > 1 after insertion/deletion, rotations restore balance. Guarantees O(log n) height, hence O(log n) operations."
         }
@@ -1150,12 +1150,12 @@ Questions.register([
         "subtopic": "AVL",
         "question": "AVL tree rotations for LL imbalance:",
         "options": [
-            "Right rotation",
-            "Left rotation",
             "Left-Right",
-            "Right-Left"
+            "Right-Left",
+            "Left rotation",
+            "Right rotation"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "AVL LL Rotation: Left-Left imbalance means node inserted in left subtree of left child. Fix: SINGLE RIGHT rotation at unbalanced node (pivot on left child). Rotation brings left child up, unbalanced node down as right child. Restores balance factor to {-1,0,+1}. Time: O(1).",
             "formula": "LL: single right rotation"
@@ -1169,11 +1169,11 @@ Questions.register([
         "question": "AVL tree rotations for LR imbalance:",
         "options": [
             "Right only",
-            "Left only",
             "Left then Right",
-            "Right then Left"
+            "Right then Left",
+            "Left only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "AVL LR Rotation: Left-Right imbalance means node inserted in right subtree of left child. Fix: DOUBLE rotation - (1) LEFT rotation on left child, (2) RIGHT rotation on unbalanced node. Converts LR to LL, then fixes. Restores balances. Also called Left-Right zig-zag.",
             "formula": "LR: left then right rotation"
@@ -1187,11 +1187,11 @@ Questions.register([
         "question": "Max-heap property:",
         "options": [
             "Parent ≤ children",
+            "Balanced",
             "Parent ≥ children",
-            "Sorted",
-            "Balanced"
+            "Sorted"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Max-Heap Property: For every node, parent value ≥ both children values. Largest element at root. Recursively applies to all subtrees. Min-heap reverses: parent ≤ children, smallest at root. Heap is complete binary tree (not BST!). Left vs right child order doesn't matter. Used for priority queues, heap sort.",
             "formula": "parent ≥ children (max-heap)"
@@ -1204,12 +1204,12 @@ Questions.register([
         "subtopic": "Heap",
         "question": "Build heap from n elements time complexity:",
         "options": [
-            "O(n log n)",
-            "O(n)",
+            "O(log n)",
             "O(n²)",
-            "O(log n)"
+            "O(n)",
+            "O(n log n)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Build Heap in O(n): Counter-intuitive but true! Bottom-up heapify is O(n), not O(n log n). Why? Most nodes are near bottom and need few swaps. Mathematical proof: Σ(nodes at level h) × (height - h) = O(n). Much faster than n insertions (which would be O(n log n))."
         }
@@ -1222,11 +1222,11 @@ Questions.register([
         "question": "Heap sort time complexity:",
         "options": [
             "O(n)",
-            "O(n log n)",
             "O(n²)",
-            "O(log n)"
+            "O(log n)",
+            "O(n log n)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Heap Sort Time Complexity: Guaranteed O(n log n) in ALL cases (best, average, worst). Algorithm: (1) Build max-heap O(n), (2) Extract-max n times, each O(log n) → total O(n log n). In-place sorting. Not stable. Slower than quicksort in practice due to poor cache locality, but worst-case guarantee is valuable.",
             "formula": "O(n log n) guaranteed"
@@ -1252,12 +1252,12 @@ Questions.register([
         "subtopic": "Hashing",
         "question": "Average case search in hash table:",
         "options": [
-            "O(n)",
+            "O(n²)",
             "O(log n)",
-            "O(1)",
-            "O(n²)"
+            "O(n)",
+            "O(1)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Hash Table Average Search: O(1) average case with good hash function and load factor < 1. Directly compute index from key, access in constant time. Assumption: uniform distribution, simple uniform hashing. Collisions handled by chaining (O(1+α)) or open addressing. Worst case: O(n) if all keys collide.",
             "formula": "O(1) average"
@@ -1271,11 +1271,11 @@ Questions.register([
         "question": "Collision in hashing means:",
         "options": [
             "Table full",
-            "Two keys map to same index",
             "Key not found",
+            "Two keys map to same index",
             "Invalid key"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Hash Collision: Two different keys k1 ≠ k2 hash to same index h(k1) = h(k2). Inevitable by pigeonhole principle (infinite keys, finite table). Collision resolution: chaining (linked lists at each bucket) or open addressing (probe for next empty slot). Good hash function minimizes, but can't eliminate collisions.",
             "formula": "h(k1) = h(k2) where k1 ≠ k2"
@@ -1288,12 +1288,12 @@ Questions.register([
         "subtopic": "Hashing",
         "question": "Chaining handles collisions by:",
         "options": [
-            "Probing next slot",
-            "Storing collisions in linked list",
             "Rehashing",
-            "Rejecting"
+            "Rejecting",
+            "Storing collisions in linked list",
+            "Probing next slot"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Chaining Collision Resolution: Each bucket contains linked list of all key-value pairs that hash to that index. Insert: append to list at h(k). Search: traverse list at h(k). Load factor α can exceed 1. Average search time O(1+α). Simple, no clustering, but extra memory for pointers.",
             "formula": "Each bucket = linked list"
@@ -1307,11 +1307,11 @@ Questions.register([
         "question": "Linear probing handles collision by:",
         "options": [
             "Linked list",
+            "Binary search",
             "Checking next slot linearly",
-            "Double hashing",
-            "Binary search"
+            "Double hashing"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Linear Probing Collision Resolution: If h(k) occupied, try h(k)+1, h(k)+2, ... (mod m) until empty slot found. Open addressing - all elements in table itself (no pointers). Problem: PRIMARY CLUSTERING - contiguous blocks of occupied slots form, increasing probe length. Deletion tricky (use tombstones). Load factor must be < 1.",
             "formula": "Probe: h(k), h(k)+1, h(k)+2,..."
@@ -1325,11 +1325,11 @@ Questions.register([
         "question": "Primary clustering is problem with:",
         "options": [
             "Chaining",
-            "Linear probing",
             "Double hashing",
+            "Linear probing",
             "All methods"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Primary Clustering in Linear Probing: Contiguous filled slots cluster together. New keys hashing anywhere in cluster extend it. Long probe sequences develop. Performance degrades significantly as load factor increases. Quadratic probing reduces (but doesn't eliminate via secondary clustering). Double hashing eliminates clustering.",
             "formula": "Long contiguous filled blocks"
@@ -1342,12 +1342,12 @@ Questions.register([
         "subtopic": "Hashing",
         "question": "Double hashing uses:",
         "options": [
+            "Two passes",
             "Two hash functions",
-            "Two tables",
             "Two chains",
-            "Two passes"
+            "Two tables"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Double Hashing: Uses TWO hash functions h1(k) and h2(k). Probe sequence: h1(k), h1(k)+h2(k), h1(k)+2*h2(k), ... (all mod m). h2(k) should never be 0 and should be relatively prime to m (use prime table size). Eliminates both primary and secondary clustering. Best open addressing method but requires good second hash function.",
             "formula": "Probe: h1(k) + i*h2(k)"
@@ -1373,10 +1373,10 @@ Questions.register([
         "subtopic": "Graph",
         "question": "BFS uses:",
         "options": [
-            "Stack",
+            "Hash table",
             "Queue",
             "Heap",
-            "Hash table"
+            "Stack"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1392,11 +1392,11 @@ Questions.register([
         "question": "DFS uses:",
         "options": [
             "Queue",
+            "Two queues",
             "Stack (or recursion)",
-            "Heap",
-            "Two queues"
+            "Heap"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DFS Uses Stack: Depth-First Search explores as deep as possible before backtracking. Stack provides LIFO - most recent unvisited neighbor explored first. Implementation: explicit stack or recursion (implicit call stack). Visit vertex, mark visited, push unvisited neighbors. Applications: topological sort, cycle detection, pathfinding. Time: O(V+E).",
             "formula": "DFS:  Stack or recursion (LIFO)"
@@ -1409,12 +1409,12 @@ Questions.register([
         "subtopic": "Graph",
         "question": "BFS and DFS time complexity for adjacency list:",
         "options": [
-            "O(V)",
             "O(E)",
-            "O(V+E)",
-            "O(V×E)"
+            "O(V×E)",
+            "O(V)",
+            "O(V+E)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "BFS/DFS Time Complexity for Adjacency List: Visit each vertex once (O(V)) and examine each edge once in undirected or twice in directed (O(E)). Total: O(V + E). Space: O(V) for visited array and queue/stack. For adjacency matrix: O(V²) time (must check all entries for each vertex).",
             "formula": "O(V+E) for adjacency list"
@@ -1427,12 +1427,12 @@ Questions.register([
         "subtopic": "Graph",
         "question": "BFS finds shortest path in:",
         "options": [
+            "No graphs",
             "Weighted graph",
             "Unweighted graph",
-            "All graphs",
-            "No graphs"
+            "All graphs"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "BFS Shortest Path: In UNWEIGHTED graphs, BFS finds shortest path (minimum number of edges) from source to all reachable vertices. Why? Level-by-level expansion ensures first visit to vertex is via shortest path. For WEIGHTED graphs, use Dijkstra's (non-negative weights) or Bellman-Ford (allows negative weights).",
             "formula": "BFS shortest path: unweighted only"
@@ -1445,10 +1445,10 @@ Questions.register([
         "subtopic": "Graph",
         "question": "Topological sort applies to:",
         "options": [
-            "Cyclic graphs",
-            "DAG (Directed Acyclic Graph)",
             "Undirected graphs",
-            "All graphs"
+            "DAG (Directed Acyclic Graph)",
+            "All graphs",
+            "Cyclic graphs"
         ],
         "correctAnswer": 1,
         "explanation": {

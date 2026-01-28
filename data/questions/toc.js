@@ -6,10 +6,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "A DFA (Deterministic Finite Automaton) for each state and input symbol has:",
         "options": [
+            "At most one transition",
             "Zero transitions",
-            "One or more transitions",
             "Exactly one transition",
-            "At most one transition"
+            "One or more transitions"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -24,10 +24,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Every NFA can be converted to an equivalent DFA with at most how many states (if NFA has n states)?",
         "options": [
+            "n!",
             "n",
-            "n²",
             "2^n",
-            "n!"
+            "n²"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -42,12 +42,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "The regular expression (a|b)* represents:",
         "options": [
-            "Strings of exactly one a or b",
             "Strings of alternating a and b",
             "All strings over {a, b} including empty string",
-            "Strings starting with a"
+            "Strings starting with a",
+            "Strings of exactly one a or b"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Regular expression $(a|b)^*$: breakdown: (1) $(a|b)$ = alternation/union - matches either $a$ OR $b$ (single character), (2) $*$ = Kleene star - ZERO or more repetitions of preceding element. Combined: zero or more occurrences of (either $a$ or $b$). Generated strings: $\\epsilon$ (empty), $a$, $b$, $aa$, $ab$, $ba$, $bb$, $aaa$, $aab$, ... = $\\Sigma^*$ where $\\Sigma = \\{a, b\\}$ = ALL possible finite strings over alphabet $\\{a,b\\}$ including empty string. Equivalent regex: $(a+b)^*$ or $(a \\cup b)^*$ depending on notation.",
             "formula": "$(a|b)^* = \\Sigma^*$ where $\\Sigma = \\{a, b\\}$"
@@ -60,10 +60,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "The Pumping Lemma is used to prove that a language is:",
         "options": [
-            "Regular",
+            "Decidable",
             "Not regular",
             "Context-free",
-            "Decidable"
+            "Regular"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -78,12 +78,12 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "Context-Free Grammars (CFG) are recognized by:",
         "options": [
-            "Finite Automata",
-            "Pushdown Automata",
+            "Linear Bounded Automata",
             "Turing Machines only",
-            "Linear Bounded Automata"
+            "Pushdown Automata",
+            "Finite Automata"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Context-Free Languages & Pushdown Automata: CFLs recognized by PDAs (Pushdown Automata) which extend FA with INFINITE STACK (LIFO memory). PDA = (Q, Σ, Γ, δ, q0, Z0, F) where Γ = stack alphabet, Z0 = initial stack symbol. Transitions: δ: Q × (Σ∪{ε}) × Γ → finite subsets of Q × Γ*. Can push/pop stack symbols, nondeterministic. CFLs properly contain regular languages (every RL is CFL). Examples: {a^n b^n}, balanced parentheses, palindromes. NOT CFL: {a^n b^n c^n}, {ww | w∈Σ*}. Power: FA < PDA < LBA < TM. CFL closure: union, concatenation, star. NOT closed: intersection, complement. Used for: programming language syntax, parsing.",
             "formula": "CFL ↔ PDA (stack for memory)"
@@ -96,12 +96,12 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "A grammar is in Chomsky Normal Form (CNF) if every production is of the form:",
         "options": [
-            "A → a only",
-            "A → BC or A → a (where A,B,C are non-terminals, a is terminal)",
+            "A → ε only",
             "A → aB or A → a",
-            "A → ε only"
+            "A → BC or A → a (where A,B,C are non-terminals, a is terminal)",
+            "A → a only"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Chomsky Normal Form (CNF): Restricted CFG where EVERY production (except S→ε) is: (1) A → BC (two non-terminals on RHS), OR (2) A → a (single terminal). Start symbol S can have S → ε if ε∈L. Purpose: (1) SIMPLIFIES analysis - fixed structure, (2) CYK PARSING algorithm - O(n³) time for membership testing, (3) Pumping lemma proofs easier. Conversion: eliminate ε-productions, unit productions, useless symbols, then convert to CNF. Every CFG can be converted to CNF generating same language (minus ε). Parse tree in CNF is BINARY tree (except leaves). Contrast GNF: terminal first.",
             "formula": "CNF: A→BC or A→a (binary productions)"
@@ -114,12 +114,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Turing machine has:",
         "options": [
+            "Stack only",
             "Finite tape",
             "Infinite tape, read-write head",
-            "No tape",
-            "Stack only"
+            "No tape"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Turing Machine (TM): Most powerful computational model - can compute ANY effectively computable function (Church-Turing thesis). Components: (1) INFINITE TAPE (unbounded memory, cells with symbols), (2) READ-WRITE HEAD (can read, write, move left/right), (3) Finite control (states). Formally: TM = (Q, Σ, Γ, δ, q0, B, F) where Γ⊇Σ (tape alphabet ⊇ input alphabet), B = blank symbol, δ: Q×Γ → Q×Γ×{L,R}. Can MODIFY tape (unlike FA/PDA). Halts by reaching accept/reject state or undefined transition. Types: single-tape, multi-tape (equivalent), deterministic, nondeterministic (equivalent). Recognizes recursively enumerable languages (Type-0). Decidable if always halts.",
             "formula": "TM: infinite tape, R/W head, universal computation"
@@ -132,12 +132,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "The halting problem for Turing Machines is:",
         "options": [
-            "Decidable",
-            "Undecidable",
+            "Regular",
             "Context-free",
-            "Regular"
+            "Decidable",
+            "Undecidable"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Halting Problem: UNDECIDABLE problem - no algorithm exists to determine if arbitrary TM M halts on input w. Formally: HALT = {⟨M,w⟩ | TM M halts on input w} is NOT decidable (but is RE). Proof (Turing, 1936): Diagonalization - assume H decides HALT, construct TM D that: if H(D,D)=halt then loop forever, else halt. Contradiction: does D halt on D? Either answer contradicts H's output. Implications: (1) Fundamental limitation of computation, (2) Many problems reducible from HALT (undecidable), (3) Cannot write perfect debugger/virus detector. Semi-decidable: can recognize halting cases but not non-halting. Rice's theorem generalizes.",
             "formula": "HALT undecidable (diagonalization proof)"
@@ -150,10 +150,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "DFA for language 'strings containing substring 01' has minimum states:",
         "options": [
-            "2",
+            "5",
             "3",
-            "4",
-            "5"
+            "2",
+            "4"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -168,11 +168,11 @@ Questions.register([
         "question": "DFA for 'strings where number of a's is divisible by 3' has minimum states:",
         "options": [
             "2",
+            "6",
             "3",
-            "4",
-            "6"
+            "4"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Track count mod 3: states 0, 1, 2 (accept state 0). Minimum 3 states."
         }
@@ -186,8 +186,8 @@ Questions.register([
         "options": [
             "DFA only",
             "NFA only",
-            "Both DFA and NFA",
-            "Neither"
+            "Neither",
+            "Both DFA and NFA"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -202,11 +202,11 @@ Questions.register([
         "question": "To convert NFA to DFA, we use:",
         "options": [
             "Minimization algorithm",
-            "Subset construction",
             "Pumping lemma",
+            "Subset construction",
             "CYK algorithm"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Subset construction: DFA states = power set of NFA states"
         }
@@ -218,9 +218,9 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "ε-closure of state q includes:",
         "options": [
-            "q only",
-            "States reachable from q using ε-transitions",
             "All states",
+            "States reachable from q using ε-transitions",
+            "q only",
             "No states"
         ],
         "correctAnswer": 1,
@@ -235,12 +235,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Minimized DFA for a regular language is:",
         "options": [
-            "Not unique",
-            "Unique up to state renaming",
             "Always has 1 state",
-            "Always larger than NFA"
+            "Not unique",
+            "Always larger than NFA",
+            "Unique up to state renaming"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Minimal DFA is unique (up to isomorphism) for any regular language"
         }
@@ -252,12 +252,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "a+ means:",
         "options": [
+            "At most one a",
             "Zero or more a's",
-            "One or more a's",
             "Exactly one a",
-            "At most one a"
+            "One or more a's"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "a+ = aa* = one or more a's"
         }
@@ -269,10 +269,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular expression for 'strings ending with ab' over {a,b} is:",
         "options": [
-            "ab",
-            "(a|b)*ab",
             "ab(a|b)*",
-            "(ab)*"
+            "(a|b)*ab",
+            "(ab)*",
+            "ab"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -286,12 +286,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Language {aⁿbⁿ | n ≥ 0} is:",
         "options": [
-            "Regular",
-            "Context-free but not regular",
             "Context-sensitive",
-            "Recursively enumerable only"
+            "Recursively enumerable only",
+            "Regular",
+            "Context-free but not regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Requires matching count of a's and b's - needs stack (PDA), can't be done with finite memory (DFA)"
         }
@@ -303,12 +303,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular languages are closed under:",
         "options": [
-            "Union, intersection, complement",
-            "Union only",
             "Intersection only",
-            "None of these"
+            "Union, intersection, complement",
+            "None of these",
+            "Union only"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Regular languages closed under union, intersection, complement, concatenation, Kleene star"
         }
@@ -320,12 +320,12 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "Left recursion in grammar means:",
         "options": [
-            "A → Aα for some string α",
             "A → αA for some α",
+            "Grammar has no terminals",
             "A → ε",
-            "Grammar has no terminals"
+            "A → Aα for some string α"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Left Recursion: Grammar production A → Aα for some string α (A derives itself leftmost). Problem for TOP-DOWN parsers (LL, recursive descent): causes INFINITE LOOP - trying to expand A calls A recursively without consuming input. Example: E → E+T | T (left-recursive). Elimination: transform A → Aα | β to A → βA', A' → αA' | ε (right-recursive). Direct left-recursion (A→Aα) easy to remove. Indirect (A⇒B⇒...⇒Aα) harder - requires systematic algorithm. Bottom-up parsers (LR) handle left-recursion fine. Left-recursion natural for left-associative operators (1-2-3 = (1-2)-3).",
             "formula": "Left-recursive: A → Aα (problematic for LL)"
@@ -338,12 +338,12 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "Left factoring is done to:",
         "options": [
+            "Find FOLLOW sets",
             "Remove left recursion",
-            "Remove common prefixes for predictive parsing",
             "Convert to CNF",
-            "Find FOLLOW sets"
+            "Remove common prefixes for predictive parsing"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Left Factoring: Grammar transformation to enable PREDICTIVE PARSING (LL(1)). Problem: productions A → αβ | αγ share common prefix α - can't decide which to use with lookahead. Solution: factor out α: A → αA', A' → β | γ. Now first symbol of β,γ determines choice. Example: stmt → if expr then stmt else stmt | if expr then stmt becomes stmt → if expr then stmt stmt', stmt' → else stmt | ε. Necessary for LL(1) grammars. Doesn't change language, only grammar structure. Multiple passes may be needed for nested common prefixes.",
             "formula": "Left factor: A→αβ| αγ becomes A→αA', A'→β|γ"
@@ -356,12 +356,12 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "Ambiguous grammar means:",
         "options": [
+            "Cannot generate any string",
             "Has no parse tree for some string",
             "Has multiple parse trees for some string",
-            "Cannot generate any string",
             "Is not context-free"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Ambiguous Grammar: CFG where ∃ at least one string with MULTIPLE DISTINCT PARSE TREES (or equivalently, multiple leftmost/rightmost derivations). Example: E → E+E | E*E | (E) | id. String id+id*id has 2 parse trees: ((id+id)*id) vs (id+(id*id)). Problem: (1) ambiguous semantics, (2) compiler can't choose unique interpretation. Solutions: (1) REWRITE grammar unambiguously (add precedence/associativity via grammar structure), (2) use DISAMBIGUATING RULES (Yacc precedence declarations). Some CFLs are INHERENTLY AMBIGUOUS - no unambiguous grammar exists. Dangling-else: classic ambiguity (if-if-else pairing).",
             "formula": "Ambiguous: ∃ string with >1 parse tree"
@@ -374,12 +374,12 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "CFL are closed under:",
         "options": [
-            "Union, concatenation, Kleene star",
-            "Intersection",
             "Complement",
-            "All of above"
+            "All of above",
+            "Intersection",
+            "Union, concatenation, Kleene star"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "CFL Closure Properties: CFLs CLOSED under: (1) UNION - L1∪L2: S→S1|S2, (2) CONCATENATION - L1L2: S→S1S2, (3) KLEENE STAR - L*: S→SS1|ε. NOT CLOSED under: (1) INTERSECTION - counterexample: {a^n b^n c^m}∩{a^m b^n c^n}={a^n b^n c^n} (not CFL), (2) COMPLEMENT - follows from non-closure under ∩ (De Morgan's). Special case: CFL ∩ Regular = CFL (closed). Proofs use PDA constructions or pumping lemma. Consequences: (1) can't use ∩,complement to build new CFLs, (2) decidability issues.",
             "formula": "CFL closed: ∪,concat,*. NOT: ∩,complement"
@@ -392,10 +392,10 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "Intersection of CFL and regular language is:",
         "options": [
-            "Always regular",
+            "Undecidable",
             "Always CFL",
-            "Could be anything",
-            "Undecidable"
+            "Always regular",
+            "Could be anything"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -410,10 +410,10 @@ Questions.register([
         "subtopic": "Context-Free Languages",
         "question": "Greibach Normal Form (GNF) has productions of form:",
         "options": [
-            "A → BC",
+            "A → ε",
             "A → aα where a is terminal, α is string of non-terminals",
             "A → a",
-            "A → ε"
+            "A → BC"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -428,12 +428,12 @@ Questions.register([
         "subtopic": "Turing Machines",
         "question": "Church-Turing thesis states:",
         "options": [
-            "TM is the fastest computer",
-            "TM can solve NP problems in P time",
+            "TM has infinite speed",
             "Any effectively computable function can be computed by a TM",
-            "TM has infinite speed"
+            "TM is the fastest computer",
+            "TM can solve NP problems in P time"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Church-Turing Thesis: Foundational equivalence statement - INFORMAL HYPOTHESIS (not provable theorem) that: 'Intuitive notion of ALGORITHM = Turing Machine computation'. Any function computable by ANY reasonable computational model (lambda calculus, RAM, while programs, etc.) is computable by TM. Converse also true. Equivalence: λ-calculus ≡ TM ≡ recursive functions ≡ Post systems ≡ modern computers. Implications: (1) TM defines limits of computation, (2) Undecidable for TM = undecidable for ANY computer, (3) Theoretical CS results apply to real computers. Not proven - empirical observation (all proposed models equivalent to TM). Strong CT: polynomial-time TM = feasibly computable.",
             "formula": "Intuitive 'algorithm' ≡ TM-computable"
@@ -446,12 +446,12 @@ Questions.register([
         "subtopic": "Turing Machines",
         "question": "A language is decidable if:",
         "options": [
+            "TM uses bounded tape",
             "TM accepts all strings in the language",
-            "TM halts on all inputs, accepting if in language",
             "TM has finite states",
-            "TM uses bounded tape"
+            "TM halts on all inputs, accepting if in language"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Decidable Language (Recursive): Language L where ∃ TM that ALWAYS HALTS - accepts strings in L, REJECTS strings not in L. Formally: ∃ TM M such that ∀w: (1) w∈L ⟹ M accepts w and halts, (2) w∉L ⟹ M rejects w and halts. Also called RECURSIVE language. Decidable = total computable characteristic function. Examples: (1) regular languages (DFA always halts), (2) CFLs (CYK parser always terminates), (3) equality of two DFAs. Decidable ⊂ RE (recursively enumerable). Complement of decidable = decidable. Church-Turing: decidable = intuitively 'solvable'. Properties: closed under ∪,∩,complement, concat.",
             "formula": "Decidable: TM halts on ALL inputs (accept/reject)"
@@ -464,12 +464,12 @@ Questions.register([
         "subtopic": "Turing Machines",
         "question": "A language is Turing-recognizable (recursively enumerable) if:",
         "options": [
-            "TM halts on all inputs",
             "TM accepts strings in language (may loop on non-members)",
+            "TM halts on all inputs",
             "It is finite",
             "It is regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Recursively Enumerable (RE) / Turing-Recognizable: Language L where ∃ TM that ACCEPTS all strings in L, but may LOOP FOREVER on strings not in L (doesn't necessarily halt on rejection). Formally: ∃ TM M such that L = {w | M accepts w}. Also called semi-decidable. Examples: (1) HALT problem is RE but not decidable, (2) any decidable language is RE. RE languages recognized by TM (Type-0 Chomsky). Properties: (1) closed under ∪,∩,concat,*, (2) NOT closed under complement (L and L̄ both RE ⟺ L decidable). Enumerable: can list language members (may be infinite listing). Many problems RE but undecidable (can recognize yes, can't recognize no).",
             "formula": "RE: TM accepts L, may loop on L̄"
@@ -482,12 +482,12 @@ Questions.register([
         "subtopic": "Turing Machines",
         "question": "Rice's theorem applies to:",
         "options": [
-            "All languages",
-            "Properties of regular languages",
             "Non-trivial semantic properties of TM-recognized languages",
-            "Finite automata"
+            "Finite automata",
+            "All languages",
+            "Properties of regular languages"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Rice's Theorem: Powerful META-THEOREM about decidability. Statement: ANY non-trivial SEMANTIC property of RE languages is UNDECIDABLE. Non-trivial = property holds for some RE languages but not all (not trivially true/false). Semantic = property of language L(M), not encoding ⟨M⟩. Examples of UNDECIDABLE properties (by Rice): (1) Is L(M) finite? (2) Is L(M) regular? (3) Is ε ∈ L(M)? (4) Is L(M) = Σ*? Proof: reduction from HALT. Exceptions (syntactic, not semantic): Is M's description <100 states? (decidable-syntactic). Consequence: can't decide almost anything interesting about what TM computes. Fundamental limitation.",
             "formula": "Rice: non-trivial semantic property of RE → undecidable"
@@ -502,8 +502,8 @@ Questions.register([
         "options": [
             "Decidable",
             "Undecidable",
-            "NP-complete",
-            "Regular"
+            "Regular",
+            "NP-complete"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -518,12 +518,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Decidable language means:",
         "options": [
-            "TM halts on all inputs with accept/reject",
-            "TM may loop forever",
+            "No TM exists",
             "Recognized by PDA",
-            "No TM exists"
+            "TM may loop forever",
+            "TM halts on all inputs with accept/reject"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Decidable: TM always halts (accept or reject)"
         }
@@ -535,10 +535,10 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Recursively enumerable (RE) language means:",
         "options": [
-            "Always decidable",
+            "Empty language",
             "TM accepts members, may loop on non-members",
             "Finite language",
-            "Empty language"
+            "Always decidable"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -552,12 +552,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Halting problem is:",
         "options": [
-            "Decidable",
-            "Undecidable",
             "Regular",
-            "CFL"
+            "CFL",
+            "Decidable",
+            "Undecidable"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Halting: undecidable (diagonalization proof)"
         }
@@ -569,12 +569,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Emptiness of regular language (is L(DFA) empty?) is:",
         "options": [
+            "Always non-empty",
             "Undecidable",
             "Decidable",
-            "Always empty",
-            "Always non-empty"
+            "Always empty"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Decidable: check if final state reachable"
         }
@@ -586,12 +586,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Equivalence of two CFGs is:",
         "options": [
-            "Decidable",
             "Undecidable",
+            "Always false",
             "Always true",
-            "Always false"
+            "Decidable"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "CFG equivalence: undecidable"
         }
@@ -604,9 +604,9 @@ Questions.register([
         "question": "A DFA is defined as a 5-tuple:",
         "options": [
             "(Q, Σ, δ, q0, F)",
-            "(Q, Σ, δ, F)",
             "(Q, Σ, q0, F)",
-            "(Σ, δ, q0, F)"
+            "(Σ, δ, q0, F)",
+            "(Q, Σ, δ, F)"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -620,12 +620,12 @@ Questions.register([
         "subtopic": "Automata",
         "question": "In DFA, δ is a function from:",
         "options": [
-            "Q × Σ → Q",
-            "Q × Σ → 2^Q",
+            "Σ → Q",
             "Q → Σ",
-            "Σ → Q"
+            "Q × Σ → Q",
+            "Q × Σ → 2^Q"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DFA: δ: Q × Σ → Q (exactly one next state)",
             "formula": "δ: Q × Σ → Q"
@@ -640,10 +640,10 @@ Questions.register([
         "options": [
             "Q × Σ → Q",
             "Q × Σ → 2^Q",
-            "Q × (Σ ∪ {ε}) → 2^Q",
-            "Only option C is correct for NFA with ε-transitions"
+            "Only option C is correct for NFA with ε-transitions",
+            "Q × (Σ ∪ {ε}) → 2^Q"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "NFA: δ: Q × (Σ ∪ {ε}) → 2^Q (set of possible next states)",
             "formula": "δ: Q × (Σ ∪ {ε}) → 2^Q"
@@ -656,12 +656,12 @@ Questions.register([
         "subtopic": "Automata",
         "question": "Every NFA can be converted to an equivalent DFA with at most:",
         "options": [
-            "Same number of states",
-            "2^n states (n = NFA states)",
+            "n! states",
             "n² states",
-            "n! states"
+            "Same number of states",
+            "2^n states (n = NFA states)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "NFA to DFA: Subset Construction Algorithm\n\nGiven NFA with n states, construct DFA with up to 2ⁿ states.\n\nProcess:\n1. Start state of DFA = ε-closure({q0})\n2. For each DFA state S and symbol a:\n   - Compute ε-closure(δ(S, a))\n   - This is the new DFA state\n3. DFA state is final if it contains any NFA final state\n\nWorst case: 2ⁿ DFA states (exponential blow-up)\nBut in practice, often much fewer states.\n\nThe languages accepted are exactly the same!",
             "formula": "Max DFA states = 2ⁿ"
@@ -674,12 +674,12 @@ Questions.register([
         "subtopic": "Automata",
         "question": "DFA and NFA are:",
         "options": [
-            "DFA more powerful",
-            "NFA more powerful",
+            "Cannot compare",
             "Equivalent in power",
-            "Cannot compare"
+            "DFA more powerful",
+            "NFA more powerful"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "DFA = NFA in expressive power (both accept regular languages)"
         }
@@ -691,12 +691,12 @@ Questions.register([
         "subtopic": "Automata",
         "question": "ε-closure of a state q is:",
         "options": [
-            "States reachable from q by any symbol",
             "States reachable from q by ε-transitions only",
             "Only q itself",
+            "States reachable from q by any symbol",
             "Empty set"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "ε-closure(q) = {q} ∪ all states reachable via ε-transitions"
         }
@@ -708,12 +708,12 @@ Questions.register([
         "subtopic": "Automata",
         "question": "Minimum DFA for a regular language is:",
         "options": [
+            "Cannot exist",
             "Not unique",
-            "Unique (up to isomorphism)",
             "Always has 1 state",
-            "Cannot exist"
+            "Unique (up to isomorphism)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Minimum DFA is unique for any regular language"
         }
@@ -726,11 +726,11 @@ Questions.register([
         "question": "Two states p, q are distinguishable if:",
         "options": [
             "They have same transitions",
-            "There exists a string w where δ*(p,w)∈F XOR δ*(q,w)∈F",
+            "They are both non-final",
             "They are both final",
-            "They are both non-final"
+            "There exists a string w where δ*(p,w)∈F XOR δ*(q,w)∈F"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Distinguishable: some string leads to final from one, non-final from other"
         }
@@ -742,8 +742,8 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular languages are closed under:",
         "options": [
-            "Union, intersection, complement",
             "Concatenation, Kleene star",
+            "Union, intersection, complement",
             "All of the above",
             "None of the above"
         ],
@@ -759,12 +759,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular expression for 0*1* describes:",
         "options": [
-            "Any number of 0s followed by any number of 1s",
             "Equal 0s and 1s",
             "Alternating 0s and 1s",
-            "Only strings with both 0 and 1"
+            "Only strings with both 0 and 1",
+            "Any number of 0s followed by any number of 1s"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "0*1* = zero or more 0s, then zero or more 1s"
         }
@@ -793,12 +793,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Pumping lemma for regular languages is used to:",
         "options": [
-            "Prove a language is regular",
-            "Prove a language is NOT regular",
             "Construct DFA",
-            "Minimize DFA"
+            "Minimize DFA",
+            "Prove a language is regular",
+            "Prove a language is NOT regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Pumping lemma: contrapositive used to prove non-regularity"
         }
@@ -810,12 +810,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Pumping lemma: for regular L, ∃ pumping length p, any w∈L with |w|≥p can be split as w=xyz where:",
         "options": [
+            "No conditions needed",
             "|xy| ≤ p, |y| > 0, xy^iz ∈ L for all i ≥ 0",
             "|xz| ≤ p, |y| > 0",
-            "|y| ≤ p only",
-            "No conditions needed"
+            "|y| ≤ p only"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Pumping Lemma for Regular Languages:\n\nIf L is regular, ∃ pumping length p such that any w ∈ L with |w| ≥ p can be written as w = xyz where:\n\n1. |xy| ≤ p (x and y are in 'first p symbols')\n2. |y| > 0 (y is non-empty)\n3. xyⁱz ∈ L for all i ≥ 0 (can 'pump' y any number of times)\n\nTo prove L is NOT regular:\n1. Assume L is regular (∴ pumping lemma applies)\n2. For any p, find w with |w| ≥ p\n3. Show NO valid split xyz satisfies all conditions\n4. Contradiction → L is not regular\n\nClassic example: {0ⁿ1ⁿ} is not regular.",
             "formula": "|xy| ≤ p, |y| > 0"
@@ -828,12 +828,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "L = {0^n 1^n : n ≥ 0} is:",
         "options": [
-            "Regular",
-            "Context-free but not regular",
             "Context-sensitive",
-            "Recursively enumerable only"
+            "Regular",
+            "Recursively enumerable only",
+            "Context-free but not regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "0^n1^n is context-free (CFG: S→0S1|ε), not regular (pumping lemma)"
         }
@@ -847,8 +847,8 @@ Questions.register([
         "options": [
             "Regular",
             "Context-free",
-            "Context-sensitive only",
-            "Not context-free"
+            "Not context-free",
+            "Context-sensitive only"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -862,12 +862,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Myhill-Nerode theorem: L is regular iff:",
         "options": [
-            "It has infinite states",
             "The relation ~L has finitely many equivalence classes",
-            "It can be pumped",
-            "It has a grammar"
+            "It has a grammar",
+            "It has infinite states",
+            "It can be pumped"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Myhill-Nerode: L regular iff # of equivalence classes of ≡L is finite"
         }
@@ -879,12 +879,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "CFG production rules are of form:",
         "options": [
-            "A → α where A is non-terminal, α is any string of terminals and non-terminals",
             "a → α where a is terminal",
-            "S → terminal only",
-            "Non-terminal → Non-terminal only"
+            "A → α where A is non-terminal, α is any string of terminals and non-terminals",
+            "Non-terminal → Non-terminal only",
+            "S → terminal only"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "CFG: A → α, A ∈ V (non-terminals), α ∈ (V ∪ T)*"
         }
@@ -896,12 +896,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "CFGs are recognized by:",
         "options": [
+            "Turing Machine only",
             "DFA",
             "NFA",
-            "Pushdown Automata (PDA)",
-            "Turing Machine only"
+            "Pushdown Automata (PDA)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "CFL ↔ PDA (pushdown automata)"
         }
@@ -913,12 +913,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "CFLs are closed under:",
         "options": [
-            "Union, concatenation, Kleene star",
             "Intersection with regular languages",
-            "Both A and B",
-            "Complement"
+            "Union, concatenation, Kleene star",
+            "Complement",
+            "Both A and B"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "CFLs closed under union, concat, *, intersection with regular. NOT closed under intersection, complement"
         }
@@ -930,12 +930,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "CFLs are NOT closed under:",
         "options": [
+            "Kleene star",
             "Union",
             "Intersection",
-            "Concatenation",
-            "Kleene star"
+            "Concatenation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "CFLs not closed under intersection (and complement)"
         }
@@ -947,12 +947,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "Chomsky Normal Form (CNF): productions are of form:",
         "options": [
-            "A → BC or A → a",
             "A → aB",
-            "A → aBc",
-            "Any form"
+            "A → BC or A → a",
+            "Any form",
+            "A → aBc"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Chomsky Normal Form (CNF):\n\nEvery production has one of two forms:\n1. A → BC (two non-terminals)\n2. A → a (single terminal)\n(Plus S → ε if empty string is in language)\n\nConversion algorithm:\n1. Remove ε-productions\n2. Remove unit productions (A → B)\n3. Replace terminals in RHS with length ≥ 2 by new non-terminals\n4. Break long productions (A → BCD) into binary\n\nIMPORTANCE: CYK parsing algorithm requires CNF!\nO(n³) parsing time for any CFG.",
             "formula": "A → BC or A → a"
@@ -965,12 +965,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "Greibach Normal Form (GNF): productions are of form:",
         "options": [
-            "A → BC",
-            "A → aα (terminal followed by non-terminals)",
+            "A → abcd",
             "A → a only",
-            "A → abcd"
+            "A → BC",
+            "A → aα (terminal followed by non-terminals)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "GNF: A → aα where a is terminal, α is string of non-terminals",
             "formula": "A → aα"
@@ -984,9 +984,9 @@ Questions.register([
         "question": "CYK algorithm parses CFG in CNF in time:",
         "options": [
             "O(n)",
-            "O(n²)",
+            "O(2^n)",
             "O(n³)",
-            "O(2^n)"
+            "O(n²)"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1001,12 +1001,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "A grammar is ambiguous if:",
         "options": [
-            "It has no parse tree",
-            "Some string has more than one parse tree",
+            "It generates empty string",
             "All strings have unique parse trees",
-            "It generates empty string"
+            "It has no parse tree",
+            "Some string has more than one parse tree"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Ambiguous: at least one string with multiple leftmost/rightmost derivations"
         }
@@ -1018,12 +1018,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "A CFL is inherently ambiguous if:",
         "options": [
-            "One grammar is ambiguous",
-            "All grammars generating it are ambiguous",
+            "It is regular",
             "It has no grammar",
-            "It is regular"
+            "All grammars generating it are ambiguous",
+            "One grammar is ambiguous"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Inherently ambiguous: every CFG for the language is ambiguous"
         }
@@ -1035,12 +1035,12 @@ Questions.register([
         "subtopic": "CFG",
         "question": "Pumping lemma for CFLs: w = uvxyz, conditions are:",
         "options": [
-            "|vy| > 0, |vxy| ≤ p, uv^ix^iy^iz ∈ L",
             "|uv| ≤ p only",
-            "No conditions",
-            "|xy| > 0 only"
+            "|vy| > 0, |vxy| ≤ p, uv^ix^iy^iz ∈ L",
+            "|xy| > 0 only",
+            "No conditions"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "CFL pumping: |vy| ≥ 1, |vxy| ≤ p, uv^ixy^iz ∈ L ∀i≥0",
             "formula": "|vy| > 0, |vxy| ≤ p"
@@ -1053,10 +1053,10 @@ Questions.register([
         "subtopic": "CFG",
         "question": "L = {a^n b^n c^n : n ≥ 0} is:",
         "options": [
-            "Regular",
+            "Not recursively enumerable",
             "Context-free",
             "Context-sensitive but not CF",
-            "Not recursively enumerable"
+            "Regular"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1070,12 +1070,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "PDA extends FA by adding:",
         "options": [
-            "Multiple tapes",
             "A stack",
+            "Multiple tapes",
             "A queue",
             "Random access memory"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "PDA = FA + stack (LIFO memory)"
         }
@@ -1089,8 +1089,8 @@ Questions.register([
         "options": [
             "Equivalent to NPDA",
             "Strictly weaker than NPDA",
-            "Strictly stronger than NPDA",
-            "Cannot exist"
+            "Cannot exist",
+            "Strictly stronger than NPDA"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1104,12 +1104,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "PDA acceptance can be by:",
         "options": [
-            "Final state only",
             "Empty stack only",
             "Either final state or empty stack",
-            "Neither"
+            "Neither",
+            "Final state only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "PDA: accept by final state OR accept by empty stack (equivalent models)"
         }
@@ -1121,12 +1121,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "DCFL (deterministic CFL) is closed under:",
         "options": [
+            "Kleene star",
             "Union",
             "Intersection",
-            "Complement",
-            "Kleene star"
+            "Complement"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "DCFL closed under complement (but not union or intersection)"
         }
@@ -1138,12 +1138,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Turing Machine has:",
         "options": [
+            "Infinite tape, read-write",
             "Fixed finite tape",
             "Infinite tape, read-only",
-            "Infinite tape, read-write",
             "No tape"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "TM: infinite tape, read/write head, can move left/right"
         }
@@ -1155,12 +1155,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "TM transition function δ: Q × Γ →:",
         "options": [
+            "Q × Σ",
             "Q",
             "Q × Γ",
-            "Q × Γ × {L, R}",
-            "Q × Σ"
+            "Q × Γ × {L, R}"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "δ(q, a) = (q', b, D): new state, write symbol, move direction",
             "formula": "δ: Q × Γ → Q × Γ × {L, R}"
@@ -1173,12 +1173,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "A language is recursively enumerable (RE) if:",
         "options": [
-            "Decided by some TM",
             "Accepted by some TM (may not halt on non-members)",
+            "Decided by some TM",
             "Rejected by all TMs",
             "Not accepted by any TM"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "RE: TM accepts members, may loop forever on non-members"
         }
@@ -1190,12 +1190,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "A language is recursive (decidable) if:",
         "options": [
+            "TM rejects all strings",
             "TM accepts or rejects (always halts)",
             "TM may loop forever",
-            "TM rejects all strings",
             "No TM exists"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Recursive/Decidable: TM always halts (accepts or rejects)"
         }
@@ -1224,12 +1224,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "The Halting Problem is:",
         "options": [
+            "Context-free",
             "Decidable",
             "Undecidable",
-            "Regular",
-            "Context-free"
+            "Regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "The Halting Problem: UNDECIDABLE\n\nQuestion: Given TM M and input w, does M halt on w?\n\nProof by contradiction (diagonalization):\n1. Assume H exists that decides halting\n2. Construct D that takes TM M:\n   - If H(M,M) = 'halts', D loops forever\n   - If H(M,M) = 'loops', D halts\n3. What does D(D) do?\n   - If D(D) halts → H(D,D) said 'halts' → D should loop ✘\n   - If D(D) loops → H(D,D) said 'loops' → D should halt ✘\n4. Contradiction! H cannot exist.\n\nThis is THE foundational undecidability result."
         }
@@ -1241,12 +1241,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Church-Turing thesis states:",
         "options": [
+            "All languages are decidable",
             "All TMs are equivalent",
-            "Any effective computation can be done by a TM",
             "TMs cannot compute everything",
-            "All languages are decidable"
+            "Any effective computation can be done by a TM"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Church-Turing: TM captures notion of algorithmic computability"
         }
@@ -1258,12 +1258,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Multi-tape TM vs single-tape TM:",
         "options": [
-            "Multi-tape is more powerful",
+            "Cannot compare",
             "Single-tape is more powerful",
-            "Equivalent in power (multi-tape can be simulated)",
-            "Cannot compare"
+            "Multi-tape is more powerful",
+            "Equivalent in power (multi-tape can be simulated)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Multi-tape TM can be simulated by single-tape TM (polynomial slowdown)"
         }
@@ -1275,8 +1275,8 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Non-deterministic TM vs Deterministic TM:",
         "options": [
-            "NTM more powerful",
             "DTM more powerful",
+            "NTM more powerful",
             "Equivalent in power",
             "Cannot compare"
         ],
@@ -1292,12 +1292,12 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Type 3 grammars generate:",
         "options": [
-            "Regular languages",
-            "Context-free languages",
             "Context-sensitive languages",
-            "Recursively enumerable languages"
+            "Recursively enumerable languages",
+            "Context-free languages",
+            "Regular languages"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Type 3 = Regular (right/left linear grammars)"
         }
@@ -1309,9 +1309,9 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Type 2 grammars generate:",
         "options": [
-            "Regular languages",
-            "Context-free languages",
             "Context-sensitive languages",
+            "Context-free languages",
+            "Regular languages",
             "Recursively enumerable languages"
         ],
         "correctAnswer": 1,
@@ -1326,10 +1326,10 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Type 1 grammars generate:",
         "options": [
+            "Recursively enumerable languages",
             "Regular languages",
-            "Context-free languages",
             "Context-sensitive languages",
-            "Recursively enumerable languages"
+            "Context-free languages"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1343,9 +1343,9 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Type 0 grammars generate:",
         "options": [
-            "Regular languages",
             "Context-free languages",
             "Context-sensitive languages",
+            "Regular languages",
             "Recursively enumerable languages"
         ],
         "correctAnswer": 3,
@@ -1360,12 +1360,12 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Proper hierarchy: Regular ⊂ CFL ⊂ CSL ⊂ RE means:",
         "options": [
+            "No containment",
             "All are equal",
             "Each is strictly contained in next",
-            "RE is smallest",
-            "No containment"
+            "RE is smallest"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Regular ⊂ CFL ⊂ CSL ⊂ RE (proper inclusions)"
         }
@@ -1378,11 +1378,11 @@ Questions.register([
         "question": "Membership problem for DFA (given DFA and string, is string accepted?):",
         "options": [
             "Undecidable",
-            "Decidable in O(n)",
             "Decidable in O(2^n)",
+            "Decidable in O(n)",
             "PSPACE-complete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DFA membership: simulate DFA on string, O(n) time"
         }
@@ -1395,11 +1395,11 @@ Questions.register([
         "question": "Emptiness problem for DFA (is L(DFA) empty?):",
         "options": [
             "Undecidable",
-            "Decidable (reachability to final state)",
+            "NP-complete",
             "PSPACE-complete",
-            "NP-complete"
+            "Decidable (reachability to final state)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "DFA emptiness: check if any final state reachable from start"
         }
@@ -1412,11 +1412,11 @@ Questions.register([
         "question": "Equivalence problem for DFAs (do two DFAs accept same language?):",
         "options": [
             "Undecidable",
+            "PSPACE-complete",
             "Decidable",
-            "NP-complete",
-            "PSPACE-complete"
+            "NP-complete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "DFA equivalence: decidable (minimize and compare, or check symmetric difference empty)"
         }
@@ -1428,12 +1428,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Membership problem for CFG (given CFG and string):",
         "options": [
-            "Undecidable",
             "Decidable (CYK algorithm)",
+            "Undecidable",
             "PSPACE-complete",
             "NP-complete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "CFG membership: CYK algorithm O(n³), decidable"
         }
@@ -1445,12 +1445,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Emptiness problem for CFG:",
         "options": [
-            "Undecidable",
             "Decidable",
-            "NP-complete",
-            "PSPACE-complete"
+            "PSPACE-complete",
+            "Undecidable",
+            "NP-complete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "CFG emptiness: check if start symbol can derive a terminal string"
         }
@@ -1462,12 +1462,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Equivalence problem for CFGs:",
         "options": [
+            "In P",
             "Decidable",
-            "Undecidable",
             "NP-complete",
-            "In P"
+            "Undecidable"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "CFG equivalence is undecidable"
         }
@@ -1479,12 +1479,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Ambiguity problem for CFGs (is given CFG ambiguous?):",
         "options": [
-            "Decidable",
             "Undecidable",
             "In P",
-            "NP-complete"
+            "NP-complete",
+            "Decidable"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "CFG ambiguity is undecidable"
         }
@@ -1497,11 +1497,11 @@ Questions.register([
         "question": "Post Correspondence Problem (PCP) is:",
         "options": [
             "Decidable",
-            "Undecidable",
+            "NP-complete",
             "In P",
-            "NP-complete"
+            "Undecidable"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "PCP is undecidable (used to prove other undecidability results)"
         }
@@ -1513,12 +1513,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Rice's Theorem states that any non-trivial property of RE languages is:",
         "options": [
-            "Decidable",
             "Undecidable",
             "NP-complete",
+            "Decidable",
             "PSPACE-complete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Rice's Theorem: A Powerful Undecidability Tool\n\nAny non-trivial property of the LANGUAGE recognized by a TM is undecidable.\n\nNon-trivial = some TMs have it, some don't.\n\nExamples of undecidable questions:\n- Does TM accept any string?\n- Is L(M) finite?\n- Is L(M) regular/context-free?\n- Is L(M) = L(M')?\n\nNOT covered by Rice's theorem (about TM itself, not language):\n- Does TM have ≤ 100 states?\n- Does TM ever move left?\n\nRice's theorem applies to SEMANTIC properties of languages, not SYNTACTIC properties of TM descriptions."
         }
@@ -1530,12 +1530,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular expressions and DFA are:",
         "options": [
-            "DFA more powerful",
-            "RE more powerful",
             "Equivalent in power",
-            "Incomparable"
+            "RE more powerful",
+            "Incomparable",
+            "DFA more powerful"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "RE = DFA = NFA = ε-NFA in power"
         }
@@ -1547,10 +1547,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular languages are closed under:",
         "options": [
-            "Only union",
+            "None",
             "Union, concatenation, Kleene star, intersection, complement",
             "Only complement",
-            "None"
+            "Only union"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1565,11 +1565,11 @@ Questions.register([
         "question": "L = {aⁿbⁿ | n≥0} is:",
         "options": [
             "Regular",
+            "Undecidable",
             "Not regular (CFL)",
-            "Not CFL",
-            "Undecidable"
+            "Not CFL"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "aⁿbⁿ requires counting: not regular (pumping lemma)"
         }
@@ -1581,12 +1581,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Pumping lemma for regular languages: for |w| ≥ p, w = xyz where:",
         "options": [
-            "|y| ≤ p",
-            "|xy| ≤ p, |y| ≥ 1",
+            "All parts equal",
             "|z| ≤ p",
-            "All parts equal"
+            "|xy| ≤ p, |y| ≥ 1",
+            "|y| ≤ p"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Pumping: |xy| ≤ p, |y| ≥ 1, xyⁱz ∈ L for all i ≥ 0"
         }
@@ -1598,12 +1598,12 @@ Questions.register([
         "subtopic": "Finite Automata",
         "question": "DFA has exactly ___ transition per (state, symbol) pair:",
         "options": [
+            "Multiple",
             "0",
-            "1",
             "0 or 1",
-            "Multiple"
+            "1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "DFA: exactly one transition for each (state, input)"
         }
@@ -1632,12 +1632,12 @@ Questions.register([
         "subtopic": "Finite Automata",
         "question": "NFA with n states can be converted to DFA with at most:",
         "options": [
-            "n states",
-            "2ⁿ states",
             "n² states",
-            "n+1 states"
+            "n+1 states",
+            "n states",
+            "2ⁿ states"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Subset construction: max 2ⁿ states",
             "formula": "2^n"
@@ -1674,10 +1674,10 @@ Questions.register([
         "subtopic": "Finite Automata",
         "question": "ε-NFA allows:",
         "options": [
-            "Only ε moves",
-            "ε transitions (no input consumed)",
             "No ε transitions",
-            "Only non-ε"
+            "ε transitions (no input consumed)",
+            "Only non-ε",
+            "Only ε moves"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1693,8 +1693,8 @@ Questions.register([
         "options": [
             "2",
             "3",
-            "4",
-            "5"
+            "5",
+            "4"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1710,8 +1710,8 @@ Questions.register([
         "options": [
             "DFA",
             "PDA (Pushdown Automata)",
-            "Turing machine only",
-            "NFA"
+            "NFA",
+            "Turing machine only"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1725,12 +1725,12 @@ Questions.register([
         "subtopic": "CFL",
         "question": "CFLs are closed under:",
         "options": [
+            "Both intersection and complement",
             "Union, concatenation, Kleene star",
-            "Intersection",
             "Complement",
-            "Both intersection and complement"
+            "Intersection"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "CFL: closed under ∪, ·, *. NOT closed under ∩, complement"
         }
@@ -1743,9 +1743,9 @@ Questions.register([
         "question": "L = {aⁿbⁿcⁿ | n≥0} is:",
         "options": [
             "Regular",
-            "CFL",
+            "Undecidable",
             "CSL (not CFL)",
-            "Undecidable"
+            "CFL"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1759,12 +1759,12 @@ Questions.register([
         "subtopic": "CFL",
         "question": "Chomsky Normal Form (CNF) productions are of form:",
         "options": [
+            "Any form",
             "A → a or A → BC",
             "A → aBc",
-            "A → ε always",
-            "Any form"
+            "A → ε always"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "CNF: A→BC or A→a (binary or terminal)"
         }
@@ -1793,12 +1793,12 @@ Questions.register([
         "subtopic": "CFL",
         "question": "CYK parsing algorithm runs in time:",
         "options": [
-            "O(n)",
-            "O(n²)",
             "O(n³)",
-            "O(2ⁿ)"
+            "O(n²)",
+            "O(2ⁿ)",
+            "O(n)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "CYK: O(n³) for string length n"
         }
@@ -1822,10 +1822,10 @@ Questions.register([
         "subtopic": "PDA",
         "question": "PDA differs from FA by having:",
         "options": [
-            "Multiple tapes",
+            "Output tape",
             "Stack (LIFO)",
             "Two-way tape",
-            "Output tape"
+            "Multiple tapes"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1839,12 +1839,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "DPDA and NPDA have:",
         "options": [
-            "Same power",
             "NPDA more powerful (for CFLs)",
-            "DPDA more powerful",
-            "Incomparable"
+            "Incomparable",
+            "Same power",
+            "DPDA more powerful"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "NPDA > DPDA: some CFLs not recognized by DPDA"
         }
@@ -1856,10 +1856,10 @@ Questions.register([
         "subtopic": "PDA",
         "question": "PDA acceptance modes:",
         "options": [
-            "Only final state",
             "Only empty stack",
+            "Neither",
             "Final state or empty stack (equivalent)",
-            "Neither"
+            "Only final state"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -1873,12 +1873,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "L = {wwᴿ | w ∈ {a,b}*} is recognized by:",
         "options": [
-            "DFA",
-            "DPDA",
             "NPDA",
+            "DPDA",
+            "DFA",
             "Turing machine only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "wwᴿ (palindromes): needs nondeterministic guess of middle"
         }
@@ -1890,12 +1890,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "TM is more powerful than PDA because:",
         "options": [
-            "Faster",
-            "Can write to tape and move both directions",
             "Uses less memory",
-            "Has multiple heads"
+            "Has multiple heads",
+            "Faster",
+            "Can write to tape and move both directions"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "TM: read/write + bidirectional movement"
         }
@@ -1907,12 +1907,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Multi-tape TM vs single-tape TM:",
         "options": [
+            "Incomparable",
             "Multi-tape more powerful",
             "Equivalent in power (single simulates multi)",
-            "Single-tape more powerful",
-            "Incomparable"
+            "Single-tape more powerful"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Multi-tape can be simulated by single-tape TM"
         }
@@ -1924,12 +1924,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Non-deterministic TM vs deterministic TM:",
         "options": [
-            "NTM more powerful",
             "Equivalent in power (can simulate each other)",
+            "Incomparable",
             "DTM more powerful",
-            "Incomparable"
+            "NTM more powerful"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "DTM can simulate NTM (with exponential slowdown)"
         }
@@ -1959,11 +1959,11 @@ Questions.register([
         "question": "Rice's theorem states that non-trivial properties of TM languages are:",
         "options": [
             "Decidable",
+            "Always false",
             "Undecidable",
-            "Always true",
-            "Always false"
+            "Always true"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Rice: non-trivial semantic properties undecidable"
         }
@@ -1976,11 +1976,11 @@ Questions.register([
         "question": "Chomsky Type 3 languages are:",
         "options": [
             "Context-free",
-            "Regular",
+            "Recursively enumerable",
             "Context-sensitive",
-            "Recursively enumerable"
+            "Regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Type 3: Regular (DFA/NFA/RE)"
         }
@@ -1992,12 +1992,12 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Chomsky Type 2 languages are:",
         "options": [
-            "Regular",
             "Context-free",
             "Context-sensitive",
+            "Regular",
             "RE"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Type 2: Context-free (CFG/PDA)"
         }
@@ -2009,12 +2009,12 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Chomsky Type 1 languages are:",
         "options": [
+            "RE",
             "Regular",
             "CFL",
-            "Context-sensitive (LBA)",
-            "RE"
+            "Context-sensitive (LBA)"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Type 1: CSL (Linear Bounded Automata)"
         }
@@ -2026,8 +2026,8 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Chomsky Type 0 languages are:",
         "options": [
-            "Regular",
             "CFL",
+            "Regular",
             "CSL",
             "Recursively enumerable (TM)"
         ],
@@ -2044,9 +2044,9 @@ Questions.register([
         "question": "Proper containment: Regular ⊂ CFL ⊂ CSL ⊂ RE. True or false?",
         "options": [
             "True",
+            "Incomparable",
             "False, all equal",
-            "False, reverse order",
-            "Incomparable"
+            "False, reverse order"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2100,12 +2100,12 @@ Questions.register([
         "subtopic": "Finite Automata",
         "question": "ε-closure of state q includes:",
         "options": [
-            "Only q",
-            "q and all states reachable by ε transitions",
             "All states",
-            "No states"
+            "Only q",
+            "No states",
+            "q and all states reachable by ε transitions"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "ε-closure: q + all states reachable by 0 or more ε"
         }
@@ -2119,11 +2119,11 @@ Questions.register([
         "question": "Minimum DFA states to accept strings with 3rd-last symbol 'a':",
         "options": [
             "3",
-            "4",
             "8",
+            "4",
             "16"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Need to remember last 3 symbols: 2³ = 8 states"
         }
@@ -2136,12 +2136,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "(a+b)*aba(a+b)* represents:",
         "options": [
-            "Strings ending with aba",
-            "Strings starting with aba",
             "Strings containing aba",
-            "Only aba"
+            "Strings starting with aba",
+            "Only aba",
+            "Strings ending with aba"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "(a+b)*aba(a+b)* = strings containing 'aba'"
         }
@@ -2155,11 +2155,11 @@ Questions.register([
         "question": "Which is NOT regular?",
         "options": [
             "a*b*",
-            "(ab)*",
             "{aⁿbⁿ | n≥0}",
-            "(a+b)*"
+            "(a+b)*",
+            "(ab)*"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "aⁿbⁿ requires counting: not regular"
         }
@@ -2172,10 +2172,10 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Regular languages are closed under:",
         "options": [
+            "None",
             "Union only",
-            "Intersection only",
             "Union, intersection, complement",
-            "None"
+            "Intersection only"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -2190,12 +2190,12 @@ Questions.register([
         "subtopic": "Regular Languages",
         "question": "Pumping lemma is used to:",
         "options": [
-            "Prove regularity",
             "Prove non-regularity",
             "Construct DFA",
-            "Minimize DFA"
+            "Minimize DFA",
+            "Prove regularity"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Pumping lemma: prove language is NOT regular"
         }
@@ -2208,12 +2208,12 @@ Questions.register([
         "subtopic": "CFL",
         "question": "CFLs are NOT closed under:",
         "options": [
-            "Union",
             "Concatenation",
             "Intersection",
+            "Union",
             "Kleene star"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "CFL: NOT closed under intersection, complement"
         }
@@ -2226,10 +2226,10 @@ Questions.register([
         "subtopic": "CFL",
         "question": "{aⁿbⁿcⁿ | n≥0} is:",
         "options": [
-            "Regular",
             "CFL",
+            "Undecidable",
             "Not CFL (CSL)",
-            "Undecidable"
+            "Regular"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -2259,8 +2259,8 @@ Questions.register([
         "options": [
             "Ambiguous grammar exists",
             "Every grammar is ambiguous",
-            "No grammar possible",
-            "Only one grammar"
+            "Only one grammar",
+            "No grammar possible"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2275,12 +2275,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "NPDA vs DPDA: which is more powerful for CFLs?",
         "options": [
-            "DPDA",
-            "NPDA",
             "Equal power",
-            "Incomparable"
+            "DPDA",
+            "Incomparable",
+            "NPDA"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "NPDA accepts all CFLs; DPDA is weaker"
         }
@@ -2293,12 +2293,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "{wwᴿ | w ∈ {a,b}*} is accepted by:",
         "options": [
-            "DPDA",
             "NPDA only",
+            "None",
             "DFA",
-            "None"
+            "DPDA"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "wwᴿ: needs nondeterministic guess of middle"
         }
@@ -2311,12 +2311,12 @@ Questions.register([
         "subtopic": "PDA",
         "question": "PDA acceptance by empty stack and final state are:",
         "options": [
-            "Final state stronger",
-            "Empty stack stronger",
             "Equivalent",
+            "Empty stack stronger",
+            "Final state stronger",
             "Incomparable"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Empty stack ≡ final state for acceptance"
         }
@@ -2329,12 +2329,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Multi-tape TM vs single-tape TM:",
         "options": [
-            "Multi more powerful",
-            "Single more powerful",
             "Equivalent power",
-            "Incomparable"
+            "Single more powerful",
+            "Incomparable",
+            "Multi more powerful"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Multi-tape can be simulated by single-tape"
         }
@@ -2347,12 +2347,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "NTM vs DTM:",
         "options": [
-            "NTM more powerful",
             "DTM more powerful",
             "Equivalent power",
+            "NTM more powerful",
             "Incomparable"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "NTM can be simulated by DTM"
         }
@@ -2365,12 +2365,12 @@ Questions.register([
         "subtopic": "Turing Machine",
         "question": "Universal TM can:",
         "options": [
-            "Accept only regular",
             "Simulate any TM",
-            "Solve halting problem",
-            "Run in polynomial time"
+            "Accept only regular",
+            "Run in polynomial time",
+            "Solve halting problem"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "UTM simulates any TM given its encoding"
         }
@@ -2383,12 +2383,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Halting problem is:",
         "options": [
-            "Decidable",
             "Undecidable",
-            "Regular",
-            "CFL"
+            "CFL",
+            "Decidable",
+            "Regular"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Halting problem: undecidable (Rice's theorem)"
         }
@@ -2401,12 +2401,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Emptiness of regular language is:",
         "options": [
+            "PSPACE",
             "Undecidable",
             "Decidable",
-            "NP-complete",
-            "PSPACE"
+            "NP-complete"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Decidable: check if final state reachable from start"
         }
@@ -2419,9 +2419,9 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Equivalence of two CFGs is:",
         "options": [
-            "Decidable",
-            "Undecidable",
             "Decidable in polynomial",
+            "Undecidable",
+            "Decidable",
             "Decidable in exponential"
         ],
         "correctAnswer": 1,
@@ -2437,12 +2437,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "Membership problem for CFL (is w ∈ L?) is:",
         "options": [
-            "Undecidable",
             "Decidable in O(n³) via CYK",
             "NP-hard",
+            "Undecidable",
             "Undecidable for ambiguous"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "CYK algorithm: O(n³) for CFL membership"
         }
@@ -2455,12 +2455,12 @@ Questions.register([
         "subtopic": "Decidability",
         "question": "RE (recursively enumerable) but not recursive means:",
         "options": [
+            "No TM exists",
             "TM halts on all inputs",
             "TM halts only on accepted strings",
-            "No TM exists",
             "DFA exists"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "RE not recursive: TM may loop on non-members"
         }
@@ -2473,12 +2473,12 @@ Questions.register([
         "subtopic": "Chomsky Hierarchy",
         "question": "Type-2 grammars generate:",
         "options": [
+            "RE",
             "Regular",
             "Context-free",
-            "Context-sensitive",
-            "RE"
+            "Context-sensitive"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Type-2 = Context-free grammars"
         }
@@ -2492,11 +2492,11 @@ Questions.register([
         "question": "LBA (Linear Bounded Automaton) accepts:",
         "options": [
             "Regular",
+            "RE",
             "CFL",
-            "Context-sensitive",
-            "RE"
+            "Context-sensitive"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "LBA = Type-1 = Context-sensitive languages"
         }

@@ -9,6 +9,7 @@ const App = {
     init() {
         this.setupEventListeners();
         this.setupPYQToggle();
+        this.setupAttemptedToggle();
         this.setupSidebarToggle();
         this.renderDashboard();
         this.updateTopicBadges();
@@ -64,6 +65,35 @@ const App = {
         });
     },
 
+    setupAttemptedToggle() {
+        // Update counts
+        this.updateAttemptedCounts();
+
+        // Handle toggle buttons
+        document.querySelectorAll('.attempted-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.attemptedMode;
+                Questions.setAttemptedMode(mode);
+
+                // Update active state
+                document.querySelectorAll('.attempted-toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Refresh dashboard
+                this.renderDashboard();
+                this.updateTopicBadges();
+                this.updateAttemptedCounts();
+            });
+        });
+    },
+
+    updateAttemptedCounts() {
+        const counts = Questions.getRawAttemptedCounts();
+        document.getElementById('count-all-attempted').textContent = counts.all;
+        document.getElementById('count-unattempted').textContent = counts.unattempted;
+        document.getElementById('count-attempted').textContent = counts.attempted;
+    },
+
     setupEventListeners() {
         // Navigation items
         document.querySelectorAll('.nav-item[data-view]').forEach(item => {
@@ -107,6 +137,20 @@ const App = {
         document.getElementById('natAnswer')?.addEventListener('input', (e) => {
             QuizEngine.setNATAnswer(e.target.value);
             document.getElementById('submitAnswer').disabled = !QuizEngine.hasSelection();
+        });
+
+        // Mid-quiz filter access button
+        document.getElementById('changeFilterInQuiz')?.addEventListener('click', () => {
+            if (confirm('Exit quiz and change filter settings?')) {
+                this.exitQuiz();
+                // Scroll to filter toggles after a short delay
+                setTimeout(() => {
+                    const container = document.querySelector('.attempted-toggle-container');
+                    if (container) {
+                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 300);
+            }
         });
     },
 

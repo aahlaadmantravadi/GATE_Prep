@@ -5,6 +5,7 @@
 const Questions = {
     _questions: [],
     pyqMode: 'all', // 'all', 'study', 'pyq'
+    attemptedMode: 'all', // 'all', 'unattempted', 'attempted'
 
     /**
      * Set PYQ filter mode
@@ -18,6 +19,20 @@ const Questions = {
      */
     getPYQMode() {
         return this.pyqMode;
+    },
+
+    /**
+     * Set attempted filter mode
+     */
+    setAttemptedMode(mode) {
+        this.attemptedMode = mode;
+    },
+
+    /**
+     * Get attempted mode
+     */
+    getAttemptedMode() {
+        return this.attemptedMode;
     },
 
     /**
@@ -38,17 +53,47 @@ const Questions = {
     },
 
     /**
-     * Get all questions (filtered by PYQ mode)
+     * Filter questions based on attempted status
      */
-    getAll() {
-        return this._applyPYQFilter(this._questions);
+    _applyAttemptedFilter(questions) {
+        if (this.attemptedMode === 'all') return questions;
+
+        // Get all progress data from Storage
+        const progress = Storage.get(Storage.KEYS.PROGRESS) || {};
+        const attemptedIds = new Set();
+
+        // Collect all question IDs that have been attempted
+        Object.values(progress).forEach(topicProgress => {
+            Object.keys(topicProgress.questions || {}).forEach(qId => {
+                attemptedIds.add(qId);
+            });
+        });
+
+        if (this.attemptedMode === 'attempted') {
+            return questions.filter(q => attemptedIds.has(q.id));
+        } else if (this.attemptedMode === 'unattempted') {
+            return questions.filter(q => !attemptedIds.has(q.id));
+        }
+
+        return questions;
     },
 
     /**
-     * Get questions by topic (filtered by PYQ mode)
+     * Get all questions (filtered by PYQ mode and attempted status)
+     */
+    getAll() {
+        let filtered = this._applyPYQFilter(this._questions);
+        filtered = this._applyAttemptedFilter(filtered);
+        return filtered;
+    },
+
+    /**
+     * Get questions by topic (filtered by PYQ mode and attempted status)
      */
     getByTopic(topicKey) {
-        return this._applyPYQFilter(this._questions.filter(q => q.topic === topicKey));
+        let filtered = this._applyPYQFilter(this._questions.filter(q => q.topic === topicKey));
+        filtered = this._applyAttemptedFilter(filtered);
+        return filtered;
     },
 
     /**
@@ -66,10 +111,12 @@ const Questions = {
     },
 
     /**
-     * Get questions by subtopic (filtered by PYQ mode)
+     * Get questions by subtopic (filtered by PYQ mode and attempted status)
      */
     getBySubtopic(topicKey, subtopic) {
-        return this._applyPYQFilter(this._questions.filter(q => q.topic === topicKey && q.subtopic === subtopic));
+        let filtered = this._applyPYQFilter(this._questions.filter(q => q.topic === topicKey && q.subtopic === subtopic));
+        filtered = this._applyAttemptedFilter(filtered);
+        return filtered;
     },
 
     /**
@@ -94,6 +141,25 @@ const Questions = {
         const pyq = this._questions.filter(q => q.isPYQ).length;
         const study = all - pyq;
         return { all, pyq, study };
+    },
+
+    /**
+     * Get raw attempted counts for display
+     */
+    getRawAttemptedCounts() {
+        const progress = Storage.get(Storage.KEYS.PROGRESS) || {};
+        const attemptedIds = new Set();
+
+        Object.values(progress).forEach(topicProgress => {
+            Object.keys(topicProgress.questions || {}).forEach(qId => {
+                attemptedIds.add(qId);
+            });
+        });
+
+        const all = this._questions.length;
+        const attempted = this._questions.filter(q => attemptedIds.has(q.id)).length;
+        const unattempted = all - attempted;
+        return { all, attempted, unattempted };
     }
 };
 

@@ -8,8 +8,8 @@ Questions.register([
         "options": [
             "UNIQUE",
             "DISTINCT",
-            "DIFFERENT",
-            "SINGLE"
+            "SINGLE",
+            "DIFFERENT"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -25,11 +25,11 @@ Questions.register([
         "question": "GROUP BY is used with:",
         "options": [
             "WHERE only",
+            "DELETE",
             "Aggregate functions",
-            "INSERT",
-            "DELETE"
+            "INSERT"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "GROUP BY partitions rows for aggregate functions (COUNT, SUM, AVG, MAX, MIN).",
             "formula": "SELECT col, AGG(col2) FROM table GROUP BY col;"
@@ -42,12 +42,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "HAVING clause filters:",
         "options": [
-            "Individual rows",
-            "Groups formed by GROUP BY",
+            "Tables",
             "Columns",
-            "Tables"
+            "Individual rows",
+            "Groups formed by GROUP BY"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "HAVING filters groups after aggregation. WHERE filters before grouping.",
             "formula": "... GROUP BY col HAVING AGG(col2) > val;"
@@ -60,12 +60,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "1NF requires:",
         "options": [
-            "No transitive dependencies",
-            "Atomic values (no multivalued attributes)",
+            "No partial dependencies",
             "BCNF",
-            "No partial dependencies"
+            "No transitive dependencies",
+            "Atomic values (no multivalued attributes)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "1NF: Atomic values only, no multivalued or composite attributes.",
             "formula": "1NF = Atomic values + Primary key"
@@ -78,12 +78,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "2NF requires 1NF and:",
         "options": [
-            "No transitive dependencies",
-            "No partial dependencies on primary key",
             "BCNF",
-            "No multivalued"
+            "No multivalued",
+            "No transitive dependencies",
+            "No partial dependencies on primary key"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "2NF: 1NF + no partial dependencies (non-prime depends on part of composite key).",
             "formula": "2NF = 1NF + No partial dependencies"
@@ -96,12 +96,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "3NF requires 2NF and:",
         "options": [
+            "4NF",
             "No partial dependencies",
-            "No transitive dependencies",
             "BCNF",
-            "4NF"
+            "No transitive dependencies"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "3NF: 2NF + no transitive dependencies (A->B->C where B not candidate key).",
             "formula": "3NF = 2NF + No transitive dependencies"
@@ -114,12 +114,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "BCNF requires for every FD X→Y:",
         "options": [
-            "Y is prime",
             "X is superkey",
+            "Y is key",
             "X is not superkey",
-            "Y is key"
+            "Y is prime"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Boyce-Codd Normal Form (BCNF): Stricter than 3NF. For every functional dependency X → Y, X must be a superkey. All determinants are candidate keys. Example violating BCNF but in 3NF: R(Student, Subject, Professor) with FDs: {Student, Subject} → Professor AND Professor → Subject (each prof teaches one subject). Solution: decompose to preserve dependencies or accept 3NF. BCNF eliminates ALL redundancy from FDs but may not preserve dependencies. Use when no update anomalies acceptable.",
             "formula": "BCNF: $\\forall X \\rightarrow Y$, $X$ is superkey"
@@ -132,12 +132,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "The ACID property 'Atomicity' ensures that:",
         "options": [
-            "Transactions are executed serially",
-            "All operations in a transaction complete or none do",
             "Data remains consistent",
-            "Changes persist after commit"
+            "Changes persist after commit",
+            "All operations in a transaction complete or none do",
+            "Transactions are executed serially"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Atomicity (ACID): Transaction is indivisible unit - all operations complete successfully (commit) or none do (rollback). No partial execution. Example: Bank transfer must debit AND credit - not just one. Implementation: using transaction log for undo/redo. If system crashes mid-transaction, recovery ensures atomicity by rolling back incomplete transactions. Related to failure atomicity and durability.",
             "formula": "All or Nothing"
@@ -152,10 +152,10 @@ Questions.register([
         "options": [
             "Complete",
             "Cyclic",
-            "Acyclic",
-            "Empty"
+            "Empty",
+            "Acyclic"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Conflict Serializability and Precedence Graph: Schedule is conflict serializable $\\iff$ precedence graph is ACYCLIC. Precedence graph: nodes = transactions, directed edge T1 → T2 if T1's operation conflicts with and precedes T2's operation. Cycle indicates conflicting operations that prevent serial ordering. Acyclic graph allows topological sort to produce equivalent serial schedule. Testing: O(n²) for n transactions. Stricter than view serializability.",
             "formula": "Acyclic precedence graph $\\iff$ Conflict serializable"
@@ -169,11 +169,11 @@ Questions.register([
         "question": "Two operations conflict if they are from different transactions, on the same data item, and:",
         "options": [
             "Both are read operations",
+            "Neither is a write operation",
             "At least one is a write operation",
-            "Both are write operations only",
-            "Neither is a write operation"
+            "Both are write operations only"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Conflicting Operations: Two operations conflict if: (1) from DIFFERENT transactions, (2) access SAME data item, (3) at least ONE is WRITE. Conflict types: Read-Write (R-W), Write-Read (W-R), Write-Write (W-W). Read-Read (R-R) does NOT conflict - multiple reads are safe. Order of conflicting operations matters for serializability. Swapping non-conflicting operations preserves result.",
             "formula": "Conflicts: R-W, W-R, W-W"
@@ -186,12 +186,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "In Two-Phase Locking (2PL), a transaction:",
         "options": [
-            "Can acquire locks anytime",
-            "Cannot release any lock until it has acquired all locks needed",
+            "Doesn't need locks",
             "Must release all locks before acquiring new ones",
-            "Doesn't need locks"
+            "Can acquire locks anytime",
+            "Cannot release any lock until it has acquired all locks needed"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Two-Phase Locking (2PL): Protocol with two phases - (1) GROWING phase: acquire locks, cannot release any locks, (2) SHRINKING phase: release locks, cannot acquire new locks. Lock point = end of growing phase. Guarantees conflict serializability. Drawbacks: can cause deadlocks, cascading rollbacks possible. Strict 2PL improvement: hold all locks until commit/abort (no cascading rollbacks). Conservative 2PL: acquire all locks before execution (deadlock-free but impractical).",
             "formula": "Growing → Lock Point → Shrinking"
@@ -205,11 +205,11 @@ Questions.register([
         "question": "Primary index is on:",
         "options": [
             "Any attribute",
-            "Key attribute (sorted file)",
             "Non-key",
+            "Key attribute (sorted file)",
             "None"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Primary index: on ordering key (sorted file). Sparse - one entry per block.",
             "formula": "Primary: Ordered key + Sparse"
@@ -222,12 +222,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Clustered index means:",
         "options": [
-            "Multiple indexes",
-            "Data sorted by index key",
             "Data not sorted",
-            "No index"
+            "No index",
+            "Multiple indexes",
+            "Data sorted by index key"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Clustered: data physically sorted by index key. Only one per table.",
             "formula": "Clustered = Data sorted by index"
@@ -240,12 +240,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Dense index has entry for:",
         "options": [
-            "Every block",
             "Every record",
+            "No records",
             "Some records",
-            "No records"
+            "Every block"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Dense: entry for every record. Required for secondary indexes.",
             "formula": "Dense = Entry per record; Sparse = Entry per block"
@@ -276,10 +276,10 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Weak entity is one that:",
         "options": [
-            "Has primary key",
-            "Depends on another entity for identification",
             "Has only one attribute",
-            "Cannot have relationships"
+            "Depends on another entity for identification",
+            "Cannot have relationships",
+            "Has primary key"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -293,12 +293,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Identifying relationship connects:",
         "options": [
-            "Two strong entities",
-            "Strong entity to weak entity",
             "Two weak entities",
-            "Entity to attribute"
+            "Entity to attribute",
+            "Two strong entities",
+            "Strong entity to weak entity"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Identifying relationship: relationship between strong entity and weak entity. Represented by double diamond in ER diagram. Weak entity's existence depends on this relationship. Example: Employee (strong) HAS Dependent (weak) - the HAS relationship is identifying. Weak entity always has total participation in identifying relationship (cannot exist without owner). Strong entity may have partial or total participation."
         }
@@ -311,11 +311,11 @@ Questions.register([
         "question": "Multivalued attribute is shown as:",
         "options": [
             "Simple oval",
-            "Double oval",
             "Rectangle",
-            "Diamond"
+            "Diamond",
+            "Double oval"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Multivalued attribute: can have multiple values for single entity instance. Represented by double oval/ellipse in ER diagram. Example: Person.PhoneNumbers (one person may have multiple phones). In relational model: create separate table with foreign key reference. Cannot store directly in single column (violates 1NF). Alternative: create multiple columns (Phone1, Phone2...) but inflexible and wasteful."
         }
@@ -327,12 +327,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Derived attribute is shown as:",
         "options": [
-            "Simple oval",
-            "Dashed oval",
+            "Underlined",
             "Double oval",
-            "Underlined"
+            "Simple oval",
+            "Dashed oval"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Derived attribute: value can be computed from other attributes, not stored explicitly. Represented by dashed oval in ER diagram. Example: Age derived from DateOfBirth, TotalPrice derived from Quantity × UnitPrice. Usually not stored in database (computed on-the-fly when needed) to avoid redundancy and update anomalies. May store for performance if computation expensive and value accessed frequently."
         }
@@ -357,12 +357,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "σ (sigma) is operator for:",
         "options": [
-            "Projection",
-            "Selection (filter rows)",
             "Join",
-            "Union"
+            "Union",
+            "Projection",
+            "Selection (filter rows)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "σ (sigma) = Selection operator in relational algebra. Selects rows (tuples) that satisfy given predicate/condition. Horizontal filtering. Notation: σ_condition(Relation). Example: σ_salary>50000(Employee) returns only employees earning more than 50K. Result has same schema as input relation. Commutative: σ_c1(σ_c2(R)) = σ_c2(σ_c1(R)). Can combine conditions: σ_c1 AND c2(R).",
             "formula": "$\\sigma_{condition}(R)$"
@@ -375,10 +375,10 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "π (pi) is operator for:",
         "options": [
-            "Selection",
+            "Cartesian product",
             "Projection (filter columns)",
             "Join",
-            "Cartesian product"
+            "Selection"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -395,8 +395,8 @@ Questions.register([
         "options": [
             "All columns",
             "Common attribute names",
-            "Primary keys only",
-            "No attributes"
+            "No attributes",
+            "Primary keys only"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -437,12 +437,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "DISTINCT keyword in SELECT:",
         "options": [
-            "Sorts results",
             "Removes duplicate rows",
+            "Sorts results",
             "Limits rows",
             "Joins tables"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "DISTINCT keyword eliminates duplicate rows from SELECT result. By default, SQL SELECT returns all rows including duplicates (multiset/bag semantics). DISTINCT enforces set semantics. Implementation typically uses sorting or hashing. Example: SELECT DISTINCT category FROM products; returns each unique category once. Performance impact: O(n log n) for sort-based, O(n) for hash-based (average). Use only when duplicates are truly unwanted."
         }
@@ -454,12 +454,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "GROUP BY clause:",
         "options": [
-            "Sorts data",
             "Filters rows",
             "Partitions rows into groups for aggregation",
+            "Sorts data",
             "Joins tables"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "GROUP BY partitions tuples into groups based on values of specified attributes. Each group represents all tuples with same values for GROUP BY attributes. Typically used with aggregate functions (COUNT, SUM, AVG, MAX, MIN) to compute statistics per group. Example: SELECT dept, AVG(salary) FROM emp GROUP BY dept; computes average salary for each department. All non-aggregated columns in SELECT must appear in GROUP BY. Result has one row per unique group."
         }
@@ -471,12 +471,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "ORDER BY default sorting order is:",
         "options": [
-            "DESC",
             "ASC",
+            "No specific order",
             "Random",
-            "No specific order"
+            "DESC"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "ORDER BY sorts query results. Default order is ASCENDING (ASC) - smallest to largest, A to Z. To reverse order, specify DESC. Example: SELECT * FROM emp ORDER BY salary; sorts by salary lowest to highest. ORDER BY salary DESC; sorts highest to lowest. Can sort by multiple columns: ORDER BY dept ASC, salary DESC; (sort by dept ascending, ties broken by salary descending). ORDER BY executes after SELECT, GROUP BY, HAVING. NULL values: typically sorted first in ASC, last in DESC (database-dependent)."
         }
@@ -488,12 +488,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "NULL in SQL means:",
         "options": [
-            "Zero",
-            "Empty string",
+            "False",
             "Unknown/missing value",
-            "False"
+            "Empty string",
+            "Zero"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "NULL represents unknown or missing data - NOT zero, NOT empty string, NOT false. Special properties: NULL = NULL yields UNKNOWN (not TRUE), so use IS NULL / IS NOT NULL for comparisons. Any arithmetic operation with NULL produces NULL (5 + NULL = NULL). Three-valued logic: TRUE, FALSE, UNKNOWN. COUNT(*) counts NULLs, COUNT(column) excludes NULLs. NULL in GROUP BY: all NULLs grouped together. Constraint: NOT NULL prevents NULL values in column."
         }
@@ -505,9 +505,9 @@ Questions.register([
         "subtopic": "SQL",
         "question": "LEFT OUTER JOIN includes:",
         "options": [
-            "Only matching rows",
-            "All rows from left table + matching from right",
             "All rows from right table",
+            "All rows from left table + matching from right",
+            "Only matching rows",
             "Cartesian product"
         ],
         "correctAnswer": 1,
@@ -524,11 +524,11 @@ Questions.register([
         "question": "A subquery in SELECT returning multiple rows should use:",
         "options": [
             "= operator",
-            "IN, ANY, ALL, EXISTS operators",
             "LIKE operator",
-            "BETWEEN operator"
+            "BETWEEN operator",
+            "IN, ANY, ALL, EXISTS operators"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Subqueries returning multiple rows cannot use = operator (equals expects single value). Use: IN (checks membership), ANY/SOME (compares to at least one value), ALL (compares to all values), EXISTS (tests existence). Examples: WHERE dept IN (SELECT dept FROM...), WHERE salary > ANY (SELECT...), WHERE NOT EXISTS (SELECT...). = operator only for scalar (single-row, single-column) subqueries. Correlated subqueries reference outer query."
         }
@@ -540,12 +540,12 @@ Questions.register([
         "subtopic": "FDs",
         "question": "Armstrong's axioms include:",
         "options": [
+            "Only transitivity",
             "Reflexivity, Augmentation, Transitivity",
             "Only reflexivity",
-            "Only transitivity",
             "None"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Armstrong's Axioms are sound and complete inference rules for functional dependencies: (1) REFLEXIVITY: If Y ⊆ X, then X → Y (subset rule). Example: {A,B} → A. (2) AUGMENTATION: If X → Y, then XZ → YZ (add attributes to both sides). (3) TRANSITIVITY: If X → Y and Y → Z, then X → Z. Additional derived rules: Union (X → Y and X → Z implies X → YZ), Decomposition (X → YZ implies X → Y and X → Z), Pseudotransitivity. Used to compute closures and find candidate keys.",
             "formula": "Reflexivity, Augmentation, Transitivity"
@@ -558,12 +558,12 @@ Questions.register([
         "subtopic": "FDs",
         "question": "Closure of attribute set X gives:",
         "options": [
+            "Empty set",
             "All attributes determined by X",
-            "Only X",
             "All attributes",
-            "Empty set"
+            "Only X"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Closure of attribute set X (denoted X+) is the set of ALL attributes functionally determined by X using given FDs and Armstrong's axioms. Algorithm: (1) Start with X+ = X. (2) For each FD Y → Z, if Y ⊆ X+, add Z to X+. (3) Repeat until no more attributes can be added. Example: Given A → B, B → C, compute {A}+ = {A,B,C}. If X+ = all attributes in relation, X is a superkey. Used to test if X → Y holds (check if Y ⊆ X+).",
             "formula": "$X^+ = $ closure of $X$"
@@ -576,12 +576,12 @@ Questions.register([
         "subtopic": "FDs",
         "question": "X is candidate key if:",
         "options": [
-            "X⁺ = all attributes and X is minimal",
             "X has one attribute",
+            "X⁺ = all attributes and X is minimal",
             "X is primary key",
             "X is foreign key"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "X is a candidate key if: (1) X+ = R (all attributes) - X is a superkey, AND (2) No proper subset of X has closure = R (X is minimal). To find candidate keys: (1) Start with single attributes, compute closures. (2) If none works, try pairs, then triples, etc. (3) Keep only minimal superkeys. Example: If A+ = {A,B,C,D} and B+ = {B}, C+ = {C}, D+ = {D}, then {A} is the only candidate key. Multiple candidate keys possible; choose one as primary key.",
             "formula": "CK: $X^+ = R$ and $X$ is minimal"
@@ -608,9 +608,9 @@ Questions.register([
         "question": "Lossless join decomposition ensures:",
         "options": [
             "Less storage space",
-            "Faster queries",
+            "No functional dependencies",
             "Original relation can be recovered by joining",
-            "No functional dependencies"
+            "Faster queries"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -625,12 +625,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Dependency preservation ensures:",
         "options": [
-            "All FDs can be checked within single relations",
+            "Joins are efficient",
             "Data is never lost",
-            "Keys are preserved",
-            "Joins are efficient"
+            "All FDs can be checked within single relations",
+            "Keys are preserved"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Dependency preservation: after decomposition into R1, R2, ..., Rn, each original functional dependency can be enforced by checking within a SINGLE relation (no joins required). Projection of FD set F onto Ri contains FDs involving only Ri's attributes. Union of all projected FD sets should be equivalent to F. Alternative to losslessness - can't always have both. 3NF decomposition is always dependency-preserving, BCNF may not be. Important for efficient integrity checking without expensive joins.",
             "formula": "$F = (F_1 \\cup F_2 \\cup ... \\cup F_n)^+$"
@@ -643,12 +643,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Durability in ACID means:",
         "options": [
+            "Database remains consistent",
             "Transaction takes bounded time",
             "Once committed, changes persist despite failures",
-            "Transaction runs in isolation",
-            "Database remains consistent"
+            "Transaction runs in isolation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Durability (D in ACID): once a transaction commits (COMMIT statement succeeds), changes are permanent and survive system failures (crashes, power loss). Implemented via: (1) Write-Ahead Logging (WAL) - log changes to stable storage before modifying database. (2) Force writes to disk at commit. (3) Recovery mechanisms restore committed transactions after crash. Opposite: uncommitted changes (in progress) are lost on crash. Critical for data reliability in banking, e-commerce, etc."
         }
@@ -661,9 +661,9 @@ Questions.register([
         "question": "Cascading rollback occurs when:",
         "options": [
             "One transaction aborts, causing others to abort",
-            "All transactions commit",
             "Disk fails",
-            "Lock is acquired"
+            "Lock is acquired",
+            "All transactions commit"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -696,12 +696,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Strict 2PL differs from basic 2PL by:",
         "options": [
-            "Using more locks",
             "Holding exclusive locks until commit/abort",
+            "Using more locks",
             "Allowing more concurrency",
             "Not using locks"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Strict Two-Phase Locking (Strict 2PL): follows 2PL rules (growing/shrinking phases) PLUS holds ALL exclusive (write) locks until transaction commits or aborts. Shared locks can be released earlier. Benefit: prevents cascading rollback - no transaction reads uncommitted data. Also simplifies recovery. Basic 2PL: can release locks after use (allows cascading). Rigorous 2PL: holds ALL locks (shared and exclusive) until end. Trade-off: stricter locking = less concurrency but simpler recovery.",
             "formula": "Strict 2PL: Hold X-locks until COMMIT/ABORT"
@@ -715,9 +715,9 @@ Questions.register([
         "question": "In timestamp ordering, if Ti wants to read X but W-TS(X) > TS(Ti):",
         "options": [
             "Ti proceeds",
-            "Ti waits",
+            "X is deleted",
             "Ti is rolled back",
-            "X is deleted"
+            "Ti waits"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -750,10 +750,10 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "B+ tree leaves are linked because:",
         "options": [
-            "Required for insertion",
-            "Enables efficient range queries",
             "Saves space",
-            "Required for deletion"
+            "Enables efficient range queries",
+            "Required for deletion",
+            "Required for insertion"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -767,10 +767,10 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Height of B+ tree with n records and order p is approximately:",
         "options": [
-            "log₂n",
-            "log_{⌈p/2⌉}n",
             "p·n",
-            "n/p"
+            "log_{⌈p/2⌉}n",
+            "n/p",
+            "log₂n"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -798,12 +798,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Entity set is a collection of:",
         "options": [
-            "Attributes",
             "Entities of same type",
+            "Keys",
             "Relationships",
-            "Keys"
+            "Attributes"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Entity Set: collection of entities of SAME TYPE sharing common properties/structure (attributes). Example: STUDENT entity set contains all student entities; each student has same attributes (SID, Name, DOB). Represented by rectangle in ER diagram. Entity = instance/individual object, Entity Set = collection/class of such objects. Each entity uniquely identified by its key. All entities in set have same schema but different values. Contrast: Relationship set connects entities from different entity sets.",
             "formula": "Entity Set = collection of similar entities"
@@ -816,12 +816,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Attribute types include:",
         "options": [
-            "Simple, composite, multivalued, derived",
-            "Only simple",
+            "Only foreign keys",
             "Only keys",
-            "Only foreign keys"
+            "Simple, composite, multivalued, derived",
+            "Only simple"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Attribute types in ER model: (1) SIMPLE/ATOMIC: indivisible (Name), (2) COMPOSITE: can be divided into sub-attributes (Address = Street + City + ZIP), (3) MULTIVALUED: can have multiple values (PhoneNumbers - one person may have multiple phones, shown as double oval), (4) DERIVED: computed from other attributes (Age from DOB, shown as dashed oval). Composite and multivalued require special handling in relational schema. Derived attributes not usually stored."
         }
@@ -833,9 +833,9 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "A multivalued attribute can have:",
         "options": [
-            "Only one value",
-            "Multiple values for an entity",
             "No values",
+            "Multiple values for an entity",
+            "Only one value",
             "Only derived values"
         ],
         "correctAnswer": 1,
@@ -850,12 +850,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Derived attribute is computed from:",
         "options": [
-            "Nothing",
             "Other attributes (e.g., age from DOB)",
-            "Only primary key",
-            "Foreign keys"
+            "Foreign keys",
+            "Nothing",
+            "Only primary key"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Derived attribute: value computed/derived from other stored attributes, NOT stored independently (to avoid redundancy). Examples: Age from DateOfBirth, TotalSalary from Basic+Allowance+Bonus, Years_Employed from HireDate. Representation: dashed oval in ER diagram. Decision: derive during queries (saves storage, always current) vs store (faster queries, but needs updates). Typically not stored unless computation is expensive or value changes infrequently."
         }
@@ -867,12 +867,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Relationship set represents:",
         "options": [
+            "Only keys",
             "Only entities",
-            "Association among entity sets",
             "Only attributes",
-            "Only keys"
+            "Association among entity sets"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Relationship set: collection of relationships of same type between entity sets. Represents association/connection among entities. Example: WORKS_IN relationship between EMPLOYEE and DEPARTMENT entity sets - each relationship instance connects one employee to one department. Shown as diamond in ER diagram. Can have descriptive attributes (e.g., StartDate for WORKS_IN). Degree: number of entity sets involved. Cardinality: 1:1, 1:N, M:N."
         }
@@ -884,12 +884,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Degree of relationship set is:",
         "options": [
-            "Number of attributes",
             "Number of entity sets involved",
             "Number of tuples",
+            "Number of attributes",
             "Number of keys"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Degree of relationship: number of entity sets participating. BINARY (degree 2): most common, e.g., Employee WORKS_FOR Department. TERNARY (degree 3): e.g., Doctor TREATS Patient using Medicine (3 entity sets). UNARY/RECURSIVE (degree 1): entity relates to itself, e.g., Employee MANAGES Employee (manager-employee hierarchy). N-ARY (degree n): n entity sets. Higher degree relationships are rare but sometimes necessary to capture complex associations.",
             "formula": "Degree = number of participating entity sets"
@@ -903,11 +903,11 @@ Questions.register([
         "question": "Cardinality ratio for a binary relationship can be:",
         "options": [
             "Only 1:1",
+            "Only 1:N",
             "1:1, 1:N, M:N",
-            "Only N:N",
-            "Only 1:N"
+            "Only N:N"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Cardinality ratio: specifies maximum number of relationship instances an entity can participate in. For binary relationships: (1) ONE-TO-ONE (1:1): Each A relates to at most one B, and vice versa. Example: Person-Passport. (2) ONE-TO-MANY (1:N): Each A can relate to many Bs, but each B relates to at most one A. Example: Department-Employee (one dept has many employees). (3) MANY-TO-MANY (M:N): Each A can relate to many Bs and vice versa. Example: Student-Course. Affects relational schema design.",
             "formula": "Cardinality: 1:1, 1:N, M:N"
@@ -920,12 +920,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Participation constraint: total (mandatory) means:",
         "options": [
+            "Optional participation",
             "Some entities participate",
-            "Every entity in set must participate in relationship",
             "No participation required",
-            "Optional participation"
+            "Every entity in set must participate in relationship"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Participation constraint: (1) TOTAL/MANDATORY (double line): Every entity in entity set MUST participate in at least one relationship instance. Example: Employee must work in some Department (makes sense in many organizations). (2) PARTIAL/OPTIONAL (single line): Some entities may not participate in any relationship instance. Example: Employee may or may not have Dependents. Affects NULL constraints in relational schema - total participation means foreign key NOT NULL.",
             "formula": "Total: every entity must participate"
@@ -938,12 +938,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "Weak entity set has:",
         "options": [
-            "Primary key",
-            "No discriminator, depends on strong entity",
+            "No attributes",
             "Discriminator (partial key), depends on identifying entity",
-            "No attributes"
+            "No discriminator, depends on strong entity",
+            "Primary key"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Weak Entity Detailed: Cannot be uniquely identified by own attributes alone - existentially depends on owner (identifying/strong) entity. Has PARTIAL KEY (discriminator) - unique within owner entity's dependents, not globally unique. Primary key = owner's PK + weak entity's partial key (discriminator). Example: DEPENDENT entity depends on EMPLOYEE - Dependent_Name is unique per employee, not globally. Partial key shown as dashed underline. Total participation with owner (double line). Represented by double rectangle in ER diagram. Identifying relationship shown as double diamond.",
             "formula": "Weak Entity PK = Owner PK + Discriminator"
@@ -956,12 +956,12 @@ Questions.register([
         "subtopic": "ER Model",
         "question": "ISA (Generalization/Specialization) hierarchy represents:",
         "options": [
-            "Composition",
-            "Inheritance/IS-A relationship",
+            "1:N relationship",
             "Aggregation only",
-            "1:N relationship"
+            "Inheritance/IS-A relationship",
+            "Composition"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "ISA (Generalization/Specialization) hierarchy: represents IS-A relationship (inheritance). Superclass (parent) has common attributes, subclasses (children) inherit all superclass attributes plus have specific attributes. Example: PERSON (superclass) with subclasses STUDENT and EMPLOYEE. Student inherits all Person attributes (Name, DOB) and adds StudentID, GPA. Two approaches: (1) SPECIALIZATION: top-down, identify specialized subgroups. (2) GENERALIZATION: bottom-up, find common attributes. Constraints: Overlapping (can be both) vs Disjoint, Total vs Partial.",
             "formula": "Subclass INHERITS superclass attributes"
@@ -974,10 +974,10 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "A relation (table) consists of:",
         "options": [
-            "Only rows",
+            "Only keys",
             "Rows (tuples) and columns (attributes)",
-            "Only columns",
-            "Only keys"
+            "Only rows",
+            "Only columns"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -991,12 +991,12 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Tuple is:",
         "options": [
-            "A column",
-            "A row in a relation",
             "An attribute",
-            "A key"
+            "A key",
+            "A row in a relation",
+            "A column"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Tuple: a row in a relation, representing one entity instance or relationship instance. Collection of related values, one for each attribute. Example: (101, 'John', 22) is a tuple in STUDENT relation. Tuples are unordered - adding/deleting tuples doesn't change relation identity. Each tuple must be unique (enforced by primary key - no duplicate rows). Tuple is to Relation as Object is to Class in OOP.",
             "formula": "Tuple = row = record"
@@ -1009,12 +1009,12 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Attribute is:",
         "options": [
+            "A relationship",
             "A row",
-            "A column (property) of relation",
             "A table",
-            "A relationship"
+            "A column (property) of relation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Attribute: a column/property of a relation, representing a characteristic of entity or relationship. Has a name and domain (set of allowed values). Example: STUDENT relation may have attributes SID (domain: integers), Name (domain: strings), Age (domain: 0-150). Each tuple has exactly one value from the domain for each attribute (or NULL if permitted). Attributes are conceptually unordered but physically stored in some sequence.",
             "formula": "Attribute = column = field"
@@ -1027,9 +1027,9 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Domain of an attribute is:",
         "options": [
-            "Name of attribute",
-            "Set of allowed values for the attribute",
             "Type of relation",
+            "Set of allowed values for the attribute",
+            "Name of attribute",
             "Number of tuples"
         ],
         "correctAnswer": 1,
@@ -1045,12 +1045,12 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Superkey is:",
         "options": [
-            "Minimal set of attributes uniquely identifying tuple",
             "Any set of attributes that uniquely identifies tuples",
+            "Only foreign key",
             "Only primary key",
-            "Only foreign key"
+            "Minimal set of attributes uniquely identifying tuple"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Superkey: ANY set of attributes that uniquely identifies each tuple in relation. Can have redundant attributes. Examples: {StudentID}, {StudentID, Name}, {StudentID, Email, Phone} all uniquely identify students - all are superkeys. Every relation has at least one superkey (set of all attributes). Superset of any superkey is also a superkey. Not necessarily minimal. Candidate keys are minimal superkeys.",
             "formula": "Superkey ⊃ uniquely identifies tuples"
@@ -1064,11 +1064,11 @@ Questions.register([
         "question": "Candidate key is:",
         "options": [
             "Any superkey",
-            "Minimal superkey (no proper subset is superkey)",
             "Only foreign key",
+            "Minimal superkey (no proper subset is superkey)",
             "Non-unique key"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Candidate Key Detailed: A MINIMAL superkey - uniquely identifies each tuple AND has NO redundant attributes. Removing any attribute breaks uniqueness. A relation can have MULTIPLE candidate keys. Example: STUDENT table may have {StudentID} and {Email} as candidate keys - both uniquely identify students, both are minimal. One candidate key is selected as PRIMARY KEY, others become ALTERNATE/SECONDARY  keys. Finding candidate keys: (1) Test all attribute combinations starting from single attributes, (2) Find minimal superkeys (no proper subset is superkey). {StudentID, Name} is superkey but not candidate key (not minimal - {StudentID} alone works).",
             "formula": "CK = minimal superkey"
@@ -1081,12 +1081,12 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Primary key is:",
         "options": [
-            "Any superkey",
             "Chosen candidate key for the relation",
-            "Non-unique identifier",
-            "Foreign key"
+            "Any superkey",
+            "Foreign key",
+            "Non-unique identifier"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Primary key: THE chosen candidate key for a relation - main identifier. Constraints: (1) UNIQUE: no two tuples have same PK value, (2) NOT NULL: every tuple must have PK value. Only ONE primary key per relation (but relation may have multiple candidate keys). Usually chosen based on: minimal attributes, stability (doesn't change often), meaningfulness. Other candidate keys become alternate/secondary keys. In SQL: PRIMARY KEY constraint enforces uniqueness and NOT NULL.",
             "formula": "PK = selected CK (UNIQUE + NOT NULL)"
@@ -1099,12 +1099,12 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Foreign key is:",
         "options": [
-            "Primary key of same table",
-            "Attribute referencing primary key of another table",
+            "Superkey",
             "Candidate key",
-            "Superkey"
+            "Primary key of same table",
+            "Attribute referencing primary key of another table"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Foreign key (FK): attribute (or set) in relation R1 that references primary key of relation R2 (R2 can be same as R1 for recursive relationships). Establishes link between relations. Example: Employee.DeptID references Department.DeptID. Purpose: maintain referential integrity - ensures valid references. FK value must either (1) match some PK value in referenced table, OR (2) be NULL (if allowed). Can reference same table: Employee.ManagerID references Employee.EmpID.",
             "formula": "$FK \\subseteq PK_{referenced}$ or NULL"
@@ -1117,12 +1117,12 @@ Questions.register([
         "subtopic": "Relational Model",
         "question": "Referential integrity constraint ensures:",
         "options": [
-            "All attributes have values",
-            "Foreign key values exist in referenced table (or are NULL)",
+            "All keys are primary",
             "No duplicates",
-            "All keys are primary"
+            "All attributes have values",
+            "Foreign key values exist in referenced table (or are NULL)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Referential Integrity: foreign key constraint ensuring FK values are valid. Rules: (1) FK value must exist in referenced table's PK (2) OR be NULL (if NULLs allowed). Prevents 'dangling references' (pointing to non-existent tuples). Actions on violations: REJECT operation, CASCADE (propagate change), SET NULL, SET DEFAULT. Example: Cannot delete Department if Employees reference it (or cascade delete employees). Enforced by FOREIGN KEY constraint in SQL. Critical for data consistency.",
             "formula": "$\\forall FK: FK \\in PK_{ref}$ or $FK =$ NULL"
@@ -1135,12 +1135,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Selection (σ) operation:",
         "options": [
-            "Selects columns",
-            "Selects rows satisfying a condition",
+            "Projects attributes",
             "Joins tables",
-            "Projects attributes"
+            "Selects columns",
+            "Selects rows satisfying a condition"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Selection σ (sigma): filters rows (tuples) matching given predicate. Horizontal operation - reduces cardinality, not degree. Notation: σ_predicate(R). Predicate: boolean condition using comparison operators (=, <, >, ≤, ≥, ≠), logical operators (AND, OR, NOT). Example: σ_(salary>50000 AND dept='IT')(Employee) returns IT employees earning over 50K. Output schema same as input. Commutative: σ_c1(σ_c2(R)) = σ_c2(σ_c1(R)).",
             "formula": "$\\sigma_{condition}(R)$ - filters rows"
@@ -1153,10 +1153,10 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Projection (π) operation:",
         "options": [
-            "Selects rows",
+            "Renames relation",
             "Selects columns (attributes)",
-            "Joins tables",
-            "Renames relation"
+            "Selects rows",
+            "Joins tables"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1172,11 +1172,11 @@ Questions.register([
         "question": "Union (∪) of R and S requires:",
         "options": [
             "Different schemas",
+            "Different number of tuples",
             "Same schema (union compatible)",
-            "No requirement",
-            "Different number of tuples"
+            "No requirement"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Union (R ∪ S): set of tuples in R OR S (or both), duplicates removed. Set operation - requires union compatibility: R and S must have (1) same number of attributes (same degree), (2) corresponding attributes have compatible domains (same or compatible types). Result degree = R's degree. Cardinality: |R| ≤ |R ∪ S| ≤ |R| + |S|. Commutative: R ∪ S = S ∪ R. Associative. Example: Students_2023 ∪ Students_2024 = all students.",
             "formula": "$R \\cup S$ (union-compatible)"
@@ -1189,12 +1189,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Set difference (R - S) returns:",
         "options": [
-            "Tuples in both R and S",
             "Tuples in R but not in S",
             "Tuples in S but not in R",
+            "Tuples in both R and S",
             "All tuples from both"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Set Difference (R - S): tuples that are in R but NOT in S. Set operation - requires union compatibility (same schema). Asymmetric: R - S ≠ S - R. Result has tuples from R that don't match any tuple in S. Cardinality: 0 ≤ |R - S| ≤ |R|. Example: AllStudents - GraduatedStudents = current students. Not commutative, not associative. R - R = ∅ (empty set). R - ∅ = R.",
             "formula": "$R - S = \\{t | t \\in R \\land t \\notin S\\}$"
@@ -1207,12 +1207,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Cartesian product (R × S) produces:",
         "options": [
-            "Union of tuples",
             "Every combination of R tuple with S tuple",
-            "Intersection",
-            "Difference"
+            "Difference",
+            "Union of tuples",
+            "Intersection"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Cartesian Product (R × S): every possible combination of tuples from R and S. Binary operation - does NOT require union compatibility. Result: each R tuple concatenated with each S tuple. Cardinality: |R × S| = |R| × |S|. Degree: degree(R × S) = degree(R) + degree(S). Expensive operation - produces large result. Usually followed by selection to extract meaningful combinations (equi-join). Commutative (up to attribute order). Example: Students (100) × Courses (50) = 5000 combinations.",
             "formula": "$|R \\times S| = |R| \\times |S|$, degree = $n + m$"
@@ -1225,10 +1225,10 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Natural join (⋈) combines tuples where:",
         "options": [
-            "No common attributes",
+            "Only primary keys match",
             "Common attributes have equal values",
-            "All attributes differ",
-            "Only primary keys match"
+            "No common attributes",
+            "All attributes differ"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1244,9 +1244,9 @@ Questions.register([
         "question": "Theta join (R ⋈_θ S) is:",
         "options": [
             "Cartesian product followed by selection on condition θ",
-            "Only natural join",
+            "Only union",
             "Only projection",
-            "Only union"
+            "Only natural join"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -1261,12 +1261,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Left outer join includes:",
         "options": [
-            "Only matching tuples",
             "All tuples from left + matching from right (NULLs if no match)",
             "All from right",
-            "No NULLs"
+            "No NULLs",
+            "Only matching tuples"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Left Outer Join (R ⟕ S): preserves ALL tuples from left relation R. Returns all R tuples plus matching S tuples. For R tuples without match in S, S attributes filled with NULL. Example: Employee ⟕ Department shows all employees including those without departments (DeptName = NULL). Useful for finding unmatched records. Result: |R| ≤ |R ⟕ S| ≤ |R × S|. Variants: Right Outer (preserves right), Full Outer (preserves both).",
             "formula": "$|R| \\leq |R \\  \\ltimes S|$"
@@ -1279,12 +1279,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "Division (R ÷ S) is used for:",
         "options": [
-            "Simple selection",
-            "Queries with 'for all' semantics",
             "Union",
-            "Projection only"
+            "Simple selection",
+            "Projection only",
+            "Queries with 'for all' semantics"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Division (R ÷ S): finds tuples in R that are associated with ALL tuples in S. Represents 'for all' queries. Example: StudentCourse ÷ RequiredCourses = students who took ALL required courses. If R(X,Y) and S(Y), then R ÷ S has attributes X. Result = {x | for all y in S, (x,y) in R}. Not commonly supported in SQL directly, implemented using NOT EXISTS. Division is inverse of Cartesian product.",
             "formula": "$R \\div S = \\{x |  \\forall y \\in S, (x,y) \\in R\\}$"
@@ -1297,12 +1297,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "SELECT DISTINCT removes:",
         "options": [
-            "NULL values",
-            "Duplicate rows from result",
+            "Primary keys",
             "All rows",
-            "Primary keys"
+            "NULL values",
+            "Duplicate rows from result"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "SELECT DISTINCT: removes duplicate rows from query result, enforcing set semantics (standard SQL uses bag/multiset semantics by default). Compares entire rows for equality. Implementation: usually sorting or hashing. Example: SELECT DISTINCT city FROM customers returns each city once even if multiple customers per city. Performance cost: O(n log n) sort or O(n) hashing. Use only when duplicates truly undesirable. COUNT(DISTINCT col) counts unique values."
         }
@@ -1315,11 +1315,11 @@ Questions.register([
         "question": "WHERE clause filters:",
         "options": [
             "Groups",
+            "Nothing",
             "Individual rows before grouping",
-            "Aggregates",
-            "Nothing"
+            "Aggregates"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "WHERE clause: filters individual rows BEFORE grouping/aggregation. Row-level predicate evaluated per tuple. Execution order: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. Cannot use aggregate functions in WHERE (use HAVING for aggregates). Example: WHERE salary > 50000 filters before counting. Can use column aliases defined in SELECT only in ORDER BY, not WHERE.",
             "formula": "WHERE = row-level filter (before GROUP BY)"
@@ -1332,12 +1332,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "HAVING clause filters:",
         "options": [
-            "Individual rows",
             "Groups after GROUP BY based on aggregate conditions",
+            "Individual rows",
             "Columns",
             "Nothing"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "HAVING clause: filters groups AFTER GROUP BY based on aggregate conditions. Group-level filter. Must use aggregate functions (COUNT, SUM, AVG, etc.) or grouping columns. Example: HAVING COUNT(*) > 5 filters groups with more than 5 members. Execution after WHERE and GROUP BY. Cannot reference non-aggregated columns not in GROUP BY. Common mistake: using WHERE for aggregates or HAVING for row filtering.",
             "formula": "HAVING = group-level filter (after GROUP BY)"
@@ -1350,12 +1350,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "ORDER BY clause:",
         "options": [
-            "Filters rows",
             "Sorts the result set",
-            "Groups rows",
-            "Joins tables"
+            "Filters rows",
+            "Joins tables",
+            "Groups rows"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "ORDER BY: sorts query result by specified columns. Default: ASCENDING (ASC). Use DESC for descending order. Can sort by multiple columns: ORDER BY col1 ASC, col2 DESC. Execution: last operation (after SELECT). Can use column numbers: ORDER BY 1, 2. Can sort by expressions: ORDER BY (price*quantity). NULL handling: typically NULLs first in ASC, last in DESC (database-dependent). Can use NULLS FIRST/LAST.",
             "formula": "ORDER BY col [ASC|DESC]"
@@ -1386,12 +1386,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "COUNT(*) counts:",
         "options": [
-            "Only non-null values",
             "All rows including NULLs",
             "Only nulls",
+            "Only non-null values",
             "Only distinct values"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "COUNT(*) vs COUNT(column): (1) COUNT(*): counts ALL rows in group including those with NULLs in any column. Returns number of tuples. (2) COUNT(column): counts rows where 'column' is NOT NULL. Ignores NULL values. (3) COUNT(DISTINCT column): counts unique non-NULL values. Example: table with 100 rows, 10 NULLs in 'email' - COUNT(*) = 100, COUNT(email) = 90, COUNT(DISTINCT email) = number of unique emails.",
             "formula": "COUNT(*) includes NULLs, COUNT(col) excludes"
@@ -1404,12 +1404,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "INNER JOIN returns:",
         "options": [
+            "All from right table",
             "All rows from both tables",
             "Only matching rows from both tables",
-            "All from left table",
-            "All from right table"
+            "All from left table"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "INNER JOIN: returns only rows that have matching values in BOTH tables. Default join type (JOIN without qualifier means INNER JOIN). Syntax: R INNER JOIN S ON condition. Example: Employees INNER JOIN Departments ON emp.deptID = dept.deptID returns only employees who have valid department assignments. Non-matching rows discarded. Result: |R ⋈ S| ≤ min(|R|, |S|). Contrast: Outer joins preserve non-matching rows.",
             "formula": "INNER JOIN = matching rows only"
@@ -1422,12 +1422,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "NULL comparison: what does (NULL = NULL) return?",
         "options": [
-            "TRUE",
             "FALSE",
             "NULL (unknown)",
-            "Error"
+            "Error",
+            "TRUE"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "NULL comparison paradox: (NULL = NULL) returns UNKNOWN (NULL), not TRUE. Reason: NULL represents unknown value - can't determine if two unknowns are equal. Three-valued logic: TRUE, FALSE, UNKNOWN. Correct NULL testing: (1) IS NULL - tests if value is NULL, (2) IS NOT NULL - tests if value exists. Cannot use = or != with NULL. Comparison operators with NULL produce NULL: (5 > NULL) = NULL. WHERE filters out NULL/UNKNOWN results.",
             "formula": "NULL = NULL → UNKNOWN; use IS NULL"
@@ -1440,12 +1440,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "Subquery in WHERE clause is called:",
         "options": [
-            "Outer query",
-            "Nested query / Subquery",
             "Main query",
-            "Join"
+            "Outer query",
+            "Join",
+            "Nested query / Subquery"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Subquery (Nested Query): query inside another query. Types: (1) SCALAR: returns single value, used with =, <, > operators. (2) ROW: returns single row multiple columns. (3) TABLE: returns multiple rows, used with IN, ANY, ALL, EXISTS. (4) CORRELATED: references outer query, executed per outer row. Locations: SELECT, FROM, WHERE, HAVING clauses. Example: WHERE salary > (SELECT AVG(salary) FROM emp).",
             "formula": "Subquery = query within query"
@@ -1458,12 +1458,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "Correlated subquery references:",
         "options": [
+            "No tables",
             "Only its own tables",
             "Outer query's tables",
-            "No tables",
             "System tables only"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Correlated subquery: inner query references columns from outer query. Executed once per outer query row (repeated execution). Example: SELECT * FROM emp e WHERE salary > (SELECT AVG(salary) FROM emp WHERE deptID = e.deptID) - compares each employee's salary to their department's average. Performance: typically slower than joins (n executions for n outer rows). Contrast: Uncorrelated subquery executes once, doesn't reference outer query.",
             "formula": "Correlated = references outer query"
@@ -1476,12 +1476,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "EXISTS operator checks if:",
         "options": [
-            "Value is NULL",
-            "Subquery returns at least one row",
+            "Table exists",
             "Value equals something",
-            "Table exists"
+            "Subquery returns at least one row",
+            "Value is NULL"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "EXISTS operator: tests whether subquery returns ANY rows (non-empty result). Returns TRUE if subquery has ≥ 1 row, FALSE if empty. Often used with correlated subqueries. Example: WHERE EXISTS (SELECT * FROM orders WHERE custID = customers.id) - customers with at least one order. Performance: stops at first match (short-circuit evaluation). NOT EXISTS: checks for empty subquery result. EXISTS doesn't care about subquery columns, only row existence.",
             "formula": "EXISTS = true if subquery returns rows"
@@ -1494,12 +1494,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Functional dependency X → Y means:",
         "options": [
-            "Y determines X",
-            "X determines Y (same X → same Y)",
+            "No relationship",
             "X and Y are equal",
-            "No relationship"
+            "Y determines X",
+            "X determines Y (same X → same Y)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Functional Dependency (FD) X → Y: attribute set X functionally determines Y. Meaning: whenever two tuples have same X values, they MUST have same Y values. Example: StudentID → StudentName (ID determines name uniquely). Notation: X → Y where X=determinant, Y=dependent. Key property: candidate keys functionally determine all attributes. Used for normalization, finding keys, decomposition. FDs are constraints on relation semantics, not just current instance.",
             "formula": "$X \\rightarrow Y$: same $X$ → same $Y$"
@@ -1512,12 +1512,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Armstrong's axioms include:",
         "options": [
-            "Reflexivity, Augmentation, Transitivity",
             "Only reflexivity",
-            "Only transitivity",
-            "None of these"
+            "None of these",
+            "Reflexivity, Augmentation, Transitivity",
+            "Only transitivity"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Armstrong's Axioms: sound and complete inference rules for FDs. (1) REFLEXIVITY: If Y ⊆ X, then X → Y (trivial FD). (2) AUGMENTATION: If X → Y, then XZ → YZ (add attributes). (3) TRANSITIVITY: If X → Y and Y → Z, then X → Z (chaining). Derived rules: UNION (X → Y and X → Z ⇒ X → YZ), DECOMPOSITION (X → YZ ⇒ X → Y and X → Z), PSEUDO-TRANSITIVITY. Sound: only valid FDs derived. Complete: all valid FDs derivable.",
             "formula": "Reflexivity, Augmentation, Transitivity"
@@ -1531,11 +1531,11 @@ Questions.register([
         "question": "Closure of attribute set X (X+) is:",
         "options": [
             "X itself",
-            "All attributes functionally determined by X",
+            "Empty set",
             "Only primary key",
-            "Empty set"
+            "All attributes functionally determined by X"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Closure X+ (X-plus): set of ALL attributes functionally determined by attribute set X under given FD set F. Algorithm: (1) Initialize X+ = X, (2) For each FD Y → Z in F, if Y ⊆ X+, add Z to X+, (3) Repeat until no new attributes added. Example: Given A → B, B → C, find {A}+ = {A,B,C}. Used to: (1) test if FD holds (X → Y holds iff Y ⊆ X+), (2) find candidate keys (if X+ = all attributes, X is superkey), (3) check BCNF/3NF violations.",
             "formula": "$X^+ = \\{A | X \\rightarrow A\\}$"
@@ -1548,10 +1548,10 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Candidate key is found when X+ contains:",
         "options": [
-            "No attributes",
+            "Only primary key",
             "All attributes of the relation",
-            "Only X",
-            "Only primary key"
+            "No attributes",
+            "Only X"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1566,10 +1566,10 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "1NF (First Normal Form) requires:",
         "options": [
-            "No functional dependencies",
-            "All attribute values are atomic (no multi-valued or composite)",
             "No nulls",
-            "Only one key"
+            "All attribute values are atomic (no multi-valued or composite)",
+            "Only one key",
+            "No functional dependencies"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1583,12 +1583,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "2NF requires 1NF plus:",
         "options": [
-            "No transitive dependencies",
             "No partial dependencies on candidate key",
+            "BCNF",
             "No multi-valued dependencies",
-            "BCNF"
+            "No transitive dependencies"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Second Normal Form (2NF): Must be in 1NF AND no partial dependency exists. Partial dependency: non-prime attribute depends on PART of a composite candidate key. Example violation: R(StudentID, CourseID, StudentName, Grade) with key {StudentID, CourseID} - StudentName depends only on StudentID (partial). Fix: decompose into Student(StudentID, StudentName) and Enrollment(StudentID, CourseID, Grade). 2NF only matters for relations with composite keys. Single-attribute keys automatically satisfy 2NF.",
             "formula": "2NF = 1NF + no partial dependencies"
@@ -1638,11 +1638,11 @@ Questions.register([
         "question": "BCNF (Boyce-Codd Normal Form) requires: for all X → Y,",
         "options": [
             "Y is prime",
+            "X is candidate key only",
             "X is a superkey (or Y ⊆ X)",
-            "No functional dependencies",
-            "X is candidate key only"
+            "No functional dependencies"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Boyce-Codd Normal Form (BCNF): Stricter than 3NF. For every non-trivial FD X → Y, X MUST be a superkey (or Y ⊆ X trivial). No exceptions. Every determinant is a superkey. BCNF eliminates ALL anomalies from functional dependencies. Difference from 3NF: doesn't allow FD where determinant is non-superkey even if dependent is prime. May not preserve all FDs when decomposing. Choose BCNF when anomalies unacceptable, 3NF when dependency preservation critical.",
             "formula": "BCNF: $\\forall X \\rightarrow Y$, X is superkey or Y trivial"
@@ -1655,12 +1655,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "BCNF is stricter than 3NF. 3NF allows:",
         "options": [
-            "Nothing extra",
             "FD where Y is prime attribute and X is not superkey",
-            "Any FD",
-            "No FD"
+            "No FD",
+            "Nothing extra",
+            "Any FD"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "3NF vs BCNF difference: 3NF allows functional dependency X → A where X is NOT a superkey IF A is a prime attribute (part of candidate key). BCNF does NOT allow this - ALL determinants must be superkeys. Example: R(Student, Course, Instructor) with FDs: {Student, Course} → Instructor, Instructor → Course. Violates BCNF (Instructor not superkey) but satisfies 3NF (Course is prime). Trade-off: BCNF eliminatesall FD anomalies but may lose dependencies, 3NF preserves dependencies but allows some anomalies.",
             "formula": "3NF allows non-superkey → prime; BCNF doesn't"
@@ -1673,12 +1673,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Lossless join decomposition ensures:",
         "options": [
-            "Data is lost",
             "Original relation can be reconstructed by natural join",
-            "More data added",
-            "Normalization fails"
+            "Normalization fails",
+            "Data is lost",
+            "More data added"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Lossless-join decomposition: when relation R decomposed into R1, R2, ..., Rn, we can reconstruct original R exactly by natural join: R = R1 ⋈ R2 ⋈ ... ⋈ Rn. NO spurious tuples (extra garbage rows) generated. Test for binary decomposition (R1, R2): lossless iff (R1 ∩ R2) → (R1 - R2) or (R1 ∩ R2) → (R2 - R1). Common attribute(s) must be key of at least one part. Essential property - prevents data loss. All normalization decompositions must be lossless.",
             "formula": "Lossless: $(R_1 \\cap R_2) \\rightarrow R_1$ or $R_2$"
@@ -1691,12 +1691,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Dependency preservation ensures:",
         "options": [
+            "Only trivial FDs",
             "All FDs lost",
             "All original FDs can be checked in decomposed relations",
-            "No FDs preserved",
-            "Only trivial FDs"
+            "No FDs preserved"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Dependency preservation: after decomposing R into R1, R2, ..., Rn, each original FD can be CHECKED within decomposed relations without joins. Project FD set F onto each Ri. Union of projected sets should logically imply F. Benefits: (1) efficient integrity checking (no expensive joins), (2) maintain constraints locally. Trade-off: BCNF decomposition may not preserve dependencies, but 3NF always does. Sometimes must choose between losslessness + dependency preservation (3NF gives both) vs complete anomaly elimination (BCNF).",
             "formula": "$(F_1 \\cup F_2 \\cup ... \\cup F_n)^+ = F^+$"
@@ -1709,12 +1709,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "ACID properties are:",
         "options": [
-            "Atomicity, Consistency, Isolation, Durability",
-            "Accuracy, Completeness, Integrity, Dependency",
+            "Only Durability",
             "Only Atomicity",
-            "Only Durability"
+            "Accuracy, Completeness, Integrity, Dependency",
+            "Atomicity, Consistency, Isolation, Durability"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "ACID Properties: A = Atomicity (all or nothing), C = Consistency (database remains valid before/after), I = Isolation (concurrent transactions don't interfere), D = Durability (committed changes survive failures). ACID ensures reliable transaction processing. Trade-off: stricter ACID = lower performance."
         }
@@ -1726,12 +1726,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Atomicity means:",
         "options": [
-            "Transaction can be partially done",
             "Transaction is all-or-nothing (complete or none)",
+            "Transaction can be partially done",
             "Transaction reads atoms",
             "Transaction is fastest"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Atomicity (A in ACID): transaction is indivisible unit - either ALL operations complete successfully and COMMIT, or NONE take effect and ROLLBACK. No partial execution visible. Implementation: logging (undo/redo), shadow paging. Example: bank transfer must debit one account AND credit another - can't do just one. If failure occurs partway, system must undo all changes. Ensures database doesn't end up in inconsistent intermediate state.",
             "formula": "Atomicity = all-or-nothing execution"
@@ -1744,12 +1744,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Isolation means:",
         "options": [
-            "Transactions see each other's uncommitted changes",
-            "Concurrent transactions appear to execute in isolation",
             "No concurrency",
-            "Only one transaction runs"
+            "Only one transaction runs",
+            "Transactions see each other's uncommitted changes",
+            "Concurrent transactions appear to execute in isolation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Isolation (I in ACID): concurrent transactions execute as if serially - intermediate states not visible to other transactions. Prevents: dirty reads (reading uncommitted data), non-repeatable reads (different values on re-read), phantom reads (new rows appear). Levels: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE (strictest). Implementation: locking (2PL), timestamp ordering, MVCC. Trade-off: stricter isolation = lower concurrency but more consistency.",
             "formula": "Isolation levels: from weak to strong"
@@ -1762,9 +1762,9 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Durability means:",
         "options": [
-            "Data can be lost",
-            "Once committed, changes persist even after failures",
             "Temporary storage",
+            "Once committed, changes persist even after failures",
+            "Data can be lost",
             "No persistence"
         ],
         "correctAnswer": 1,
@@ -1780,12 +1780,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Schedule is serializable if:",
         "options": [
-            "It is serial",
-            "It is equivalent to some serial schedule",
+            "It is random",
             "It has conflicts",
-            "It is random"
+            "It is equivalent to some serial schedule",
+            "It is serial"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Serializable schedule: concurrent execution of transactions produces same final database state as SOME serial (one-at-a-time) execution. Correctness criterion for concurrent execution. Types: (1) CONFLICT SERIALIZABLE: can transform to serial by swapping non-conflicting operations, (2) VIEW SERIALIZABLE: produces same reads/writes as serial. All conflict serializable schedules are view serializable.Tested using precedence graph (acylic = conflict serializable). Guarantees consistency.",
             "formula": "Serializable ≡ equivalent to serial execution"
@@ -1798,12 +1798,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Conflict serializability: two operations conflict if they:",
         "options": [
+            "Are same transaction",
             "Are on different items",
             "Are on same item, at least one is write, different transactions",
-            "Are both reads",
-            "Are same transaction"
+            "Are both reads"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Conflicting operations: two operations from DIFFERENT transactions conflict if: (1) access SAME data item, (2) at least ONE is WRITE operation, (3) operations from different transactions. Conflict pairs: read-write (R-W), write-read (W-R), write-write (W-W). Non-conflicting: read-read (R-R) from different transactions. Conflicting operations cannot be swapped without changing result. Basis for conflict serializability testing.",
             "formula": "Conflict: same item + different txns + ≥ 1 write"
@@ -1816,10 +1816,10 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Precedence graph for conflict serializability has edge Ti → Tj if:",
         "options": [
-            "Ti reads after Tj writes",
-            "Ti has conflicting operation before Tj's conflicting operation",
             "Random edge",
-            "No edges needed"
+            "Ti has conflicting operation before Tj's conflicting operation",
+            "No edges needed",
+            "Ti reads after Tj writes"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1835,11 +1835,11 @@ Questions.register([
         "question": "A schedule is conflict serializable if precedence graph is:",
         "options": [
             "Has cycles",
-            "Acyclic (DAG)",
+            "Empty",
             "Complete graph",
-            "Empty"
+            "Acyclic (DAG)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Conflict Serializability Test: schedule is conflict serializable ⇔ precedence graph is ACYCLIC. Algorithm: (1) Create node for each transaction, (2) For each pair of conflicting operations from different transactions, add edge from earlier to later transaction, (3) Check for cycles using DFS/topological sort. If acyclic: find topological order = equivalent serial schedule. If cycle exists: not conflict serializable. Polynomial time test O(V + E).",
             "formula": "Conflict serializable ⇔ acyclic precedence graph"
@@ -1852,12 +1852,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "2-Phase Locking (2PL) has:",
         "options": [
+            "Three phases",
             "Only one phase",
             "Growing phase (acquire locks) and Shrinking phase (release locks)",
-            "Three phases",
             "No phases"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Two-Phase Locking (2PL) protocol: transaction divided into two phases: (1) GROWING PHASE: can only ACQUIRE locks, cannot release any lock, (2) SHRINKING PHASE: can only RELEASE locks, cannot acquire new locks. Once first lock released, no more locks can be acquired. Point of first release = lock point. 2PL GUARANTEES conflict serializability. Problem: can cause deadlocks. Variants: Strict 2PL (hold write locks until commit), Rigorous 2PL (hold all locks until commit).",
             "formula": "Growing: acquire only; Shrinking: release only"
@@ -1870,9 +1870,9 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "2PL guarantees:",
         "options": [
-            "Deadlock freedom",
-            "Conflict serializability",
             "View serializability only",
+            "Conflict serializability",
+            "Deadlock freedom",
             "Nothing"
         ],
         "correctAnswer": 1,
@@ -1906,9 +1906,9 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Deadlock in DBMS can be handled by:",
         "options": [
-            "Ignoring it",
-            "Prevention, detection + recovery, timeout",
             "Only detection",
+            "Prevention, detection + recovery, timeout",
+            "Ignoring it",
             "No handling needed"
         ],
         "correctAnswer": 1,
@@ -1925,11 +1925,11 @@ Questions.register([
         "question": "Primary index is on:",
         "options": [
             "Non-key field",
-            "Primary key (file ordered by key)",
             "Foreign key",
+            "Primary key (file ordered by key)",
             "Any field"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Primary indexon: built on PRIMARY KEY (ordering key attribute). File is SORTED by this key. Properties: (1) sparse index (one entry per block sufficient), (2) Fast search O(log B) where B = number of blocks, (3) Only ONE primary index per file (file sorted only one way), (4) Efficient for both point and range queries. Example: Employee file sorted by EmpID - primary index on EmpID. Anchor records: first record in each block.",
             "formula": "Primary index: on ordering key (sorted file)"
@@ -1942,10 +1942,10 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Secondary index is on:",
         "options": [
-            "Ordering field",
-            "Non-ordering field",
             "Only primary key",
-            "No field"
+            "Non-ordering field",
+            "No field",
+            "Ordering field"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1960,10 +1960,10 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Dense index has:",
         "options": [
-            "Entry for some records",
+            "Only for first record",
             "Entry for every record",
             "No entries",
-            "Only for first record"
+            "Entry for some records"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -1979,11 +1979,11 @@ Questions.register([
         "question": "Sparse index has:",
         "options": [
             "Entry for every record",
-            "Entry for some records (e.g., per block)",
             "No entries",
-            "Entry for foreign keys only"
+            "Entry for foreign keys only",
+            "Entry for some records (e.g., per block)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Sparse index: contains index entries for only SOME search key values - typically one per block/page (anchor records). Requires file to be SORTED by indexed attribute. Properties: (1) smaller than dense index, (2) used for primary/clustering indexes, (3) search: find appropriate block via index, then sequential scan within block, (4) cannot be used for secondary indexes. Example: 1000 blocks → ~1000 index entries. Space-efficient but requires sorted file.",
             "formula": "Sparse: entries ≈ number of blocks"
@@ -1996,10 +1996,10 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "B+ tree index: all data pointers are in:",
         "options": [
-            "Internal nodes only",
+            "All nodes",
             "Leaf nodes only",
-            "Root only",
-            "All nodes"
+            "Internal nodes only",
+            "Root only"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2015,11 +2015,11 @@ Questions.register([
         "question": "B+ tree leaf nodes are:",
         "options": [
             "Not connected",
-            "Linked together (for range queries)",
+            "Same as root",
             "Deleted after use",
-            "Same as root"
+            "Linked together (for range queries)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "B+ tree leaf linkage: ALL leaf nodes linked as doubly-linked list in key order. Critical for: (1) RANGE QUERIES: find start of range, follow links to scan all qualifying records without tree traversal,  (2) SEQUENTIAL SCAN: traverse all records in sorted order by following leaf links (no parent traversal), (3) Efficient MIN/MAX queries. Example: SELECT * WHERE age BETWEEN 20 AND 30 - find age=20 leaf, follow links until age>30. Makes B+ tree ideal for database indexing.",
             "formula": "Leaf linkage → efficient range/sequential access"
@@ -2033,11 +2033,11 @@ Questions.register([
         "question": "B+ tree of order p (fanout p): internal node has at most:",
         "options": [
             "p keys",
+            "Only 2 children",
             "p-1 keys, p children",
-            "p children, p keys",
-            "Only 2 children"
+            "p children, p keys"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "B+ tree order p (maximum fanout): Internal node can have MAXIMUM p children (pointers) and p-1 keys. Keys separate pointers: k1 | ptr1 | k2 | ptr2 | ... | k_{p-1} | ptr_p. Minimum children (non-root): ⌈p/2⌉, minimum keys: ⌈p/2⌉-1. Leaf nodes: max p-1 data pointers (or p records in some definitions). Root exception: min 1 key (2 children). High-order trees stay shallow: order 100 → ~3 levels for millions of records. Typical disk-based B+ trees: order 100-200.",
             "formula": "Order p: max $p-1$ keys, $p$ children"
@@ -2050,12 +2050,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Height of B+ tree with n keys and order p is approximately:",
         "options": [
+            "n × p",
             "n",
-            "log_p(n)",
             "p",
-            "n × p"
+            "log_p(n)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Height ≈ ⌈log_p(n)⌉",
             "formula": "h = O(log_p n)"
@@ -2068,9 +2068,9 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Hash index is best for:",
         "options": [
-            "Range queries",
-            "Equality lookups",
             "Sorting",
+            "Equality lookups",
+            "Range queries",
             "Pattern matching"
         ],
         "correctAnswer": 1,
@@ -2086,11 +2086,11 @@ Questions.register([
         "question": "Clustered index: data records are:",
         "options": [
             "Not ordered",
-            "Physically ordered by index key",
             "Always in heap",
+            "Physically ordered by index key",
             "In separate file"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Clustered: data physically sorted by index, only one per table"
         }
@@ -2102,12 +2102,12 @@ Questions.register([
         "subtopic": "File Organization",
         "question": "Block Factor (Blocking Factor) is:",
         "options": [
-            "Number of blocks per record",
-            "Maximum records per block",
             "Total blocks in file",
-            "Block size"
+            "Number of blocks per record",
+            "Block size",
+            "Maximum records per block"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "BF = ⌊(Block size - Header) / Record size⌋"
         }
@@ -2119,12 +2119,12 @@ Questions.register([
         "subtopic": "File Organization",
         "question": "Spanned organization allows:",
         "options": [
-            "Only one record per block",
-            "Record to span multiple blocks",
+            "Fixed size records only",
             "No records in block",
-            "Fixed size records only"
+            "Record to span multiple blocks",
+            "Only one record per block"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Spanned: record can cross block boundary (variable length)"
         }
@@ -2136,12 +2136,12 @@ Questions.register([
         "subtopic": "File Organization",
         "question": "Unspanned organization requires:",
         "options": [
-            "Records can cross blocks",
             "Complete record in one block",
-            "No records",
-            "Only for text files"
+            "Records can cross blocks",
+            "Only for text files",
+            "No records"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Unspanned: easier access but may waste space"
         }
@@ -2153,12 +2153,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Dense index has:",
         "options": [
-            "One entry per block",
             "One entry per record",
-            "No entries",
-            "One entry per file"
+            "One entry per file",
+            "One entry per block",
+            "No entries"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Dense: index entry for every record"
         }
@@ -2170,12 +2170,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Sparse index has:",
         "options": [
-            "Entry for every record",
-            "Entry for each block (not every record)",
+            "Entry for each file",
             "No entries",
-            "Entry for each file"
+            "Entry for each block (not every record)",
+            "Entry for every record"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Sparse: one entry per block, requires ordered file"
         }
@@ -2189,8 +2189,8 @@ Questions.register([
         "options": [
             "Any field",
             "Ordering key field (unique)",
-            "Non-key field",
-            "Foreign key"
+            "Foreign key",
+            "Non-key field"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2204,12 +2204,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Clustering index is built on:",
         "options": [
-            "Key ordering field",
             "Non-key ordering field",
+            "Primary key only",
             "Unordered field",
-            "Primary key only"
+            "Key ordering field"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Clustering: ordered field, non-key (groups records)"
         }
@@ -2222,11 +2222,11 @@ Questions.register([
         "question": "Secondary index is built on:",
         "options": [
             "Ordering field only",
-            "Non-ordering field (alternative access)",
             "Only primary key",
-            "No field"
+            "No field",
+            "Non-ordering field (alternative access)"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Secondary: non-ordering field, always dense"
         }
@@ -2238,12 +2238,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "I/O cost to access record using k-level multilevel index:",
         "options": [
-            "k",
-            "k+1",
             "2k",
-            "log k"
+            "log k",
+            "k+1",
+            "k"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "k index blocks + 1 data block = k+1 I/Os"
         }
@@ -2256,11 +2256,11 @@ Questions.register([
         "question": "B-tree of order p: internal node has at most:",
         "options": [
             "p keys, p children",
-            "p-1 keys, p children",
             "p keys, p-1 children",
+            "p-1 keys, p children",
             "p-1 keys, p-1 children"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "B-tree node: ≤p-1 keys, ≤p children"
         }
@@ -2274,8 +2274,8 @@ Questions.register([
         "options": [
             "Different levels",
             "Same level (height balanced)",
-            "Root level",
-            "Random levels"
+            "Random levels",
+            "Root level"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2289,12 +2289,12 @@ Questions.register([
         "subtopic": "B-Tree",
         "question": "B-tree internal node (non-root) must have at least:",
         "options": [
-            "1 child",
             "⌈p/2⌉ children",
+            "1 child",
             "p children",
             "p-1 children"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Minimum ⌈p/2⌉ children for internal nodes (except root)"
         }
@@ -2308,8 +2308,8 @@ Questions.register([
         "options": [
             "Only leaf nodes",
             "All nodes (internal and leaf)",
-            "Only root",
-            "Only internal nodes"
+            "Only internal nodes",
+            "Only root"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2323,12 +2323,12 @@ Questions.register([
         "subtopic": "B+ Tree",
         "question": "B+ tree: data pointers are present in:",
         "options": [
+            "Only root",
             "All nodes",
-            "Only leaf nodes",
             "Only internal nodes",
-            "Only root"
+            "Only leaf nodes"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "B+ tree: all data at leaves, internal nodes only for navigation"
         }
@@ -2340,10 +2340,10 @@ Questions.register([
         "subtopic": "B+ Tree",
         "question": "B+ tree leaf nodes are:",
         "options": [
-            "Not connected",
+            "Random connections",
             "Linked together (linked list)",
-            "Connected to root only",
-            "Random connections"
+            "Not connected",
+            "Connected to root only"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2358,11 +2358,11 @@ Questions.register([
         "question": "B+ tree is preferred over B-tree for:",
         "options": [
             "Single record access only",
-            "Sequential/range access",
             "Never preferred",
-            "Space efficiency only"
+            "Space efficiency only",
+            "Sequential/range access"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "B+ tree: better for range queries (leaf linking)"
         }
@@ -2374,12 +2374,12 @@ Questions.register([
         "subtopic": "B+ Tree",
         "question": "B+ tree internal node order p: maximum pointers = ?, maximum keys = ?",
         "options": [
-            "p, p",
             "p, p-1",
+            "p, p",
             "p-1, p",
             "p-1, p-1"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Internal: ≤p pointers, ≤p-1 keys"
         }
@@ -2392,11 +2392,11 @@ Questions.register([
         "question": "B+ tree leaf node order p: maximum data pointers = ?",
         "options": [
             "p",
-            "p-1",
             "p+1",
+            "p-1",
             "2p"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Leaf: ≤p-1 data pointers + 1 sibling pointer",
             "formula": "p-1 data pointers"
@@ -2409,12 +2409,12 @@ Questions.register([
         "subtopic": "B+ Tree",
         "question": "Height of B+ tree with n keys and order p is approximately:",
         "options": [
+            "n/p",
             "log₂(n)",
             "logₚ(n)",
-            "n/p",
             "p×n"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Height ≈ ⌈log_p(n)⌉",
             "formula": "h = O(log_p n)"
@@ -2428,9 +2428,9 @@ Questions.register([
         "question": "Relation (table) in RDBMS is a:",
         "options": [
             "Set of rows (no duplicates)",
-            "List of rows (duplicates allowed)",
             "Tree",
-            "Graph"
+            "Graph",
+            "List of rows (duplicates allowed)"
         ],
         "correctAnswer": 0,
         "explanation": {
@@ -2444,12 +2444,12 @@ Questions.register([
         "subtopic": "Relational",
         "question": "Candidate key is:",
         "options": [
+            "Only primary key",
             "Any attribute",
-            "Minimal superkey",
             "Foreign key",
-            "Only primary key"
+            "Minimal superkey"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Candidate key: minimal set uniquely identifying tuples"
         }
@@ -2461,12 +2461,12 @@ Questions.register([
         "subtopic": "Relational",
         "question": "Foreign key references:",
         "options": [
-            "Any attribute",
             "Primary key of another table",
-            "Its own primary key",
-            "Only integers"
+            "Any attribute",
+            "Only integers",
+            "Its own primary key"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "FK: references PK of another (or same) table"
         }
@@ -2479,11 +2479,11 @@ Questions.register([
         "question": "Order of execution: SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY:",
         "options": [
             "As written",
-            "FROM→WHERE→GROUP BY→HAVING→SELECT→ORDER BY",
             "SELECT first",
+            "FROM→WHERE→GROUP BY→HAVING→SELECT→ORDER BY",
             "ORDER BY first"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "FROM→WHERE→GROUP BY→HAVING→SELECT→ORDER BY"
         }
@@ -2495,12 +2495,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "NULL = NULL evaluates to:",
         "options": [
+            "ERROR",
             "TRUE",
             "FALSE",
-            "UNKNOWN",
-            "ERROR"
+            "UNKNOWN"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "NULL comparisons return UNKNOWN"
         }
@@ -2512,12 +2512,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "To check for NULL values:",
         "options": [
-            "= NULL",
             "IS NULL",
             "== NULL",
-            "NULL()"
+            "NULL()",
+            "= NULL"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Use IS NULL or IS NOT NULL"
         }
@@ -2529,12 +2529,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Relation in BCNF is always in:",
         "options": [
-            "1NF only",
             "2NF only",
-            "3NF",
-            "4NF"
+            "1NF only",
+            "4NF",
+            "3NF"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "BCNF ⊂ 3NF ⊂ 2NF ⊂ 1NF"
         }
@@ -2546,12 +2546,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "Anomalies in unnormalized relations:",
         "options": [
+            "No anomalies",
             "Only insertion",
-            "Insertion, deletion, update anomalies",
             "Only update",
-            "No anomalies"
+            "Insertion, deletion, update anomalies"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Redundancy causes all three anomaly types"
         }
@@ -2563,12 +2563,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "ACID properties of transactions:",
         "options": [
-            "Atomicity, Consistency, Isolation, Durability",
-            "Only atomicity",
             "Only isolation",
-            "None"
+            "None",
+            "Atomicity, Consistency, Isolation, Durability",
+            "Only atomicity"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "ACID: Atomicity, Consistency, Isolation, Durability"
         }
@@ -2580,12 +2580,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Atomicity ensures:",
         "options": [
+            "Durability",
             "Transactions run fast",
             "All operations complete or none (all-or-nothing)",
-            "Isolation",
-            "Durability"
+            "Isolation"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "Atomic: complete transaction or rollback entirely"
         }
@@ -2598,11 +2598,11 @@ Questions.register([
         "question": "Serializability means:",
         "options": [
             "Transactions run serially",
-            "Result equivalent to some serial schedule",
+            "Fast execution",
             "No concurrency",
-            "Fast execution"
+            "Result equivalent to some serial schedule"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Serializable: concurrent result = some serial order"
         }
@@ -2614,12 +2614,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Conflict serializability is tested using:",
         "options": [
-            "Precedence graph (cycle detection)",
             "Sorting",
-            "Hashing",
-            "B-tree"
+            "Precedence graph (cycle detection)",
+            "B-tree",
+            "Hashing"
         ],
-        "correctAnswer": 0,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "Precedence graph: acyclic → conflict serializable"
         }
@@ -2631,12 +2631,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "2-Phase Locking (2PL) has:",
         "options": [
-            "Growing phase only",
-            "Shrinking phase only",
+            "No phases",
             "Growing then shrinking phases",
-            "No phases"
+            "Shrinking phase only",
+            "Growing phase only"
         ],
-        "correctAnswer": 2,
+        "correctAnswer": 1,
         "explanation": {
             "solution": "2PL: acquire locks (grow) then release (shrink)"
         }
@@ -2648,12 +2648,12 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Strict 2PL additionally requires:",
         "options": [
-            "No locks",
-            "Hold exclusive locks until commit",
             "Release immediately",
-            "No exclusive locks"
+            "No exclusive locks",
+            "No locks",
+            "Hold exclusive locks until commit"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "Strict 2PL: hold X-locks until commit/abort"
         }
@@ -2665,12 +2665,12 @@ Questions.register([
         "subtopic": "Recovery",
         "question": "Write-Ahead Logging (WAL) requires:",
         "options": [
-            "Log after write",
-            "Log before write to disk",
             "No logging",
-            "Log only reads"
+            "Log only reads",
+            "Log after write",
+            "Log before write to disk"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "WAL: log record before data written to disk"
         }
@@ -2682,12 +2682,12 @@ Questions.register([
         "subtopic": "Recovery",
         "question": "UNDO recovery is for:",
         "options": [
+            "Logging",
             "Committed transactions",
             "Uncommitted transactions (rollback)",
-            "Checkpoints",
-            "Logging"
+            "Checkpoints"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "UNDO: revert effects of uncommitted transactions"
         }
@@ -2699,10 +2699,10 @@ Questions.register([
         "subtopic": "Recovery",
         "question": "REDO recovery is for:",
         "options": [
-            "Uncommitted transactions",
+            "All transactions",
             "Committed transactions not written to disk",
-            "Aborted transactions",
-            "All transactions"
+            "Uncommitted transactions",
+            "Aborted transactions"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2758,11 +2758,11 @@ Questions.register([
         "question": "Weak entity participation in identifying relationship:",
         "options": [
             "Partial",
-            "Total",
             "Optional",
+            "Total",
             "None"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "A weak entity depends on its owner (strong) entity for identification. It MUST have total (mandatory) participation in the identifying relationship - it cannot exist without being related to an owner entity. Example: Dependent (weak) of Employee (strong) - every dependent must belong to some employee. Depicted with double lines and double rectangles in ER."
         }
@@ -2803,12 +2803,12 @@ Questions.register([
         "subtopic": "Relational Algebra",
         "question": "π(A,B)(σ(C>5)(R)) is equivalent to:",
         "options": [
-            "σ(C>5)(π(A,B)(R))",
-            "These are different",
             "π(A,B)(R)",
-            "σ(C>5)(R)"
+            "σ(C>5)(π(A,B)(R))",
+            "σ(C>5)(R)",
+            "These are different"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "These are different! In π_{A,B}(σ_{C>5}(R)): first filter by C>5, then project A,B. In σ_{C>5}(π_{A,B}(R)): first project A,B (losing C!), then filter by C>5 - but C doesn't exist after projection, causing an error or undefined behavior. Selection-projection order matters when the selection attribute is not in the projection list."
         }
@@ -2821,12 +2821,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "Which removes duplicates?",
         "options": [
-            "SELECT ALL",
             "SELECT DISTINCT",
+            "SELECT *",
             "SELECT UNIQUE",
-            "SELECT *"
+            "SELECT ALL"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "SELECT DISTINCT removes duplicate rows from the result. SQL treats tables as multisets (bags) by default, allowing duplicates. DISTINCT forces set semantics. SELECT ALL (default) keeps duplicates. SELECT UNIQUE is Oracle-specific (non-standard). SELECT * selects all columns but says nothing about duplicate elimination."
         }
@@ -2839,12 +2839,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "HAVING clause filters:",
         "options": [
-            "Individual rows",
-            "Groups after GROUP BY",
+            "Tables",
             "Columns",
-            "Tables"
+            "Groups after GROUP BY",
+            "Individual rows"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "WHERE filters individual rows BEFORE grouping. HAVING filters groups AFTER GROUP BY aggregation. HAVING can use aggregate functions (SUM, COUNT, etc.) while WHERE cannot. Example: SELECT dept, AVG(salary) FROM emp GROUP BY dept HAVING AVG(salary) > 50000 - this filters departments by average salary, not individual employees."
         }
@@ -2857,12 +2857,12 @@ Questions.register([
         "subtopic": "SQL",
         "question": "COUNT(*) vs COUNT(column) difference:",
         "options": [
-            "No difference",
-            "COUNT(*) includes NULLs, COUNT(col) doesn't",
             "COUNT(col) includes NULLs",
-            "Both count NULLs"
+            "Both count NULLs",
+            "No difference",
+            "COUNT(*) includes NULLs, COUNT(col) doesn't"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 3,
         "explanation": {
             "solution": "COUNT(*) counts all rows regardless of NULL values - it counts rows, not values. COUNT(column) counts non-NULL values in that column only. Example: table with 10 rows where column X has 3 NULLs: COUNT(*) = 10, COUNT(X) = 7. COUNT(DISTINCT col) counts unique non-NULL values."
         }
@@ -2876,9 +2876,9 @@ Questions.register([
         "question": "NULL = NULL evaluates to:",
         "options": [
             "TRUE",
-            "FALSE",
+            "NULL",
             "UNKNOWN",
-            "NULL"
+            "FALSE"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -2921,10 +2921,10 @@ Questions.register([
         "subtopic": "FDs",
         "question": "Armstrong's axioms include:",
         "options": [
-            "Reflexivity, Augmentation, Union",
-            "Reflexivity, Augmentation, Transitivity",
             "Only Transitivity",
-            "Union, Decomposition, Pseudotransitivity"
+            "Reflexivity, Augmentation, Transitivity",
+            "Union, Decomposition, Pseudotransitivity",
+            "Reflexivity, Augmentation, Union"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -2939,12 +2939,12 @@ Questions.register([
         "subtopic": "Normalization",
         "question": "2NF requires:",
         "options": [
-            "No transitive FDs",
-            "No partial dependencies on candidate key",
             "BCNF",
-            "4NF"
+            "4NF",
+            "No partial dependencies on candidate key",
+            "No transitive FDs"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "2NF: table is in 1NF AND no non-prime attribute is partially dependent on any candidate key. Partial dependency: attribute depends on part of a composite key. Example: (StudentID, CourseID) → Grade is fine, but (StudentID, CourseID) → StudentName violates 2NF if StudentID → StudentName. Solution: decompose."
         }
@@ -2958,11 +2958,11 @@ Questions.register([
         "question": "3NF requires 2NF and no:",
         "options": [
             "Partial dependencies",
+            "Join dependencies",
             "Transitive dependencies",
-            "Multivalued dependencies",
-            "Join dependencies"
+            "Multivalued dependencies"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "3NF: table is in 2NF AND no non-prime attribute is transitively dependent on any candidate key. Transitive dependency: A→B→C where B is not a superkey. Example: EmpID→DeptID→DeptName. EmpID transitively determines DeptName through DeptID. Solution: separate Dept(DeptID, DeptName)."
         }
@@ -2976,11 +2976,11 @@ Questions.register([
         "question": "BCNF requires for every FD X→Y: X is:",
         "options": [
             "Prime attribute",
+            "Candidate key only",
             "Superkey",
-            "Non-prime",
-            "Candidate key only"
+            "Non-prime"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 2,
         "explanation": {
             "solution": "BCNF (Boyce-Codd NF): for every non-trivial FD X→Y, X must be a superkey (determines all attributes). Stricter than 3NF, which allows X→Y when Y is prime attribute. BCNF eliminates all redundancy from FDs. However, BCNF decomposition may not preserve all FDs, while 3NF decomposition always can."
         }
@@ -3007,10 +3007,10 @@ Questions.register([
         "subtopic": "Transactions",
         "question": "Schedule is conflict serializable if precedence graph is:",
         "options": [
-            "Connected",
             "Cyclic",
+            "Tree",
             "Acyclic",
-            "Tree"
+            "Connected"
         ],
         "correctAnswer": 2,
         "explanation": {
@@ -3027,8 +3027,8 @@ Questions.register([
         "options": [
             "Deadlock freedom",
             "Serializability",
-            "Recoverability",
-            "Livelock freedom"
+            "Livelock freedom",
+            "Recoverability"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -3045,8 +3045,8 @@ Questions.register([
         "options": [
             "Deadlock",
             "Cascading rollback",
-            "Starvation",
-            "Nothing extra"
+            "Nothing extra",
+            "Starvation"
         ],
         "correctAnswer": 1,
         "explanation": {
@@ -3117,12 +3117,12 @@ Questions.register([
         "subtopic": "Indexing",
         "question": "Secondary index is always:",
         "options": [
-            "Sparse",
             "Dense",
+            "Primary",
             "Clustered",
-            "Primary"
+            "Sparse"
         ],
-        "correctAnswer": 1,
+        "correctAnswer": 0,
         "explanation": {
             "solution": "Secondary index is on non-ordering field (records not sorted by this key). Since data isn't clustered by this key, we can't use one index entry per block - must have entry for EACH record: DENSE index. Primary/clustering indexes on sorted data can be sparse (one entry per block). Secondary enables efficient search on non-primary attributes but requires more space."
         }

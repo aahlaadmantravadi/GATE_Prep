@@ -174,6 +174,24 @@
                     </button>
                 </div>
 
+                <!-- Attempted Status Toggle -->
+                <div class="attempted-toggle-container"
+                    style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; justify-content: center;">
+                    <span style="font-weight: 500; margin-right: 8px;">Progress Filter:</span>
+                    <button class="btn attempted-toggle-btn active" data-attempted-mode="all"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        📚 All (<span id="count-all-attempted">0</span>)
+                    </button>
+                    <button class="btn attempted-toggle-btn" data-attempted-mode="unattempted"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        ⭕ Unattempted (<span id="count-unattempted">0</span>)
+                    </button>
+                    <button class="btn attempted-toggle-btn" data-attempted-mode="attempted"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        ✅ Attempted (<span id="count-attempted">0</span>)
+                    </button>
+                </div>
+
                 <div class="stats-overview">
                     <div class="stat-card">
                         <div class="stat-icon">📝</div>
@@ -250,6 +268,9 @@
                         </div>
                     </div>
                     <div class="quiz-actions">
+                        <button class="btn btn-icon" id="changeFilterInQuiz" title="Change Filter">
+                            <span>🔍</span>
+                        </button>
                         <button class="btn btn-icon" id="bookmarkQuestion" title="Bookmark">
                             <span id="bookmarkIcon">🔖</span>
                         </button>
