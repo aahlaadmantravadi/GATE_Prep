@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GATE Quiz">
+    <title>GATE CS Quiz - Master Your Preparation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered, scope:', registration.scope);
+                        registration.addEventListener('updatefound', () => {
+                            console.log('New service worker found');
+                        });
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">📚</span>
+                    <span class="logo-text">GATE CS Quiz</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <span></span>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <span class="nav-section-title">Dashboard</span>
+                    <a href="#" class="nav-item active" data-view="dashboard">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="statistics">
+                        <span class="nav-icon">📊</span>
+                        <span class="nav-label">Statistics</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="bookmarks">
+                        <span class="nav-icon">🔖</span>
+                        <span class="nav-label">Bookmarks</span>
+                    </a>
+                    <a href="#" class="nav-item" data-view="review">
+                        <span class="nav-icon">🔄</span>
+                        <span class="nav-label">Review Wrong</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <span class="nav-section-title">Topics</span>
+                    <a href="#" class="nav-item" data-topic="engineering-math">
+                        <span class="nav-icon">∫</span>
+                        <span class="nav-label">Engineering Math</span>
+                        <span class="nav-badge" id="badge-engineering-math">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="discrete-math">
+                        <span class="nav-icon">∪</span>
+                        <span class="nav-label">Discrete Math</span>
+                        <span class="nav-badge" id="badge-discrete-math">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="digital-logic">
+                        <span class="nav-icon">⊕</span>
+                        <span class="nav-label">Digital Logic</span>
+                        <span class="nav-badge" id="badge-digital-logic">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="coa">
+                        <span class="nav-icon">💻</span>
+                        <span class="nav-label">COA</span>
+                        <span class="nav-badge" id="badge-coa">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="dsa">
+                        <span class="nav-icon">🌳</span>
+                        <span class="nav-label">DSA</span>
+                        <span class="nav-badge" id="badge-dsa">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="algorithms">
+                        <span class="nav-icon">⚡</span>
+                        <span class="nav-label">Algorithms</span>
+                        <span class="nav-badge" id="badge-algorithms">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="toc">
+                        <span class="nav-icon">🔄</span>
+                        <span class="nav-label">Theory of Computation</span>
+                        <span class="nav-badge" id="badge-toc">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="compiler-design">
+                        <span class="nav-icon">⚙️</span>
+                        <span class="nav-label">Compiler Design</span>
+                        <span class="nav-badge" id="badge-compiler-design">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="os">
+                        <span class="nav-icon">🖥️</span>
+                        <span class="nav-label">Operating Systems</span>
+                        <span class="nav-badge" id="badge-os">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="dbms">
+                        <span class="nav-icon">🗄️</span>
+                        <span class="nav-label">DBMS</span>
+                        <span class="nav-badge" id="badge-dbms">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="networks">
+                        <span class="nav-icon">🌐</span>
+                        <span class="nav-label">Computer Networks</span>
+                        <span class="nav-badge" id="badge-networks">0%</span>
+                    </a>
+                    <a href="#" class="nav-item" data-topic="aptitude">
+                        <span class="nav-icon">🧮</span>
+                        <span class="nav-label">General Aptitude</span>
+                        <span class="nav-badge" id="badge-aptitude">0%</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline" id="resetProgress">
+                    <span>🔄</span> Reset Progress
+                </button>
+            </div>
+        </aside>
+
+        <!-- Sidebar hover trigger zone (invisible - left 5% of screen) -->
+        <div class="sidebar-hover-zone"></div>
+        <!-- Floating sidebar open button (hamburger icon) -->
+        <button class="sidebar-open-btn" id="sidebarOpenBtn" aria-label="Open sidebar"><span></span></button>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <section class="view active" id="view-dashboard">
+                <header class="view-header">
+                    <h1>GATE CS & IT Prep Quizzes</h1>
+                    <p class="subtitle">4000+ practice questions with detailed explanations</p>
+                </header>
+
+                <!-- PYQ Mode Toggle -->
+                <div class="pyq-toggle-container"
+                    style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; justify-content: center;">
+                    <span style="font-weight: 500; margin-right: 8px;">Question Mode:</span>
+                    <button class="btn pyq-toggle-btn active" data-pyq-mode="all"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        📚 All (<span id="count-all">0</span>)
+                    </button>
+                    <button class="btn pyq-toggle-btn" data-pyq-mode="study"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        📖 Study Material (<span id="count-study">0</span>)
+                    </button>
+                    <button class="btn pyq-toggle-btn" data-pyq-mode="pyq"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        🎯 PYQs Only (<span id="count-pyq">0</span>)
+                    </button>
+                </div>
+
+                <!-- Attempted Status Toggle -->
+                <div class="attempted-toggle-container"
+                    style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; justify-content: center;">
+                    <span style="font-weight: 500; margin-right: 8px;">Progress Filter:</span>
+                    <button class="btn attempted-toggle-btn active" data-attempted-mode="all"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        📚 All (<span id="count-all-attempted">0</span>)
+                    </button>
+                    <button class="btn attempted-toggle-btn" data-attempted-mode="unattempted"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        ⭕ Unattempted (<span id="count-unattempted">0</span>)
+                    </button>
+                    <button class="btn attempted-toggle-btn" data-attempted-mode="attempted"
+                        style="padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                        ✅ Attempted (<span id="count-attempted">0</span>)
+                    </button>
+                </div>
+
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="totalQuestions">0</span>
+                            <span class="stat-label">Total Questions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="answeredQuestions">0</span>
+                            <span class="stat-label">Answered</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="overallAccuracy">0%</span>
+                            <span class="stat-label">Accuracy</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <span class="stat-value" id="currentStreak">0</span>
+                            <span class="stat-label">Streak</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-grid">
+                    <h2>Choose a Topic</h2>
+                    <div class="topics-container" id="topicsContainer">
+                        <!-- Topics will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2>Quick Start</h2>
+                    <div class="actions-container">
+                        <button class="action-card" id="startRandomQuiz">
+                            <span class="action-icon">🎲</span>
+                            <span class="action-title">Random Quiz</span>
+                            <span class="action-desc">20 questions from all topics</span>
+                        </button>
+                        <button class="action-card" id="reviewWrong">
+                            <span class="action-icon">❌</span>
+                            <span class="action-title">Review Mistakes</span>
+                            <span class="action-desc">Practice your weak areas</span>
+                        </button>
+                        <button class="action-card" id="reviewBookmarks">
+                            <span class="action-icon">⭐</span>
+                            <span class="action-title">Bookmarked</span>
+                            <span class="action-desc">Questions you saved</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz View -->
+            <section class="view" id="view-quiz">
+                <header class="quiz-header">
+                    <div class="quiz-info">
+                        <button class="btn btn-ghost" id="exitQuiz">
+                            <span>←</span> Exit
+                        </button>
+                        <span class="quiz-topic" id="quizTopicName">Topic Name</span>
+                    </div>
+                    <div class="quiz-progress">
+                        <span id="currentQuestionNum">1</span> / <span id="totalQuestionNum">10</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="quizProgressBar"></div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="btn btn-icon" id="changeFilterInQuiz" title="Change Filter">
+                            <span>🔍</span>
+                        </button>
+                        <button class="btn btn-icon" id="bookmarkQuestion" title="Bookmark">
+                            <span id="bookmarkIcon">🔖</span>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="question-container">
+                    <div class="question-type-badge" id="questionTypeBadge">MCQ</div>
+                    <div class="question-text" id="questionText">
+                        <!-- Question will be loaded here -->
+                    </div>
+                    <div id="questionImage" class="question-image-container"
+                        style="display: none; margin-bottom: 20px;"></div>
+
+                    <div class="options-container" id="optionsContainer">
+                        <!-- Options will be loaded here -->
+                    </div>
+
+                    <div class="nat-input-container" id="natInputContainer" style="display: none;">
+                        <label for="natAnswer">Enter your answer:</label>
+                        <input type="number" id="natAnswer" step="any" placeholder="Numerical answer">
+                    </div>
+
+                    <div class="question-actions">
+                        <button class="btn btn-primary" id="submitAnswer" disabled>
+                            Submit Answer
+                        </button>
+                        <button class="btn btn-secondary" id="nextQuestion" style="display: none;">
+                            Next Question →
+                        </button>
+                    </div>
+
+                    <div class="explanation-container" id="explanationContainer" style="display: none;">
+                        <div class="explanation-header">
+                            <span class="result-badge" id="resultBadge">Correct!</span>
+                        </div>
+                        <div class="explanation-content" id="explanationContent">
+                            <!-- Explanation will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics View -->
+            <section class="view" id="view-statistics">
+                <header class="view-header">
+                    <h1>Your Statistics</h1>
+                    <p class="subtitle">Track your progress across all topics</p>
+                </header>
+
+                <div class="stats-detailed" id="detailedStats">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Bookmarks View -->
+            <section class="view" id="view-bookmarks">
+                <header class="view-header">
+                    <h1>Bookmarked Questions</h1>
+                    <p class="subtitle">Questions you've saved for later review</p>
+                </header>
+
+                <div class="bookmarks-list" id="bookmarksList">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Review Wrong View -->
+            <section class="view" id="view-review">
+                <header class="view-header">
+                    <h1>Review Wrong Answers</h1>
+                    <p class="subtitle">Practice questions you got wrong</p>
+                </header>
+
+                <div class="review-list" id="reviewList">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Topic Selection Modal -->
+            <section class="view" id="view-topic">
+                <header class="view-header">
+                    <button class="btn btn-ghost" id="backToDashboard">← Back</button>
+                    <h1 id="topicTitle">Topic Name</h1>
+                </header>
+
+                <div class="subtopic-grid" id="subtopicGrid">
+                    <!-- Subtopics will be loaded here -->
+                </div>
+
+                <div class="topic-actions">
+                    <button class="btn btn-primary btn-large" id="startTopicQuiz">
+                        Start Quiz (All Subtopics)
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    <script src="data/questions/index.js"></script>
+    <!-- Subject-specific consolidated question files -->
+    <script src="data/questions/engineering-math.js"></script>
+    <script src="data/questions/discrete-math.js"></script>
+    <script src="data/questions/digital-logic.js"></script>
+    <script src="data/questions/coa.js"></script>
+    <script src="data/questions/os.js"></script>
+    <script src="data/questions/dbms.js"></script>
+    <script src="data/questions/networks.js"></script>
+    <script src="data/questions/dsa.js"></script>
+    <script src="data/questions/algorithms.js"></script>
+    <script src="data/questions/pyq/algorithms.js"></script>
+    <script src="data/questions/toc.js"></script>
+    <script src="data/questions/compiler.js"></script>
+    <!-- Other question files -->
+    <script src="data/questions/08-aptitude.js"></script>
+    <script src="data/questions/08b-aptitude-extended.js"></script>
+    <script src="data/questions/09-numerical-problems.js"></script>
+    <script src="data/questions/10-gateoverflow-pyq.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+    "name": "GATE CS Quiz - 4000+ Practice Questions",
+    "short_name": "GATE Quiz",
+    "start_url": "./",
+    "scope": "./",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#6366f1",
+    "orientation": "any",
+    "categories": [
+        "education"
+    ],
+    "description": "GATE CS & IT exam preparation with 4000+ practice questions, detailed explanations, and progress tracking",
+    "icons": [
+        {
+            "src": "icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
