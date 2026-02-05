@@ -93,63 +93,67 @@ const App = {
     },
 
     setupEventListeners() {
-
-        document.querySelectorAll('.nav-item[data-view]').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showView(item.dataset.view);
+        try {
+            document.querySelectorAll('.nav-item[data-view]').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showView(item.dataset.view);
+                });
             });
-        });
 
 
-        document.querySelectorAll('.nav-item[data-topic]').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showTopicView(item.dataset.topic);
+            document.querySelectorAll('.nav-item[data-topic]').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showTopicView(item.dataset.topic);
+                });
             });
-        });
 
 
-        document.getElementById('startRandomQuiz')?.addEventListener('click', () => this.startRandomQuiz());
-        document.getElementById('reviewWrong')?.addEventListener('click', () => this.startReviewQuiz('wrong'));
-        document.getElementById('reviewBookmarks')?.addEventListener('click', () => this.startReviewQuiz('bookmarks'));
+            document.getElementById('startRandomQuiz')?.addEventListener('click', () => this.startRandomQuiz());
+            document.getElementById('reviewWrong')?.addEventListener('click', () => this.startReviewQuiz('wrong'));
+            document.getElementById('reviewBookmarks')?.addEventListener('click', () => this.startReviewQuiz('bookmarks'));
 
 
-        document.getElementById('exitQuiz')?.addEventListener('click', () => this.exitQuiz());
-        document.getElementById('submitAnswer')?.addEventListener('click', () => this.submitAnswer());
-        document.getElementById('nextQuestion')?.addEventListener('click', () => this.nextQuestion());
-        document.getElementById('bookmarkQuestion')?.addEventListener('click', () => this.toggleBookmark());
-        document.getElementById('backToDashboard')?.addEventListener('click', () => this.showView('dashboard'));
-        document.getElementById('startTopicQuiz')?.addEventListener('click', () => {
-            if (this.currentTopic) this.startTopicQuiz(this.currentTopic);
-        });
+            document.getElementById('exitQuiz')?.addEventListener('click', () => this.exitQuiz());
+            document.getElementById('submitAnswer')?.addEventListener('click', () => this.submitAnswer());
+            document.getElementById('nextQuestion')?.addEventListener('click', () => this.nextQuestion());
+            document.getElementById('bookmarkQuestion')?.addEventListener('click', () => this.toggleBookmark());
+            document.getElementById('backToDashboard')?.addEventListener('click', () => this.showView('dashboard'));
+            document.getElementById('startTopicQuiz')?.addEventListener('click', () => {
+                if (this.currentTopic) this.startTopicQuiz(this.currentTopic);
+            });
 
-        document.getElementById('resetProgress')?.addEventListener('click', () => {
-            if (confirm('Reset all progress?')) {
-                Storage.resetAll();
-                this.renderDashboard();
-                this.updateTopicBadges();
-            }
-        });
+            document.getElementById('resetProgress')?.addEventListener('click', () => {
+                if (confirm('Reset all progress?')) {
+                    Storage.resetAll();
+                    this.renderDashboard();
+                    this.updateTopicBadges();
+                }
+            });
 
-        document.getElementById('natAnswer')?.addEventListener('input', (e) => {
-            QuizEngine.setNATAnswer(e.target.value);
-            document.getElementById('submitAnswer').disabled = !QuizEngine.hasSelection();
-        });
+            document.getElementById('natAnswer')?.addEventListener('input', (e) => {
+                QuizEngine.setNATAnswer(e.target.value);
+                document.getElementById('submitAnswer').disabled = !QuizEngine.hasSelection();
+            });
 
 
-        document.getElementById('changeFilterInQuiz')?.addEventListener('click', () => {
-            if (confirm('Exit quiz and change filter settings?')) {
-                this.exitQuiz();
+            document.getElementById('changeFilterInQuiz')?.addEventListener('click', () => {
+                if (confirm('Exit quiz and change filter settings?')) {
+                    this.exitQuiz();
 
-                setTimeout(() => {
-                    const container = document.querySelector('.attempted-toggle-container');
-                    if (container) {
-                        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 300);
-            }
-        });
+                    setTimeout(() => {
+                        const container = document.querySelector('.attempted-toggle-container');
+                        if (container) {
+                            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 300);
+                }
+            });
+        } catch (e) {
+            console.error('SetupEventListeners Error', e);
+            alert(`SetupEventListeners Error: ${e.message}`);
+        }
     },
 
     showView(viewName) {
@@ -229,24 +233,39 @@ const App = {
     },
 
     startTopicQuiz(topicKey) {
-        const questions = QuizEngine.getTopicQuestions(topicKey);
-        if (!questions.length) { alert('No questions available.'); return; }
-        QuizEngine.startQuiz(questions, QuizEngine.topics[topicKey].name);
-        this.showQuizView();
+        try {
+            const questions = QuizEngine.getTopicQuestions(topicKey);
+            if (!questions.length) { alert('No questions available.'); return; }
+            QuizEngine.startQuiz(questions, QuizEngine.topics[topicKey].name);
+            this.showQuizView();
+        } catch (e) {
+            console.error(e);
+            alert(`StartTopicQuiz Error: ${e.message}`);
+        }
     },
 
     startRandomQuiz() {
-        const questions = QuizEngine.getRandomQuestions(20);
-        if (!questions.length) { alert('No questions available.'); return; }
-        QuizEngine.startQuiz(questions, 'Random Mix');
-        this.showQuizView();
+        try {
+            const questions = QuizEngine.getRandomQuestions(20);
+            if (!questions.length) { alert('No questions available.'); return; }
+            QuizEngine.startQuiz(questions, 'Random Mix');
+            this.showQuizView();
+        } catch (e) {
+            console.error(e);
+            alert(`StartRandomQuiz Error: ${e.message}`);
+        }
     },
 
     startReviewQuiz(type) {
-        const ids = type === 'wrong' ? Storage.getWrongAnswers().map(w => w.id) : Storage.getBookmarks();
-        if (!ids.length) { alert(`No ${type} to review.`); return; }
-        QuizEngine.startQuiz(Questions.getByIds(ids), type === 'wrong' ? 'Review Wrong' : 'Bookmarks');
-        this.showQuizView();
+        try {
+            const ids = type === 'wrong' ? Storage.getWrongAnswers().map(w => w.id) : Storage.getBookmarks();
+            if (!ids.length) { alert(`No ${type} to review.`); return; }
+            QuizEngine.startQuiz(Questions.getByIds(ids), type === 'wrong' ? 'Review Wrong' : 'Bookmarks');
+            this.showQuizView();
+        } catch (e) {
+            console.error(e);
+            alert(`StartReviewQuiz Error: ${e.message}`);
+        }
     },
 
     showQuizView() {
@@ -255,64 +274,92 @@ const App = {
     },
 
     renderQuestion() {
-        const q = QuizEngine.getCurrentQuestion();
-        if (!q) { this.finishQuiz(); return; }
+        try {
+            const q = QuizEngine.getCurrentQuestion();
+            if (!q) { this.finishQuiz(); return; }
 
-        const prog = QuizEngine.getProgress();
-        document.getElementById('quizTopicName').textContent = QuizEngine.currentQuiz.topic;
-        document.getElementById('currentQuestionNum').textContent = prog.current;
-        document.getElementById('totalQuestionNum').textContent = prog.total;
-        document.getElementById('quizProgressBar').style.width = prog.percentage + '%';
+            const prog = QuizEngine.getProgress();
+            document.getElementById('quizTopicName').textContent = QuizEngine.currentQuiz.topic;
+            document.getElementById('currentQuestionNum').textContent = prog.current;
+            document.getElementById('totalQuestionNum').textContent = prog.total;
+            document.getElementById('quizProgressBar').style.width = prog.percentage + '%';
 
-        const bm = Storage.isBookmarked(q.id);
-        document.getElementById('bookmarkIcon').textContent = bm ? '⭐' : '🔖';
-        document.getElementById('bookmarkQuestion').classList.toggle('active', bm);
-        document.getElementById('questionTypeBadge').textContent = q.type;
+            const bm = Storage.isBookmarked(q.id);
+            document.getElementById('bookmarkIcon').textContent = bm ? '⭐' : '🔖';
+            document.getElementById('bookmarkQuestion').classList.toggle('active', bm);
+            document.getElementById('questionTypeBadge').textContent = q.type;
 
-        // Render Title (Metadata)
-        const titleEl = document.getElementById('questionTitle');
-        if (titleEl) {
-            titleEl.textContent = q.title || '';
-            titleEl.style.display = q.title ? 'block' : 'none';
-        } else if (q.title) {
-            // Fallback if element doesn't exist
-            const t = document.createElement('h3');
-            t.id = 'questionTitle';
-            t.className = 'question-header-title';
-            t.textContent = q.title;
-            document.getElementById('questionText').before(t);
+            // Render Title (Metadata)
+            const titleEl = document.getElementById('questionTitle');
+            if (titleEl) {
+                titleEl.textContent = q.title || '';
+                titleEl.style.display = q.title ? 'block' : 'none';
+            } else if (q.title) {
+                // Fallback if element doesn't exist
+                const t = document.createElement('h3');
+                t.id = 'questionTitle';
+                t.className = 'question-header-title';
+                t.textContent = q.title;
+                document.getElementById('questionText').before(t);
+            }
+
+            document.getElementById('questionText').innerHTML = q.question;
+
+            // Image handling
+            const imgContainer = document.getElementById('questionImage');
+            if (q.image) {
+                imgContainer.innerHTML = `<img src="${q.image}" alt="Question Diagram" style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; border: 1px solid var(--border-color);">`;
+                imgContainer.style.display = 'block';
+            } else {
+                imgContainer.innerHTML = '';
+                imgContainer.style.display = 'none';
+            }
+
+            const optC = document.getElementById('optionsContainer');
+            const natC = document.getElementById('natInputContainer');
+            const submitBtn = document.getElementById('submitAnswer');
+
+            // Clear any previous descriptive message
+            const prevDescriptiveMsg = document.querySelector('.descriptive-msg');
+            if (prevDescriptiveMsg) prevDescriptiveMsg.remove();
+
+            if (q.type === 'NAT') {
+                optC.style.display = 'none';
+                natC.style.display = 'block';
+                document.getElementById('natAnswer').value = '';
+                submitBtn.textContent = 'Submit Answer';
+            } else if (q.type === 'DESCRIPTIVE') {
+                optC.style.display = 'none'; // Hide options
+                natC.style.display = 'none'; // Hide NAT input
+
+                // Add a helper message
+                const msg = document.createElement('div');
+                msg.className = 'descriptive-msg';
+                msg.innerHTML = '<p style="color:var(--text-secondary); margin-bottom:1rem; font-style:italic;">This is a descriptive question. Verify your answer mentally, then click "Show Solution".</p>';
+                // Insert before optionsContainer
+                optC.parentNode.insertBefore(msg, optC);
+
+                submitBtn.disabled = false; // Always allow showing solution
+                submitBtn.textContent = 'Show Solution';
+            } else {
+                optC.style.display = 'flex';
+                natC.style.display = 'none';
+                this.renderOptions(q);
+                submitBtn.textContent = 'Submit Answer';
+            }
+
+            submitBtn.style.display = 'inline-flex';
+            // Only disable submit for MCQ/MSQ/NAT if no selection/input
+            if (q.type !== 'DESCRIPTIVE') {
+                submitBtn.disabled = !QuizEngine.hasSelection();
+            }
+            document.getElementById('nextQuestion').style.display = 'none';
+            document.getElementById('explanationContainer').style.display = 'none';
+            this.renderMath();
+        } catch (e) {
+            console.error(e);
+            alert(`RenderQuestion Error: ${e.message}`);
         }
-
-        document.getElementById('questionText').innerHTML = q.question;
-
-        // Image handling
-        const imgContainer = document.getElementById('questionImage');
-        if (q.image) {
-            imgContainer.innerHTML = `<img src="${q.image}" alt="Question Diagram" style="max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; border: 1px solid var(--border-color);">`;
-            imgContainer.style.display = 'block';
-        } else {
-            imgContainer.innerHTML = '';
-            imgContainer.style.display = 'none';
-        }
-
-        const optC = document.getElementById('optionsContainer');
-        const natC = document.getElementById('natInputContainer');
-
-        if (q.type === 'NAT') {
-            optC.style.display = 'none';
-            natC.style.display = 'block';
-            document.getElementById('natAnswer').value = '';
-        } else {
-            optC.style.display = 'flex';
-            natC.style.display = 'none';
-            this.renderOptions(q);
-        }
-
-        document.getElementById('submitAnswer').style.display = 'inline-flex';
-        document.getElementById('submitAnswer').disabled = true;
-        document.getElementById('nextQuestion').style.display = 'none';
-        document.getElementById('explanationContainer').style.display = 'none';
-        this.renderMath();
     },
 
     renderOptions(q) {
@@ -323,76 +370,158 @@ const App = {
     },
 
     selectOption(i) {
-        const sel = QuizEngine.selectOption(i);
-        document.querySelectorAll('.option').forEach((o, idx) => o.classList.toggle('selected', sel.includes(idx)));
-        document.getElementById('submitAnswer').disabled = !QuizEngine.hasSelection();
+        try {
+            const q = QuizEngine.getCurrentQuestion();
+            if (q.type === 'DESCRIPTIVE') return; // Should not happen as options are hidden
+
+            const sel = QuizEngine.selectOption(i);
+            document.querySelectorAll('.option').forEach((o, idx) => o.classList.toggle('selected', sel.includes(idx)));
+            document.getElementById('submitAnswer').disabled = !QuizEngine.hasSelection();
+        } catch (e) {
+            console.error(e);
+            alert(`SelectOption Error: ${e.message}`);
+        }
     },
 
     submitAnswer() {
-        const r = QuizEngine.submitAnswer();
-        if (!r) return;
-        const q = QuizEngine.getCurrentQuestion();
+        try {
+            const q = QuizEngine.getCurrentQuestion();
 
-        if (q.type !== 'NAT') {
-            document.querySelectorAll('.option').forEach((o, idx) => {
-                o.classList.add('disabled');
-                const isCorrectIdx = q.type === 'MCQ' ? idx === r.correctAnswer : r.correctAnswer.includes(idx);
-                const isSelected = QuizEngine.selectedAnswers.includes(idx);
-                if (isCorrectIdx) o.classList.add('correct');
-                else if (isSelected) o.classList.add('incorrect');
-            });
-        } else {
-            document.getElementById('natAnswer').classList.add(r.isCorrect ? 'correct' : 'incorrect');
+            // For DESCRIPTIVE questions, we don't check for selection, just submit to show explanation
+            if (q.type === 'DESCRIPTIVE') {
+                // QuizEngine.submitAnswer should handle DESCRIPTIVE by marking it as attempted
+                // and returning a result object that indicates it's "correct" for self-evaluation.
+                // If QuizEngine doesn't explicitly handle it, we might need a mock result here.
+                // Assuming QuizEngine.submitAnswer is updated to handle DESCRIPTIVE gracefully.
+            }
+
+            const r = QuizEngine.submitAnswer();
+            if (!r) return;
+
+            if (q.type !== 'NAT' && q.type !== 'DESCRIPTIVE') {
+                document.querySelectorAll('.option').forEach((o, idx) => {
+                    o.classList.add('disabled');
+                    const isCorrectIdx = q.type === 'MCQ' ? idx === r.correctAnswer : r.correctAnswer.includes(idx);
+                    const isSelected = QuizEngine.selectedAnswers.includes(idx);
+                    if (isCorrectIdx) o.classList.add('correct');
+                    else if (isSelected) o.classList.add('incorrect');
+                });
+            } else if (q.type === 'NAT') {
+                document.getElementById('natAnswer').classList.add(r.isCorrect ? 'correct' : 'incorrect');
+            }
+
+            this.showExplanation(r, q);
+            document.getElementById('submitAnswer').style.display = 'none';
+            document.getElementById('nextQuestion').style.display = 'inline-flex';
+            document.getElementById('nextQuestion').textContent = QuizEngine.currentIndex === QuizEngine.currentQuiz.questions.length - 1 ? 'Finish Quiz' : 'Next →';
+            this.updateTopicBadges();
+        } catch (error) {
+            console.error(error);
+            alert(`Error submitting answer: ${error.message}\n${error.stack}`);
         }
-
-        this.showExplanation(r, q);
-        document.getElementById('submitAnswer').style.display = 'none';
-        document.getElementById('nextQuestion').style.display = 'inline-flex';
-        document.getElementById('nextQuestion').textContent = QuizEngine.currentIndex === QuizEngine.currentQuiz.questions.length - 1 ? 'Finish Quiz' : 'Next →';
-        this.updateTopicBadges();
     },
 
     showExplanation(r, q) {
-        const c = document.getElementById('explanationContainer');
-        const b = document.getElementById('resultBadge');
-        const e = document.getElementById('explanationContent');
+        try {
+            const c = document.getElementById('explanationContainer');
+            const b = document.getElementById('resultBadge');
+            const e = document.getElementById('explanationContent');
 
-        b.textContent = r.isCorrect ? '✓ Correct!' : '✗ Incorrect';
-        b.className = 'result-badge ' + (r.isCorrect ? 'correct' : 'incorrect');
+            if (q.type === 'DESCRIPTIVE') {
+                b.textContent = 'Solution';
+                b.className = 'result-badge info'; // Neutral color for descriptive
+            } else {
+                b.textContent = r.isCorrect ? '✓ Correct!' : '✗ Incorrect';
+                b.className = 'result-badge ' + (r.isCorrect ? 'correct' : 'incorrect');
+            }
 
-        let h = '';
-        if (q.explanation) {
-            if (q.explanation.solution) h += `<h4>Solution</h4><p>${q.explanation.solution}</p>`;
-            if (q.explanation.formula) h += `<h4>Formula</h4><div class="formula-box">${q.explanation.formula}</div>`;
-            if (!r.isCorrect && q.type === 'NAT') h += `<h4>Answer</h4><p class="formula-box">${r.correctAnswer}</p>`;
+            let h = '';
+            if (q.explanation) {
+                if (typeof q.explanation === 'string') {
+                    h += `<h4>Explanation</h4><p>${q.explanation}</p>`;
+                } else {
+                    if (q.explanation.solution) h += `<h4>Solution</h4><p>${q.explanation.solution}</p>`;
+                    if (q.explanation.formula) h += `<h4>Formula</h4><div class="formula-box">${q.explanation.formula}</div>`;
+                }
+            }
+
+            // Show correct answer for NAT if incorrect
+            // Also show correct options for MCQ/MSQ if incorrect!
+            if (!r.isCorrect) {
+                if (q.type === 'NAT') {
+                    const correctVal = q.correctAnswer || q.answer;
+                    h += `<h4>Correct Answer</h4><p class="formula-box">${correctVal}</p>`;
+                } else if (q.type === 'DESCRIPTIVE') {
+                    // Nothing extra, explanation covers it
+                } else {
+                    // For MCQ/MSQ, the UI highlights correct answers, but let's be explicit
+                    let correctText = '';
+                    if (q.type === 'MCQ') {
+                        correctText = q.options[r.correctAnswer];
+                    } else if (q.type === 'MSQ') {
+                        correctText = r.correctAnswer.map(idx => q.options[idx]).join(' AND ');
+                    }
+                    if (correctText) {
+                        h += `<h4>Correct Answer</h4><p>${correctText}</p>`;
+                    }
+                }
+            }
+
+            e.innerHTML = h || '<p>Explanation not available.</p>';
+            c.style.display = 'block';
+            this.renderMath();
+        } catch (error) {
+            console.error("Explanation error", error);
+            alert("Error showing explanation: " + error.message);
         }
-        e.innerHTML = h || '<p>Explanation not available.</p>';
-        c.style.display = 'block';
-        this.renderMath();
     },
 
     nextQuestion() {
-        const n = QuizEngine.nextQuestion();
-        if (n?.isComplete) this.finishQuiz(n);
-        else if (n) this.renderQuestion();
-        else this.finishQuiz();
+        try {
+            // Remove temporary descriptive message if it exists
+            const prevDescriptiveMsg = document.querySelector('.descriptive-msg');
+            if (prevDescriptiveMsg) prevDescriptiveMsg.remove();
+
+            const n = QuizEngine.nextQuestion();
+            if (n?.isComplete) this.finishQuiz(n);
+            else if (n) this.renderQuestion();
+            else this.finishQuiz(); // Fallback if nextQuestion returns null/undefined unexpectedly
+        } catch (e) {
+            console.error(e);
+            alert("Next Question Error: " + e.message);
+        }
     },
 
     finishQuiz(r) {
-        r = r || QuizEngine.finishQuiz();
-        if (r) alert(`Done! ${r.correct}/${r.totalQuestions} (${r.accuracy}%)`);
-        this.showView('dashboard');
-        this.updateTopicBadges();
+        try {
+            r = r || QuizEngine.finishQuiz();
+            if (r) alert(`Done! ${r.correct}/${r.totalQuestions} (${r.accuracy}%)`);
+            this.showView('dashboard');
+            this.updateTopicBadges();
+        } catch (e) {
+            console.error(e);
+            alert("Finish Quiz Error: " + e.message);
+        }
     },
 
-    exitQuiz() { if (confirm('Exit quiz?')) this.showView('dashboard'); },
+    exitQuiz() {
+        if (confirm('Exit quiz?')) {
+            try {
+                this.showView('dashboard');
+            } catch (e) { alert("Exit error: " + e.message); }
+        }
+    },
 
     toggleBookmark() {
-        const q = QuizEngine.getCurrentQuestion();
-        if (!q) return;
-        const bm = Storage.toggleBookmark(q.id);
-        document.getElementById('bookmarkIcon').textContent = bm ? '⭐' : '🔖';
-        document.getElementById('bookmarkQuestion').classList.toggle('active', bm);
+        try {
+            const q = QuizEngine.getCurrentQuestion();
+            if (!q) return;
+            const bm = Storage.toggleBookmark(q.id);
+            document.getElementById('bookmarkIcon').textContent = bm ? '⭐' : '🔖';
+            document.getElementById('bookmarkQuestion').classList.toggle('active', bm);
+        } catch (e) {
+            console.error("Bookmark error", e);
+        }
     },
 
     renderStatistics() {
@@ -419,12 +548,18 @@ const App = {
 
     renderMath() {
         if (typeof renderMathInElement !== 'undefined') {
-            renderMathInElement(document.body, {
-                delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }],
-                throwOnError: false
-            });
+            try {
+                renderMathInElement(document.body, {
+                    delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }],
+                    throwOnError: false
+                });
+            } catch (e) { console.warn("Katex error", e); }
         }
     }
+};
+
+window.onerror = function (msg, url, line, col, error) {
+    alert(`Global Error: ${msg}\nLine: ${line}`);
 };
 
 document.addEventListener('DOMContentLoaded', () => App.init());

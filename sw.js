@@ -27,7 +27,7 @@ const LOCAL_ASSETS = [
     './data/questions/08-aptitude.js',
     './data/questions/08b-aptitude-extended.js',
     './data/questions/09-numerical-problems.js',
-    './data/questions/10-gateoverflow-pyq.js'
+
 ];
 
 // External CDN resources - cached separately to prevent failures from blocking install

@@ -130,32 +130,77 @@ const QuizEngine = {
     },
 
 
-    submitAnswer() {
-        if (this.isAnswered || this.selectedAnswers.length === 0) return null;
+    getCorrectIndices(question) {
+        if (question.type === 'NAT') return [question.correctAnswer || question.answer]; // Value, not index
+        if (question.type === 'DESCRIPTIVE') return [];
 
+        let raw = question.correctAnswer || question.correctAnswers || question.answer;
+        if (raw === undefined || raw === null) return [];
+
+        const targets = Array.isArray(raw) ? raw : [raw];
+        const indices = [];
+
+        targets.forEach(t => {
+            if (typeof t === 'number') {
+                indices.push(t);
+            } else if (typeof t === 'string') {
+                // Check for "A", "B", ... single letter case
+                if (t.length === 1 && t >= 'A' && t <= 'Z') {
+                    indices.push(t.charCodeAt(0) - 65); // A=0, B=1
+                } else if (question.options) {
+                    // Full text match, safe check for options
+                    const idx = question.options.indexOf(t);
+                    if (idx !== -1) indices.push(idx);
+                }
+            }
+        });
+        return indices.sort((a, b) => a - b);
+    },
+
+    submitAnswer() {
         const question = this.getCurrentQuestion();
         if (!question) return null;
 
-        let isCorrect = false;
+        // Special handling for DESCRIPTIVE (always allow "submit")
+        if (question.type === 'DESCRIPTIVE') {
+            this.isAnswered = true;
+            Storage.recordAnswer(question.id, question.topic, true); // Mark as correct/verified
 
-        if (question.type === 'MCQ') {
-            isCorrect = this.selectedAnswers[0] === question.correctAnswer;
-        } else if (question.type === 'MSQ') {
-            const sortedSelected = [...this.selectedAnswers].sort();
-            const sortedCorrect = [...question.correctAnswers].sort();
-            isCorrect = JSON.stringify(sortedSelected) === JSON.stringify(sortedCorrect);
-        } else if (question.type === 'NAT') {
+            this.currentQuiz.answers.push({
+                questionId: question.id,
+                userAnswer: [],
+                isCorrect: true
+            });
+
+            return {
+                isCorrect: true,
+                correctAnswer: [],
+                explanation: question.explanation
+            };
+        }
+
+        if (this.isAnswered || this.selectedAnswers.length === 0) return null;
+
+        let isCorrect = false;
+        let correctIndices = []; // For MCQ/MSQ
+
+        if (question.type === 'NAT') {
             const userAnswer = this.selectedAnswers[0];
-            const correctAnswer = question.correctAnswer;
+            const correctVal = question.correctAnswer || question.answer; // Handle varying property names
             const tolerance = question.tolerance || 0;
-            isCorrect = Math.abs(userAnswer - correctAnswer) <= tolerance;
+            isCorrect = Math.abs(userAnswer - correctVal) <= tolerance;
+            correctIndices = [correctVal]; // Just for return
+        } else {
+            // MCQ or MSQ
+            correctIndices = this.getCorrectIndices(question);
+            const userIndices = [...this.selectedAnswers].sort((a, b) => a - b);
+
+            // Compare sorted arrays
+            isCorrect = JSON.stringify(userIndices) === JSON.stringify(correctIndices);
         }
 
         this.isAnswered = true;
-
-
         Storage.recordAnswer(question.id, question.topic, isCorrect);
-
 
         this.currentQuiz.answers.push({
             questionId: question.id,
@@ -163,9 +208,10 @@ const QuizEngine = {
             isCorrect: isCorrect
         });
 
+        // Return standardized result object
         return {
             isCorrect,
-            correctAnswer: question.type === 'MSQ' ? question.correctAnswers : question.correctAnswer,
+            correctAnswer: question.type === 'MCQ' ? correctIndices[0] : correctIndices, // Return indices for UI highlighting
             explanation: question.explanation
         };
     },
